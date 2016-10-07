@@ -20,6 +20,7 @@
 import QtQuick 2.6
 import QtQuick.Controls.Private 1.0
 import QtQuick.Templates 2.1 as T
+import org.kde.kirigami 1.0
 
 T.ScrollBar {
     id: control
@@ -32,62 +33,85 @@ T.ScrollBar {
     visible: control.size < 1.0
     property bool _desktopStyle : true
 
-    background: StyleItem {
+    background: MouseArea {
+        id: mouseArea
         anchors.fill: parent
-        elementType: "scrollbar"
-        hover: activeControl != "none"
-        activeControl: "none"
-        sunken: control.pressed
-        minimum: 0
-        maximum: (control.height/control.size - control.height)
-        value: control.position * (control.height/control.size)
-        horizontal: control.orientation == Qt.Horizontal
-        enabled: control.enabled
-
-        implicitWidth: horizontal ? 200 : pixelMetric("scrollbarExtent")
-        implicitHeight: horizontal ? pixelMetric("scrollbarExtent") : 200
-
-        visible: control.size < 1.0
-
-        Timer {
-            id: buttonTimer
-            property real increment
-            repeat: true
-            interval: 150
-            onTriggered: {
-                control.position += increment;
-            }
-        }
-        MouseArea {
-            anchors.fill: parent
-            hoverEnabled: true
-            onPositionChanged: parent.activeControl = parent.hitTest(mouse.x, mouse.y)
-            onExited: parent.activeControl = "none";
-            onPressed: {
-                if (parent.activeControl == "down") {
-                    buttonTimer.increment = 0.02;
-                    buttonTimer.running = true;
-                    mouse.accepted = true
-                } else if (parent.activeControl == "up") {
-                    buttonTimer.increment = -0.02;
-                    buttonTimer.running = true;
-                    mouse.accepted = true
-                } else {
-                    mouse.accepted = false
-                }
-            }
-            onReleased: {
-                buttonTimer.running = false;
+        hoverEnabled: true
+        onPositionChanged: style.activeControl = style.hitTest(mouse.x, mouse.y)
+        onExited: style.activeControl = "none";
+        onPressed: {
+            if (parent.activeControl == "down") {
+                buttonTimer.increment = 0.02;
+                buttonTimer.running = true;
+                mouse.accepted = true
+            } else if (parent.activeControl == "up") {
+                buttonTimer.increment = -0.02;
+                buttonTimer.running = true;
+                mouse.accepted = true
+            } else {
                 mouse.accepted = false
             }
-            onCanceled: buttonTimer.running = false;
+        }
+        onReleased: {
+            buttonTimer.running = false;
+            mouse.accepted = false
+        }
+        onCanceled: buttonTimer.running = false;
+
+        implicitWidth: style.horizontal ? 200 : style.pixelMetric("scrollbarExtent")
+        implicitHeight: style.horizontal ? style.pixelMetric("scrollbarExtent") : 200
+
+        StyleItem {
+            id: style
+            anchors.fill: parent
+            elementType: "scrollbar"
+            hover: activeControl != "none"
+            activeControl: "none"
+            sunken: control.pressed
+            minimum: 0
+            maximum: (control.height/control.size - control.height)
+            value: control.position * (control.height/control.size)
+            horizontal: control.orientation == Qt.Horizontal
+            enabled: control.enabled
+
+            visible: control.size < 1.0
+            opacity: mouseArea.containsMouse ? 1 : 0
+            Behavior on opacity {
+                OpacityAnimator {
+                    duration: Units.longDuration
+                }
+            }
+
+            Timer {
+                id: buttonTimer
+                property real increment
+                repeat: true
+                interval: 150
+                onTriggered: {
+                    control.position += increment;
+                }
+            }
         }
     }
 
     contentItem: Item {
-        implicitWidth: 12
-        implicitHeight: 12
         visible: control.size < 1.0
+        Rectangle {
+            anchors {
+                horizontalCenter: parent.horizontalCenter
+                top: parent.top
+                bottom: parent.bottom
+            }
+            radius: Math.min(width, height)
+            color: Theme.textColor
+            opacity: !mouseArea.containsMouse ? 0.3 : 0
+            width: Units.smallSpacing
+            Behavior on opacity {
+                OpacityAnimator {
+                    duration: Units.longDuration
+                }
+            }
+        }
     }
 
 }
