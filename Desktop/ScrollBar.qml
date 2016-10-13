@@ -40,11 +40,11 @@ T.ScrollBar {
         onPositionChanged: style.activeControl = style.hitTest(mouse.x, mouse.y)
         onExited: style.activeControl = "none";
         onPressed: {
-            if (parent.activeControl == "down") {
+            if (style.activeControl == "down") {
                 buttonTimer.increment = 0.02;
                 buttonTimer.running = true;
                 mouse.accepted = true
-            } else if (parent.activeControl == "up") {
+            } else if (style.activeControl == "up") {
                 buttonTimer.increment = -0.02;
                 buttonTimer.running = true;
                 mouse.accepted = true
@@ -60,6 +60,20 @@ T.ScrollBar {
 
         implicitWidth: style.horizontal ? 200 : style.pixelMetric("scrollbarExtent")
         implicitHeight: style.horizontal ? style.pixelMetric("scrollbarExtent") : 200
+
+        Timer {
+            id: updateIndicatorTimer
+            interval: 0
+            onTriggered: {
+                style.updateSizeHint();
+                style.height = style.height+1
+                var rect = style.subControlRect("slider")
+                indicator.y = rect.y
+                //indicator.x = rect.x
+                //indicator.width = rect.width
+                indicator.height = rect.height
+            }
+        }
 
         StyleItem {
             id: style
@@ -92,20 +106,13 @@ T.ScrollBar {
                 }
             }
         }
-    }
-
-    contentItem: Item {
-        visible: control.size < 1.0
         Rectangle {
-            anchors {
-                horizontalCenter: parent.horizontalCenter
-                top: parent.top
-                bottom: parent.bottom
-            }
-            radius: Math.min(width, height)
-            color: Theme.textColor
-            opacity: !mouseArea.containsMouse ? 0.3 : 0
+            id: indicator
+            anchors.horizontalCenter: parent.horizontalCenter
             width: Units.smallSpacing
+            color: Theme.textColor
+            radius: Math.min(width,height)
+            opacity: !mouseArea.containsMouse ? 0.3 : 0
             Behavior on opacity {
                 OpacityAnimator {
                     duration: Units.longDuration
@@ -114,4 +121,9 @@ T.ScrollBar {
         }
     }
 
+    contentItem: Item {}
+
+    onPositionChanged: updateIndicatorTimer.restart()
+    onSizeChanged: updateIndicatorTimer.restart()
+    Component.onCompleted: updateIndicatorTimer.restart()
 }
