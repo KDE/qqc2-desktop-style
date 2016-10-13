@@ -42,5 +42,11 @@ T.ProgressBar {
         value: indeterminate ? 0 : ((!control.inverted ? control.visualPosition : 1 - control.visualPosition)*control.to*100)
         horizontal: true
         enabled: control.enabled
+        Timer {
+            interval: 50
+            running: control.indeterminate
+            repeat: true
+            onTriggered: parent.updateItem();
+        }
     }
 }
