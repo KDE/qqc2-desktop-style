@@ -19,7 +19,7 @@
 
 import QtQuick 2.6
 import QtQuick.Controls.Private 1.0
-import QtQuick.Templates 2.1 as T
+import QtQuick.Templates 2.0 as T
 import org.kde.kirigami 1.0
 
 T.ScrollBar {
@@ -28,7 +28,7 @@ T.ScrollBar {
     implicitWidth: background.implicitWidth
     implicitHeight: background.implicitHeight
 
-    hoverEnabled: Qt.styleHints.useHoverEffects
+    hoverEnabled: true
 
     visible: control.size < 1.0
     property bool _desktopStyle : true
