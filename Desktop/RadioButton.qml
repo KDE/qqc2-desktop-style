@@ -37,7 +37,7 @@ T.CheckBox {
 
     hoverEnabled: true
 
-    indicator: CheckIndicator {
+    indicator: RadioIndicator {
         LayoutMirroring.enabled: control.mirrored
         LayoutMirroring.childrenInherit: true
         anchors {

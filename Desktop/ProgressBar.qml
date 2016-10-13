@@ -19,17 +19,28 @@
 
 import QtQuick 2.6
 import QtQuick.Controls.Private 1.0
+import QtQuick.Templates 2.0 as T
+import org.kde.kirigami 1.0
 
-StyleItem {
-    id: styleitem
-    property Item control
-    elementType: "checkbox"
-    sunken: control.pressed
-    on: control.checked || control.pressed
-    hover: control.hovered
-    enabled: control.enabled
-    properties: {"partiallyChecked": (control.checkState === Qt.PartiallyChecked) }
-    implicitWidth: pixelMetric("indicatorwidth") + 4
-    implicitHeight : implicitWidth
+T.ProgressBar {
+    id: control
+
+    implicitWidth: background.implicitWidth
+    implicitHeight: background.implicitHeight
+
+    hoverEnabled: true
+
+    contentItem: Item {}
+    
+    background: StyleItem {
+        elementType: "progressbar"
+        implicitWidth: Units.gridUnit * 15
+        implicitHeight: Units.gridUnit
+
+        maximum: indeterminate ? 0 : control.to*100
+        minimum: indeterminate ? 0 : control.from*100
+        value: indeterminate ? 0 : ((!control.inverted ? control.visualPosition : 1 - control.visualPosition)*control.to*100)
+        horizontal: true
+        enabled: control.enabled
+    }
 }
-

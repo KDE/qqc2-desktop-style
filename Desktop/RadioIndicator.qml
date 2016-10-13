@@ -23,12 +23,11 @@ import QtQuick.Controls.Private 1.0
 StyleItem {
     id: styleitem
     property Item control
-    elementType: "checkbox"
+    elementType: "radiobutton"
     sunken: control.pressed
     on: control.checked || control.pressed
     hover: control.hovered
     enabled: control.enabled
-    properties: {"partiallyChecked": (control.checkState === Qt.PartiallyChecked) }
     implicitWidth: pixelMetric("indicatorwidth") + 4
     implicitHeight : implicitWidth
 }
