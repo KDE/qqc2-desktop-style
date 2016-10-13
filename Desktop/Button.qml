@@ -27,7 +27,7 @@ T.Button {
     implicitWidth: background.implicitWidth
     implicitHeight: background.implicitHeight
 
-    hoverEnabled: Qt.styleHints.useHoverEffects
+    hoverEnabled: true //Qt.styleHints.useHoverEffects TODO: how to make this work in 5.7?
 
     contentItem: Item {}
     background: StyleItem {
