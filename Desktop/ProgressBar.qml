@@ -20,13 +20,12 @@
 import QtQuick 2.6
 import QtQuick.Controls.Private 1.0
 import QtQuick.Templates 2.0 as T
-import org.kde.kirigami 1.0
 
 T.ProgressBar {
     id: control
 
-    implicitWidth: background.implicitWidth
-    implicitHeight: background.implicitHeight
+    implicitWidth: 250
+    implicitHeight: 22
 
     hoverEnabled: true
 
@@ -34,8 +33,6 @@ T.ProgressBar {
     
     background: StyleItem {
         elementType: "progressbar"
-        implicitWidth: Units.gridUnit * 15
-        implicitHeight: Units.gridUnit
 
         maximum: indeterminate ? 0 : control.to*100
         minimum: indeterminate ? 0 : control.from*100

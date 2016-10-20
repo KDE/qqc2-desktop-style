@@ -19,8 +19,7 @@
 
 import QtQuick 2.1
 import QtQuick.Templates 2.0 as T
-import org.kde.kirigami 1.0
-
+import QtQuick.Controls.Private 1.0
 
 T.Label {
     id: root
@@ -31,17 +30,10 @@ T.Label {
     activeFocusOnTab: false
     renderType: Text.NativeRendering
 
-    font.capitalization: Theme.defaultFont.capitalization
-    font.family: Theme.defaultFont.family
-    font.italic: Theme.defaultFont.italic
-    font.letterSpacing: Theme.defaultFont.letterSpacing
-    font.pointSize: Theme.defaultFont.pointSize
-    font.strikeout: Theme.defaultFont.strikeout
-    font.underline: Theme.defaultFont.underline
-    font.weight: Theme.defaultFont.weight
-    font.wordSpacing: Theme.defaultFont.wordSpacing
-    color: Theme.textColor
-    linkColor: Theme.linkColor
+    //font data is the system one by default
+    color: SystemPaletteSingleton.text(control.enabled)
+    //SystemPaletteSingleton doesn't have a link color
+    linkColor: "#2196F3"
 
     opacity: enabled? 1 : 0.6
 

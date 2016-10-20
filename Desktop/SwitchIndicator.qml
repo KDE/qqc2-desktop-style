@@ -19,19 +19,21 @@
 
 import QtQuick 2.6
 import QtQuick.Controls.Private 1.0
-import org.kde.kirigami 1.0
 
-StyleItem {
-    id: styleitem
+Item {
     property Item control
-    elementType: "slider"
-    sunken: control.pressed
-    value: control.checked || control.pressed ? 1 : 0
-    minimum: 0
-    maximum: 1
-    hover: control.hovered
-    enabled: control.enabled
-    implicitWidth: Units.gridUnit * 2
-    implicitHeight : Units.gridUnit
+    implicitWidth: 32
+    implicitHeight : 22
+
+    StyleItem {
+        anchors.fill: parent
+        elementType: "slider"
+        sunken: control.pressed
+        value: control.checked || control.pressed ? 1 : 0
+        minimum: 0
+        maximum: 1
+        hover: control.hovered
+        enabled: control.enabled
+    }
 }
 

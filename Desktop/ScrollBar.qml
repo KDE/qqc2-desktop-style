@@ -20,7 +20,6 @@
 import QtQuick 2.6
 import QtQuick.Controls.Private 1.0
 import QtQuick.Templates 2.0 as T
-import org.kde.kirigami 1.0
 
 T.ScrollBar {
     id: control
@@ -92,7 +91,7 @@ T.ScrollBar {
             opacity: mouseArea.containsMouse ? 1 : 0
             Behavior on opacity {
                 OpacityAnimator {
-                    duration: Units.longDuration
+                    duration: 250
                 }
             }
 
@@ -109,13 +108,13 @@ T.ScrollBar {
         Rectangle {
             id: indicator
             anchors.horizontalCenter: parent.horizontalCenter
-            width: Units.smallSpacing
-            color: Theme.textColor
+            width: 4
+            color: SystemPaletteSingleton.text(control.enabled)
             radius: Math.min(width,height)
             opacity: !mouseArea.containsMouse ? 0.3 : 0
             Behavior on opacity {
                 OpacityAnimator {
-                    duration: Units.longDuration
+                    duration: 250
                 }
             }
         }

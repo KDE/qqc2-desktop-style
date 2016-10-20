@@ -21,6 +21,7 @@
 import QtQuick 2.6
 import QtQuick.Templates 2.0 as T
 import QtQuick.Controls 2.0
+import QtQuick.Controls.Private 1.0
 
 T.CheckBox {
     id: control
@@ -53,6 +54,7 @@ T.CheckBox {
         opacity: control.enabled ? 1 : 0.6
         text: control.text
         font: control.font
+        color: SystemPaletteSingleton.text(control.enabled)
         elide: Text.ElideRight
         visible: control.text
         horizontalAlignment: Text.AlignLeft
