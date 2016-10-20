@@ -25,11 +25,9 @@ import QtQuick.Controls 2.0
 T.CheckBox {
     id: control
 
-    implicitWidth: Math.max(background ? background.implicitWidth : 0,
-                            contentItem.implicitWidth + leftPadding + rightPadding)
-    implicitHeight: Math.max(background ? background.implicitHeight : 0,
-                             Math.max(contentItem.implicitHeight,
-                                      indicator ? indicator.implicitHeight : 0) + topPadding + bottomPadding)
+    implicitWidth: contentItem.implicitWidth + leftPadding + rightPadding
+    implicitHeight: Math.max(contentItem.implicitHeight,
+                                      indicator ? indicator.implicitHeight : 0) + topPadding + bottomPadding
     baselineOffset: contentItem.y + contentItem.baselineOffset
 
     padding: Units.smallSpacing
@@ -40,6 +38,7 @@ T.CheckBox {
     indicator: SwitchIndicator {
         LayoutMirroring.enabled: control.mirrored
         LayoutMirroring.childrenInherit: true
+        height: 22
         anchors {
             left: parent.left
             verticalCenter: parent.verticalCenter
