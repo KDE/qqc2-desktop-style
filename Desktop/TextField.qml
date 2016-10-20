@@ -21,23 +21,22 @@
 import QtQuick 2.6
 import QtQuick.Templates 2.0 as T
 import QtQuick.Controls.Private 1.0
-import org.kde.kirigami 1.0
 
 T.TextField {
     id: control
 
-    implicitWidth: Math.max(background ? background.implicitWidth : 0,
+    implicitWidth: Math.max(200,
                             placeholderText ? placeholder.implicitWidth + leftPadding + rightPadding : 0)
                             || contentWidth + leftPadding + rightPadding
     implicitHeight: Math.max(contentHeight + topPadding + bottomPadding,
-                             background ? background.implicitHeight : 0,
+                             background ? 22 : 0,
                              placeholder.implicitHeight + topPadding + bottomPadding)
 
-    padding: Units.smallSpacing
+    padding: 6
 
-    color: enabled ? Theme.viewTextColor : Theme.disabledTextColor
-    selectionColor: Theme.highlightColor
-    selectedTextColor: Theme.highlightedTextColor
+    color: SystemPaletteSingleton.text(control.enabled)
+    selectionColor: SystemPaletteSingleton.highlight(control.enabled)
+    selectedTextColor: SystemPaletteSingleton.highlightedText(control.enabled)
     verticalAlignment: TextInput.AlignVCenter
 
     Label {
@@ -49,7 +48,7 @@ T.TextField {
 
         text: control.placeholderText
         font: control.font
-        color: Theme.disabledTextColor
+        color: SystemPaletteSingleton.text(false)
         horizontalAlignment: control.horizontalAlignment
         verticalAlignment: control.verticalAlignment
         visible: !control.length && !control.preeditText && (!control.activeFocus || control.horizontalAlignment !== Qt.AlignHCenter)
@@ -63,8 +62,5 @@ T.TextField {
         sunken: true
         hasFocus: control.activeFocus
         hover: control.hovered
-
-        implicitWidth: Units.gridUnit * 10
-        implicitHeight: Units.gridUnit * 1.6
     }
 }
