@@ -20,7 +20,6 @@
 import QtQuick 2.6
 import QtQuick.Controls.Private 1.0
 import QtQuick.Templates 2.0 as T
-import org.kde.kirigami 1.0
 
 T.Slider {
     id: control
@@ -37,9 +36,9 @@ T.Slider {
     background: StyleItem {
         elementType: "slider"
         sunken: control.pressed
-        implicitWidth: Units.gridUnit * 15
-        contentHeight: horizontal ? Units.gridUnit : implicitWidth
-        contentWidth: horizontal ? implicitWidth : Units.gridUnit
+        implicitWidth: 200
+        contentHeight: horizontal ? 22 : implicitWidth
+        contentWidth: horizontal ? implicitWidth : 22
 
         maximum: control.to*100
         minimum: control.from*100
