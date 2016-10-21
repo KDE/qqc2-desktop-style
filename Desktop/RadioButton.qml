@@ -33,8 +33,8 @@ T.CheckBox {
                                       indicator ? indicator.implicitHeight : 0) + topPadding + bottomPadding)
     baselineOffset: contentItem.y + contentItem.baselineOffset
 
-    padding: Units.smallSpacing
-    spacing: Units.smallSpacing
+    padding: 1
+    spacing: Math.round(TextSingleton.height / 8)
 
     hoverEnabled: true
 

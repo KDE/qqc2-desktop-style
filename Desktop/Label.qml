@@ -24,7 +24,7 @@ import QtQuick.Controls.Private 1.0
 T.Label {
     id: root
 
-    height: Math.round(Math.max(paintedHeight, Units.gridUnit * 1.6))
+    height: Math.round(Math.max(paintedHeight, TextSingleton.height * 1.6))
     verticalAlignment: lineCount > 1 ? Text.AlignTop : Text.AlignVCenter
 
     activeFocusOnTab: false
