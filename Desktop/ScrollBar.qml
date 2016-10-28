@@ -32,7 +32,6 @@ T.ScrollBar {
     hoverEnabled: true
 
     visible: control.size < 1.0
-    property bool _desktopStyle : true
 
     background: MouseArea {
         id: mouseArea
