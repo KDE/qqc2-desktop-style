@@ -20,6 +20,8 @@
 
 import QtQuick 2.6
 import QtQuick.Templates 2.1 as T
+//QQC1 is needed for StyleItem to fully work
+import QtQuick.Controls 1.0 as QQC1
 import QtQuick.Controls.Private 1.0
 
 T.TextArea {

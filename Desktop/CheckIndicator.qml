@@ -18,6 +18,8 @@
  */
 
 import QtQuick 2.6
+//QQC1 is needed for StyleItem to fully work
+import QtQuick.Controls 1.0 as QQC1
 import QtQuick.Controls.Private 1.0
 
 StyleItem {
