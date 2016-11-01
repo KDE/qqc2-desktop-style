@@ -38,7 +38,7 @@ T.ScrollBar {
         anchors.fill: parent
         hoverEnabled: true
         onPositionChanged: style.activeControl = style.hitTest(mouse.x, mouse.y)
-        onExited: style.activeControl = "none";
+        onExited: style.activeControl = "groove";
         onPressed: {
             if (style.activeControl == "down") {
                 buttonTimer.increment = 0.02;
@@ -60,20 +60,6 @@ T.ScrollBar {
 
         implicitWidth: style.horizontal ? 200 : style.pixelMetric("scrollbarExtent")
         implicitHeight: style.horizontal ? style.pixelMetric("scrollbarExtent") : 200
-
-        Timer {
-            id: updateIndicatorTimer
-            interval: 0
-            onTriggered: {
-                style.updateSizeHint();
-                style.height = style.height+1
-                var rect = style.subControlRect("slider")
-                indicator.y = rect.y
-                //indicator.x = rect.x
-                //indicator.width = rect.width
-                indicator.height = rect.height
-            }
-        }
 
         StyleItem {
             id: style
@@ -106,13 +92,19 @@ T.ScrollBar {
                 }
             }
         }
-        Rectangle {
-            id: indicator
-            anchors.horizontalCenter: parent.horizontalCenter
-            width: 4
-            color: SystemPaletteSingleton.text(control.enabled)
-            radius: Math.min(width,height)
-            opacity: !mouseArea.containsMouse ? 0.3 : 0
+        StyleItem {
+            anchors.fill: parent
+            elementType: "scrollbar"
+            activeControl: "none"
+            sunken: false
+            minimum: 0
+            maximum: style.maximum
+            value: style.value
+            horizontal: style.horizontal
+            enabled: control.enabled
+
+            visible: control.size < 1.0
+            opacity: !mouseArea.containsMouse ? 1 : 0
             Behavior on opacity {
                 OpacityAnimator {
                     duration: 250
@@ -122,8 +114,4 @@ T.ScrollBar {
     }
 
     contentItem: Item {}
-
-    onPositionChanged: updateIndicatorTimer.restart()
-    onSizeChanged: updateIndicatorTimer.restart()
-    Component.onCompleted: updateIndicatorTimer.restart()
 }
