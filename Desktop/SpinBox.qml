@@ -75,7 +75,6 @@ T.SpinBox {
         id: styleitem
         elementType: "spinbox"
         anchors.fill: parent
-        sunken: (styleData.downEnabled && styleData.downPressed) || (styleData.upEnabled && styleData.upPressed)
         hover: control.hovered
         hasFocus: control.activeFocus
         enabled: control.enabled
