@@ -17,24 +17,33 @@
  *   51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-import QtQuick 2.1
-import QtQuick.Controls 1.0 as Controls
-import QtQuick.Controls.Private 1.0
+import QtQuick 2.6
+import QtQuick.Templates 2.1 as T
 
-Rectangle {
-    id: background
-    color: highlighted || (control.pressed && !control.checked && !control.sectionDelegate) ? SystemPaletteSingleton.highlight(control.enabled) : SystemPaletteSingleton.base(control.enabled)
+T.DialogButtonBox {
+    id: control
 
-    visible: control.ListView.view ? control.ListView.view.highlight === null : true
-    Rectangle {
-        anchors.fill: parent
-        visible: !Settings.isMobile
-        color: SystemPaletteSingleton.highlight(control.enabled)
-        opacity: control.hovered && !control.pressed ? 0.2 : 0
-        Behavior on opacity { NumberAnimation { duration: 150 } }
+    implicitWidth: contentItem.implicitWidth + leftPadding + rightPadding
+    implicitHeight: contentItem.implicitHeight + topPadding + bottomPadding
+
+    spacing: 1
+    padding: 6
+    alignment: Qt.AlignRight
+
+    delegate: Button {
+        width: Math.min(implicitWidth, control.width / control.count - control.padding - control.spacing * control.count)
     }
-    Behavior on color {
-        ColorAnimation { duration: 150 }
+
+    contentItem: ListView {
+        implicitWidth: contentWidth
+        implicitHeight: 32
+
+        model: control.contentModel
+        spacing: control.spacing
+        orientation: ListView.Horizontal
+        boundsBehavior: Flickable.StopAtBounds
+        snapMode: ListView.SnapToItem
     }
+
+    background: Item {}
 }
-
