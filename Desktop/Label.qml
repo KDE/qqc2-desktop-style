@@ -24,7 +24,7 @@ import QtQuick.Controls 1.0 as QQC1
 import QtQuick.Controls.Private 1.0
 
 T.Label {
-    id: root
+    id: control
 
     height: Math.round(Math.max(paintedHeight, TextSingleton.height * 1.6))
     verticalAlignment: lineCount > 1 ? Text.AlignTop : Text.AlignVCenter
