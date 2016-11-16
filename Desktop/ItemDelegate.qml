@@ -40,7 +40,7 @@ T.ItemDelegate {
 
         text: control.text
         font: control.font
-        color: control.checked || (control.pressed && !control.checked && !control.sectionDelegate) ? SystemPaletteSingleton.highlightedText(control.enabled) : SystemPaletteSingleton.text(control.enabled)
+        color: control.highlighted || control.checked || (control.pressed && !control.checked && !control.sectionDelegate) ? SystemPaletteSingleton.highlightedText(control.enabled) : SystemPaletteSingleton.text(control.enabled)
         elide: Text.ElideRight
         visible: control.text
         horizontalAlignment: Text.AlignLeft

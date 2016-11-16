@@ -69,7 +69,8 @@ T.Menu {
         implicitWidth: 150
         implicitHeight: 40
         color: SystemPaletteSingleton.window(control.enabled)
-        border.color: SystemPaletteSingleton.text(control.enabled)
+        property color borderColor: SystemPaletteSingleton.text(control.enabled)
+        border.color: Qt.rgba(borderColor.r, borderColor.g, borderColor.b, 0.3)
         layer.enabled: true
         
         layer.effect: DropShadow {
