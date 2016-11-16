@@ -21,6 +21,7 @@ import QtQuick 2.6
 import QtGraphicalEffects 1.0
 import QtQuick.Controls 2.0
 import QtQuick.Templates 2.0 as T
+//for systempalettesingleton
 import QtQuick.Controls 1.0 as QQC1
 import QtQuick.Controls.Private 1.0
 
