@@ -51,8 +51,8 @@ T.Drawer {
             }
             color: SystemPaletteSingleton.text(control.enabled)
             opacity: 0.3
-            width: 10
-            height: 10
+            width: 1
+            height: 1
         }
     }
 
