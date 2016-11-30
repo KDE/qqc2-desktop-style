@@ -39,11 +39,11 @@ T.Dial {
     }
 
     handle: Rectangle {
+        x: (control.width/2) + Math.cos((-(control.angle-90)*Math.PI)/180) * (control.width/2-width/2) - width/2
+        y: (control.height/2) + Math.sin(((control.angle-90)*Math.PI)/180) * (control.height/2-height/2) - height/2
         width: 18
         height: width
         radius: 8
         color: control.visualFocus ? SystemPaletteSingleton.highlight(control.enabled) : SystemPaletteSingleton.text(control.enabled)
-        x: (control.width/2) + Math.cos((-(control.angle-90)*Math.PI)/180) * (control.width/2) - width/2
-        y: (control.height/2) + Math.sin(((control.angle-90)*Math.PI)/180) * (control.height/2) - height/2
     }
 }
