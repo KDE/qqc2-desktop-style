@@ -36,6 +36,7 @@ T.ScrollBar {
     background: MouseArea {
         id: mouseArea
         anchors.fill: parent
+        visible: control.size < 1.0
         hoverEnabled: true
         onPositionChanged: style.activeControl = style.hitTest(mouse.x, mouse.y)
         onExited: style.activeControl = "groove";
