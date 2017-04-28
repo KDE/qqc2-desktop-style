@@ -36,7 +36,7 @@ find_package(Qt5 ${QT_MIN_VERSION} REQUIRED NO_MODULE COMPONENTS Core Quick)
 find_package(PkgConfig)
 #########################################################################
 
-install(DIRECTORY Desktop DESTINATION ${KDE_INSTALL_QMLDIR}/QtQuick/Controls.2)
+install(DIRECTORY org.kde.desktop DESTINATION ${KDE_INSTALL_QMLDIR}/QtQuick/Controls.2)
 
 feature_summary(WHAT ALL INCLUDE_QUIET_PACKAGES FATAL_ON_MISSING_REQUIRED_PACKAGES)
 
