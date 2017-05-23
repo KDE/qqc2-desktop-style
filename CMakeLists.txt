@@ -1,4 +1,4 @@
-project(climbinggrades)
+project(qqc2-desktop-style)
 
 cmake_minimum_required(VERSION 2.8.12)
 set(KF5_MIN_VERSION "5.18.0")
@@ -7,7 +7,7 @@ set(QT_MIN_VERSION "5.7.0")
 ################# Disallow in-source build #################
 
 if("${CMAKE_SOURCE_DIR}" STREQUAL "${CMAKE_BINARY_DIR}")
-   message(FATAL_ERROR "climbinggrades requires an out of source build. Please create a separate build directory and run 'cmake path_to_kirigami [options]' there.")
+   message(FATAL_ERROR "qqc2-desktop-style requires an out of source build. Please create a separate build directory and run 'cmake path_to_kirigami [options]' there.")
 endif()
 
 
