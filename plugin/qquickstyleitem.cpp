@@ -692,22 +692,24 @@ const char* QQuickStyleItem1::classNameForItem() const
     case ToolButton:
         return "QToolButton";
     case Tab:
+        return "QTabButton";
     case TabFrame:
+        return "QTabBar";
     case Edit:
         return "QTextEdit";
     case GroupBox:
         return "QGroupBox";
     case Header:
-//         paletteType = QPlatformTheme::HeaderPalette;
+        return "QHeaderView";
     case Item:
     case ItemRow:
-//         paletteType = QPlatformTheme::ItemViewPalette;
+        return "QAbstractItemView";
     case Menu:
     case MenuItem:
-//         paletteType = QPlatformTheme::MenuPalette;
+        return "QMenu";
     case MenuBar:
     case MenuBarItem:
-//         paletteType = QPlatformTheme::MenuBarPalette;
+        return "QMenuBar";
     default:
         return "";
     }
