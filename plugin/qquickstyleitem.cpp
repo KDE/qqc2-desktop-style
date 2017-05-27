@@ -46,10 +46,6 @@
 #include <qstyleoption.h>
 #include <qapplication.h>
 #include <qquickwindow.h>
-#include "private/qguiapplication_p.h"
-#include <QtQuick/private/qquickwindow_p.h>
-#include <QtQuick/private/qquickitem_p.h>
-#include <QtGui/qpa/qplatformtheme.h>
 #include <QtQuick/qsgninepatchnode.h>
 //#include "../qquickmenuitem_p.h"
 
@@ -162,9 +158,6 @@ void QQuickStyleItem1::initStyleOption()
         m_styleoption->state = 0;
 
     QString sizeHint = m_hints.value(QStringLiteral("size")).toString();
-    QPlatformTheme::Font platformFont = (sizeHint == QLatin1String("mini")) ? QPlatformTheme::MiniFont :
-                                        (sizeHint == QLatin1String("small")) ? QPlatformTheme::SmallFont :
-                                        QPlatformTheme::SystemFont;
 
     bool needsResolvePalette = true;
 
@@ -181,11 +174,8 @@ void QQuickStyleItem1::initStyleOption()
         opt->features = activeControl() == QLatin1String("default") ?
                     QStyleOptionButton::DefaultButton :
                     QStyleOptionButton::None;
-        if (platformFont == QPlatformTheme::SystemFont)
-            platformFont = QPlatformTheme::PushButtonFont;
-        const QFont *font = QGuiApplicationPrivate::platformTheme()->font(platformFont);
-        if (font)
-            opt->fontMetrics = QFontMetrics(*font);
+        const QFont font = qApp->font("QPushButton");
+        opt->fontMetrics = QFontMetrics(font);
         QObject * menu = m_properties[QStringLiteral("menu")].value<QObject *>();
         if (menu) {
             opt->features |= QStyleOptionButton::HasMenu;
@@ -241,12 +231,11 @@ void QQuickStyleItem1::initStyleOption()
         QPalette pal = m_styleoption->palette;
         pal.setBrush(QPalette::Base, Qt::NoBrush);
         m_styleoption->palette = pal;
-        if (const QFont *font = QGuiApplicationPrivate::platformTheme()->font(QPlatformTheme::ItemViewFont)) {
-            opt->fontMetrics = QFontMetrics(*font);
-            opt->font = *font;
-        }
-    }
+        const QFont font = qApp->font("QAbstractItemView");
+        opt->font = font;
+        opt->fontMetrics = QFontMetrics(font);
         break;
+    }
     case ItemBranchIndicator: {
         if (!m_styleoption)
             m_styleoption = new QStyleOption;
@@ -280,8 +269,9 @@ void QQuickStyleItem1::initStyleOption()
             opt->position = QStyleOptionHeader::OnlyOneSection;
         else
             opt->position = QStyleOptionHeader::Middle;
-        if (const QFont *font = QGuiApplicationPrivate::platformTheme()->font(QPlatformTheme::HeaderViewFont))
-            opt->fontMetrics = QFontMetrics(*font);
+
+        const QFont font = qApp->font("QHeaderView");
+        opt->fontMetrics = QFontMetrics(font);
     }
         break;
     case ToolButton: {
@@ -309,11 +299,9 @@ void QQuickStyleItem1::initStyleOption()
         int e = qApp->style()->pixelMetric(QStyle::PM_ToolBarIconSize, m_styleoption, 0);
         opt->iconSize = QSize(e, e);
 
-        if (const QFont *font = QGuiApplicationPrivate::platformTheme()->font(QPlatformTheme::ToolButtonFont)) {
-            opt->fontMetrics = QFontMetrics(*font);
-            opt->font = *font;
-        }
-
+        const QFont font = qApp->font("QToolButton");
+        opt->font = font;
+        opt->fontMetrics = QFontMetrics(font);
     }
         break;
     case ToolBar: {
@@ -404,11 +392,10 @@ void QQuickStyleItem1::initStyleOption()
         opt->menuItemType = QStyleOptionMenuItem::Normal;
         setProperty("_q_showUnderlined", m_hints[QStringLiteral("showUnderlined")].toBool());
 
-        if (const QFont *font = QGuiApplicationPrivate::platformTheme()->font(QPlatformTheme::MenuBarFont)) {
-            opt->font = *font;
-            opt->fontMetrics = QFontMetrics(opt->font);
-            m_font = opt->font;
-        }
+        const QFont font = qApp->font("QMenuBar");
+        opt->font = font;
+        opt->fontMetrics = QFontMetrics(font);
+        m_font = opt->font;
     }
         break;
     case Menu: {
@@ -460,11 +447,10 @@ void QQuickStyleItem1::initStyleOption()
                 opt->icon = m_properties[QStringLiteral("icon")].value<QIcon>();
             setProperty("_q_showUnderlined", m_hints["showUnderlined"].toBool());
 
-            if (const QFont *font = QGuiApplicationPrivate::platformTheme()->font(m_itemType == ComboBoxItem ? QPlatformTheme::ComboMenuItemFont : QPlatformTheme::MenuFont)) {
-                opt->font = *font;
-                opt->fontMetrics = QFontMetrics(opt->font);
-                m_font = opt->font;
-            }
+            const QFont font = qApp->font(m_itemType == "QComboMenuItem" ? "QMenu");
+            opt->font = font;
+            opt->fontMetrics = QFontMetrics(font);
+            m_font = opt->font;
         }
     }
         break;
