@@ -250,6 +250,7 @@ protected:
     virtual void updatePolish();
 
 private:
+    const char* classNameForItem() const;
     QSize sizeFromContents(int width, int height);
     qreal baselineOffset();
 

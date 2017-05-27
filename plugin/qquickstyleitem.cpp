@@ -447,7 +447,7 @@ void QQuickStyleItem1::initStyleOption()
                 opt->icon = m_properties[QStringLiteral("icon")].value<QIcon>();
             setProperty("_q_showUnderlined", m_hints["showUnderlined"].toBool());
 
-            const QFont font = qApp->font(m_itemType == "QComboMenuItem" ? "QMenu");
+            const QFont font = qApp->font(m_itemType == ComboBoxItem ?"QComboMenuItem" : "QMenu");
             opt->font = font;
             opt->fontMetrics = QFontMetrics(font);
             m_font = opt->font;
@@ -482,11 +482,8 @@ void QQuickStyleItem1::initStyleOption()
 
         QStyleOptionComboBox *opt = qstyleoption_cast<QStyleOptionComboBox*>(m_styleoption);
 
-        if (platformFont == QPlatformTheme::SystemFont)
-            platformFont = QPlatformTheme::PushButtonFont;
-        const QFont *font = QGuiApplicationPrivate::platformTheme()->font(platformFont);
-        if (font)
-            opt->fontMetrics = QFontMetrics(*font);
+        const QFont font = qApp->font("QPushButton"); //DAVE - QQC1 code does this, but if you look at QComboBox this doesn't make sense
+        opt->fontMetrics = QFontMetrics(font);
         opt->currentText = text();
         opt->editable = m_properties[QStringLiteral("editable")].toBool();
 #ifdef Q_OS_OSX
@@ -677,63 +674,52 @@ void QQuickStyleItem1::initStyleOption()
 
 }
 
+const char* QQuickStyleItem1::classNameForItem() const
+{
+    switch(m_itemType) {
+    case Button:
+        return "QPushButton";
+    case RadioButton:
+        return "QRadioButton";
+    case CheckBox:
+        return "QCheckBox";
+    case ComboBox:
+        return "QComboBox";
+    case ComboBoxItem:
+        return "QComboMenuItem";
+    case ToolBar:
+        return "";
+    case ToolButton:
+        return "QToolButton";
+    case Tab:
+    case TabFrame:
+    case Edit:
+        return "QTextEdit";
+    case GroupBox:
+        return "QGroupBox";
+    case Header:
+//         paletteType = QPlatformTheme::HeaderPalette;
+    case Item:
+    case ItemRow:
+//         paletteType = QPlatformTheme::ItemViewPalette;
+    case Menu:
+    case MenuItem:
+//         paletteType = QPlatformTheme::MenuPalette;
+    case MenuBar:
+    case MenuBarItem:
+//         paletteType = QPlatformTheme::MenuBarPalette;
+    default:
+        return "";
+    }
+    Q_UNREACHABLE();
+}
+
 void QQuickStyleItem1::resolvePalette()
 {
     if (QCoreApplication::testAttribute(Qt::AA_SetPalette))
         return;
 
-    QPlatformTheme::Palette paletteType = QPlatformTheme::SystemPalette;
-    switch (m_itemType) {
-    case Button:
-        paletteType = QPlatformTheme::ButtonPalette;
-        break;
-    case RadioButton:
-        paletteType = QPlatformTheme::RadioButtonPalette;
-        break;
-    case CheckBox:
-        paletteType = QPlatformTheme::CheckBoxPalette;
-        break;
-    case ComboBox:
-    case ComboBoxItem:
-        paletteType = QPlatformTheme::ComboBoxPalette;
-        break;
-    case ToolBar:
-    case ToolButton:
-        paletteType = QPlatformTheme::ToolButtonPalette;
-        break;
-    case Tab:
-    case TabFrame:
-        paletteType = QPlatformTheme::TabBarPalette;
-        break;
-    case Edit:
-        paletteType = QPlatformTheme::TextEditPalette;
-        break;
-    case GroupBox:
-        paletteType = QPlatformTheme::GroupBoxPalette;
-        break;
-    case Header:
-        paletteType = QPlatformTheme::HeaderPalette;
-        break;
-    case Item:
-    case ItemRow:
-        paletteType = QPlatformTheme::ItemViewPalette;
-        break;
-    case Menu:
-    case MenuItem:
-        paletteType = QPlatformTheme::MenuPalette;
-        break;
-    case MenuBar:
-    case MenuBarItem:
-        paletteType = QPlatformTheme::MenuBarPalette;
-        break;
-    default:
-        break;
-    }
-
-    const QPalette *platformPalette = QGuiApplicationPrivate::platformTheme()->palette(paletteType);
-    if (platformPalette)
-        m_styleoption->palette = *platformPalette;
-    // Defaults to SystemPalette otherwise
+    m_styleoption->palette = QApplication::palette(classNameForItem());
 }
 
 /*
@@ -1355,12 +1341,13 @@ void QQuickStyleItem1::paint(QPainter *painter)
     if (QStyleOptionMenuItem *opt = qstyleoption_cast<QStyleOptionMenuItem*>(m_styleoption))
         painter->setFont(opt->font);
     else {
-        QPlatformTheme::Font platformFont = (m_styleoption->state & QStyle::State_Mini) ? QPlatformTheme::MiniFont :
-                                            (m_styleoption->state & QStyle::State_Small) ? QPlatformTheme::SmallFont :
-                                            QPlatformTheme::NFonts;
-        if (platformFont != QPlatformTheme::NFonts)
-            if (const QFont *font = QGuiApplicationPrivate::platformTheme()->font(platformFont))
-                painter->setFont(*font);
+        QFont font;
+        if (m_styleoption->state & QStyle::State_Mini) {
+            font = qApp->font("QMiniFont");
+        } else if (m_styleoption->state & QStyle::State_Small) {
+            font = qApp->font("QSmallFont");
+        }
+        painter->setFont(font);
     }
 
     // Set AA_UseHighDpiPixmaps when calling style code to make QIcon return
