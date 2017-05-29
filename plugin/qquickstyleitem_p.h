@@ -44,6 +44,7 @@
 #include <QtQuick/qquickitem.h>
 #include <QtQuick/qquickimageprovider.h>
 #include "qquickpadding_p.h"
+#include <QPointer>
 
 class QWidget;
 class QStyleOption;
@@ -92,6 +93,8 @@ class QQuickStyleItem1: public QQuickItem
 
     Q_PROPERTY( int textureWidth READ textureWidth WRITE setTextureWidth NOTIFY textureWidthChanged)
     Q_PROPERTY( int textureHeight READ textureHeight WRITE setTextureHeight NOTIFY textureHeightChanged)
+
+    Q_PROPERTY( QQuickItem *control READ control WRITE setControl NOTIFY controlChanged)
 
     QQuickPadding1* border() { return &m_border; }
 
@@ -207,6 +210,9 @@ public:
     int textureHeight() const { return m_textureHeight; }
     void setTextureHeight(int h);
 
+    QQuickItem *control() const;
+    void setControl(QQuickItem *control);
+
 public Q_SLOTS:
     int pixelMetric(const QString&);
     QVariant styleHint(const QString&);
@@ -242,6 +248,7 @@ Q_SIGNALS:
     void hintChanged();
     void propertiesChanged();
     void fontChanged();
+    void controlChanged();
 
     void contentWidthChanged(int arg);
     void contentHeightChanged(int arg);
@@ -253,6 +260,7 @@ protected:
     virtual bool event(QEvent *);
     virtual QSGNode *updatePaintNode(QSGNode *, UpdatePaintNodeData *);
     virtual void updatePolish();
+    bool eventFilter(QObject *watched, QEvent *event) override;
 
 private:
     const char* classNameForItem() const;
@@ -262,6 +270,7 @@ private:
 protected:
     QWidget *m_dummywidget;
     QStyleOption *m_styleoption;
+    QPointer<QQuickItem> m_control;
     Type m_itemType;
 
     QString m_type;
@@ -293,6 +302,8 @@ protected:
 
     int m_textureWidth;
     int m_textureHeight;
+
+    Qt::FocusReason m_lastFocusReason;
 
     QImage m_image;
     QQuickPadding1 m_border;

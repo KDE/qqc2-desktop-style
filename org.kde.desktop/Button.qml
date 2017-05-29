@@ -36,6 +36,7 @@ T.Button {
     contentItem: Item {}
     background: StyleItem {
         id: styleitem
+        control: control
         elementType: "button"
         sunken: control.pressed || (control.checkable && control.checked)
         raised: !(control.pressed || (control.checkable && control.checked))

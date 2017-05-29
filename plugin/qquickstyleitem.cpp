@@ -75,7 +75,8 @@ QQuickStyleItem1::QQuickStyleItem1(QQuickItem *parent)
     m_contentWidth(0),
     m_contentHeight(0),
     m_textureWidth(0),
-    m_textureHeight(0)
+    m_textureHeight(0),
+    m_lastFocusReason(Qt::NoFocusReason)
 {
     m_font = qApp->font();
     setFlag(QQuickItem::ItemHasContents, true);
@@ -662,9 +663,7 @@ void QQuickStyleItem1::initStyleOption()
     // some styles don't draw a focus rectangle if
     // QStyle::State_KeyboardFocusChange is not set
     if (window()) {
-        //FIXME
-         Qt::FocusReason lastFocusReason = QQuickWindowPrivate::get(window())->lastFocusReason;
-         if (lastFocusReason == Qt::TabFocusReason || lastFocusReason == Qt::BacktabFocusReason) {
+         if (m_lastFocusReason == Qt::TabFocusReason || m_lastFocusReason == Qt::BacktabFocusReason) {
              m_styleoption->state |= QStyle::State_KeyboardFocusChange;
          }
     }
@@ -1673,6 +1672,27 @@ void QQuickStyleItem1::setTextureHeight(int h)
     update();
 }
 
+QQuickItem *QQuickStyleItem1::control() const
+{
+    return m_control;
+}
+
+void QQuickStyleItem1::setControl(QQuickItem *control)
+{
+    if (control == m_control) {
+        return;
+    }
+
+    if (m_control) {
+        m_control->removeEventFilter(this);
+    }
+
+    m_control = control;
+    m_control->installEventFilter(this);
+
+    emit controlChanged();
+}
+
 QSGNode *QQuickStyleItem1::updatePaintNode(QSGNode *node, UpdatePaintNodeData *)
 {
     if (m_image.isNull()) {
@@ -1722,6 +1742,16 @@ void QQuickStyleItem1::updatePolish()
         m_image = QImage();
         QQuickItem::update();
     }
+}
+
+bool QQuickStyleItem1::eventFilter(QObject *watched, QEvent *event)
+{
+    if (event->type() == QEvent::FocusIn || event->type() == QEvent::FocusOut) {
+        QFocusEvent *fe = static_cast<QFocusEvent *>(event);
+        m_lastFocusReason = fe->reason();
+    }
+
+    return QQuickItem::eventFilter(watched, event);
 }
 
 QPixmap QQuickTableRowImageProvider1::requestPixmap(const QString &id, QSize *size, const QSize &requestedSize)
