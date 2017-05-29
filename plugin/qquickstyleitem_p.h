@@ -45,8 +45,6 @@
 #include <QtQuick/qquickimageprovider.h>
 #include "qquickpadding_p.h"
 
-QT_BEGIN_NAMESPACE
-
 class QWidget;
 class QStyleOption;
 
@@ -293,6 +291,5 @@ protected:
     QQuickPadding1 m_border;
 };
 
-QT_END_NAMESPACE
 
 #endif // QQUICKSTYLEITEM_P_H

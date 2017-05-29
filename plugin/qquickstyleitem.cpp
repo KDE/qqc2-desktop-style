@@ -49,7 +49,6 @@
 #include <QtQuick/qsgninepatchnode.h>
 //#include "../qquickmenuitem_p.h"
 
-QT_BEGIN_NAMESPACE
 
 QQuickStyleItem1::QQuickStyleItem1(QQuickItem *parent)
     : QQuickItem(parent),
@@ -1758,4 +1757,5 @@ QPixmap QQuickTableRowImageProvider1::requestPixmap(const QString &id, QSize *si
     return pixmap;
 }
 
-QT_END_NAMESPACE
+#include "moc_qquickstyleitem_p.cpp"
+#include "moc_qquickpadding_p.cpp"

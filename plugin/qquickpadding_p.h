@@ -42,8 +42,6 @@
 
 #include <QtCore/qobject.h>
 
-QT_BEGIN_NAMESPACE
-
 class QQuickPadding1 : public QObject
 {
     Q_OBJECT
@@ -84,6 +82,5 @@ signals:
     void bottomChanged();
 };
 
-QT_END_NAMESPACE
 
 #endif // QQUICKPADDING_H
