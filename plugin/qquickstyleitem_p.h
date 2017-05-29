@@ -99,6 +99,13 @@ public:
     QQuickStyleItem1(QQuickItem *parent = 0);
     ~QQuickStyleItem1();
 
+    enum MenuItemType {
+        SeparatorType = 0,
+        ItemType,
+        MenuType,
+        ScrollIndicatorType
+    };
+
     enum Type {
         Undefined,
         Button,

@@ -412,19 +412,19 @@ void QQuickStyleItem1::initStyleOption()
         // For GTK style. See below, in setElementType()
         setProperty("_q_isComboBoxPopupItem", m_itemType == ComboBoxItem);
 
-        QQuickMenuItemType1::MenuItemType type =
-                static_cast<QQuickMenuItemType1::MenuItemType>(m_properties[QStringLiteral("type")].toInt());
-        if (type == QQuickMenuItemType1::ScrollIndicator) {
+        QQuickStyleItem1::MenuItemType type =
+                static_cast<QQuickStyleItem1::MenuItemType>(m_properties[QStringLiteral("type")].toInt());
+        if (type == QQuickStyleItem1::ScrollIndicatorType) {
             int scrollerDirection = m_properties[QStringLiteral("scrollerDirection")].toInt();
             opt->menuItemType = QStyleOptionMenuItem::Scroller;
             opt->state |= scrollerDirection == Qt::UpArrow ?
                         QStyle::State_UpArrow : QStyle::State_DownArrow;
-        } else if (type == QQuickMenuItemType1::Separator) {
+        } else if (type == QQuickStyleItem1::SeparatorType) {
             opt->menuItemType = QStyleOptionMenuItem::Separator;
         } else {
             opt->text = text();
 
-            if (type == QQuickMenuItemType1::Menu) {
+            if (type == QQuickStyleItem1::MenuType) {
                 opt->menuItemType = QStyleOptionMenuItem::SubMenu;
             } else {
                 opt->menuItemType = QStyleOptionMenuItem::Normal;
