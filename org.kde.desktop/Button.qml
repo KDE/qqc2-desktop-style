@@ -23,7 +23,7 @@ import QtQuick 2.6
 import QtQuick.Templates 2.0 as T
 //QQC1 is needed for StyleItem to fully work
 import QtQuick.Controls 1.0 as QQC1
-import QtQuick.Controls.Private 1.0
+import org.kde.qqc2desktopstyle.private 1.0
 
 T.Button {
     id: control

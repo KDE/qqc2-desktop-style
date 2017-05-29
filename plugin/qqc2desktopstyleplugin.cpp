@@ -27,7 +27,7 @@
 
 void QQc2DesktopStylePlugin::registerTypes(const char *uri)
 {
-    Q_ASSERT(uri == QLatin1String("org.kde.desktop.private"));
+    Q_ASSERT(uri == QLatin1String("org.kde.qqc2desktopstyle.private"));
  
     qmlRegisterType<QQuickStyleItem1>(uri, 1, 0, "StyleItem");
 

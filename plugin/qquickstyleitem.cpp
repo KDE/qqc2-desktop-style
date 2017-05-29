@@ -46,8 +46,11 @@
 #include <qstyleoption.h>
 #include <qapplication.h>
 #include <qquickwindow.h>
+#if QT_VERSION >= QT_VERSION_CHECK(5,8,0)
 #include <QtQuick/qsgninepatchnode.h>
-//#include "../qquickmenuitem_p.h"
+#else
+#include "qsgdefaultninepatchnode_p.h"
+#endif
 
 
 QQuickStyleItem1::QQuickStyleItem1(QQuickItem *parent)
@@ -659,6 +662,7 @@ void QQuickStyleItem1::initStyleOption()
     // some styles don't draw a focus rectangle if
     // QStyle::State_KeyboardFocusChange is not set
     if (window()) {
+        //FIXME
          Qt::FocusReason lastFocusReason = QQuickWindowPrivate::get(window())->lastFocusReason;
          if (lastFocusReason == Qt::TabFocusReason || lastFocusReason == Qt::BacktabFocusReason) {
              m_styleoption->state |= QStyle::State_KeyboardFocusChange;
@@ -1678,7 +1682,11 @@ QSGNode *QQuickStyleItem1::updatePaintNode(QSGNode *node, UpdatePaintNodeData *)
 
     QSGNinePatchNode *styleNode = static_cast<QSGNinePatchNode *>(node);
     if (!styleNode)
+#if QT_VERSION >= QT_VERSION_CHECK(5,8,0)
         styleNode = window()->createNinePatchNode();
+#else
+        styleNode = new QSGDefaultNinePatchNode;
+#endif
 
 #ifdef QSG_RUNTIME_DESCRIPTION
     qsgnode_set_description(styleNode,

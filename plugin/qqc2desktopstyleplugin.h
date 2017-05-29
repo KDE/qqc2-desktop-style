@@ -17,8 +17,8 @@
  *   51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-#ifndef MOBILECOMPONENTSPLUGIN_H
-#define MOBILECOMPONENTSPLUGIN_H
+#ifndef QQC2DESKTOPSTYLEPLUGIN_H
+#define QQC2DESKTOPSTYLEPLUGIN_H
 
 #include <QQmlExtensionPlugin>
 
