@@ -21,13 +21,11 @@
 
 
 import QtQuick 2.6
-//QQC1 is needed for StyleItem to fully work
-import QtQuick.Controls 1.0 as QQC1
-import QtQuick.Controls.Private 1.0
+import org.kde.qqc2desktopstyle.private 1.0 as StylePrivate
 import QtQuick.Templates 2.0 as T
 
 T.Slider {
-    id: control
+    id: controlRoot
 
     implicitWidth: background.implicitWidth
     implicitHeight: background.implicitHeight
@@ -38,21 +36,22 @@ T.Slider {
     
     snapMode: T.Slider.SnapOnRelease
 
-    background: StyleItem {
+    background: StylePrivate.StyleItem {
+        control: controlRoot
         elementType: "slider"
-        sunken: control.pressed
+        sunken: controlRoot.pressed
         implicitWidth: 200
         contentHeight: horizontal ? 22 : implicitWidth
         contentWidth: horizontal ? implicitWidth : 22
 
-        maximum: control.to*100
-        minimum: control.from*100
-        step: control.stepSize*100
-        value: (horizontal ? control.visualPosition : 1 - control.visualPosition)*control.to*100
-        horizontal: control.orientation === Qt.Horizontal
-        enabled: control.enabled
-        hasFocus: control.activeFocus
-        hover: control.hovered
-        activeControl: control.stepSize > 0 ? "ticks" : ""
+        maximum: controlRoot.to*100
+        minimum: controlRoot.from*100
+        step: controlRoot.stepSize*100
+        value: (horizontal ? controlRoot.visualPosition : 1 - controlRoot.visualPosition)*controlRoot.to*100
+        horizontal: controlRoot.orientation === Qt.Horizontal
+        enabled: controlRoot.enabled
+        hasFocus: controlRoot.activeFocus
+        hover: controlRoot.hovered
+        activeControl: controlRoot.stepSize > 0 ? "ticks" : ""
     }
 }

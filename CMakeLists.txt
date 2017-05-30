@@ -31,10 +31,12 @@ include(KDECompilerSettings NO_POLICY_SCOPE)
 
 set(KF5_VERSION "5.22.0")
 
-find_package(Qt5 ${QT_MIN_VERSION} REQUIRED NO_MODULE COMPONENTS Core Quick)
+find_package(Qt5 ${QT_MIN_VERSION} REQUIRED NO_MODULE COMPONENTS Core Quick Gui Widgets)
 
 find_package(PkgConfig)
 #########################################################################
+
+add_subdirectory(plugin)
 
 install(DIRECTORY org.kde.desktop DESTINATION ${KDE_INSTALL_QMLDIR}/QtQuick/Controls.2)
 

@@ -22,12 +22,10 @@
 
 import QtQuick 2.6
 import QtQuick.Templates 2.0 as T
-//QQC1 is needed for StyleItem to fully work
-import QtQuick.Controls 1.0 as QQC1
-import QtQuick.Controls.Private 1.0
+import org.kde.qqc2desktopstyle.private 1.0 as StylePrivate
 
 T.ToolButton {
-    id: control
+    id: controlRoot
 
     implicitWidth: background.implicitWidth
     implicitHeight: background.implicitHeight
@@ -36,14 +34,15 @@ T.ToolButton {
 
     flat: true
     contentItem: Item {}
-    background: StyleItem {
+    background: StylePrivate.StyleItem {
         id: styleitem
-        elementType: control.flat ? "toolbutton" : "button"
-        sunken: control.pressed || (control.checkable && control.checked)
-        raised: !(control.pressed || (control.checkable && control.checked))
-        hover: control.hovered
-        text: control.text
+        control: controlRoot
+        elementType: controlRoot.flat ? "toolbutton" : "button"
+        sunken: controlRoot.pressed || (controlRoot.checkable && controlRoot.checked)
+        raised: !(controlRoot.pressed || (controlRoot.checkable && controlRoot.checked))
+        hover: controlRoot.hovered
+        text: controlRoot.text
         hasFocus: false
-        activeControl: control.isDefault ? "default" : "f"
+        activeControl: controlRoot.isDefault ? "default" : "f"
     }
 }

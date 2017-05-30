@@ -22,66 +22,85 @@
 
 import QtQuick 2.6
 import QtQuick.Templates 2.0 as T
-import QtQuick.Controls 1.0
-import QtQuick.Controls 2.0 as Controls
-import QtQuick.Controls.Private 1.0
+import org.kde.qqc2desktopstyle.private 1.0 as StylePrivate
 
 T.SpinBox {
-    id: control
+    id: controlRoot
 
     implicitWidth: Math.max(48, contentItem.implicitWidth + 2 * padding +  up.indicator.implicitWidth)
     implicitHeight: contentItem.implicitHeight + topPadding + bottomPadding
 
     padding: 6
-    leftPadding: padding + (control.mirrored ? (up.indicator ? up.indicator.width : 0) : 0)
-    rightPadding: padding + (control.mirrored ? 0 : (up.indicator ? up.indicator.width : 0))
+    leftPadding: padding + (controlRoot.mirrored ? (up.indicator ? up.indicator.width : 0) : 0)
+    rightPadding: padding + (controlRoot.mirrored ? 0 : (up.indicator ? up.indicator.width : 0))
 
+
+    hoverEnabled: true
 
     validator: IntValidator {
-        locale: control.locale.name
-        bottom: Math.min(control.from, control.to)
-        top: Math.max(control.from, control.to)
+        locale: controlRoot.locale.name
+        bottom: Math.min(controlRoot.from, controlRoot.to)
+        top: Math.max(controlRoot.from, controlRoot.to)
     }
 
     contentItem: TextInput {
         z: 2
-        text: control.textFromValue(control.value, control.locale)
-        opacity: control.enabled ? 1 : 0.3
+        text: controlRoot.textFromValue(controlRoot.value, controlRoot.locale)
+        opacity: controlRoot.enabled ? 1 : 0.3
 
-        font: control.font
-        color: SystemPaletteSingleton.text(control.enabled)
-        selectionColor: SystemPaletteSingleton.highlight(control.enabled)
-        selectedTextColor: SystemPaletteSingleton.highlightedText(control.enabled)
+        font: controlRoot.font
+        color: StylePrivate.SystemPaletteSingleton.text(controlRoot.enabled)
+        selectionColor: StylePrivate.SystemPaletteSingleton.highlight(controlRoot.enabled)
+        selectedTextColor: StylePrivate.SystemPaletteSingleton.highlightedText(controlRoot.enabled)
         horizontalAlignment: Qt.AlignHCenter
         verticalAlignment: Qt.AlignVCenter
 
-        readOnly: !control.editable
-        validator: control.validator
+        readOnly: !controlRoot.editable
+        validator: controlRoot.validator
         inputMethodHints: Qt.ImhFormattedNumbersOnly
+
+        MouseArea {
+            anchors.fill: parent
+            onPressed: mouse.accepted = false;
+            onWheel: {
+                if (wheel.pixelDelta.y < 0 || wheel.angleDelta.y < 0) {
+                    controlRoot.decrease();
+                } else {
+                    controlRoot.increase();
+                }
+            }
+        }
     }
 
     up.indicator: Item {
         implicitWidth: parent.height/2
         implicitHeight: implicitWidth
-        x: control.mirrored ? 0 : parent.width - width
+        x: controlRoot.mirrored ? 0 : parent.width - width
     }
     down.indicator: Item {
         implicitWidth: parent.height/2
         implicitHeight: implicitWidth
  
-        x: control.mirrored ? 0 : parent.width - width
+        x: controlRoot.mirrored ? 0 : parent.width - width
         y: parent.height - height
     }
 
 
-    background: StyleItem {
+    background: StylePrivate.StyleItem {
         id: styleitem
+        control: controlRoot
         elementType: "spinbox"
         anchors.fill: parent
-        hover: control.hovered
-        hasFocus: control.activeFocus
-        enabled: control.enabled
-        value: control.textFromValue(control.value, control.locale)
+        hover: controlRoot.hovered
+        hasFocus: controlRoot.activeFocus
+        enabled: controlRoot.enabled
+
+        value: (controlRoot.up.pressed ? 1 : 0) |
+                   (controlRoot.down.pressed ? 1<<1 : 0) |
+                   ( controlRoot.value != controlRoot.to ? (1<<2) : 0) |
+                   (controlRoot.value != controlRoot.from ? (1<<3) : 0) |
+                   (controlRoot.up.hovered ? 0x1 : 0) |
+                   (controlRoot.down.hovered ? (1<<1) : 0)
         border {
             top: 6
             bottom: 6

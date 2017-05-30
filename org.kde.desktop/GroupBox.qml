@@ -23,6 +23,7 @@
 import QtQuick 2.6
 import QtQuick.Controls 2.0
 import QtQuick.Templates 2.0 as T
+import org.kde.qqc2desktopstyle.private 1.0 as StylePrivate
 
 T.GroupBox {
     id: control
@@ -42,7 +43,7 @@ T.GroupBox {
 
         text: control.title
         font: control.font
-        color: SystemPaletteSingleton.text(control.enabled)
+        color: StylePrivate.SystemPaletteSingleton.text(control.enabled)
         elide: Text.ElideRight
         horizontalAlignment: Text.AlignLeft
         verticalAlignment: Text.AlignVCenter
@@ -50,7 +51,7 @@ T.GroupBox {
 
     background: Rectangle {
         color: "transparent"
-        property color borderColor: SystemPaletteSingleton.text(control.enabled)
+        property color borderColor: StylePrivate.SystemPaletteSingleton.text(control.enabled)
         border.color: Qt.rgba(borderColor.r, borderColor.g, borderColor.b, 0.3)
     }
 }

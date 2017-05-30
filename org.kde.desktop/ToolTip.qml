@@ -22,14 +22,12 @@
 
 import QtQuick 2.6
 import QtGraphicalEffects 1.0
-import QtQuick.Controls 2.0
+import QtQuick.Controls 2.0 as Controls
 import QtQuick.Templates 2.0 as T
-//QQC1 is needed for StyleItem to fully work
-import QtQuick.Controls 1.0 as QQC1
-import QtQuick.Controls.Private 1.0
+import org.kde.qqc2desktopstyle.private 1.0 as StylePrivate
 
 T.ToolTip {
-    id: control
+    id: controlRoot
 
     x: parent ? (parent.width - implicitWidth) / 2 : 0
     y: -implicitHeight - 3
@@ -42,17 +40,17 @@ T.ToolTip {
 
     closePolicy: T.Popup.CloseOnEscape | T.Popup.CloseOnPressOutsideParent | T.Popup.CloseOnReleaseOutsideParent
 
-    contentItem: Label {
-        text: control.text
-        font: control.font
-        color: SystemPaletteSingleton.base(control.enabled)
+    contentItem: Controls.Label {
+        text: controlRoot.text
+        font: controlRoot.font
+        color: StylePrivate.StylePrivate.SystemPaletteSingleton.base(controlRoot.enabled)
     }
 
 
     background: Rectangle {
         radius: 3
         opacity: 0.95
-        color: SystemPaletteSingleton.text(control.enabled)
+        color: StylePrivate.StylePrivate.SystemPaletteSingleton.text(controlRoot.enabled)
         layer.enabled: true
         layer.effect: DropShadow {
             transparentBorder: true

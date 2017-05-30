@@ -23,8 +23,7 @@
 import QtQuick 2.6
 import QtQuick.Controls 2.0
 import QtQuick.Templates 2.0 as T
-import QtQuick.Controls 1.0 as QQC1
-import QtQuick.Controls.Private 1.0
+import org.kde.qqc2desktopstyle.private 1.0 as StylePrivate
 
 T.Drawer {
     id: control
@@ -43,7 +42,7 @@ T.Drawer {
     bottomPadding: control.edge === Qt.TopEdge ? 1 : 0
 
     background: Rectangle {
-        color: SystemPaletteSingleton.window(control.enabled)
+        color: StylePrivate.SystemPaletteSingleton.window(control.enabled)
         Rectangle {
             readonly property bool horizontal: control.edge === Qt.LeftEdge || control.edge === Qt.RightEdge
             anchors {
@@ -52,7 +51,7 @@ T.Drawer {
                top: control.edge !== Qt.TopEdge ? parent.top : undefined
                bottom: control.edge !== Qt.BottomEdge ? parent.bottom : undefined
             }
-            color: SystemPaletteSingleton.text(control.enabled)
+            color: StylePrivate.SystemPaletteSingleton.text(control.enabled)
             opacity: 0.3
             width: 1
             height: 1

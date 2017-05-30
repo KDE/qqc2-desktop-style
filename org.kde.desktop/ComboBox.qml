@@ -24,13 +24,11 @@ import QtQuick 2.6
 import QtQuick.Window 2.2
 import QtQuick.Templates 2.0 as T
 import QtQuick.Controls 2.0 as Controls
-//those for Settings
-import QtQuick.Controls 1.0
-import QtQuick.Controls.Private 1.0
+import org.kde.qqc2desktopstyle.private 1.0 as StylePrivate
 import QtGraphicalEffects 1.0
 
 T.ComboBox {
-    id: control
+    id: controlRoot
 
     implicitWidth: background.implicitWidth + leftPadding + rightPadding
     implicitHeight: background.implicitHeight
@@ -42,29 +40,39 @@ T.ComboBox {
     rightPadding: padding + 5
 
     delegate: ItemDelegate {
-        width: control.popup.width
-        text: control.textRole ? (Array.isArray(control.model) ? modelData[control.textRole] : model[control.textRole]) : modelData
-        highlighted: control.highlightedIndex == index
+        width: controlRoot.popup.width
+        text: controlRoot.textRole ? (Array.isArray(controlRoot.model) ? modelData[controlRoot.textRole] : model[controlRoot.textRole]) : modelData
+        highlighted: controlRoot.highlightedIndex == index
         property bool separatorVisible: false
     }
 
     indicator: Item {}
 
-    contentItem: Item {}
+    contentItem: MouseArea {
+        onPressed: mouse.accepted = false;
+        onWheel: {
+            if (wheel.pixelDelta.y < 0 || wheel.angleDelta.y < 0) {
+                controlRoot.currentIndex = (controlRoot.currentIndex + 1) % delegateModel.count
+            } else {
+                controlRoot.currentIndex = (controlRoot.currentIndex - 1 + delegateModel.count) % delegateModel.count
+            }
+        }
+    }
 
-    background: StyleItem {
+    background: StylePrivate.StyleItem {
         id: styleitem
+        control: controlRoot
         elementType: "combobox"
         anchors.fill: parent
-        hover: control.hovered
-        hasFocus: control.activeFocus
-        enabled: control.enabled
-        text: control.displayText
+        hover: controlRoot.hovered
+        hasFocus: controlRoot.activeFocus
+        enabled: controlRoot.enabled
+        text: controlRoot.displayText
     }
 
     popup: T.Popup {
-        y: control.height
-        width: Math.max(control.width, 150)
+        y: controlRoot.height
+        width: Math.max(controlRoot.width, 150)
         implicitHeight: contentItem.implicitHeight
         topMargin: 6
         bottomMargin: 6
@@ -73,8 +81,8 @@ T.ComboBox {
             id: listview
             clip: true
             implicitHeight: contentHeight
-            model: control.popup.visible ? control.delegateModel : null
-            currentIndex: control.highlightedIndex
+            model: controlRoot.popup.visible ? controlRoot.delegateModel : null
+            currentIndex: controlRoot.highlightedIndex
             highlightRangeMode: ListView.ApplyRange
             highlightMoveDuration: 0
             T.ScrollBar.vertical: Controls.ScrollBar { }
@@ -85,8 +93,8 @@ T.ComboBox {
                 margins: -1
             }
             radius: 2
-            color: SystemPaletteSingleton.base(control.enabled)
-            property color borderColor: SystemPaletteSingleton.text(control.enabled)
+            color: StylePrivate.SystemPaletteSingleton.base(controlRoot.enabled)
+            property color borderColor: StylePrivate.SystemPaletteSingleton.text(controlRoot.enabled)
             border.color: Qt.rgba(borderColor.r, borderColor.g, borderColor.b, 0.3)
             layer.enabled: true
             

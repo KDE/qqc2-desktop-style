@@ -22,11 +22,10 @@
 
 import QtQuick 2.6
 import QtQuick.Templates 2.0 as T
-import QtQuick.Controls 1.0 as QQC1
-import QtQuick.Controls.Private 1.0
+import org.kde.qqc2desktopstyle.private 1.0 as StylePrivate
 
 T.MenuItem {
-    id: control
+    id: controlRoot
 
     implicitWidth: Math.max(background ? background.implicitWidth : 0,
                             contentItem.implicitWidth + leftPadding + rightPadding)
@@ -39,24 +38,25 @@ T.MenuItem {
     hoverEnabled: true
 
     contentItem: Label {
-        leftPadding: !control.mirrored ? (control.indicator ? control.indicator.width : 0) + control.spacing : 0
-        rightPadding: control.mirrored ? (control.indicator ? control.indicator.width : 0) + control.spacing : 0
+        leftPadding: !controlRoot.mirrored ? (controlRoot.indicator ? controlRoot.indicator.width : 0) + controlRoot.spacing : 0
+        rightPadding: controlRoot.mirrored ? (controlRoot.indicator ? controlRoot.indicator.width : 0) + controlRoot.spacing : 0
 
-        text: control.text
-        font: control.font
-        color: control.hovered && !control.pressed ? SystemPaletteSingleton.highlightedText(control.enabled) : SystemPaletteSingleton.text(control.enabled)
+        text: controlRoot.text
+        font: controlRoot.font
+        color: controlRoot.hovered && !controlRoot.pressed ? StylePrivate.SystemPaletteSingleton.highlightedText(controlRoot.enabled) : StylePrivate.SystemPaletteSingleton.text(controlRoot.enabled)
         elide: Text.ElideRight
-        visible: control.text
+        visible: controlRoot.text
         horizontalAlignment: Text.AlignLeft
         verticalAlignment: Text.AlignVCenter
     }
 
     indicator: CheckIndicator {
-        x: control.mirrored ? control.width - width - control.rightPadding : control.leftPadding
-        y: control.topPadding + (control.availableHeight - height) / 2
+        x: controlRoot.mirrored ? controlRoot.width - width - controlRoot.rightPadding : controlRoot.leftPadding
+        y: controlRoot.topPadding + (controlRoot.availableHeight - height) / 2
 
-        visible: control.checkable
-        on: control.checked
+        visible: controlRoot.checkable
+        on: controlRoot.checked
+        control: controlRoot
     }
 
     background: Item {
@@ -64,8 +64,8 @@ T.MenuItem {
 
         Rectangle {
             anchors.fill: parent
-            color: SystemPaletteSingleton.highlight(control.enabled)
-            opacity: control.hovered && !control.pressed ? 1 : 0
+            color: StylePrivate.SystemPaletteSingleton.highlight(controlRoot.enabled)
+            opacity: controlRoot.hovered && !controlRoot.pressed ? 1 : 0
             Behavior on opacity { NumberAnimation { duration: 150 } }
         }
     }

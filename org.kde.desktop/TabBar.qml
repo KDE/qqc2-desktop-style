@@ -21,13 +21,11 @@
 
 
 import QtQuick 2.6
-//QQC1 is needed for StyleItem to fully work
-import QtQuick.Controls 1.0 as QQC1
-import QtQuick.Controls.Private 1.0
+import org.kde.qqc2desktopstyle.private 1.0 as StylePrivate
 import QtQuick.Templates 2.0 as T
 
 T.TabBar {
-    id: control
+    id: controlRoot
 
     implicitWidth: contentItem.implicitWidth
     implicitHeight: contentItem.implicitHeight
@@ -35,11 +33,11 @@ T.TabBar {
     spacing: 0
 
     contentItem: ListView {
-        implicitWidth: control.contentModel.get(0).implicitWidth * count
-        implicitHeight: control.contentModel.get(0).height
+        implicitWidth: controlRoot.contentModel.get(0).implicitWidth * count
+        implicitHeight: controlRoot.contentModel.get(0).height
 
-        model: control.contentModel
-        currentIndex: control.currentIndex
+        model: controlRoot.contentModel
+        currentIndex: controlRoot.currentIndex
 
         spacing: -styleItem.pixelMetric("tabOverlap")-1
         orientation: ListView.Horizontal
@@ -53,12 +51,13 @@ T.TabBar {
         preferredHighlightEnd: width - 40
     }
 
-    StyleItem {
+    StylePrivate.StyleItem {
         id: styleItem
+        control: controlRoot
         visible: false
         elementType: "tabframe"
         properties: {
-            "orientation" : control.position == T.TabBar.Header ? "Top" : "Bottom"
+            "orientation" : controlRoot.position == T.TabBar.Header ? "Top" : "Bottom"
         }
     }
 
@@ -67,11 +66,11 @@ T.TabBar {
             anchors {
                 left: parent.left
                 right: parent.right
-                bottom : control.position == T.TabBar.Header ? parent.bottom : undefined
-                top : control.position == T.TabBar.Header ? undefined : parent.top
+                bottom : controlRoot.position == T.TabBar.Header ? parent.bottom : undefined
+                top : controlRoot.position == T.TabBar.Header ? undefined : parent.top
             }
             height: 1
-            color: SystemPaletteSingleton.text(control.enabled)
+            color: StylePrivate.SystemPaletteSingleton.text(controlRoot.enabled)
             opacity: 0.4
         }
     }
