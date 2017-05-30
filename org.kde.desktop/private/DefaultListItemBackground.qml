@@ -25,13 +25,13 @@ import org.kde.qqc2desktopstyle.private 1.0 as StylePrivate
 
 Rectangle {
     id: background
-    color: highlighted || (control.pressed && !control.checked && !control.sectionDelegate) ? StylePrivate.SystemPaletteSingleton.highlight(control.enabled) : StylePrivate.SystemPaletteSingleton.base(control.enabled)
+    color: highlighted || (controlRoot.pressed && !controlRoot.checked && !controlRoot.sectionDelegate) ? StylePrivate.SystemPaletteSingleton.highlight(controlRoot.enabled) : StylePrivate.SystemPaletteSingleton.base(controlRoot.enabled)
 
-    visible: control.ListView.view ? control.ListView.view.highlight === null : true
+    visible: controlRoot.ListView.view ? controlRoot.ListView.view.highlight === null : true
     Rectangle {
         anchors.fill: parent
-        color: StylePrivate.SystemPaletteSingleton.highlight(control.enabled)
-        opacity: control.hovered && !control.pressed ? 0.2 : 0
+        color: StylePrivate.SystemPaletteSingleton.highlight(controlRoot.enabled)
+        opacity: controlRoot.hovered && !controlRoot.pressed ? 0.2 : 0
         Behavior on opacity { NumberAnimation { duration: 150 } }
     }
     Behavior on color {

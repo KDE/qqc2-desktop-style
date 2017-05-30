@@ -22,7 +22,7 @@
 
 import QtQuick 2.6
 import QtGraphicalEffects 1.0
-import QtQuick.Controls 2.0
+import QtQuick.Controls 2.0 as Controls
 import QtQuick.Templates 2.0 as T
 import org.kde.qqc2desktopstyle.private 1.0 as StylePrivate
 
@@ -40,17 +40,17 @@ T.ToolTip {
 
     closePolicy: T.Popup.CloseOnEscape | T.Popup.CloseOnPressOutsideParent | T.Popup.CloseOnReleaseOutsideParent
 
-    contentItem: Label {
+    contentItem: Controls.Label {
         text: controlRoot.text
         font: controlRoot.font
-        color: StylePrivate.SystemPaletteSingleton.base(controlRoot.enabled)
+        color: StylePrivate.StylePrivate.SystemPaletteSingleton.base(controlRoot.enabled)
     }
 
 
     background: Rectangle {
         radius: 3
         opacity: 0.95
-        color: StylePrivate.SystemPaletteSingleton.text(controlRoot.enabled)
+        color: StylePrivate.StylePrivate.SystemPaletteSingleton.text(controlRoot.enabled)
         layer.enabled: true
         layer.effect: DropShadow {
             transparentBorder: true

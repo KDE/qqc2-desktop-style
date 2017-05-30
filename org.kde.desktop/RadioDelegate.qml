@@ -26,7 +26,7 @@ import QtQuick.Templates 2.0 as T
 import "private"
 
 T.RadioDelegate {
-    id: control
+    id: controlRoot
 
     implicitWidth: contentItem.implicitWidth + leftPadding + rightPadding
     implicitHeight: Math.max(contentItem.implicitHeight,
@@ -38,23 +38,23 @@ T.RadioDelegate {
     rightPadding: 20
 
     contentItem: Label {
-        leftPadding: control.mirrored ? (control.indicator ? control.indicator.width : 0) + control.spacing : 0
-        rightPadding: !control.mirrored ? (control.indicator ? control.indicator.width : 0) + control.spacing : 0
+        leftPadding: controlRoot.mirrored ? (controlRoot.indicator ? controlRoot.indicator.width : 0) + controlRoot.spacing : 0
+        rightPadding: !controlRoot.mirrored ? (controlRoot.indicator ? controlRoot.indicator.width : 0) + controlRoot.spacing : 0
 
-        text: control.text
-        font: control.font
-        color: (control.pressed && !control.checked && !control.sectionDelegate) ? StylePrivate.SystemPaletteSingleton.highlightedText(control.enabled) : StylePrivate.SystemPaletteSingleton.text(control.enabled)
+        text: controlRoot.text
+        font: controlRoot.font
+        color: (controlRoot.pressed && !controlRoot.checked && !controlRoot.sectionDelegate) ? StylePrivate.SystemPaletteSingleton.highlightedText(controlRoot.enabled) : StylePrivate.SystemPaletteSingleton.text(controlRoot.enabled)
         elide: Text.ElideRight
-        visible: control.text
+        visible: controlRoot.text
         horizontalAlignment: Text.AlignLeft
         verticalAlignment: Text.AlignVCenter
     }
 
     indicator: RadioIndicator {
-        x: control.mirrored ? control.leftPadding : control.width - width - control.rightPadding
-        y: control.topPadding + (control.availableHeight - height) / 2
+        x: controlRoot.mirrored ? controlRoot.leftPadding : controlRoot.width - width - controlRoot.rightPadding
+        y: controlRoot.topPadding + (controlRoot.availableHeight - height) / 2
 
-        control: control
+        control: controlRoot
     }
 
     background: DefaultListItemBackground {}

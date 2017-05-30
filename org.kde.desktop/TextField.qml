@@ -21,11 +21,12 @@
 
 
 import QtQuick 2.6
+import QtQuick.Controls 2.0 as Controls
 import QtQuick.Templates 2.0 as T
 import org.kde.qqc2desktopstyle.private 1.0 as StylePrivate
 
 T.TextField {
-    id: control
+    id: controlRoot
 
     implicitWidth: Math.max(200,
                             placeholderText ? placeholder.implicitWidth + leftPadding + rightPadding : 0)
@@ -36,33 +37,35 @@ T.TextField {
 
     padding: 6
 
-    color: StylePrivate.SystemPaletteSingleton.text(control.enabled)
-    selectionColor: StylePrivate.SystemPaletteSingleton.highlight(control.enabled)
-    selectedTextColor: StylePrivate.SystemPaletteSingleton.highlightedText(control.enabled)
+    color: StylePrivate.SystemPaletteSingleton.text(controlRoot.enabled)
+    selectionColor: StylePrivate.SystemPaletteSingleton.highlight(controlRoot.enabled)
+    selectedTextColor: StylePrivate.SystemPaletteSingleton.highlightedText(controlRoot.enabled)
     verticalAlignment: TextInput.AlignVCenter
 
-    Label {
+    Controls.Label {
         id: placeholder
-        x: control.leftPadding
-        y: control.topPadding
-        width: control.width - (control.leftPadding + control.rightPadding)
-        height: control.height - (control.topPadding + control.bottomPadding)
+        x: controlRoot.leftPadding
+        y: controlRoot.topPadding
+        width: controlRoot.width - (controlRoot.leftPadding + controlRoot.rightPadding)
+        height: controlRoot.height - (controlRoot.topPadding + controlRoot.bottomPadding)
 
-        text: control.placeholderText
-        font: control.font
+        text: controlRoot.placeholderText
+        font: controlRoot.font
         color: StylePrivate.SystemPaletteSingleton.text(false)
-        horizontalAlignment: control.horizontalAlignment
-        verticalAlignment: control.verticalAlignment
-        visible: !control.length && !control.preeditText && (!control.activeFocus || control.horizontalAlignment !== Qt.AlignHCenter)
+        horizontalAlignment: controlRoot.horizontalAlignment
+        verticalAlignment: controlRoot.verticalAlignment
+        visible: !controlRoot.length && !controlRoot.preeditText && (!controlRoot.activeFocus || controlRoot.horizontalAlignment !== Qt.AlignHCenter)
         elide: Text.ElideRight
     }
 
     background: StylePrivate.StyleItem {
         id: style
+
+        control: controlRoot
         elementType: "edit"
 
         sunken: true
-        hasFocus: control.activeFocus
-        hover: control.hovered
+        hasFocus: controlRoot.activeFocus
+        hover: controlRoot.hovered
     }
 }
