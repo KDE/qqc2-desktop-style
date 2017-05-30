@@ -25,19 +25,19 @@ import org.kde.qqc2desktopstyle.private 1.0 as StylePrivate
 import QtQuick.Templates 2.0 as T
 
 T.ScrollBar {
-    id: control
+    id: controlRoot
 
     implicitWidth: background.implicitWidth
     implicitHeight: background.implicitHeight
 
     hoverEnabled: true
 
-    visible: control.size < 1.0
+    visible: controlRoot.size < 1.0
 
     background: MouseArea {
         id: mouseArea
         anchors.fill: parent
-        visible: control.size < 1.0
+        visible: controlRoot.size < 1.0
         hoverEnabled: true
         onPositionChanged: style.activeControl = style.hitTest(mouse.x, mouse.y)
         onExited: style.activeControl = "groove";
@@ -65,18 +65,19 @@ T.ScrollBar {
 
         StylePrivate.StyleItem {
             id: style
+            control: controlRoot
             anchors.fill: parent
             elementType: "scrollbar"
             hover: activeControl != "none"
             activeControl: "none"
-            sunken: control.pressed
+            sunken: controlRoot.pressed
             minimum: 0
-            maximum: (control.height/control.size - control.height)
-            value: control.position * (control.height/control.size)
-            horizontal: control.orientation == Qt.Horizontal
-            enabled: control.enabled
+            maximum: (controlRoot.height/controlRoot.size - controlRoot.height)
+            value: controlRoot.position * (controlRoot.height/controlRoot.size)
+            horizontal: controlRoot.orientation == Qt.Horizontal
+            enabled: controlRoot.enabled
 
-            visible: control.size < 1.0
+            visible: controlRoot.size < 1.0
             opacity: mouseArea.containsMouse ? 1 : 0
             Behavior on opacity {
                 OpacityAnimator {
@@ -90,12 +91,13 @@ T.ScrollBar {
                 repeat: true
                 interval: 150
                 onTriggered: {
-                    control.position += increment;
+                    controlRoot.position += increment;
                 }
             }
         }
         StylePrivate.StyleItem {
             anchors.fill: parent
+            control: controlRoot
             elementType: "scrollbar"
             activeControl: "none"
             sunken: false
@@ -103,9 +105,9 @@ T.ScrollBar {
             maximum: style.maximum
             value: style.value
             horizontal: style.horizontal
-            enabled: control.enabled
+            enabled: controlRoot.enabled
 
-            visible: control.size < 1.0
+            visible: controlRoot.size < 1.0
             opacity: !mouseArea.containsMouse ? 1 : 0
             Behavior on opacity {
                 OpacityAnimator {

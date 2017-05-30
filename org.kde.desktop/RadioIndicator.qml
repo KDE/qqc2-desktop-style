@@ -25,7 +25,6 @@ import org.kde.qqc2desktopstyle.private 1.0 as StylePrivate
 
 StylePrivate.StyleItem {
     id: styleitem
-    property Item control
     elementType: "radiobutton"
     sunken: control.pressed
     on: control.checked || control.pressed

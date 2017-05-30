@@ -28,7 +28,7 @@ import org.kde.qqc2desktopstyle.private 1.0 as StylePrivate
 import QtQuick.Templates 2.0 as T
 
 T.TabButton {
-    id: control
+    id: controlRoot
 
     implicitWidth: styleitem.implicitWidth
     implicitHeight: styleitem.implicitHeight
@@ -43,15 +43,16 @@ T.TabButton {
     background: StylePrivate.StyleItem {
         id: styleitem
 
+        control: controlRoot
         anchors.fill: parent
         elementType: "tab"
         paintMargins: 0
-        property Item tabBar: control.parent.parent.parent
+        property Item tabBar: controlRoot.parent.parent.parent
 
         property string orientation: tabBar.position == TabBar.Header ? "Top" : "Bottom"
-        property string selectedpos: tabBar.currentIndex == control.ObjectModel.index + 1 ? "next" :
-                                    tabBar.currentIndex == control.ObjectModel.index - 1 ? "previous" : ""
-        property string tabpos: tabBar.count === 1 ? "only" : control.ObjectModel.index === 0 ? "beginning" : control.ObjectModel.index === tabBar.count - 1 ? "end" : "middle"
+        property string selectedpos: tabBar.currentIndex == controlRoot.ObjectModel.index + 1 ? "next" :
+                                    tabBar.currentIndex == controlRoot.ObjectModel.index - 1 ? "previous" : ""
+        property string tabpos: tabBar.count === 1 ? "only" : controlRoot.ObjectModel.index === 0 ? "beginning" : controlRoot.ObjectModel.index === tabBar.count - 1 ? "end" : "middle"
 
         properties: {
             "hasFrame" : true,
@@ -60,10 +61,10 @@ T.TabButton {
             "selectedpos": selectedpos
         }
 
-        enabled: control.enabled
-        selected: control.checked
-        text: control.text
-        hover: control.hovered
-        hasFocus: control.activeFocus
+        enabled: controlRoot.enabled
+        selected: controlRoot.checked
+        text: controlRoot.text
+        hover: controlRoot.hovered
+        hasFocus: controlRoot.activeFocus
     }
 }

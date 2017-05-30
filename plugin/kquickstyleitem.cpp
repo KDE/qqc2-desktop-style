@@ -1442,6 +1442,9 @@ void KQuickStyleItem::paint(QPainter *painter)
         } else
 #endif
         {
+            if (m_lastFocusReason != Qt::TabFocusReason && m_lastFocusReason != Qt::BacktabFocusReason) {
+                m_styleoption->state &= ~QStyle::State_HasFocus;
+            }
             qApp->style()->drawControl(QStyle::CE_TabBarTab, m_styleoption, painter);
         }
         break;
