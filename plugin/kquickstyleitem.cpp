@@ -81,6 +81,7 @@ KQuickStyleItem::KQuickStyleItem(QQuickItem *parent)
     m_font = qApp->font();
     setFlag(QQuickItem::ItemHasContents, true);
     setSmooth(false);
+    qmlRegisterType<KQuickPadding>();
 
     connect(this, SIGNAL(visibleChanged()), this, SLOT(updateItem()));
     connect(this, SIGNAL(widthChanged()), this, SLOT(updateItem()));
