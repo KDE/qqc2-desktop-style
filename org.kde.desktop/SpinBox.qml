@@ -56,6 +56,18 @@ T.SpinBox {
         readOnly: !controlRoot.editable
         validator: controlRoot.validator
         inputMethodHints: Qt.ImhFormattedNumbersOnly
+        
+        MouseArea {
+            anchors.fill: parent
+            onPressed: mouse.accepted = false;
+            onWheel: {
+                if (wheel.pixelDelta.y < 0 || wheel.angleDelta.y < 0) {
+                    controlRoot.decrease();
+                } else {
+                    controlRoot.increase();
+                }
+            }
+        }
     }
 
     up.indicator: Item {

@@ -48,7 +48,16 @@ T.ComboBox {
 
     indicator: Item {}
 
-    contentItem: Item {}
+    contentItem: MouseArea {
+        onPressed: mouse.accepted = false;
+        onWheel: {
+            if (wheel.pixelDelta.y < 0 || wheel.angleDelta.y < 0) {
+                controlRoot.currentIndex = (controlRoot.currentIndex + 1) % delegateModel.count
+            } else {
+                controlRoot.currentIndex = (controlRoot.currentIndex - 1 + delegateModel.count) % delegateModel.count
+            }
+        }
+    }
 
     background: StylePrivate.StyleItem {
         id: styleitem
