@@ -35,6 +35,8 @@ T.SpinBox {
     rightPadding: padding + (controlRoot.mirrored ? 0 : (up.indicator ? up.indicator.width : 0))
 
 
+    hoverEnabled: true
+
     validator: IntValidator {
         locale: controlRoot.locale.name
         bottom: Math.min(controlRoot.from, controlRoot.to)
@@ -56,7 +58,7 @@ T.SpinBox {
         readOnly: !controlRoot.editable
         validator: controlRoot.validator
         inputMethodHints: Qt.ImhFormattedNumbersOnly
-        
+
         MouseArea {
             anchors.fill: parent
             onPressed: mouse.accepted = false;
@@ -92,7 +94,13 @@ T.SpinBox {
         hover: controlRoot.hovered
         hasFocus: controlRoot.activeFocus
         enabled: controlRoot.enabled
-        value: controlRoot.textFromValue(controlRoot.value, controlRoot.locale)
+
+        value: (controlRoot.up.pressed ? 1 : 0) |
+                   (controlRoot.down.pressed ? 1<<1 : 0) |
+                   ( controlRoot.value != controlRoot.to ? (1<<2) : 0) |
+                   (controlRoot.value != controlRoot.from ? (1<<3) : 0) |
+                   (controlRoot.up.hovered ? 0x1 : 0) |
+                   (controlRoot.down.hovered ? (1<<1) : 0)
         border {
             top: 6
             bottom: 6
