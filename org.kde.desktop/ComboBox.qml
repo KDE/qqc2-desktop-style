@@ -24,9 +24,7 @@ import QtQuick 2.6
 import QtQuick.Window 2.2
 import QtQuick.Templates 2.0 as T
 import QtQuick.Controls 2.0 as Controls
-//those for Settings
-import QtQuick.Controls 1.0
-import QtQuick.Controls.Private 1.0
+import org.kde.qqc2desktopstyle.private 1.0 as StylePrivate
 import QtGraphicalEffects 1.0
 
 T.ComboBox {
@@ -52,7 +50,7 @@ T.ComboBox {
 
     contentItem: Item {}
 
-    background: StyleItem {
+    background: StylePrivate.StyleItem {
         id: styleitem
         elementType: "combobox"
         anchors.fill: parent
@@ -85,8 +83,8 @@ T.ComboBox {
                 margins: -1
             }
             radius: 2
-            color: SystemPaletteSingleton.base(control.enabled)
-            property color borderColor: SystemPaletteSingleton.text(control.enabled)
+            color: StylePrivate.SystemPaletteSingleton.base(control.enabled)
+            property color borderColor: StylePrivate.SystemPaletteSingleton.text(control.enabled)
             border.color: Qt.rgba(borderColor.r, borderColor.g, borderColor.b, 0.3)
             layer.enabled: true
             

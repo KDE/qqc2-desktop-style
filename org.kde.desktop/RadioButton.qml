@@ -23,9 +23,7 @@
 import QtQuick 2.6
 import QtQuick.Templates 2.0 as T
 import QtQuick.Controls 2.0
-//QQC1 is needed for StyleItem to fully work
-import QtQuick.Controls 1.0 as QQC1
-import QtQuick.Controls.Private 1.0
+import org.kde.qqc2desktopstyle.private 1.0 as StylePrivate
 
 T.CheckBox {
     id: control
@@ -38,7 +36,7 @@ T.CheckBox {
     baselineOffset: contentItem.y + contentItem.baselineOffset
 
     padding: 1
-    spacing: Math.round(TextSingleton.height / 8)
+    spacing: Math.round(StylePrivate.TextSingleton.height / 8)
 
     hoverEnabled: true
 
@@ -58,7 +56,7 @@ T.CheckBox {
         opacity: control.enabled ? 1 : 0.6
         text: control.text
         font: control.font
-        color: SystemPaletteSingleton.text(control.enabled)
+        color: StylePrivate.SystemPaletteSingleton.text(control.enabled)
         elide: Text.ElideRight
         visible: control.text
         horizontalAlignment: Text.AlignLeft

@@ -22,8 +22,7 @@
 
 import QtQuick 2.6
 import QtQuick.Templates 2.0 as T
-import QtQuick.Controls 1.0 as QQC1
-import QtQuick.Controls.Private 1.0
+import org.kde.qqc2desktopstyle.private 1.0 as StylePrivate
 
 T.MenuItem {
     id: control
@@ -44,7 +43,7 @@ T.MenuItem {
 
         text: control.text
         font: control.font
-        color: control.hovered && !control.pressed ? SystemPaletteSingleton.highlightedText(control.enabled) : SystemPaletteSingleton.text(control.enabled)
+        color: control.hovered && !control.pressed ? StylePrivate.SystemPaletteSingleton.highlightedText(control.enabled) : StylePrivate.SystemPaletteSingleton.text(control.enabled)
         elide: Text.ElideRight
         visible: control.text
         horizontalAlignment: Text.AlignLeft
@@ -64,7 +63,7 @@ T.MenuItem {
 
         Rectangle {
             anchors.fill: parent
-            color: SystemPaletteSingleton.highlight(control.enabled)
+            color: StylePrivate.SystemPaletteSingleton.highlight(control.enabled)
             opacity: control.hovered && !control.pressed ? 1 : 0
             Behavior on opacity { NumberAnimation { duration: 150 } }
         }

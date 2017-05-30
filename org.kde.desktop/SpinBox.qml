@@ -22,9 +22,7 @@
 
 import QtQuick 2.6
 import QtQuick.Templates 2.0 as T
-import QtQuick.Controls 1.0
-import QtQuick.Controls 2.0 as Controls
-import QtQuick.Controls.Private 1.0
+import org.kde.qqc2desktopstyle.private 1.0 as StylePrivate
 
 T.SpinBox {
     id: control
@@ -49,9 +47,9 @@ T.SpinBox {
         opacity: control.enabled ? 1 : 0.3
 
         font: control.font
-        color: SystemPaletteSingleton.text(control.enabled)
-        selectionColor: SystemPaletteSingleton.highlight(control.enabled)
-        selectedTextColor: SystemPaletteSingleton.highlightedText(control.enabled)
+        color: StylePrivate.SystemPaletteSingleton.text(control.enabled)
+        selectionColor: StylePrivate.SystemPaletteSingleton.highlight(control.enabled)
+        selectedTextColor: StylePrivate.SystemPaletteSingleton.highlightedText(control.enabled)
         horizontalAlignment: Qt.AlignHCenter
         verticalAlignment: Qt.AlignVCenter
 
@@ -74,7 +72,7 @@ T.SpinBox {
     }
 
 
-    background: StyleItem {
+    background: StylePrivate.StyleItem {
         id: styleitem
         elementType: "spinbox"
         anchors.fill: parent

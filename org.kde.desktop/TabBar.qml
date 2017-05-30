@@ -21,9 +21,7 @@
 
 
 import QtQuick 2.6
-//QQC1 is needed for StyleItem to fully work
-import QtQuick.Controls 1.0 as QQC1
-import QtQuick.Controls.Private 1.0
+import org.kde.qqc2desktopstyle.private 1.0 as StylePrivate
 import QtQuick.Templates 2.0 as T
 
 T.TabBar {
@@ -53,7 +51,7 @@ T.TabBar {
         preferredHighlightEnd: width - 40
     }
 
-    StyleItem {
+    StylePrivate.StyleItem {
         id: styleItem
         visible: false
         elementType: "tabframe"
@@ -71,7 +69,7 @@ T.TabBar {
                 top : control.position == T.TabBar.Header ? undefined : parent.top
             }
             height: 1
-            color: SystemPaletteSingleton.text(control.enabled)
+            color: StylePrivate.SystemPaletteSingleton.text(control.enabled)
             opacity: 0.4
         }
     }

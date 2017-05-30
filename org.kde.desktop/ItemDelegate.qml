@@ -21,7 +21,7 @@
 
 
 import QtQuick 2.5
-import QtQuick.Controls.Private 1.0
+import org.kde.qqc2desktopstyle.private 1.0 as StylePrivate
 import QtQuick.Templates 2.0 as T
 import "private"
 
@@ -43,7 +43,7 @@ T.ItemDelegate {
 
         text: control.text
         font: control.font
-        color: control.highlighted || control.checked || (control.pressed && !control.checked && !control.sectionDelegate) ? SystemPaletteSingleton.highlightedText(control.enabled) : SystemPaletteSingleton.text(control.enabled)
+        color: control.highlighted || control.checked || (control.pressed && !control.checked && !control.sectionDelegate) ? StylePrivate.SystemPaletteSingleton.highlightedText(control.enabled) : StylePrivate.SystemPaletteSingleton.text(control.enabled)
         elide: Text.ElideRight
         visible: control.text
         horizontalAlignment: Text.AlignLeft

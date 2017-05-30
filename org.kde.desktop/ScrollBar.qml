@@ -21,9 +21,7 @@
 
 
 import QtQuick 2.6
-//QQC1 is needed for StyleItem to fully work
-import QtQuick.Controls 1.0 as QQC1
-import QtQuick.Controls.Private 1.0
+import org.kde.qqc2desktopstyle.private 1.0 as StylePrivate
 import QtQuick.Templates 2.0 as T
 
 T.ScrollBar {
@@ -65,7 +63,7 @@ T.ScrollBar {
         implicitWidth: style.horizontal ? 200 : style.pixelMetric("scrollbarExtent")
         implicitHeight: style.horizontal ? style.pixelMetric("scrollbarExtent") : 200
 
-        StyleItem {
+        StylePrivate.StyleItem {
             id: style
             anchors.fill: parent
             elementType: "scrollbar"
@@ -96,7 +94,7 @@ T.ScrollBar {
                 }
             }
         }
-        StyleItem {
+        StylePrivate.StyleItem {
             anchors.fill: parent
             elementType: "scrollbar"
             activeControl: "none"

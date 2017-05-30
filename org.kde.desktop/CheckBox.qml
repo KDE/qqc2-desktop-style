@@ -23,12 +23,10 @@
 import QtQuick 2.6
 import QtQuick.Templates 2.0 as T
 import QtQuick.Controls 2.0
-//QQC1 is needed for StyleItem to fully work
-import QtQuick.Controls 1.0 as QQC1
-import QtQuick.Controls.Private 1.0
+import org.kde.qqc2desktopstyle.private 1.0 as StylePrivate
 
 T.CheckBox {
-    id: control
+    id: controlRoot
 
     implicitWidth: Math.max(background ? background.implicitWidth : 0,
                             contentItem.implicitWidth + leftPadding + rightPadding)
@@ -38,29 +36,29 @@ T.CheckBox {
     baselineOffset: contentItem.y + contentItem.baselineOffset
 
     padding: 1
-    spacing: Math.round(TextSingleton.height / 8)
+    spacing: Math.round(StylePrivate.TextSingleton.height / 8)
 
     hoverEnabled: true
 
     indicator: CheckIndicator {
-        LayoutMirroring.enabled: control.mirrored
+        LayoutMirroring.enabled: controlRoot.mirrored
         LayoutMirroring.childrenInherit: true
         anchors {
             left: parent.left
             verticalCenter: parent.verticalCenter
         }
-        control: control
+        control: controlRoot
     }
 
     contentItem: Label {
-        leftPadding: control.indicator && !control.mirrored ? control.indicator.width + control.spacing : 0
-        rightPadding: control.indicator && control.mirrored ? control.indicator.width + control.spacing : 0
-        opacity: control.enabled ? 1 : 0.6
-        text: control.text
-        font: control.font
-        color: SystemPaletteSingleton.text(control.enabled)
+        leftPadding: controlRoot.indicator && !controlRoot.mirrored ? controlRoot.indicator.width + controlRoot.spacing : 0
+        rightPadding: controlRoot.indicator && controlRoot.mirrored ? controlRoot.indicator.width + controlRoot.spacing : 0
+        opacity: controlRoot.enabled ? 1 : 0.6
+        text: controlRoot.text
+        font: controlRoot.font
+        color: StylePrivate.SystemPaletteSingleton.text(controlRoot.enabled)
         elide: Text.ElideRight
-        visible: control.text
+        visible: controlRoot.text
         horizontalAlignment: Text.AlignLeft
         verticalAlignment: Text.AlignVCenter
     }

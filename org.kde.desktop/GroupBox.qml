@@ -42,7 +42,7 @@ T.GroupBox {
 
         text: control.title
         font: control.font
-        color: SystemPaletteSingleton.text(control.enabled)
+        color: StylePrivate.SystemPaletteSingleton.text(control.enabled)
         elide: Text.ElideRight
         horizontalAlignment: Text.AlignLeft
         verticalAlignment: Text.AlignVCenter
@@ -50,7 +50,7 @@ T.GroupBox {
 
     background: Rectangle {
         color: "transparent"
-        property color borderColor: SystemPaletteSingleton.text(control.enabled)
+        property color borderColor: StylePrivate.SystemPaletteSingleton.text(control.enabled)
         border.color: Qt.rgba(borderColor.r, borderColor.g, borderColor.b, 0.3)
     }
 }

@@ -19,27 +19,7 @@
  * met: http://www.gnu.org/licenses/gpl-2.0.html.
  */
 
-
-import QtQuick 2.1
-import QtQuick.Templates 2.0 as T
-import org.kde.qqc2desktopstyle.private 1.0 as StylePrivate
-
-T.Label {
-    id: control
-
-    height: Math.round(Math.max(paintedHeight, StylePrivate.TextSingleton.height * 1.6))
-    verticalAlignment: lineCount > 1 ? Text.AlignTop : Text.AlignVCenter
-
-    activeFocusOnTab: false
-    renderType: Text.NativeRendering
-
-    //font data is the system one by default
-    color: StylePrivate.SystemPaletteSingleton.text(control.enabled)
-    //StylePrivate.SystemPaletteSingleton doesn't have a link color
-    linkColor: "#2196F3"
-
-    opacity: enabled? 1 : 0.6
-
-    Accessible.role: Accessible.StaticText
-    Accessible.name: text
+pragma Singleton
+import QtQuick 2.2
+Text {
 }

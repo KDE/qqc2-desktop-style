@@ -22,9 +22,7 @@
 
 import QtQuick 2.6
 import QtQuick.Templates 2.0 as T
-//QQC1 is needed for StyleItem to fully work
-import QtQuick.Controls 1.0 as QQC1
-import QtQuick.Controls.Private 1.0
+import org.kde.qqc2desktopstyle.private 1.0 as StylePrivate
 
 T.TextField {
     id: control
@@ -38,9 +36,9 @@ T.TextField {
 
     padding: 6
 
-    color: SystemPaletteSingleton.text(control.enabled)
-    selectionColor: SystemPaletteSingleton.highlight(control.enabled)
-    selectedTextColor: SystemPaletteSingleton.highlightedText(control.enabled)
+    color: StylePrivate.SystemPaletteSingleton.text(control.enabled)
+    selectionColor: StylePrivate.SystemPaletteSingleton.highlight(control.enabled)
+    selectedTextColor: StylePrivate.SystemPaletteSingleton.highlightedText(control.enabled)
     verticalAlignment: TextInput.AlignVCenter
 
     Label {
@@ -52,14 +50,14 @@ T.TextField {
 
         text: control.placeholderText
         font: control.font
-        color: SystemPaletteSingleton.text(false)
+        color: StylePrivate.SystemPaletteSingleton.text(false)
         horizontalAlignment: control.horizontalAlignment
         verticalAlignment: control.verticalAlignment
         visible: !control.length && !control.preeditText && (!control.activeFocus || control.horizontalAlignment !== Qt.AlignHCenter)
         elide: Text.ElideRight
     }
 
-    background: StyleItem {
+    background: StylePrivate.StyleItem {
         id: style
         elementType: "edit"
 

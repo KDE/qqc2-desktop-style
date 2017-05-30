@@ -19,4 +19,5 @@ target_link_libraries(qqc2desktopstyleplugin Qt5::Core  Qt5::Qml Qt5::Quick Qt5:
 
 install(TARGETS qqc2desktopstyleplugin DESTINATION ${KDE_INSTALL_QMLDIR}/org/kde/qqc2desktopstyle/private)
 install(FILES SystemPaletteSingleton.qml DESTINATION ${KDE_INSTALL_QMLDIR}/org/kde/qqc2desktopstyle/private)
+install(FILES TextSingleton.qml DESTINATION ${KDE_INSTALL_QMLDIR}/org/kde/qqc2desktopstyle/private)
 install(FILES qmldir DESTINATION ${KDE_INSTALL_QMLDIR}/org/kde/qqc2desktopstyle/private)

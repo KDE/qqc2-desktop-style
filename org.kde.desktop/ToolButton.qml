@@ -22,7 +22,7 @@
 
 import QtQuick 2.6
 import QtQuick.Templates 2.0 as T
-import org.kde.qqc2desktopstyle.private 1.0
+import org.kde.qqc2desktopstyle.private 1.0 as StylePrivate
 
 T.ToolButton {
     id: controlRoot
@@ -34,7 +34,7 @@ T.ToolButton {
 
     flat: true
     contentItem: Item {}
-    background: StyleItem {
+    background: StylePrivate.StyleItem {
         id: styleitem
         control: controlRoot
         elementType: controlRoot.flat ? "toolbutton" : "button"

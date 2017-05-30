@@ -23,8 +23,7 @@
 import QtQuick 2.6
 import QtGraphicalEffects 1.0
 import QtQuick.Templates 2.0 as T
-import QtQuick.Controls 1.0
-import QtQuick.Controls.Private 1.0
+import org.kde.qqc2desktopstyle.private 1.0 as StylePrivate
 
 T.Popup {
     id: control
@@ -63,8 +62,8 @@ T.Popup {
 
     background: Rectangle {
         radius: 2
-        color: SystemPaletteSingleton.window(control.enabled)
-        property color borderColor: SystemPaletteSingleton.text(control.enabled)
+        color: StylePrivate.SystemPaletteSingleton.window(control.enabled)
+        property color borderColor: StylePrivate.SystemPaletteSingleton.text(control.enabled)
         border.color: Qt.rgba(borderColor.r, borderColor.g, borderColor.b, 0.3)
         layer.enabled: true
         

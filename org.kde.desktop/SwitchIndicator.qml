@@ -21,16 +21,15 @@
 
 
 import QtQuick 2.6
-//QQC1 is needed for StyleItem to fully work
-import QtQuick.Controls 1.0 as QQC1
-import QtQuick.Controls.Private 1.0
+import org.kde.qqc2desktopstyle.private 1.0 as StylePrivate
 
 Item {
-    property Item control
+    property alias control: slider.control
     implicitWidth: 32
     implicitHeight : 22
 
-    StyleItem {
+    StylePrivate.StyleItem {
+        id: slider
         anchors.fill: parent
         elementType: "slider"
         sunken: control.pressed
