@@ -18,7 +18,7 @@
  */
 
 #include "qqc2desktopstyleplugin.h"
-#include "qquickstyleitem_p.h"
+#include "kquickstyleitem_p.h"
 
 #include <QQmlEngine>
 #include <QQmlContext>
@@ -29,7 +29,7 @@ void QQc2DesktopStylePlugin::registerTypes(const char *uri)
 {
     Q_ASSERT(uri == QLatin1String("org.kde.qqc2desktopstyle.private"));
  
-    qmlRegisterType<QQuickStyleItem1>(uri, 1, 0, "StyleItem");
+    qmlRegisterType<KQuickStyleItem>(uri, 1, 0, "StyleItem");
 
     qmlProtectModule(uri, 2);
 }

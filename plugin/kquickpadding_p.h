@@ -37,12 +37,12 @@
 **
 ****************************************************************************/
 
-#ifndef QQUICKPADDING_H
-#define QQUICKPADDING_H
+#ifndef KQUICKPADDING_H
+#define KQUICKPADDING_H
 
 #include <QtCore/qobject.h>
 
-class QQuickPadding1 : public QObject
+class KQuickPadding : public QObject
 {
     Q_OBJECT
 
@@ -57,7 +57,7 @@ class QQuickPadding1 : public QObject
     int m_bottom;
 
 public:
-    QQuickPadding1(QObject *parent = 0) :
+    KQuickPadding(QObject *parent = 0) :
         QObject(parent),
         m_left(0),
         m_top(0),

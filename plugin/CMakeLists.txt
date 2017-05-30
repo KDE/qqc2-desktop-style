@@ -2,7 +2,7 @@ project(qqc2desktopstyle)
 
 set(qqc2desktopstyle_SRCS
     qqc2desktopstyleplugin.cpp
-    qquickstyleitem.cpp
+    kquickstyleitem.cpp
     )
 
 if(Qt5_VERSION VERSION_LESS "5.8.0")

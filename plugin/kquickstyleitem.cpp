@@ -37,7 +37,7 @@
 **
 ****************************************************************************/
 
-#include "qquickstyleitem_p.h"
+#include "kquickstyleitem_p.h"
 
 #include <qstringbuilder.h>
 #include <qpainter.h>
@@ -53,7 +53,7 @@
 #endif
 
 
-QQuickStyleItem1::QQuickStyleItem1(QQuickItem *parent)
+KQuickStyleItem::KQuickStyleItem(QQuickItem *parent)
     : QQuickItem(parent),
     m_styleoption(0),
     m_itemType(Undefined),
@@ -117,7 +117,7 @@ QQuickStyleItem1::QQuickStyleItem1(QQuickItem *parent)
     connect(this, SIGNAL(contentHeightChanged(int)), this, SLOT(updateBaselineOffset()));
 }
 
-QQuickStyleItem1::~QQuickStyleItem1()
+KQuickStyleItem::~KQuickStyleItem()
 {
     if (const QStyleOptionButton *aux = qstyleoption_cast<const QStyleOptionButton*>(m_styleoption))
         delete aux;
@@ -155,7 +155,7 @@ QQuickStyleItem1::~QQuickStyleItem1()
     m_styleoption = 0;
 }
 
-void QQuickStyleItem1::initStyleOption()
+void KQuickStyleItem::initStyleOption()
 {
     if (m_styleoption)
         m_styleoption->state = 0;
@@ -416,19 +416,19 @@ void QQuickStyleItem1::initStyleOption()
         // For GTK style. See below, in setElementType()
         setProperty("_q_isComboBoxPopupItem", m_itemType == ComboBoxItem);
 
-        QQuickStyleItem1::MenuItemType type =
-                static_cast<QQuickStyleItem1::MenuItemType>(m_properties[QStringLiteral("type")].toInt());
-        if (type == QQuickStyleItem1::ScrollIndicatorType) {
+        KQuickStyleItem::MenuItemType type =
+                static_cast<KQuickStyleItem::MenuItemType>(m_properties[QStringLiteral("type")].toInt());
+        if (type == KQuickStyleItem::ScrollIndicatorType) {
             int scrollerDirection = m_properties[QStringLiteral("scrollerDirection")].toInt();
             opt->menuItemType = QStyleOptionMenuItem::Scroller;
             opt->state |= scrollerDirection == Qt::UpArrow ?
                         QStyle::State_UpArrow : QStyle::State_DownArrow;
-        } else if (type == QQuickStyleItem1::SeparatorType) {
+        } else if (type == KQuickStyleItem::SeparatorType) {
             opt->menuItemType = QStyleOptionMenuItem::Separator;
         } else {
             opt->text = text();
 
-            if (type == QQuickStyleItem1::MenuType) {
+            if (type == KQuickStyleItem::MenuType) {
                 opt->menuItemType = QStyleOptionMenuItem::SubMenu;
             } else {
                 opt->menuItemType = QStyleOptionMenuItem::Normal;
@@ -676,7 +676,7 @@ void QQuickStyleItem1::initStyleOption()
 
 }
 
-const char* QQuickStyleItem1::classNameForItem() const
+const char* KQuickStyleItem::classNameForItem() const
 {
     switch(m_itemType) {
     case Button:
@@ -718,7 +718,7 @@ const char* QQuickStyleItem1::classNameForItem() const
     Q_UNREACHABLE();
 }
 
-void QQuickStyleItem1::resolvePalette()
+void KQuickStyleItem::resolvePalette()
 {
     if (QCoreApplication::testAttribute(Qt::AA_SetPalette))
         return;
@@ -736,7 +736,7 @@ void QQuickStyleItem1::resolvePalette()
  *   QFusionStyle = "fusion"
  */
 
-QString QQuickStyleItem1::style() const
+QString KQuickStyleItem::style() const
 {
     QString style = qApp->style()->metaObject()->className();
     style = style.toLower();
@@ -747,7 +747,7 @@ QString QQuickStyleItem1::style() const
     return style;
 }
 
-QString QQuickStyleItem1::hitTest(int px, int py)
+QString KQuickStyleItem::hitTest(int px, int py)
 {
     QStyle::SubControl subcontrol = QStyle::SC_All;
     switch (m_itemType) {
@@ -803,7 +803,7 @@ QString QQuickStyleItem1::hitTest(int px, int py)
     return QStringLiteral("none");
 }
 
-QSize QQuickStyleItem1::sizeFromContents(int width, int height)
+QSize KQuickStyleItem::sizeFromContents(int width, int height)
 {
     initStyleOption();
 
@@ -961,7 +961,7 @@ QSize QQuickStyleItem1::sizeFromContents(int width, int height)
     }    return size;
 }
 
-qreal QQuickStyleItem1::baselineOffset()
+qreal KQuickStyleItem::baselineOffset()
 {
     QRect r;
     bool ceilResult = true; // By default baseline offset rounding is done upwards
@@ -1022,14 +1022,14 @@ qreal QQuickStyleItem1::baselineOffset()
     return 0.;
 }
 
-void QQuickStyleItem1::updateBaselineOffset()
+void KQuickStyleItem::updateBaselineOffset()
 {
     const qreal baseline = baselineOffset();
     if (baseline > 0)
         setBaselineOffset(baseline);
 }
 
-void QQuickStyleItem1::setContentWidth(int arg)
+void KQuickStyleItem::setContentWidth(int arg)
 {
     if (m_contentWidth != arg) {
         m_contentWidth = arg;
@@ -1037,7 +1037,7 @@ void QQuickStyleItem1::setContentWidth(int arg)
     }
 }
 
-void QQuickStyleItem1::setContentHeight(int arg)
+void KQuickStyleItem::setContentHeight(int arg)
 {
     if (m_contentHeight != arg) {
         m_contentHeight = arg;
@@ -1045,20 +1045,20 @@ void QQuickStyleItem1::setContentHeight(int arg)
     }
 }
 
-void QQuickStyleItem1::updateSizeHint()
+void KQuickStyleItem::updateSizeHint()
 {
     QSize implicitSize = sizeFromContents(m_contentWidth, m_contentHeight);
     setImplicitSize(implicitSize.width(), implicitSize.height());
 }
 
-void QQuickStyleItem1::updateRect()
+void KQuickStyleItem::updateRect()
 {
     initStyleOption();
     m_styleoption->rect.setWidth(width());
     m_styleoption->rect.setHeight(height());
 }
 
-int QQuickStyleItem1::pixelMetric(const QString &metric)
+int KQuickStyleItem::pixelMetric(const QString &metric)
 {
 
     if (metric == QLatin1String("scrollbarExtent"))
@@ -1106,7 +1106,7 @@ int QQuickStyleItem1::pixelMetric(const QString &metric)
     return 0;
 }
 
-QVariant QQuickStyleItem1::styleHint(const QString &metric)
+QVariant KQuickStyleItem::styleHint(const QString &metric)
 {
     initStyleOption();
     if (metric == QLatin1String("comboboxpopup")) {
@@ -1139,7 +1139,7 @@ QVariant QQuickStyleItem1::styleHint(const QString &metric)
     // Add SH_Menu_SpaceActivatesItem
 }
 
-void QQuickStyleItem1::setHints(const QVariantMap &str)
+void KQuickStyleItem::setHints(const QVariantMap &str)
 {
     if (m_hints != str) {
         m_hints = str;
@@ -1157,13 +1157,13 @@ void QQuickStyleItem1::setHints(const QVariantMap &str)
     }
 }
 
-void QQuickStyleItem1::resetHints()
+void KQuickStyleItem::resetHints()
 {
     m_hints.clear();
 }
 
 
-void QQuickStyleItem1::setElementType(const QString &str)
+void KQuickStyleItem::setElementType(const QString &str)
 {
     if (m_type == str)
         return;
@@ -1254,7 +1254,7 @@ void QQuickStyleItem1::setElementType(const QString &str)
     updateSizeHint();
 }
 
-QRectF QQuickStyleItem1::subControlRect(const QString &subcontrolString)
+QRectF KQuickStyleItem::subControlRect(const QString &subcontrolString)
 {
     QStyle::SubControl subcontrol = QStyle::SC_None;
     initStyleOption();
@@ -1339,7 +1339,7 @@ private:
 };
 }
 
-void QQuickStyleItem1::paint(QPainter *painter)
+void KQuickStyleItem::paint(QPainter *painter)
 {
     initStyleOption();
     if (QStyleOptionMenuItem *opt = qstyleoption_cast<QStyleOptionMenuItem*>(m_styleoption))
@@ -1616,30 +1616,30 @@ void QQuickStyleItem1::paint(QPainter *painter)
     }
 }
 
-qreal QQuickStyleItem1::textWidth(const QString &text)
+qreal KQuickStyleItem::textWidth(const QString &text)
 {
     QFontMetricsF fm = QFontMetricsF(m_styleoption->fontMetrics);
     return fm.boundingRect(text).width();
 }
 
-qreal QQuickStyleItem1::textHeight(const QString &text)
+qreal KQuickStyleItem::textHeight(const QString &text)
 {
     QFontMetricsF fm = QFontMetricsF(m_styleoption->fontMetrics);
     return text.isEmpty() ? fm.height() :
                             fm.boundingRect(text).height();
 }
 
-QString QQuickStyleItem1::elidedText(const QString &text, int elideMode, int width)
+QString KQuickStyleItem::elidedText(const QString &text, int elideMode, int width)
 {
     return m_styleoption->fontMetrics.elidedText(text, Qt::TextElideMode(elideMode), width);
 }
 
-bool QQuickStyleItem1::hasThemeIcon(const QString &icon) const
+bool KQuickStyleItem::hasThemeIcon(const QString &icon) const
 {
     return QIcon::hasThemeIcon(icon);
 }
 
-bool QQuickStyleItem1::event(QEvent *ev)
+bool KQuickStyleItem::event(QEvent *ev)
 {
     if (ev->type() == QEvent::StyleAnimationUpdate) {
         if (isVisible()) {
@@ -1654,7 +1654,7 @@ bool QQuickStyleItem1::event(QEvent *ev)
     return QQuickItem::event(ev);
 }
 
-void QQuickStyleItem1::setTextureWidth(int w)
+void KQuickStyleItem::setTextureWidth(int w)
 {
     if (m_textureWidth == w)
         return;
@@ -1663,7 +1663,7 @@ void QQuickStyleItem1::setTextureWidth(int w)
     update();
 }
 
-void QQuickStyleItem1::setTextureHeight(int h)
+void KQuickStyleItem::setTextureHeight(int h)
 {
     if (m_textureHeight == h)
         return;
@@ -1672,12 +1672,12 @@ void QQuickStyleItem1::setTextureHeight(int h)
     update();
 }
 
-QQuickItem *QQuickStyleItem1::control() const
+QQuickItem *KQuickStyleItem::control() const
 {
     return m_control;
 }
 
-void QQuickStyleItem1::setControl(QQuickItem *control)
+void KQuickStyleItem::setControl(QQuickItem *control)
 {
     if (control == m_control) {
         return;
@@ -1693,7 +1693,7 @@ void QQuickStyleItem1::setControl(QQuickItem *control)
     emit controlChanged();
 }
 
-QSGNode *QQuickStyleItem1::updatePaintNode(QSGNode *node, UpdatePaintNodeData *)
+QSGNode *KQuickStyleItem::updatePaintNode(QSGNode *node, UpdatePaintNodeData *)
 {
     if (m_image.isNull()) {
         delete node;
@@ -1725,7 +1725,7 @@ QSGNode *QQuickStyleItem1::updatePaintNode(QSGNode *node, UpdatePaintNodeData *)
     return styleNode;
 }
 
-void QQuickStyleItem1::updatePolish()
+void KQuickStyleItem::updatePolish()
 {
     if (width() >= 1 && height() >= 1) { // Note these are reals so 1 pixel is minimum
         float devicePixelRatio = window() ? window()->devicePixelRatio() : qApp->devicePixelRatio();
@@ -1744,7 +1744,7 @@ void QQuickStyleItem1::updatePolish()
     }
 }
 
-bool QQuickStyleItem1::eventFilter(QObject *watched, QEvent *event)
+bool KQuickStyleItem::eventFilter(QObject *watched, QEvent *event)
 {
     if (event->type() == QEvent::FocusIn || event->type() == QEvent::FocusOut) {
         QFocusEvent *fe = static_cast<QFocusEvent *>(event);
@@ -1795,5 +1795,5 @@ QPixmap QQuickTableRowImageProvider1::requestPixmap(const QString &id, QSize *si
     return pixmap;
 }
 
-#include "moc_qquickstyleitem_p.cpp"
-#include "moc_qquickpadding_p.cpp"
+#include "moc_kquickstyleitem_p.cpp"
+#include "moc_kquickpadding_p.cpp"

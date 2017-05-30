@@ -37,13 +37,13 @@
 **
 ****************************************************************************/
 
-#ifndef QQUICKSTYLEITEM_P_H
-#define QQUICKSTYLEITEM_P_H
+#ifndef KQUICKSTYLEITEM_P_H
+#define KQUICKSTYLEITEM_P_H
 
 #include <QtGui/qimage.h>
 #include <QtQuick/qquickitem.h>
 #include <QtQuick/qquickimageprovider.h>
-#include "qquickpadding_p.h"
+#include "kquickpadding_p.h"
 #include <QPointer>
 
 class QWidget;
@@ -57,11 +57,11 @@ public:
     QPixmap requestPixmap(const QString &id, QSize *size, const QSize &requestedSize);
 };
 
-class QQuickStyleItem1: public QQuickItem
+class KQuickStyleItem: public QQuickItem
 {
     Q_OBJECT
 
-    Q_PROPERTY(QQuickPadding1* border READ border CONSTANT)
+    Q_PROPERTY(KQuickPadding* border READ border CONSTANT)
 
     Q_PROPERTY( bool sunken READ sunken WRITE setSunken NOTIFY sunkenChanged)
     Q_PROPERTY( bool raised READ raised WRITE setRaised NOTIFY raisedChanged)
@@ -96,11 +96,11 @@ class QQuickStyleItem1: public QQuickItem
 
     Q_PROPERTY( QQuickItem *control READ control WRITE setControl NOTIFY controlChanged)
 
-    QQuickPadding1* border() { return &m_border; }
+    KQuickPadding* border() { return &m_border; }
 
 public:
-    QQuickStyleItem1(QQuickItem *parent = 0);
-    ~QQuickStyleItem1();
+    KQuickStyleItem(QQuickItem *parent = 0);
+    ~KQuickStyleItem();
 
     enum MenuItemType {
         SeparatorType = 0,
@@ -306,7 +306,7 @@ protected:
     Qt::FocusReason m_lastFocusReason;
 
     QImage m_image;
-    QQuickPadding1 m_border;
+    KQuickPadding m_border;
 };
 
 
