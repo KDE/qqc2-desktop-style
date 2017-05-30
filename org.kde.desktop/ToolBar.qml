@@ -22,11 +22,10 @@
 
 import QtQuick 2.6
 import QtQuick.Templates 2.0 as T
-import QtQuick.Controls 1.0 as QQC1
-import QtQuick.Controls.Private 1.0
+import org.kde.qqc2desktopstyle.private 1.0
 
 T.ToolBar {
-    id: control
+    id: controlRoot
 
     implicitWidth: Math.max(background ? background.implicitWidth : 0, contentWidth + leftPadding + rightPadding)
     implicitHeight: Math.max(background ? background.implicitHeight : 0, contentHeight + topPadding + bottomPadding)
@@ -38,7 +37,7 @@ T.ToolBar {
 
     background: Rectangle {
         implicitHeight: 40
-        color: SystemPaletteSingleton.window(control.enabled)
+        color: SystemPaletteSingleton.window(controlRoot.enabled)
         Rectangle {
             anchors {
                 left: parent.left
@@ -46,7 +45,7 @@ T.ToolBar {
                 bottom: parent.bottom
             }
             height: 1
-            color: SystemPaletteSingleton.text(control.enabled)
+            color: SystemPaletteSingleton.text(controlRoot.enabled)
             opacity: 0.3
         }
     }

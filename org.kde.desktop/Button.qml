@@ -21,12 +21,10 @@
 
 import QtQuick 2.6
 import QtQuick.Templates 2.0 as T
-//QQC1 is needed for StyleItem to fully work
-import QtQuick.Controls 1.0 as QQC1
 import org.kde.qqc2desktopstyle.private 1.0
 
 T.Button {
-    id: control
+    id: controlRoot
 
     implicitWidth: background.implicitWidth
     implicitHeight: background.implicitHeight
@@ -36,13 +34,13 @@ T.Button {
     contentItem: Item {}
     background: StyleItem {
         id: styleitem
-        control: control
+        control: controlRoot
         elementType: "button"
-        sunken: control.pressed || (control.checkable && control.checked)
-        raised: !(control.pressed || (control.checkable && control.checked))
-        hover: control.hovered
-        text: control.text
-        hasFocus: control.activeFocus
-        activeControl: control.isDefault ? "default" : "f"
+        sunken: controlRoot.pressed || (controlRoot.checkable && controlRoot.checked)
+        raised: !(controlRoot.pressed || (controlRoot.checkable && controlRoot.checked))
+        hover: controlRoot.hovered
+        text: controlRoot.text
+        hasFocus: controlRoot.activeFocus
+        activeControl: controlRoot.isDefault ? "default" : "f"
     }
 }
