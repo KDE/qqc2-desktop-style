@@ -1,5 +1,7 @@
 /****************************************************************************
 **
+** Copyright 2017 by Marco Martin <mart@kde.org>
+** Copyright 2017 by David Edmundson <davidedmundson@kde.org>
 ** Copyright (C) 2016 The Qt Company Ltd.
 ** Contact: https://www.qt.io/licensing/
 **
