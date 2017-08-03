@@ -21,6 +21,7 @@
 
 
 import QtQuick 2.1
+import QtQuick.Window 2.2
 import QtQuick.Templates 2.0 as T
 import org.kde.qqc2desktopstyle.private 1.0 as StylePrivate
 
@@ -31,7 +32,9 @@ T.Label {
     verticalAlignment: lineCount > 1 ? Text.AlignTop : Text.AlignVCenter
 
     activeFocusOnTab: false
-    renderType: Text.NativeRendering
+    //Text.NativeRendering is broken on non integer pixel ratios
+    renderType: Window.devicePixelRatio % 1 !== 0 ? Text.QtRendering : Text.NativeRendering
+    
 
     //font data is the system one by default
     color: StylePrivate.SystemPaletteSingleton.text(control.enabled)

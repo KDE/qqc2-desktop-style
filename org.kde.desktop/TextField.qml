@@ -41,6 +41,9 @@ T.TextField {
     selectionColor: StylePrivate.SystemPaletteSingleton.highlight(controlRoot.enabled)
     selectedTextColor: StylePrivate.SystemPaletteSingleton.highlightedText(controlRoot.enabled)
     verticalAlignment: TextInput.AlignVCenter
+    //Text.NativeRendering is broken on non integer pixel ratios
+    renderType: Window.devicePixelRatio % 1 !== 0 ? Text.QtRendering : Text.NativeRendering
+    selectByMouse: true
 
     Controls.Label {
         id: placeholder

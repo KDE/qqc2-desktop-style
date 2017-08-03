@@ -41,8 +41,9 @@ T.TextArea {
     selectedTextColor: StylePrivate.SystemPaletteSingleton.highlightedText(controlRoot.enabled)
     wrapMode: Text.WordWrap
     verticalAlignment: TextEdit.AlignTop
-    renderType: Text.NativeRendering
-    
+    //Text.NativeRendering is broken on non integer pixel ratios
+    renderType: Window.devicePixelRatio % 1 !== 0 ? Text.QtRendering : Text.NativeRendering
+    selectByMouse: true
 
     Label {
         id: placeholder
