@@ -33,7 +33,7 @@ T.ToolBar {
     contentWidth: contentChildren[0].implicitWidth
     contentHeight: contentChildren[0].implicitHeight
 
-    contentItem: Item { }
+    contentItem: Item {}
 
     background: Rectangle {
         implicitHeight: 40
@@ -42,7 +42,8 @@ T.ToolBar {
             anchors {
                 left: parent.left
                 right: parent.right
-                bottom: parent.bottom
+                top: controlRoot.parent.footer && controlRoot.parent.footer == controlRoot ? parent.top : undefined
+                bottom: controlRoot.parent.footer && controlRoot.parent.footer == controlRoot ? undefined : parent.top
             }
             height: 1
             color: StylePrivate.SystemPaletteSingleton.text(controlRoot.enabled)
