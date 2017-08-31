@@ -36,13 +36,6 @@ T.ScrollView {
     contentWidth: contentItem.implicitWidth || (contentChildren.length === 1 ? contentChildren[0].implicitWidth : -1)
     contentHeight: contentItem.implicitHeight || (contentChildren.length === 1 ? contentChildren[0].implicitHeight : -1)
 
-    property Flickable flickableItem: children.length > 1 ? children[1] : null
-    onFlickableItemChanged: {
-        flickableItem.parent = scrollHelper;
-        flickableItem.boundsBehavior = Flickable.StopAtBounds;
-        flickableItem.interactive = scrollHelper.isMobile;
-    }
-
     children: [
         MouseArea {
             id: scrollHelper
@@ -50,6 +43,13 @@ T.ScrollView {
             drag.filterChildren: !isMobile
             property bool isMobile: !verticalScrollBar.interactive
             onIsMobileChanged: {
+                flickableItem.boundsBehavior = scrollHelper.isMobile ? Flickable.DragAndOvershootBounds : Flickable.StopAtBounds;
+                flickableItem.interactive = scrollHelper.isMobile;
+            }
+            property Flickable flickableItem: control.children.length > 1 ? control.children[1] : null
+            onFlickableItemChanged: {
+                flickableItem.parent = scrollHelper;
+                flickableItem.boundsBehavior = scrollHelper.isMobile ? Flickable.DragAndOvershootBounds : Flickable.StopAtBounds;
                 flickableItem.interactive = scrollHelper.isMobile;
             }
             onWheel: {
@@ -75,7 +75,7 @@ T.ScrollView {
             Timer {
                 id: cancelFlickStateTimer
                 interval: 150
-                onTriggered: flickableItem.cancelFlick()
+                onTriggered: scrollHelper.flickableItem.cancelFlick()
             }
         }
     ]
