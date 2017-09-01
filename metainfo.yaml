@@ -1,0 +1,19 @@
+maintainer: mart
+description: QtQuickControls 2 style that integrates with the desktop
+tier: 1
+type: functional
+platforms:
+    - name: Linux
+    - name: FreeBSD
+    - name: Windows
+    - name: MacOSX
+public_lib: true
+deprecated: false
+release: true
+libraries:
+ - cmake: KF5::QQC2DesktopStyle
+cmakename: KF5QQC2DesktopStyle
+irc: plasma
+mailinglist: plasma-devel
+group: Frameworks
+subgroup: Tier 1

@@ -1,7 +1,10 @@
 project(qqc2-desktop-style)
 
 cmake_minimum_required(VERSION 2.8.12)
-set(KF5_MIN_VERSION "5.18.0")
+
+set(KF5_VERSION "5.37.0") # handled by release scripts
+set(KF5_DEP_VERSION "5.37.0") # handled by release scripts
+
 set(QT_MIN_VERSION "5.7.0")
 
 ################# Disallow in-source build #################
@@ -29,11 +32,33 @@ include(KDEInstallDirs)
 include(KDECMakeSettings)
 include(KDECompilerSettings NO_POLICY_SCOPE)
 
-set(KF5_VERSION "5.22.0")
-
 find_package(Qt5 ${QT_MIN_VERSION} REQUIRED NO_MODULE COMPONENTS Core Quick Gui Widgets)
 
 find_package(PkgConfig)
+
+set(CMAKECONFIG_INSTALL_DIR "${KDE_INSTALL_CMAKEPACKAGEDIR}/KF5QQC2DeskopStyle")
+
+configure_package_config_file(
+  "${CMAKE_CURRENT_SOURCE_DIR}/KF5QQC2DeskopStyleConfig.cmake.in"
+  "${CMAKE_CURRENT_BINARY_DIR}/KF5QQC2DeskopStyleConfig.cmake"
+  INSTALL_DESTINATION  ${CMAKECONFIG_INSTALL_DIR}
+  PATH_VARS  KF5_INCLUDE_INSTALL_DIR CMAKE_INSTALL_PREFIX
+)
+
+install(FILES
+  "${CMAKE_CURRENT_BINARY_DIR}/KF5QQC2DeskopStyleConfig.cmake"
+  "${CMAKE_CURRENT_BINARY_DIR}/KF5QQC2DeskopStyleConfigVersion.cmake"
+  DESTINATION "${CMAKECONFIG_INSTALL_DIR}"
+  COMPONENT Devel
+)
+
+
+ecm_setup_version(${KF5_VERSION}
+    VARIABLE_PREFIX QQC2DESKTOPSTYLE
+    VERSION_HEADER "${CMAKE_CURRENT_BINARY_DIR}/qqc2desktopstyle_version.h"
+    PACKAGE_VERSION_FILE "${CMAKE_CURRENT_BINARY_DIR}/KF5QQC2DeskopStyleConfigVersion.cmake"
+    SOVERSION 5)
+
 #########################################################################
 
 add_subdirectory(plugin)
