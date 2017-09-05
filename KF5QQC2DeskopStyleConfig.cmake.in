@@ -6,6 +6,4 @@
 
 set(QQC2DeskopStyle_INSTALL_PREFIX "@PACKAGE_CMAKE_INSTALL_PREFIX@")
 
-#set(QQC2DeskopStyle_LIBRARIES KF5::QQC2DeskopStyle)
 
-include("${CMAKE_CURRENT_LIST_DIR}/KF5QQC2DeskopStyleMacros.cmake")
