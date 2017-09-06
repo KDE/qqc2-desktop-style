@@ -48,6 +48,8 @@
 #include <qstyleoption.h>
 #include <qapplication.h>
 #include <qquickwindow.h>
+#include <qqmlengine.h>
+#include <qqmlcontext.h>
 #if QT_VERSION >= QT_VERSION_CHECK(5,8,0)
 #include <QtQuick/qsgninepatchnode.h>
 #else
@@ -694,7 +696,12 @@ void KQuickStyleItem::resolvePalette()
     if (QCoreApplication::testAttribute(Qt::AA_SetPalette))
         return;
 
-    m_styleoption->palette = QApplication::palette(classNameForItem());
+    QObject *scope = QQmlEngine::contextForObject(this)->contextProperty("_kirigami_ColorScope").value<QObject *>();
+    if (scope) {
+        m_styleoption->palette = scope->property("palette").value<QPalette>();
+    } else {
+        m_styleoption->palette = QApplication::palette(classNameForItem());
+    }
 }
 
 /*
