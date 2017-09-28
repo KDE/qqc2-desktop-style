@@ -36,6 +36,12 @@ T.ScrollView {
     contentWidth: contentItem.implicitWidth || (contentChildren.length === 1 ? contentChildren[0].implicitWidth : -1)
     contentHeight: contentItem.implicitHeight || (contentChildren.length === 1 ? contentChildren[0].implicitHeight : -1)
 
+    onChildrenChanged: {
+        if (control.children[control.children.length - 1].hasOwnProperty("contentY")) {
+print("SSS"+children[0]+children[1]+children[2]+children[3])
+            scrollHelper.flickableItem = control.children[control.children.length - 1];
+        }
+    }
     children: [
         MouseArea {
             id: scrollHelper
@@ -46,7 +52,7 @@ T.ScrollView {
                 flickableItem.boundsBehavior = scrollHelper.isMobile ? Flickable.DragAndOvershootBounds : Flickable.StopAtBounds;
                 flickableItem.interactive = scrollHelper.isMobile;
             }
-            property Flickable flickableItem: control.children.length > 1 ? control.children[1] : null
+            property Flickable flickableItem
             onFlickableItemChanged: {
                 flickableItem.parent = scrollHelper;
                 flickableItem.boundsBehavior = scrollHelper.isMobile ? Flickable.DragAndOvershootBounds : Flickable.StopAtBounds;
