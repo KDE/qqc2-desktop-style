@@ -35,6 +35,7 @@ PlasmaDesktopTheme::PlasmaDesktopTheme(QObject *parent)
 {
     m_parentItem = qobject_cast<QQuickItem *>(parent);
 
+    m_iconLoader = new KIconLoader(QString(), QStringList(), this);
     //null in case parent is a normal QObject
     if (m_parentItem) {
         connect(m_parentItem.data(), &QQuickItem::enabledChanged,
@@ -42,9 +43,14 @@ PlasmaDesktopTheme::PlasmaDesktopTheme(QObject *parent)
         if (m_parentItem && m_parentItem->window()) {
             connect(m_parentItem->window(), &QWindow::activeChanged,
                     this, &PlasmaDesktopTheme::syncColors);
+            m_window = m_parentItem->window();
         }
         connect(m_parentItem.data(), &QQuickItem::windowChanged,
                 this, [this]() {
+                    if (m_window) {
+                        disconnect(m_window.data(), &QWindow::activeChanged,
+                                this, &PlasmaDesktopTheme::syncColors);
+                    }
                     if (m_parentItem && m_parentItem->window()) {
                         connect(m_parentItem->window(), &QWindow::activeChanged,
                                 this, &PlasmaDesktopTheme::syncColors);
@@ -79,9 +85,9 @@ QIcon PlasmaDesktopTheme::iconFromTheme(const QString &name, const QColor &custo
         }
     }
 
-    KIconLoader::global()->setCustomPalette(pal);
+    m_iconLoader->setCustomPalette(pal);
 
-    return KDE::icon(name, KIconLoader::global());
+    return KDE::icon(name, m_iconLoader);
 }
 
 QStringList PlasmaDesktopTheme::keys() const
