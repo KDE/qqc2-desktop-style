@@ -29,7 +29,6 @@ import org.kde.kirigami 2.2 as Kirigami
 T.Label {
     id: control
 
-    height: Math.round(Math.max(paintedHeight, Kirigami.Units * 1.6))
     verticalAlignment: lineCount > 1 ? Text.AlignTop : Text.AlignVCenter
 
     activeFocusOnTab: false
