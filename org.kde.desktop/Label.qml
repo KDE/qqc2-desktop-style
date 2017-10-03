@@ -24,11 +24,12 @@ import QtQuick 2.1
 import QtQuick.Window 2.2
 import QtQuick.Templates 2.0 as T
 import org.kde.qqc2desktopstyle.private 1.0 as StylePrivate
+import org.kde.kirigami 2.2 as Kirigami
 
 T.Label {
     id: control
 
-    height: Math.round(Math.max(paintedHeight, StylePrivate.TextSingleton.height * 1.6))
+    height: Math.round(Math.max(paintedHeight, Kirigami.Units * 1.6))
     verticalAlignment: lineCount > 1 ? Text.AlignTop : Text.AlignVCenter
 
     activeFocusOnTab: false
@@ -36,10 +37,17 @@ T.Label {
     renderType: Window.devicePixelRatio % 1 !== 0 ? Text.QtRendering : Text.NativeRendering
     
 
-    //font data is the system one by default
-    color: StylePrivate.SystemPaletteSingleton.text(control.enabled)
-    //StylePrivate.SystemPaletteSingleton doesn't have a link color
-    linkColor: "#2196F3"
+    font.capitalization: Kirigami.Theme.defaultFont.capitalization
+    font.family: Kirigami.Theme.defaultFont.family
+    font.italic: Kirigami.Theme.defaultFont.italic
+    font.letterSpacing: Kirigami.Theme.defaultFont.letterSpacing
+    font.pointSize: Kirigami.Theme.defaultFont.pointSize
+    font.strikeout: Kirigami.Theme.defaultFont.strikeout
+    font.underline: Kirigami.Theme.defaultFont.underline
+    font.weight: Kirigami.Theme.defaultFont.weight
+    font.wordSpacing: Kirigami.Theme.defaultFont.wordSpacing
+    color: Kirigami.Theme.textColor
+    linkColor: Kirigami.Theme.linkColor
 
     opacity: enabled? 1 : 0.6
 

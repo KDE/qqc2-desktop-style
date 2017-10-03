@@ -22,7 +22,7 @@
 
 import QtQuick 2.6
 import QtQuick.Templates 2.0 as T
-import org.kde.qqc2desktopstyle.private 1.0 as StylePrivate
+import org.kde.kirigami 2.2 as Kirigami
 
 T.ToolBar {
     id: controlRoot
@@ -37,17 +37,14 @@ T.ToolBar {
 
     background: Rectangle {
         implicitHeight: 40
-        color: StylePrivate.SystemPaletteSingleton.window(controlRoot.enabled)
-        Rectangle {
+        color: Kirigami.Theme.backgroundColor
+        Kirigami.Separator {
             anchors {
                 left: parent.left
                 right: parent.right
                 top: controlRoot.parent.footer && controlRoot.parent.footer == controlRoot ? parent.top : undefined
-                bottom: controlRoot.parent.footer && controlRoot.parent.footer == controlRoot ? undefined : parent.top
+                bottom: controlRoot.parent.footer && controlRoot.parent.footer == controlRoot ? undefined : parent.bottom
             }
-            height: 1
-            color: StylePrivate.SystemPaletteSingleton.text(controlRoot.enabled)
-            opacity: 0.3
         }
     }
 }

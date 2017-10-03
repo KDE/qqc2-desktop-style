@@ -26,9 +26,12 @@ import QtQuick.Templates 2.0 as T
 import QtQuick.Controls 2.0 as Controls
 import org.kde.qqc2desktopstyle.private 1.0 as StylePrivate
 import QtGraphicalEffects 1.0
+import org.kde.kirigami 2.2 as Kirigami
 
 T.ComboBox {
     id: controlRoot
+    Kirigami.Theme.colorSet: Kirigami.Theme.Button
+    Kirigami.Theme.inherit: false
 
     implicitWidth: background.implicitWidth + leftPadding + rightPadding
     implicitHeight: background.implicitHeight
@@ -44,6 +47,8 @@ T.ComboBox {
         text: controlRoot.textRole ? (Array.isArray(controlRoot.model) ? modelData[controlRoot.textRole] : model[controlRoot.textRole]) : modelData
         highlighted: controlRoot.highlightedIndex == index
         property bool separatorVisible: false
+        Kirigami.Theme.colorSet: controlRoot.Kirigami.Theme.inherit ? controlRoot.Kirigami.Theme.colorSet : Kirigami.Theme.View
+        Kirigami.Theme.inherit: controlRoot.Kirigami.Theme.inherit
     }
 
     indicator: Item {}
@@ -76,6 +81,8 @@ T.ComboBox {
         implicitHeight: contentItem.implicitHeight
         topMargin: 6
         bottomMargin: 6
+        Kirigami.Theme.colorSet: Kirigami.Theme.View
+        Kirigami.Theme.inherit: controlRoot.Kirigami.Theme.inherit
 
         contentItem: ListView {
             id: listview
@@ -93,8 +100,8 @@ T.ComboBox {
                 margins: -1
             }
             radius: 2
-            color: StylePrivate.SystemPaletteSingleton.base(controlRoot.enabled)
-            property color borderColor: StylePrivate.SystemPaletteSingleton.text(controlRoot.enabled)
+            color: Kirigami.Theme.backgroundColor
+            property color borderColor: Kirigami.Theme.textColor
             border.color: Qt.rgba(borderColor.r, borderColor.g, borderColor.b, 0.3)
             layer.enabled: true
             

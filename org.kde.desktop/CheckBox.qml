@@ -23,7 +23,7 @@
 import QtQuick 2.6
 import QtQuick.Templates 2.0 as T
 import QtQuick.Controls 2.0
-import org.kde.qqc2desktopstyle.private 1.0 as StylePrivate
+import org.kde.kirigami 2.2 as Kirigami
 
 T.CheckBox {
     id: controlRoot
@@ -36,7 +36,7 @@ T.CheckBox {
     baselineOffset: contentItem.y + contentItem.baselineOffset
 
     padding: 1
-    spacing: Math.round(StylePrivate.TextSingleton.height / 8)
+    spacing: Kirigami.Units.smallSpacing
 
     hoverEnabled: true
 
@@ -56,7 +56,6 @@ T.CheckBox {
         opacity: controlRoot.enabled ? 1 : 0.6
         text: controlRoot.text
         font: controlRoot.font
-        color: StylePrivate.SystemPaletteSingleton.text(controlRoot.enabled)
         elide: Text.ElideRight
         visible: controlRoot.text
         horizontalAlignment: Text.AlignLeft

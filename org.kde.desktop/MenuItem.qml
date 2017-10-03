@@ -22,7 +22,7 @@
 
 import QtQuick 2.6
 import QtQuick.Templates 2.0 as T
-import org.kde.qqc2desktopstyle.private 1.0 as StylePrivate
+import org.kde.kirigami 2.2 as Kirigami
 
 T.MenuItem {
     id: controlRoot
@@ -43,7 +43,7 @@ T.MenuItem {
 
         text: controlRoot.text
         font: controlRoot.font
-        color: controlRoot.hovered && !controlRoot.pressed ? StylePrivate.SystemPaletteSingleton.highlightedText(controlRoot.enabled) : StylePrivate.SystemPaletteSingleton.text(controlRoot.enabled)
+        color: controlRoot.hovered && !controlRoot.pressed ? Kirigami.Theme.highlightedTextColor : Kirigami.Theme.textColor
         elide: Text.ElideRight
         visible: controlRoot.text
         horizontalAlignment: Text.AlignLeft
@@ -64,7 +64,7 @@ T.MenuItem {
 
         Rectangle {
             anchors.fill: parent
-            color: StylePrivate.SystemPaletteSingleton.highlight(controlRoot.enabled)
+            color: Kirigami.Theme.highlightColor
             opacity: controlRoot.hovered && !controlRoot.pressed ? 1 : 0
             Behavior on opacity { NumberAnimation { duration: 150 } }
         }

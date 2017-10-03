@@ -24,10 +24,13 @@ import QtQuick 2.6
 import QtQuick.Window 2.1
 import QtQuick.Controls 2.0 as Controls
 import QtQuick.Templates 2.0 as T
+import org.kde.kirigami 2.2 as Kirigami
 import org.kde.qqc2desktopstyle.private 1.0 as StylePrivate
 
 T.TextField {
     id: controlRoot
+    Kirigami.Theme.colorSet: Kirigami.Theme.View
+    Kirigami.Theme.inherit: false
 
     implicitWidth: Math.max(200,
                             placeholderText ? placeholder.implicitWidth + leftPadding + rightPadding : 0)
@@ -38,9 +41,9 @@ T.TextField {
 
     padding: 6
 
-    color: StylePrivate.SystemPaletteSingleton.text(controlRoot.enabled)
-    selectionColor: StylePrivate.SystemPaletteSingleton.highlight(controlRoot.enabled)
-    selectedTextColor: StylePrivate.SystemPaletteSingleton.highlightedText(controlRoot.enabled)
+    color: controlRoot.enabled ? Kirigami.Theme.textColor : Kirigami.Theme.disabledTextColor
+    selectionColor: Kirigami.Theme.highlightColor
+    selectedTextColor: Kirigami.Theme.highlightedTextColor
     verticalAlignment: TextInput.AlignVCenter
     //Text.NativeRendering is broken on non integer pixel ratios
     renderType: Window.devicePixelRatio % 1 !== 0 ? Text.QtRendering : Text.NativeRendering
@@ -55,7 +58,7 @@ T.TextField {
 
         text: controlRoot.placeholderText
         font: controlRoot.font
-        color: StylePrivate.SystemPaletteSingleton.text(false)
+        color: Kirigami.Theme.disabledTextColor
         horizontalAlignment: controlRoot.horizontalAlignment
         verticalAlignment: controlRoot.verticalAlignment
         visible: !controlRoot.length && !controlRoot.preeditText && (!controlRoot.activeFocus || controlRoot.horizontalAlignment !== Qt.AlignHCenter)

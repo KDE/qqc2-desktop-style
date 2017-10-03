@@ -1,5 +1,3 @@
 module org.kde.qqc2desktopstyle.private
 plugin qqc2desktopstyleplugin
 
-singleton SystemPaletteSingleton 1.0 SystemPaletteSingleton.qml
-singleton TextSingleton 1.0 TextSingleton.qml

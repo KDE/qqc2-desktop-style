@@ -22,10 +22,14 @@
 
 import QtQuick 2.6
 import org.kde.qqc2desktopstyle.private 1.0 as StylePrivate
+import org.kde.kirigami 2.2 as Kirigami
 import QtQuick.Templates 2.0 as T
 
 T.TabBar {
     id: controlRoot
+
+    Kirigami.Theme.colorSet: Kirigami.Theme.Button
+    Kirigami.Theme.inherit: false
 
     implicitWidth: contentItem.implicitWidth
     implicitHeight: contentItem.implicitHeight
@@ -70,7 +74,7 @@ T.TabBar {
                 top : controlRoot.position == T.TabBar.Header ? undefined : parent.top
             }
             height: 1
-            color: StylePrivate.SystemPaletteSingleton.text(controlRoot.enabled)
+            color: Kirigami.Theme.textColor
             opacity: 0.4
         }
     }

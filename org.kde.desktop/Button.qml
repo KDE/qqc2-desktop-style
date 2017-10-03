@@ -22,9 +22,12 @@
 import QtQuick 2.6
 import QtQuick.Templates 2.0 as T
 import org.kde.qqc2desktopstyle.private 1.0 as StylePrivate
+import org.kde.kirigami 2.2 as Kirigami
 
 T.Button {
     id: controlRoot
+    Kirigami.Theme.colorSet: Kirigami.Theme.Button
+    Kirigami.Theme.inherit: false
 
     implicitWidth: background.implicitWidth
     implicitHeight: background.implicitHeight

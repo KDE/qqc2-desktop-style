@@ -24,10 +24,14 @@ import QtQuick 2.6
 import QtGraphicalEffects 1.0
 import QtQuick.Controls 2.0 as Controls
 import QtQuick.Templates 2.0 as T
-import org.kde.qqc2desktopstyle.private 1.0 as StylePrivate
+import org.kde.kirigami 2.2 as Kirigami
 
 T.ToolTip {
     id: controlRoot
+
+    //TODO: add tooltip to Kirigami Theme
+    Kirigami.Theme.colorSet: Kirigami.Theme.Button
+    Kirigami.Theme.inherit: false
 
     x: parent ? (parent.width - implicitWidth) / 2 : 0
     y: -implicitHeight - 3
@@ -43,14 +47,14 @@ T.ToolTip {
     contentItem: Controls.Label {
         text: controlRoot.text
         font: controlRoot.font
-        color: StylePrivate.SystemPaletteSingleton.base(controlRoot.enabled)
+        color: Kirigami.Theme.textColor
     }
 
 
     background: Rectangle {
         radius: 3
         opacity: 0.95
-        color: StylePrivate.SystemPaletteSingleton.text(controlRoot.enabled)
+        color: Kirigami.Theme.backgroundColor
         layer.enabled: true
         layer.effect: DropShadow {
             transparentBorder: true

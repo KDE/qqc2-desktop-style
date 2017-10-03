@@ -22,10 +22,13 @@
 
 import QtQuick 2.6
 import QtQuick.Templates 2.0 as T
+import org.kde.kirigami 2.2 as Kirigami
 import org.kde.qqc2desktopstyle.private 1.0 as StylePrivate
 
 T.SpinBox {
     id: controlRoot
+    Kirigami.Theme.colorSet: Kirigami.Theme.View
+    Kirigami.Theme.inherit: false
 
     implicitWidth: Math.max(48, contentItem.implicitWidth + 2 * padding +  up.indicator.implicitWidth)
     implicitHeight: contentItem.implicitHeight + topPadding + bottomPadding
@@ -49,9 +52,9 @@ T.SpinBox {
         opacity: controlRoot.enabled ? 1 : 0.3
 
         font: controlRoot.font
-        color: StylePrivate.SystemPaletteSingleton.text(controlRoot.enabled)
-        selectionColor: StylePrivate.SystemPaletteSingleton.highlight(controlRoot.enabled)
-        selectedTextColor: StylePrivate.SystemPaletteSingleton.highlightedText(controlRoot.enabled)
+        color: Kirigami.Theme.textColor
+        selectionColor: Kirigami.Theme.highlightColor
+        selectedTextColor: Kirigami.Theme.highlightedTextColor
         horizontalAlignment: Qt.AlignHCenter
         verticalAlignment: Qt.AlignVCenter
 

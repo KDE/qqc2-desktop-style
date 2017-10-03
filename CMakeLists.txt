@@ -33,6 +33,21 @@ include(KDECompilerSettings NO_POLICY_SCOPE)
 
 find_package(Qt5 ${QT_MIN_VERSION} REQUIRED NO_MODULE COMPONENTS Core Quick Gui Widgets)
 
+find_package(KF5 ${KF5_DEP_VERSION} REQUIRED COMPONENTS Kirigami2)
+
+find_package(KF5 ${KF5_DEP_VERSION} COMPONENTS
+                IconThemes #KIconLoader
+                ConfigWidgets #KColorScheme
+            )
+set_package_properties(IconThemes PROPERTIES DESCRIPTION "KF5 IconThemes framework"
+                       TYPE OPTIONAL
+                       PURPOSE "Optional integration of Kirigami with KIconLoader icons handling for a better integration with Plasma Desktop"
+                      )
+set_package_properties(ConfigWidgets PROPERTIES DESCRIPTION "KF5 WidgetAddons framework"
+                       TYPE OPTIONAL
+                       PURPOSE "Optional integration of Kirigami with KColorScheme for color palettes integration with Plasma Desktop"
+                      )
+
 find_package(PkgConfig)
 
 set(CMAKECONFIG_INSTALL_DIR "${KDE_INSTALL_CMAKEPACKAGEDIR}/KF5QQC2DeskopStyle")
@@ -61,6 +76,10 @@ ecm_setup_version(${KF5_VERSION}
 #########################################################################
 
 add_subdirectory(plugin)
+
+if (KF5IconThemes_FOUND AND KF5WidgetsAddons_FOUND)
+add_subdirectory(kirigami-plasmadesktop-integration)
+endif(KF5IconThemes_FOUND AND KF5WidgetsAddons_FOUND)
 
 install(DIRECTORY org.kde.desktop DESTINATION ${KDE_INSTALL_QMLDIR}/QtQuick/Controls.2)
 
