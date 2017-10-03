@@ -38,7 +38,6 @@ T.ScrollView {
 
     onChildrenChanged: {
         if (control.children[control.children.length - 1].hasOwnProperty("contentY")) {
-print("SSS"+children[0]+children[1]+children[2]+children[3])
             scrollHelper.flickableItem = control.children[control.children.length - 1];
         }
     }
