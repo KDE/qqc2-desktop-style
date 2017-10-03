@@ -23,7 +23,7 @@
 import QtQuick 2.6
 import QtGraphicalEffects 1.0
 import QtQuick.Templates 2.0 as T
-import org.kde.qqc2desktopstyle.private 1.0 as StylePrivate
+import org.kde.kirigami 2.2 as Kirigami
 
 T.Popup {
     id: control
@@ -62,8 +62,8 @@ T.Popup {
 
     background: Rectangle {
         radius: 2
-        color: StylePrivate.SystemPaletteSingleton.window(control.enabled)
-        property color borderColor: StylePrivate.SystemPaletteSingleton.text(control.enabled)
+        color: Kirigami.Theme.backgroundColor
+        property color borderColor: Kirigami.Theme.textColor
         border.color: Qt.rgba(borderColor.r, borderColor.g, borderColor.b, 0.3)
         layer.enabled: true
         

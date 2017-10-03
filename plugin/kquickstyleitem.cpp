@@ -54,6 +54,7 @@
 #include "qsgdefaultninepatchnode_p.h"
 #endif
 
+#include <Kirigami2/PlatformTheme>
 
 KQuickStyleItem::KQuickStyleItem(QQuickItem *parent)
     : QQuickItem(parent),
@@ -160,6 +161,18 @@ KQuickStyleItem::~KQuickStyleItem()
 
 void KQuickStyleItem::initStyleOption()
 {
+    if (!m_theme) {
+        m_theme = static_cast<Kirigami::PlatformTheme *>(qmlAttachedPropertiesObject<Kirigami::PlatformTheme>(this, true));
+        Q_ASSERT(m_theme);
+
+        connect(m_theme, &Kirigami::PlatformTheme::colorsChanged, this, [this]() {
+            //we need to reset the palette event if Qt::AA_SetPalette attribute has been set
+            m_styleoption->palette = m_theme->palette();
+            updateItem();
+        });
+    }
+    Q_ASSERT(m_theme);
+
     if (m_styleoption)
         m_styleoption->state = 0;
 
@@ -694,7 +707,7 @@ void KQuickStyleItem::resolvePalette()
     if (QCoreApplication::testAttribute(Qt::AA_SetPalette))
         return;
 
-    m_styleoption->palette = QApplication::palette(classNameForItem());
+    m_styleoption->palette = m_theme->palette();
 }
 
 /*

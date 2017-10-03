@@ -33,6 +33,8 @@ include(KDECompilerSettings NO_POLICY_SCOPE)
 
 find_package(Qt5 ${QT_MIN_VERSION} REQUIRED NO_MODULE COMPONENTS Core Quick Gui Widgets)
 
+find_package(KF5 ${KF5_DEP_VERSION} REQUIRED COMPONENTS Kirigami2)
+
 find_package(PkgConfig)
 
 set(CMAKECONFIG_INSTALL_DIR "${KDE_INSTALL_CMAKEPACKAGEDIR}/KF5QQC2DeskopStyle")

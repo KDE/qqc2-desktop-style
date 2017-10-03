@@ -21,7 +21,7 @@
 
 
 import QtQuick 2.5
-import org.kde.qqc2desktopstyle.private 1.0 as StylePrivate
+import org.kde.kirigami 2.2 as Kirigami
 import QtQuick.Templates 2.0 as T
 import "private"
 
@@ -43,7 +43,7 @@ T.SwitchDelegate {
 
         text: controlRoot.text
         font: controlRoot.font
-        color: (controlRoot.pressed && !controlRoot.checked && !controlRoot.sectionDelegate) ? StylePrivate.SystemPaletteSingleton.highlightedText(controlRoot.enabled) : StylePrivate.SystemPaletteSingleton.text(controlRoot.enabled)
+        color: (controlRoot.pressed && !controlRoot.checked && !controlRoot.sectionDelegate) ? Kirigami.Theme.highlightedTextColor : Kirigami.Theme.textColor
         elide: Text.ElideRight
         visible: controlRoot.text
         horizontalAlignment: Text.AlignLeft

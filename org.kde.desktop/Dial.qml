@@ -24,7 +24,7 @@ import QtQuick 2.6
 import QtQuick.Controls 2.0
 import QtQuick.Controls.impl 2.0
 import QtQuick.Templates 2.0 as T
-import org.kde.qqc2desktopstyle.private 1.0 as StylePrivate
+import org.kde.kirigami 2.2 as Kirigami
 
 T.Dial {
     id: control
@@ -35,7 +35,7 @@ T.Dial {
     background: DialRing {
         width: control.availableWidth
         height: control.availableHeight
-        color: control.visualFocus ? StylePrivate.SystemPaletteSingleton.highlight(control.enabled) : StylePrivate.SystemPaletteSingleton.text(control.enabled)
+        color: control.visualFocus ? Kirigami.Theme.highlightColor : Kirigami.Theme.textColor
         progress: control.position
         opacity: control.enabled ? 0.5 : 0.3
     }
@@ -46,6 +46,6 @@ T.Dial {
         width: 18
         height: width
         radius: 8
-        color: control.visualFocus ? StylePrivate.SystemPaletteSingleton.highlight(control.enabled) : StylePrivate.SystemPaletteSingleton.text(control.enabled)
+        color: control.visualFocus ? Kirigami.Theme.highlightColor : Kirigami.Theme.textColor
     }
 }

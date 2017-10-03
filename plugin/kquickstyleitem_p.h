@@ -51,6 +51,10 @@
 class QWidget;
 class QStyleOption;
 
+namespace Kirigami {
+    class PlatformTheme;
+}
+
 class QQuickTableRowImageProvider1 : public QQuickImageProvider
 {
 public:
@@ -270,6 +274,7 @@ private:
     qreal baselineOffset();
 
 protected:
+    Kirigami::PlatformTheme *m_theme = nullptr;
     QStyleOption *m_styleoption;
     QPointer<QQuickItem> m_control;
     Type m_itemType;

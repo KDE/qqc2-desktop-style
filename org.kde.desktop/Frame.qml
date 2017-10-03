@@ -23,6 +23,7 @@
 import QtQuick 2.6
 import QtQuick.Controls 2.0
 import QtQuick.Templates 2.0 as T
+import org.kde.kirigami 2.2 as Kirigami
 
 T.Frame {
     id: control
@@ -37,7 +38,7 @@ T.Frame {
 
     background: Rectangle {
         color: "transparent"
-        property color borderColor: StylePrivate.SystemPaletteSingleton.text(control.enabled)
+        property color borderColor: Kirigami.Theme.textColor
         border.color: Qt.rgba(borderColor.r, borderColor.g, borderColor.b, 0.3)
     }
 }

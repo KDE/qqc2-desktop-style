@@ -23,7 +23,7 @@
 import QtQuick 2.6
 import QtQuick.Controls 2.0
 import QtQuick.Templates 2.0 as T
-import org.kde.qqc2desktopstyle.private 1.0 as StylePrivate
+import org.kde.kirigami 2.2 as Kirigami
 
 T.GroupBox {
     id: control
@@ -43,7 +43,7 @@ T.GroupBox {
 
         text: control.title
         font: control.font
-        color: StylePrivate.SystemPaletteSingleton.text(control.enabled)
+        color: Kirigami.Theme.textColor
         elide: Text.ElideRight
         horizontalAlignment: Text.AlignLeft
         verticalAlignment: Text.AlignVCenter
@@ -51,7 +51,7 @@ T.GroupBox {
 
     background: Rectangle {
         color: "transparent"
-        property color borderColor: StylePrivate.SystemPaletteSingleton.text(control.enabled)
+        property color borderColor: Kirigami.Theme.textColor
         border.color: Qt.rgba(borderColor.r, borderColor.g, borderColor.b, 0.3)
     }
 }
