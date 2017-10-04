@@ -72,7 +72,6 @@ Q_SIGNALS:
 
 private:
     QPointer<QQuickItem> m_parentItem;
-    KIconLoader *m_iconLoader = nullptr;
     QPointer<QWindow> m_window;
     //legacy colors
     QColor m_buttonTextColor;

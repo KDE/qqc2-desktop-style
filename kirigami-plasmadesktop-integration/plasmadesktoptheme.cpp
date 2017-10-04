@@ -29,13 +29,22 @@
 
 #include <KColorScheme>
 
+class IconLoaderSingleton
+{
+public:
+    IconLoaderSingleton()
+    {}
+
+    KIconLoader self;
+};
+
+Q_GLOBAL_STATIC(IconLoaderSingleton, privateIconLoaderSelf)
 
 PlasmaDesktopTheme::PlasmaDesktopTheme(QObject *parent)
     : PlatformTheme(parent)
 {
     m_parentItem = qobject_cast<QQuickItem *>(parent);
 
-    m_iconLoader = new KIconLoader(QString(), QStringList(), this);
     //null in case parent is a normal QObject
     if (m_parentItem) {
         connect(m_parentItem.data(), &QQuickItem::enabledChanged,
@@ -85,9 +94,9 @@ QIcon PlasmaDesktopTheme::iconFromTheme(const QString &name, const QColor &custo
         }
     }
 
-    m_iconLoader->setCustomPalette(pal);
+    privateIconLoaderSelf->self.setCustomPalette(pal);
 
-    return KDE::icon(name, m_iconLoader);
+    return KDE::icon(name, &privateIconLoaderSelf->self);
 }
 
 QStringList PlasmaDesktopTheme::keys() const
