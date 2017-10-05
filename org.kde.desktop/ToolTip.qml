@@ -29,8 +29,7 @@ import org.kde.kirigami 2.2 as Kirigami
 T.ToolTip {
     id: controlRoot
 
-    //TODO: add tooltip to Kirigami Theme
-    Kirigami.Theme.colorSet: Kirigami.Theme.Button
+    Kirigami.Theme.colorSet: Kirigami.Theme.Tooltip
     Kirigami.Theme.inherit: false
 
     x: parent ? (parent.width - implicitWidth) / 2 : 0
@@ -47,6 +46,7 @@ T.ToolTip {
     contentItem: Controls.Label {
         text: controlRoot.text
         font: controlRoot.font
+        Kirigami.Theme.colorSet: Kirigami.Theme.Tooltip
         color: Kirigami.Theme.textColor
     }
 
@@ -55,6 +55,7 @@ T.ToolTip {
         radius: 3
         opacity: 0.95
         color: Kirigami.Theme.backgroundColor
+        Kirigami.Theme.colorSet: Kirigami.Theme.Tooltip
         layer.enabled: true
         layer.effect: DropShadow {
             transparentBorder: true
