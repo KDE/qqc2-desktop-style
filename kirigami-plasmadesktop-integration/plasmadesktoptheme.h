@@ -44,9 +44,6 @@ class PlasmaDesktopTheme : public Kirigami::PlatformTheme
     Q_PROPERTY(QColor viewHoverColor READ viewHoverColor NOTIFY colorsChanged)
     Q_PROPERTY(QColor viewFocusColor READ viewFocusColor NOTIFY colorsChanged)
 
-    //FIXME: this is due https://bugreports.qt.io/browse/QTBUG-63089
-    Q_PROPERTY(QStringList keys READ keys CONSTANT)
-
 public:
     explicit PlasmaDesktopTheme(QObject *parent = 0);
     ~PlasmaDesktopTheme();
@@ -64,8 +61,6 @@ public:
     QColor viewBackgroundColor() const;
     QColor viewHoverColor() const;
     QColor viewFocusColor() const;
-
-    QStringList keys() const;
 
 Q_SIGNALS:
     void colorsChanged();

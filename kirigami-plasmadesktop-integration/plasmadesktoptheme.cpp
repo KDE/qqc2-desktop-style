@@ -99,18 +99,6 @@ QIcon PlasmaDesktopTheme::iconFromTheme(const QString &name, const QColor &custo
     return KDE::icon(name, &privateIconLoaderSelf->self);
 }
 
-QStringList PlasmaDesktopTheme::keys() const
-{
-    QStringList props;
-    for (int i = PlatformTheme::metaObject()->propertyOffset(); i < metaObject()->propertyCount(); ++i) {
-        const QString prop = QString::fromUtf8(metaObject()->property(i).name());
-        if (prop != QStringLiteral("keys")) {
-            props << prop;
-        }
-    }
-    return props;
-}
-
 void PlasmaDesktopTheme::syncColors()
 {
     KColorScheme::ColorSet set;
