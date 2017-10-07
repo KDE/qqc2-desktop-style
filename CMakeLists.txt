@@ -4,7 +4,7 @@ cmake_minimum_required(VERSION 2.8.12)
 
 set(KF5_VERSION "5.39.0") # handled by release scripts
 
-set(QT_MIN_VERSION "5.7.0")
+set(REQUIRED_QT_VERSION "5.7.0")
 
 ################# Disallow in-source build #################
 
@@ -31,7 +31,7 @@ include(KDEInstallDirs)
 include(KDECMakeSettings)
 include(KDECompilerSettings NO_POLICY_SCOPE)
 
-find_package(Qt5 ${QT_MIN_VERSION} REQUIRED NO_MODULE COMPONENTS Core Quick Gui Widgets)
+find_package(Qt5 ${REQUIRED_QT_VERSION} REQUIRED NO_MODULE COMPONENTS Core Quick Gui Widgets)
 
 find_package(KF5 ${KF5_DEP_VERSION} REQUIRED COMPONENTS Kirigami2)
 
