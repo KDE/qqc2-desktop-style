@@ -1,9 +1,9 @@
-project(qqc2-desktop-style)
-
-cmake_minimum_required(VERSION 2.8.12)
+cmake_minimum_required(VERSION 3.0)
 
 set(KF5_VERSION "5.39.0") # handled by release scripts
 set(KF5_DEP_VERSION "5.39.0") # handled by release scripts
+
+project(qqc2-desktop-style VERSION ${KF5_VERSION})
 
 set(REQUIRED_QT_VERSION "5.7.0")
 
@@ -68,7 +68,7 @@ install(FILES
 )
 
 
-ecm_setup_version(${KF5_VERSION}
+ecm_setup_version(PROJECT
     VARIABLE_PREFIX QQC2DESKTOPSTYLE
     VERSION_HEADER "${CMAKE_CURRENT_BINARY_DIR}/qqc2desktopstyle_version.h"
     PACKAGE_VERSION_FILE "${CMAKE_CURRENT_BINARY_DIR}/KF5QQC2DeskopStyleConfigVersion.cmake"
