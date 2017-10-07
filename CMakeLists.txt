@@ -3,6 +3,7 @@ project(qqc2-desktop-style)
 cmake_minimum_required(VERSION 2.8.12)
 
 set(KF5_VERSION "5.39.0") # handled by release scripts
+set(KF5_DEP_VERSION "5.39.0") # handled by release scripts
 
 set(REQUIRED_QT_VERSION "5.7.0")
 
