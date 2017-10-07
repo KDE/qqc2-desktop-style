@@ -1,6 +1,6 @@
 maintainer: mart
 description: QtQuickControls 2 style that integrates with the desktop
-tier: 2
+tier: 3
 type: functional
 platforms:
     - name: Linux
