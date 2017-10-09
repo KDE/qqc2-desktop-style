@@ -128,7 +128,11 @@ void PlasmaDesktopTheme::syncColors()
     if (m_parentItem) {
         if (!m_parentItem->isEnabled()) {
             group = QPalette::Disabled;
-        } else if (m_parentItem->window() && !m_parentItem->window()->isActive()) {
+        //Why also checking the window is exposed?
+        //in the case of QQuickWidget the window() will never be active
+        //and the widgets will always have the inactive palette.
+        // better to always show it active than always show it inactive
+        } else if (m_parentItem->window() && !m_parentItem->window()->isActive() && m_parentItem->window()->isExposed()) {
             group = QPalette::Inactive;
         }
     }
