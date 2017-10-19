@@ -104,9 +104,5 @@ T.SpinBox {
                    (controlRoot.value != controlRoot.from ? (1<<3) : 0) |
                    (controlRoot.up.hovered ? 0x1 : 0) |
                    (controlRoot.down.hovered ? (1<<1) : 0)
-        border {
-            top: 6
-            bottom: 6
-        }
     }
 }
