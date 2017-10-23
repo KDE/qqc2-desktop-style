@@ -34,9 +34,9 @@ T.Dialog {
                              contentWidth > 0 ? contentHeight + topPadding + bottomPadding : 0)
 
     contentWidth: contentItem.implicitWidth || (contentChildren.length === 1 ? contentChildren[0].implicitWidth : 0)
-    contentHeight: contentItem.implicitHeight || (contentChildren.length === 1 ? contentChildren[0].implicitHeight : 0)
+    contentHeight: contentItem.implicitHeight || (contentChildren.length === 1 ? contentChildren[0].implicitHeight : 0) + header.implicitHeight + footer.implicitHeight
 
-    padding: 12
+    padding: Kirigami.Units.gridUnit
 
     enter: Transition {
         NumberAnimation {
@@ -58,7 +58,7 @@ T.Dialog {
         }
     }
 
-    contentItem: Item { }
+    contentItem: Item {}
 
     background: Rectangle {
         radius: 2
@@ -77,7 +77,16 @@ T.Dialog {
         }
     }
 
-    buttonBox: DialogButtonBox {
-        position: DialogButtonBox.Footer
+    header: Kirigami.Heading {
+        text: control.title
+        level: 2
+        visible: control.title
+        elide: Label.ElideRight
+        padding: Kirigami.Units.gridUnit
+        bottomPadding: 0
+    }
+
+    footer: DialogButtonBox {
+        visible: count > 0
     }
 }

@@ -22,6 +22,7 @@
 
 import QtQuick 2.6
 import QtQuick.Templates 2.1 as T
+import org.kde.kirigami 2.2 as Kirigami
 
 T.DialogButtonBox {
     id: control
@@ -29,8 +30,8 @@ T.DialogButtonBox {
     implicitWidth: contentItem.implicitWidth + leftPadding + rightPadding
     implicitHeight: contentItem.implicitHeight + topPadding + bottomPadding
 
-    spacing: 1
-    padding: 6
+    spacing: Kirigami.Units.smallSpacing
+    padding: Kirigami.Units.smallSpacing
     alignment: Qt.AlignRight
 
     delegate: Button {
