@@ -21,6 +21,7 @@
 
 
 import QtQuick 2.6
+import QtQuick.Layouts 1.2
 import QtGraphicalEffects 1.0
 import QtQuick.Controls 2.0
 import QtQuick.Templates 2.0 as T
@@ -36,15 +37,7 @@ T.Menu {
 
     margins: 0
 
-    contentItem: ListView {
-        implicitHeight: contentHeight
-        model: control.contentModel
-        clip: true
-        keyNavigationWraps: false
-        currentIndex: -1
-
-        //ScrollBar.vertical: ScrollBar {}
-    }
+    contentItem: ColumnLayout {}
 
     enter: Transition {
         NumberAnimation {
@@ -68,7 +61,7 @@ T.Menu {
 
     background: Rectangle {
         radius: 2
-        implicitWidth: 150
+        implicitWidth: Kirigami.Units.gridUnit * 8
         implicitHeight: 40
         color: Kirigami.Theme.backgroundColor
         property color borderColor: Kirigami.Theme.textColor

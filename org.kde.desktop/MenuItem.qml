@@ -21,6 +21,7 @@
 
 
 import QtQuick 2.6
+import QtQuick.Layouts 1.2
 import QtQuick.Templates 2.0 as T
 import org.kde.kirigami 2.2 as Kirigami
 
@@ -34,6 +35,7 @@ T.MenuItem {
                                       indicator ? indicator.implicitHeight : 0) + topPadding + bottomPadding)
     baselineOffset: contentItem.y + contentItem.baselineOffset
 
+    Layout.fillWidth: true
     padding: 3
     hoverEnabled: true
 
@@ -60,7 +62,8 @@ T.MenuItem {
     }
 
     background: Item {
-        implicitWidth: 150
+        anchors.fill: parent
+        implicitWidth: Kirigami.Units.gridUnit * 8
 
         Rectangle {
             anchors.fill: parent
