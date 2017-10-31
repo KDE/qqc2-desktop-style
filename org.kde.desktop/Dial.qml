@@ -22,30 +22,29 @@
 
 import QtQuick 2.6
 import QtQuick.Controls 2.0
-import QtQuick.Controls.impl 2.0
 import QtQuick.Templates 2.0 as T
 import org.kde.kirigami 2.2 as Kirigami
+import org.kde.qqc2desktopstyle.private 1.0 as StylePrivate
 
 T.Dial {
-    id: control
+    id: controlRoot
 
     implicitWidth: 128
     implicitHeight: 128
 
-    background: DialRing {
-        width: control.availableWidth
-        height: control.availableHeight
-        color: control.visualFocus ? Kirigami.Theme.highlightColor : Kirigami.Theme.textColor
-        progress: control.position
-        opacity: control.enabled ? 0.5 : 0.3
-    }
+    background: StylePrivate.StyleItem {
+        id: style
+        control: controlRoot
+        visible: true
+        elementType: "dial"
+        horizontal: false
 
-    handle: Rectangle {
-        x: (control.width/2) + Math.cos((-(control.angle-90)*Math.PI)/180) * (control.width/2-width/2) - width/2
-        y: (control.height/2) + Math.sin(((control.angle-90)*Math.PI)/180) * (control.height/2-height/2) - height/2
-        width: 18
-        height: width
-        radius: 8
-        color: control.visualFocus ? Kirigami.Theme.highlightColor : Kirigami.Theme.textColor
+        maximum: controlRoot.to*100
+        minimum: controlRoot.from*100
+        step: controlRoot.stepSize*100
+        value: controlRoot.value*100
+
+        hasFocus: controlRoot.activeFocus
+        hover: controlRoot.hovered
     }
 }
