@@ -25,7 +25,7 @@ import QtQuick.Templates 2.0 as T
 import QtQuick.Controls 2.0
 import org.kde.kirigami 2.2 as Kirigami
 
-T.CheckBox {
+T.RadioButton {
     id: control
 
     implicitWidth: Math.max(background ? background.implicitWidth : 0,
