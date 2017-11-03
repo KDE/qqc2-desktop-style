@@ -32,7 +32,7 @@ include(KDEInstallDirs)
 include(KDECMakeSettings)
 include(KDECompilerSettings NO_POLICY_SCOPE)
 
-find_package(Qt5 ${REQUIRED_QT_VERSION} REQUIRED NO_MODULE COMPONENTS Core Quick Gui Widgets)
+find_package(Qt5 ${REQUIRED_QT_VERSION} REQUIRED NO_MODULE COMPONENTS Core Quick Gui Widgets QuickControls2)
 
 find_package(KF5 ${KF5_DEP_VERSION} REQUIRED COMPONENTS Kirigami2)
 
@@ -40,6 +40,18 @@ find_package(KF5 ${KF5_DEP_VERSION} COMPONENTS
                 IconThemes #KIconLoader
                 ConfigWidgets #KColorScheme
             )
+
+if (NOT APPLE AND NOT WIN32)
+    find_package(X11)
+endif()
+
+# When building as a static plugin, dependencies may add a -lQt5X11Extras
+# to the linker, in that case, it requires to have the proper variables
+# to exists.
+if(X11_FOUND)
+    find_package(Qt5X11Extras ${REQUIRED_QT_VERSION} NO_MODULE QUIET)
+endif()
+
 set_package_properties(IconThemes PROPERTIES DESCRIPTION "KF5 IconThemes framework"
                        TYPE OPTIONAL
                        PURPOSE "Optional integration of Kirigami with KIconLoader icons handling for a better integration with Plasma Desktop"
