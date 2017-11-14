@@ -119,6 +119,7 @@ KQuickStyleItem::KQuickStyleItem(QQuickItem *parent)
 
     connect(this, SIGNAL(heightChanged()), this, SLOT(updateBaselineOffset()));
     connect(this, SIGNAL(contentHeightChanged(int)), this, SLOT(updateBaselineOffset()));
+    qApp->installEventFilter(this);
 }
 
 KQuickStyleItem::~KQuickStyleItem()
@@ -1607,9 +1608,24 @@ void KQuickStyleItem::updatePolish()
 
 bool KQuickStyleItem::eventFilter(QObject *watched, QEvent *event)
 {
-    if (event->type() == QEvent::FocusIn || event->type() == QEvent::FocusOut) {
-        QFocusEvent *fe = static_cast<QFocusEvent *>(event);
-        m_lastFocusReason = fe->reason();
+    if (watched == m_control) {
+        if (event->type() == QEvent::FocusIn || event->type() == QEvent::FocusOut) {
+            QFocusEvent *fe = static_cast<QFocusEvent *>(event);
+            m_lastFocusReason = fe->reason();
+        }
+    } else {
+        if (event->type() == QEvent::KeyPress) {
+            QKeyEvent *ke = static_cast<QKeyEvent *>(event);
+            if (ke->key() == Qt::Key_Alt) {
+                updateItem();
+            }
+
+        } else if (event->type() == QEvent::KeyRelease) {
+            QKeyEvent *ke = static_cast<QKeyEvent *>(event);
+            if (ke->key() == Qt::Key_Alt) {
+                updateItem();
+            }
+        }
     }
 
     return QQuickItem::eventFilter(watched, event);
