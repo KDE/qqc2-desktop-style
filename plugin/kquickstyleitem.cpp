@@ -119,7 +119,6 @@ KQuickStyleItem::KQuickStyleItem(QQuickItem *parent)
 
     connect(this, SIGNAL(heightChanged()), this, SLOT(updateBaselineOffset()));
     connect(this, SIGNAL(contentHeightChanged(int)), this, SLOT(updateBaselineOffset()));
-    qApp->installEventFilter(this);
 }
 
 KQuickStyleItem::~KQuickStyleItem()
@@ -1547,10 +1546,29 @@ void KQuickStyleItem::setControl(QQuickItem *control)
 
     if (m_control) {
         m_control->removeEventFilter(this);
+        disconnect(m_control, 0, this, 0);
     }
 
     m_control = control;
-    m_control->installEventFilter(this);
+
+    if (m_control) {
+        m_control->installEventFilter(this);
+    
+        if (m_control->window()) {
+            m_window = m_control->window();
+            m_window->installEventFilter(this);
+        }
+        connect(m_control, &QQuickItem::windowChanged, this,
+                [this](QQuickWindow *window) {
+            if (m_window) {
+                m_window->removeEventFilter(this);
+            }
+            m_window = window;
+            if (m_window) {
+                m_window->installEventFilter(this);
+            }
+        });
+    }
 
     emit controlChanged();
 }
