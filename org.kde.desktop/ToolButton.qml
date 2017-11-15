@@ -38,6 +38,7 @@ T.ToolButton {
     flat: true
     contentItem: Item {}
     Kirigami.MnemonicData.enabled: controlRoot.enabled && controlRoot.visible
+    Kirigami.MnemonicData.controlType: Kirigami.MnemonicData.SecondaryControl
     Kirigami.MnemonicData.label: controlRoot.text
     Shortcut {
         //in case of explicit & the button manages it by itself

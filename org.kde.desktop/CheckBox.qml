@@ -51,6 +51,7 @@ T.CheckBox {
     }
 
     Kirigami.MnemonicData.enabled: controlRoot.enabled && controlRoot.visible
+    Kirigami.MnemonicData.controlType: Kirigami.MnemonicData.ActionElement
     Kirigami.MnemonicData.label: controlRoot.text
     Shortcut {
         //in case of explicit & the button manages it by itself

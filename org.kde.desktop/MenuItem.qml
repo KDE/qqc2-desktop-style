@@ -40,6 +40,7 @@ T.MenuItem {
     hoverEnabled: true
 
     Kirigami.MnemonicData.enabled: controlRoot.enabled && controlRoot.visible
+    Kirigami.MnemonicData.controlType: Kirigami.MnemonicData.MenuItem
     Kirigami.MnemonicData.label: controlRoot.text
     Shortcut {
         //in case of explicit & the button manages it by itself
