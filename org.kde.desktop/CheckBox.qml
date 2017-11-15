@@ -50,13 +50,13 @@ T.CheckBox {
         control: controlRoot
     }
 
-    Kirigami.MnemonicData.enabled: controlRoot.enabled
+    Kirigami.MnemonicData.enabled: controlRoot.enabled && controlRoot.visible
     Kirigami.MnemonicData.label: controlRoot.text
     Shortcut {
         //in case of explicit & the button manages it by itself
         enabled: controlRoot.text.indexOf("&") == -1
         sequence: controlRoot.Kirigami.MnemonicData.sequence
-        onActivated: controlRoot.checked = !controlRoot.checked
+        onActivated: controlRoot.toggle();
     }
 
     contentItem: Label {

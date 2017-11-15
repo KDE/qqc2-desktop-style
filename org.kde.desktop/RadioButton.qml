@@ -50,7 +50,7 @@ T.RadioButton {
         control: control
     }
 
-    Kirigami.MnemonicData.enabled: control.enabled
+    Kirigami.MnemonicData.enabled: control.enabled && control.visible
     Kirigami.MnemonicData.label: control.text
     Shortcut {
         //in case of explicit & the button manages it by itself

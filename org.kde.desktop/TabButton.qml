@@ -25,6 +25,7 @@ import QtQml.Models 2.1
 //for TabBar.*
 import QtQuick.Controls 2.0
 import org.kde.qqc2desktopstyle.private 1.0 as StylePrivate
+import org.kde.kirigami 2.3 as Kirigami
 import QtQuick.Templates 2.0 as T
 
 T.TabButton {
@@ -40,6 +41,14 @@ T.TabButton {
 
     contentItem: Item {}
 
+    Kirigami.MnemonicData.enabled: controlRoot.enabled && controlRoot.visible
+    Kirigami.MnemonicData.label: controlRoot.text
+    Shortcut {
+        //in case of explicit & the button manages it by itself
+        enabled: controlRoot.text.indexOf("&") == -1
+        sequence: controlRoot.Kirigami.MnemonicData.sequence
+        onActivated: controlRoot.checked = true;
+    }
     background: StylePrivate.StyleItem {
         id: styleitem
 
@@ -63,7 +72,7 @@ T.TabButton {
 
         enabled: controlRoot.enabled
         selected: controlRoot.checked
-        text: controlRoot.text
+        text: controlRoot.Kirigami.MnemonicData.mnemonicLabel
         hover: controlRoot.hovered
         hasFocus: controlRoot.activeFocus
     }

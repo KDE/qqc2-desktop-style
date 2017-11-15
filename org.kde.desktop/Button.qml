@@ -35,7 +35,7 @@ T.Button {
     hoverEnabled: true //Qt.styleHints.useHoverEffects TODO: how to make this work in 5.7?
 
     contentItem: Item {}
-    Kirigami.MnemonicData.enabled: controlRoot.enabled
+    Kirigami.MnemonicData.enabled: controlRoot.enabled && controlRoot.visible
     Kirigami.MnemonicData.label: controlRoot.text
     Shortcut {
         //in case of explicit & the button manages it by itself

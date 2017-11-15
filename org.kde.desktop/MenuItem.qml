@@ -23,7 +23,7 @@
 import QtQuick 2.6
 import QtQuick.Layouts 1.2
 import QtQuick.Templates 2.0 as T
-import org.kde.kirigami 2.2 as Kirigami
+import org.kde.kirigami 2.3 as Kirigami
 
 T.MenuItem {
     id: controlRoot
@@ -39,11 +39,25 @@ T.MenuItem {
     padding: 3
     hoverEnabled: true
 
+    Kirigami.MnemonicData.enabled: controlRoot.enabled && controlRoot.visible
+    Kirigami.MnemonicData.label: controlRoot.text
+    Shortcut {
+        //in case of explicit & the button manages it by itself
+        enabled: controlRoot.text.indexOf("&") == -1
+        sequence: controlRoot.Kirigami.MnemonicData.sequence
+        onActivated: {
+            if (controlRoot.checkable) {
+                controlRoot.toggle();
+            } else {
+                controlRoot.clicked();
+            }
+        }
+    }
     contentItem: Label {
         leftPadding: !controlRoot.mirrored ? (controlRoot.indicator ? controlRoot.indicator.width : 0) + controlRoot.spacing : 0
         rightPadding: controlRoot.mirrored ? (controlRoot.indicator ? controlRoot.indicator.width : 0) + controlRoot.spacing : 0
 
-        text: controlRoot.text
+        text: controlRoot.Kirigami.MnemonicData.richTextLabel
         font: controlRoot.font
         color: controlRoot.hovered && !controlRoot.pressed ? Kirigami.Theme.highlightedTextColor : Kirigami.Theme.textColor
         elide: Text.ElideRight
