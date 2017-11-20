@@ -22,11 +22,12 @@
 
 import QtQuick 2.9
 import QtQuick.Controls 2.2
-//import QtQuick.Controls.impl 2.2
 import QtQuick.Templates 2.2 as T
+import org.kde.kirigami 2.2 as Kirigami
+import org.kde.qqc2desktopstyle.private 1.0 as StylePrivate
 
 T.ScrollView {
-    id: control
+    id: controlRoot
 
     clip: true
 
@@ -36,11 +37,23 @@ T.ScrollView {
     contentWidth: scrollHelper.flickableItem ? scrollHelper.flickableItem.contentWidth : 0
     contentHeight: scrollHelper.flickableItem ? scrollHelper.flickableItem.contentHeight : 0
 
-    onChildrenChanged: {
-        if (control.children[control.children.length - 1].hasOwnProperty("contentY")) {
-            scrollHelper.flickableItem = control.children[control.children.length - 1];
+    Kirigami.Theme.colorSet: Kirigami.Theme.View
+    Kirigami.Theme.inherit: background.visible
+
+    //create a background only after Component.onCompleted, see on the component creation below for explanation
+    Component.onCompleted: {
+        if (!controlRoot.background) {
+            controlRoot.background = backgroundComponent.createObject(controlRoot);
+            print(controlRoot.background.width);
         }
     }
+
+    onChildrenChanged: {
+        if (controlRoot.children[controlRoot.children.length - 1].hasOwnProperty("contentY")) {
+            scrollHelper.flickableItem = controlRoot.children[controlRoot.children.length - 1];
+        }            
+    }
+
     children: [
         MouseArea {
             id: scrollHelper
@@ -54,8 +67,13 @@ T.ScrollView {
             property Flickable flickableItem
             onFlickableItemChanged: {
                 flickableItem.parent = scrollHelper;
-                flickableItem.boundsBehavior = scrollHelper.isMobile ? Flickable.DragAndOvershootBounds : Flickable.StopAtBounds;
-                flickableItem.interactive = scrollHelper.isMobile;
+                flickableItem.boundsBehavior = Qt.binding(function() { return scrollHelper.isMobile ? Flickable.DragAndOvershootBounds : Flickable.StopAtBounds; });
+                flickableItem.interactive = Qt.binding(function() { return scrollHelper.isMobile; });
+
+                flickableItem.anchors.fill = scrollHelper;
+                //don't make the scrolling items overlap the background borders.
+                flickableItem.anchors.margins = Qt.binding(function() { return controlRoot.background && controlRoot.background.visible ? 2 : 0; });
+                flickableItem.clip = true;
             }
             onWheel: {
                 if (isMobile || flickableItem.contentHeight < flickableItem.height) {
@@ -82,22 +100,42 @@ T.ScrollView {
                 interval: 150
                 onTriggered: scrollHelper.flickableItem.cancelFlick()
             }
+             /*create a background only after Component.onCompleted because:
+              * implementations can set their own background in a declarative way
+              * ScrollView {background.visible: true} must *not* work, becasue all  upstream styles don't have a background so applications using this would break with other styles
+              * This is child of scrollHelper as it would break native scrollview finding of the flickable if it was a direct child
+              */
+            Component {
+                id: backgroundComponent
+                StylePrivate.StyleItem {
+                    control: controlRoot
+                    elementType: "edit"
+                    //The default behavior goes from the following assumption:
+                    //if the scrollview takes all the possible space, the cutoff of the items scrolled away will be managed by the items nearby (or the window edge)
+                    //if the scrollview is smaller, we add a background to cleanly cut away
+                    //things half scrolled away
+                    visible: controlRoot.width < controlRoot.parent.width || controlRoot.height < controlRoot.parent.height
+                    sunken: true
+                    hasFocus: controlRoot.activeFocus || scrollHelper.flickableItem.activeFocus
+                    hover: controlRoot.hovered
+                }
+            }
         }
     ]
     ScrollBar.vertical: ScrollBar {
         id: verticalScrollBar
-        parent: control
-        x: control.mirrored ? 0 : control.width - width
-        y: control.topPadding
-        height: control.availableHeight
-        active: control.ScrollBar.horizontal || control.ScrollBar.horizontal.active
+        parent: controlRoot
+        x: controlRoot.mirrored ? 0 : controlRoot.width - width
+        y: controlRoot.topPadding
+        height: controlRoot.availableHeight
+        active: controlRoot.ScrollBar.horizontal || controlRoot.ScrollBar.horizontal.active
     }
 
     ScrollBar.horizontal: ScrollBar {
-        parent: control
-        x: control.leftPadding
-        y: control.height - height
-        width: control.availableWidth
-        active: control.ScrollBar.vertical || control.ScrollBar.vertical.active
+        parent: controlRoot
+        x: controlRoot.leftPadding
+        y: controlRoot.height - height
+        width: controlRoot.availableWidth
+        active: controlRoot.ScrollBar.vertical || controlRoot.ScrollBar.vertical.active
     }
 }
