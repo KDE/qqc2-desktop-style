@@ -38,7 +38,7 @@ T.ScrollView {
     contentHeight: scrollHelper.flickableItem ? scrollHelper.flickableItem.contentHeight : 0
 
     Kirigami.Theme.colorSet: Kirigami.Theme.View
-    Kirigami.Theme.inherit: background.visible
+    Kirigami.Theme.inherit: !background || !background.visible
 
     //create a background only after Component.onCompleted, see on the component creation below for explanation
     Component.onCompleted: {
@@ -110,11 +110,7 @@ T.ScrollView {
                 StylePrivate.StyleItem {
                     control: controlRoot
                     elementType: "edit"
-                    //The default behavior goes from the following assumption:
-                    //if the scrollview takes all the possible space, the cutoff of the items scrolled away will be managed by the items nearby (or the window edge)
-                    //if the scrollview is smaller, we add a background to cleanly cut away
-                    //things half scrolled away
-                    visible: controlRoot.width < controlRoot.parent.width || controlRoot.height < controlRoot.parent.height
+                    visible: false
                     sunken: true
                     hasFocus: controlRoot.activeFocus || scrollHelper.flickableItem.activeFocus
                     hover: controlRoot.hovered
