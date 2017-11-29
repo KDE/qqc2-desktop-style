@@ -22,8 +22,8 @@
 
 import QtQuick 2.6
 import QtQuick.Window 2.1
-import QtQuick.Controls 2.0 as Controls
-import QtQuick.Templates 2.0 as T
+import QtQuick.Controls @QQC2_VERSION@ as Controls
+import QtQuick.Templates @QQC2_VERSION@ as T
 import org.kde.kirigami 2.2 as Kirigami
 import org.kde.qqc2desktopstyle.private 1.0 as StylePrivate
 

@@ -22,7 +22,7 @@
 
 import QtQuick 2.6
 import QtQuick.Layouts 1.2
-import QtQuick.Templates 2.0 as T
+import QtQuick.Templates @QQC2_VERSION@ as T
 import org.kde.kirigami 2.2 as Kirigami
 
 T.MenuItem {

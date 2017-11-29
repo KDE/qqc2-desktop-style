@@ -22,15 +22,16 @@
 
 import QtQuick 2.6
 import QtQuick.Window 2.2
-import QtQuick.Templates 2.0 as T
-import QtQuick.Controls 2.0 as Controls
+import QtQuick.Templates @QQC2_VERSION@ as T
+import QtQuick.Controls @QQC2_VERSION@ as Controls
 import org.kde.qqc2desktopstyle.private 1.0 as StylePrivate
 import QtGraphicalEffects 1.0
 import org.kde.kirigami 2.2 as Kirigami
 
 T.ComboBox {
     id: controlRoot
-    Kirigami.Theme.colorSet: Kirigami.Theme.Button
+    //NOTE: typeof necessary to not have warnings on Qt 5.7
+    Kirigami.Theme.colorSet: typeof(editable) != "undefined" && editable ? Kirigami.Theme.View : Kirigami.Theme.Button
     Kirigami.Theme.inherit: false
 
     implicitWidth: background.implicitWidth + leftPadding + rightPadding
@@ -62,6 +63,30 @@ T.ComboBox {
                 controlRoot.currentIndex = (controlRoot.currentIndex - 1 + delegateModel.count) % delegateModel.count
             }
         }
+        T.TextField {
+            anchors {
+                fill: parent
+                leftMargin: controlRoot.mirrored ? 12 : 1
+                rightMargin: !controlRoot.mirrored ? 12 : 1
+            }
+
+            text: controlRoot.editText
+
+            visible: typeof(controlRoot.editable) != "undefined" && controlRoot.editable
+            readOnly: controlRoot.popup.visible
+            inputMethodHints: controlRoot.inputMethodHints
+            validator: controlRoot.validator
+            renderType: Window.devicePixelRatio % 1 !== 0 ? Text.QtRendering : Text.NativeRendering
+            color: controlRoot.enabled ? Kirigami.Theme.textColor : Kirigami.Theme.disabledTextColor
+            selectionColor: Kirigami.Theme.highlightColor
+            selectedTextColor: Kirigami.Theme.highlightedTextColor
+            selectByMouse: true
+
+            font: controlRoot.font
+            horizontalAlignment: Text.AlignLeft
+            verticalAlignment: Text.AlignVCenter
+            opacity: controlRoot.enabled ? 1 : 0.3
+        }
     }
 
     background: StylePrivate.StyleItem {
@@ -77,6 +102,9 @@ T.ComboBox {
         // contentHeight as in QComboBox magic numbers taken from QQC1 style
         contentHeight: Math.max(Math.ceil(textHeight("")), 14) + 2
         text: controlRoot.displayText
+        properties: {
+            "editable" : control.editable
+        }
     }
 
     popup: T.Popup {

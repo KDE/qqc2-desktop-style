@@ -94,7 +94,26 @@ if (KF5IconThemes_FOUND AND KF5WidgetsAddons_FOUND)
 add_subdirectory(kirigami-plasmadesktop-integration)
 endif(KF5IconThemes_FOUND AND KF5WidgetsAddons_FOUND)
 
-install(DIRECTORY org.kde.desktop DESTINATION ${KDE_INSTALL_QMLDIR}/QtQuick/Controls.2)
+#FIXME: this assumes there will always be a QQC2 release for each Qt release, needs
+#something to discover what's the latest qqc2 version available
+math(EXPR QQC2_VERSION "${Qt5QuickControls2_VERSION_MINOR} - 7")
+set(QQC2_VERSION "2.${QQC2_VERSION}")
+
+# Find all the source qml files
+FILE(GLOB_RECURSE inFiles RELATIVE "${CMAKE_CURRENT_SOURCE_DIR}"
+    "${CMAKE_CURRENT_SOURCE_DIR}/org.kde.desktop/*")
+
+    #for each file, replace @QQC2_VERSION@ with the version we found
+FOREACH(infileName ${inFiles})
+    configure_package_config_file(
+        "${CMAKE_CURRENT_SOURCE_DIR}/${infileName}"
+        "${CMAKE_CURRENT_BINARY_DIR}/${infileName}"
+        INSTALL_DESTINATION  ${CMAKECONFIG_INSTALL_DIR}
+        PATH_VARS  QQC2_VERSION
+    )
+ENDFOREACH(infileName)
+
+install(DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/org.kde.desktop DESTINATION ${KDE_INSTALL_QMLDIR}/QtQuick/Controls.2)
 
 feature_summary(WHAT ALL INCLUDE_QUIET_PACKAGES FATAL_ON_MISSING_REQUIRED_PACKAGES)
 

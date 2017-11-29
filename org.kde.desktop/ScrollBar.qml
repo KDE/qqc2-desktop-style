@@ -22,7 +22,7 @@
 
 import QtQuick 2.6
 import org.kde.qqc2desktopstyle.private 1.0 as StylePrivate
-import QtQuick.Templates 2.0 as T
+import QtQuick.Templates @QQC2_VERSION@ as T
 
 T.ScrollBar {
     id: controlRoot
