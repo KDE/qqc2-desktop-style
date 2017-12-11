@@ -1615,46 +1615,5 @@ bool KQuickStyleItem::eventFilter(QObject *watched, QEvent *event)
     return QQuickItem::eventFilter(watched, event);
 }
 
-QPixmap QQuickTableRowImageKDEProvider1::requestPixmap(const QString &id, QSize *size, const QSize &requestedSize)
-{
-    Q_UNUSED (requestedSize);
-    int width = 16;
-    int height = 16;
-    if (size)
-        *size = QSize(width, height);
-
-    QPixmap pixmap(width, height);
-
-    QStyleOptionViewItem opt;
-    opt.state |= QStyle::State_Enabled;
-    opt.rect = QRect(0, 0, width, height);
-    QString style = qApp->style()->metaObject()->className();
-    opt.features = 0;
-
-    if (id.contains(QLatin1String("selected")))
-        opt.state |= QStyle::State_Selected;
-
-    if (id.contains(QLatin1String("active"))) {
-        opt.state |= QStyle::State_Active;
-        opt.palette.setCurrentColorGroup(QPalette::Active);
-    } else
-        opt.palette.setCurrentColorGroup(QPalette::Inactive);
-
-    if (id.contains(QLatin1String("alternate")))
-        opt.features |= QStyleOptionViewItem::Alternate;
-
-    QPalette pal = QApplication::palette("QAbstractItemView");
-    if (opt.state & QStyle::State_Selected && (style.contains(QLatin1String("Mac")) ||
-                                               !qApp->style()->styleHint(QStyle::SH_ItemView_ShowDecorationSelected))) {
-        pal.setCurrentColorGroup(opt.palette.currentColorGroup());
-        pixmap.fill(pal.highlight().color());
-    } else {
-        pixmap.fill(pal.base().color());
-        QPainter pixpainter(&pixmap);
-        qApp->style()->drawPrimitive(QStyle::PE_PanelItemViewRow, &opt, &pixpainter);
-    }
-    return pixmap;
-}
-
 #include "moc_kquickstyleitem_p.cpp"
 #include "moc_kquickpadding_p.cpp"

@@ -55,14 +55,6 @@ namespace Kirigami {
     class PlatformTheme;
 }
 
-class QQuickTableRowImageKDEProvider1 : public QQuickImageProvider
-{
-public:
-    QQuickTableRowImageKDEProvider1()
-        : QQuickImageProvider(QQuickImageProvider::Pixmap) {}
-    QPixmap requestPixmap(const QString &id, QSize *size, const QSize &requestedSize);
-};
-
 class KQuickStyleItem: public QQuickItem
 {
     Q_OBJECT
