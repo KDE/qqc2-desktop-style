@@ -26,12 +26,14 @@ import QtQml.Models 2.1
 import QtQuick.Controls @QQC2_VERSION@
 import org.kde.qqc2desktopstyle.private 1.0 as StylePrivate
 import QtQuick.Templates @QQC2_VERSION@ as T
+import org.kde.kirigami 2.2 as Kirigami
 
 T.TabButton {
     id: controlRoot
 
-    implicitWidth: styleitem.implicitWidth
-    implicitHeight: styleitem.implicitHeight
+    //Some qstyles like fusion don't have correct pixel metrics here and just return 0
+    implicitWidth: styleitem.implicitWidth || Kirigami.Units.gridUnit * 6
+    implicitHeight: styleitem.implicitHeight || Kirigami.Units.gridUnit * 2
     baselineOffset: contentItem.y + contentItem.baselineOffset
 
     padding: 0
