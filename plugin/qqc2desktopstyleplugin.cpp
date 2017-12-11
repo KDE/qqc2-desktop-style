@@ -24,12 +24,19 @@
 #include <QQmlContext>
 #include <QQuickItem>
 
+#ifdef QQC2_BUILD_TYPE_STATIC
+ #include <qrc_style.cpp>
+#endif
 
 void QQc2DesktopStylePlugin::registerTypes(const char *uri)
 {
     Q_ASSERT(uri == QLatin1String("org.kde.qqc2desktopstyle.private"));
- 
+
     qmlRegisterType<KQuickStyleItem>(uri, 1, 0, "StyleItem");
+
+#ifdef QQC2_BUILD_TYPE_STATIC
+    qmlRegisterType(QStringLiteral("qrc:/org.kde.desktop/priavte/DefaultListItemBackground.qml"), uri, 2, 0, "DefaultListItemBackground");
+#endif
 
     qmlProtectModule(uri, 2);
 }

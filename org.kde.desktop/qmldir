@@ -1,0 +1,45 @@
+module org.kde.desktop
+
+classname QQc2DesktopStylePlugin
+depends QtQuick.Controls 2.0
+depends QtGraphicalEffects 1.0
+designersupported
+
+Button 1.0 Button.qml
+CheckBox 1.0 CheckBox.qml
+CheckDelegate 1.0 CheckDelegate.qml
+CheckIndicator 1.0 CheckIndicator.qml
+ComboBox 1.0 ComboBox.qml
+Container 1.0 Container.qml
+Control 1.0 Control.qml
+Dial.qml Dial.qml
+Dialog 1.0 Dialog.qml
+DialogButtonBox 1.0 DialogButtonBox.qml
+Drawer 1.0 Drawer.qml
+Frame.qml Frame.qml
+GroupBox 1.0 GroupBox.qml
+ItemDelegate 1.0 ItemDelegate.qml
+Label.qml Label.qml
+Menu.qml Menu.qml
+MenuItem 1.0 MenuItem.qml
+Popup.qml Popup.qml
+ProgressBar 1.0 ProgressBar.qml
+RadioButton 1.0 RadioButton.qml
+RadioDelegate 1.0 RadioDelegate.qml
+RadioIndicator 1.0 RadioIndicator.qml
+RangeSlider 1.0 RangeSlider.qml
+ScrollBar 1.0 ScrollBar.qml
+ScrollView 1.0 ScrollView.qml
+Slider 1.0 Slider.qml
+SpinBox 1.0 SpinBox.qml
+Switch 1.0 Switch.qml
+SwitchDelegate 1.0 SwitchDelegate.qml
+SwitchIndicator 1.0 SwitchIndicator.qml
+TabBar 1.0 TabBar.qml
+TabButton 1.0 TabButton.qml
+TextArea 1.0 TextArea.qml
+TextField 1.0 TextField.qml
+ToolBar 1.0 ToolBar.qml
+ToolButton 1.0 ToolButton.qml
+ToolTip 1.0 ToolTip.qml
+

@@ -1,0 +1,47 @@
+<RCC>
+    <qresource prefix="org.kde.desktop">
+        <file alias="qmldir">org.kde.desktop/qmldir</file>
+        <file alias="Button.qml">org.kde.desktop/Button.qml</file>
+        <file alias="CheckBox.qml">org.kde.desktop/CheckBox.qml</file>
+        <file alias="CheckDelegate.qml">org.kde.desktop/CheckDelegate.qml</file>
+        <file alias="CheckIndicator.qml">org.kde.desktop/CheckIndicator.qml</file>
+        <file alias="ComboBox.qml">org.kde.desktop/ComboBox.qml</file>
+        <file alias="Container.qml">org.kde.desktop/Container.qml</file>
+        <file alias="Control.qml">org.kde.desktop/Control.qml</file>
+        <file alias="Dial.qml">org.kde.desktop/Dial.qml</file>
+        <file alias="Dialog.qml">org.kde.desktop/Dialog.qml</file>
+        <file alias="DialogButtonBox.qml">org.kde.desktop/DialogButtonBox.qml</file>
+        <file alias="Drawer.qml">org.kde.desktop/Drawer.qml</file>
+        <file alias="Frame.qml">org.kde.desktop/Frame.qml</file>
+        <file alias="GroupBox.qml">org.kde.desktop/GroupBox.qml</file>
+        <file alias="ItemDelegate.qml">org.kde.desktop/ItemDelegate.qml</file>
+        <file alias="Label.qml">org.kde.desktop/Label.qml</file>
+        <file alias="Menu.qml">org.kde.desktop/Menu.qml</file>
+        <file alias="MenuItem.qml">org.kde.desktop/MenuItem.qml</file>
+        <file alias="Popup.qml">org.kde.desktop/Popup.qml</file>
+        <file alias="ProgressBar.qml">org.kde.desktop/ProgressBar.qml</file>
+        <file alias="RadioButton.qml">org.kde.desktop/RadioButton.qml</file>
+        <file alias="RadioDelegate.qml">org.kde.desktop/RadioDelegate.qml</file>
+        <file alias="RadioIndicator.qml">org.kde.desktop/RadioIndicator.qml</file>
+        <file alias="RangeSlider.qml">org.kde.desktop/RangeSlider.qml</file>
+        <file alias="ScrollBar.qml">org.kde.desktop/ScrollBar.qml</file>
+        <file alias="ScrollView.qml">org.kde.desktop/ScrollView.qml</file>
+        <file alias="Slider.qml">org.kde.desktop/Slider.qml</file>
+        <file alias="SpinBox.qml">org.kde.desktop/SpinBox.qml</file>
+        <file alias="Switch.qml">org.kde.desktop/Switch.qml</file>
+        <file alias="SwitchDelegate.qml">org.kde.desktop/SwitchDelegate.qml</file>
+        <file alias="SwitchIndicator.qml">org.kde.desktop/SwitchIndicator.qml</file>
+        <file alias="TabBar.qml">org.kde.desktop/TabBar.qml</file>
+        <file alias="TabButton.qml">org.kde.desktop/TabButton.qml</file>
+        <file alias="TextArea.qml">org.kde.desktop/TextArea.qml</file>
+        <file alias="TextField.qml">org.kde.desktop/TextField.qml</file>
+        <file alias="ToolBar.qml">org.kde.desktop/ToolBar.qml</file>
+        <file alias="ToolButton.qml">org.kde.desktop/ToolButton.qml</file>
+        <file alias="ToolTip.qml">org.kde.desktop/ToolTip.qml</file>
+    </qresource>
+    <qresource prefix="org.kde.desktop.private">
+        <file alias="qmldir">org.kde.desktop/private/qmldir</file>
+        <file alias="DefaultListItemBackground.qml">org.kde.desktop/private/DefaultListItemBackground.qml</file>
+    </qresource>
+</RCC>
+

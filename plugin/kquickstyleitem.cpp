@@ -1615,7 +1615,7 @@ bool KQuickStyleItem::eventFilter(QObject *watched, QEvent *event)
     return QQuickItem::eventFilter(watched, event);
 }
 
-QPixmap QQuickTableRowImageProvider1::requestPixmap(const QString &id, QSize *size, const QSize &requestedSize)
+QPixmap QQuickTableRowImageKDEProvider1::requestPixmap(const QString &id, QSize *size, const QSize &requestedSize)
 {
     Q_UNUSED (requestedSize);
     int width = 16;

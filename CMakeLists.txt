@@ -13,7 +13,11 @@ if("${CMAKE_SOURCE_DIR}" STREQUAL "${CMAKE_BINARY_DIR}")
    message(FATAL_ERROR "qqc2-desktop-style requires an out of source build. Please create a separate build directory and run 'cmake path_to_qqc2-desktop-style [options]' there.")
 endif()
 
+option(BUILD_SHARED_LIBS "Build a shared module" ON)
 
+if(NOT BUILD_SHARED_LIBS)
+    set(STATIC_PLUGIN 1)
+endif()
 
 # Make CPack available to easy generate binary packages
 include(CPack)
@@ -43,6 +47,15 @@ find_package(KF5 ${KF5_DEP_VERSION} COMPONENTS
 
 if (NOT APPLE AND NOT WIN32)
     find_package(X11)
+endif()
+
+if (STATIC_PLUGIN)
+    add_definitions(-DQT_PLUGIN)
+    add_definitions(-DQT_STATICPLUGIN=1)
+    add_definitions(-DQQC2_BUILD_TYPE_STATIC)
+
+    set(CMAKE_AUTOMOC ON)
+    set(AUTOMOC_MOC_OPTIONS -Muri=org.kde.desktop)
 endif()
 
 # When building as a static plugin, dependencies may add a -lQt5X11Extras
@@ -113,7 +126,9 @@ FOREACH(infileName ${inFiles})
     )
 ENDFOREACH(infileName)
 
-install(DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/org.kde.desktop DESTINATION ${KDE_INSTALL_QMLDIR}/QtQuick/Controls.2)
+if (NOT STATIC_PLUGIN)
+    install(DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/org.kde.desktop DESTINATION ${KDE_INSTALL_QMLDIR}/QtQuick/Controls.2)
+endif()
 
 feature_summary(WHAT ALL INCLUDE_QUIET_PACKAGES FATAL_ON_MISSING_REQUIRED_PACKAGES)
 

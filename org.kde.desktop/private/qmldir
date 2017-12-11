@@ -1,0 +1,5 @@
+module org.kde.desktop.private
+
+DefaultListItemBackground 1.0 DefaultListItemBackground.qml
+
+
