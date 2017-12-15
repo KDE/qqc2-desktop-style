@@ -32,10 +32,13 @@ T.TabButton {
     id: controlRoot
 
     //Some qstyles like fusion don't have correct pixel metrics here and just return 0
-    implicitWidth: styleitem.implicitWidth || Kirigami.Units.gridUnit * 6
+    implicitWidth: Math.max(styleitem.implicitWidth, textMetrics.width + Kirigami.Units.gridUnit * 2)
     implicitHeight: styleitem.implicitHeight || Kirigami.Units.gridUnit * 2
     baselineOffset: contentItem.y + contentItem.baselineOffset
 
+    //This width: is important to make the tabbar internals not assume
+    //all tabs have the same width
+    width: implicitWidth
     padding: 0
 
     hoverEnabled: true
@@ -44,6 +47,20 @@ T.TabButton {
 
     background: StylePrivate.StyleItem {
         id: styleitem
+
+        TextMetrics {
+            id: textMetrics
+            font.capitalization: Kirigami.Theme.defaultFont.capitalization
+            font.family: Kirigami.Theme.defaultFont.family
+            font.italic: Kirigami.Theme.defaultFont.italic
+            font.letterSpacing: Kirigami.Theme.defaultFont.letterSpacing
+            font.pointSize: Kirigami.Theme.defaultFont.pointSize
+            font.strikeout: Kirigami.Theme.defaultFont.strikeout
+            font.underline: Kirigami.Theme.defaultFont.underline
+            font.weight: Kirigami.Theme.defaultFont.weight
+            font.wordSpacing: Kirigami.Theme.defaultFont.wordSpacing
+            text: controlRoot.text
+        }
 
         control: controlRoot
         anchors.fill: parent
