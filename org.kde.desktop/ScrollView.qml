@@ -86,6 +86,11 @@ T.ScrollView {
                 var y = wheel.pixelDelta.y != 0 ? wheel.pixelDelta.y : (wheel.angleDelta.y > 0 ? step : -step)*/
                 var y = wheel.pixelDelta.y != 0 ? wheel.pixelDelta.y : wheel.angleDelta.y / 8
 
+                //if we don't have a pixeldelta, apply the configured mouse wheel lines
+                if (!wheel.pixelDelta.y) {
+                    y *= Kirigami.Settings.mouseWheelScrollLines;
+                }
+
                 var minYExtent = flickableItem.topMargin - flickableItem.originY;
                 var maxYExtent = flickableItem.height - (flickableItem.contentHeight + flickableItem.bottomMargin + flickableItem.originY);
 
