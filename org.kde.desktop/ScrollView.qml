@@ -58,32 +58,39 @@ T.ScrollView {
         MouseArea {
             id: scrollHelper
             anchors.fill: parent
-            drag.filterChildren: !isMobile
+            drag.filterChildren: !Kirigami.Settings.isMobile
             property bool isMobile: !verticalScrollBar.interactive
             onIsMobileChanged: {
                 flickableItem.boundsBehavior = scrollHelper.isMobile ? Flickable.DragAndOvershootBounds : Flickable.StopAtBounds;
-                flickableItem.interactive = scrollHelper.isMobile;
             }
             property Flickable flickableItem
             onFlickableItemChanged: {
                 flickableItem.parent = scrollHelper;
-                flickableItem.boundsBehavior = Qt.binding(function() { return scrollHelper.isMobile ? Flickable.DragAndOvershootBounds : Flickable.StopAtBounds; });
-                flickableItem.interactive = Qt.binding(function() { return scrollHelper.isMobile; });
+                flickableItem.boundsBehavior = scrollHelper.isMobile ? Flickable.DragAndOvershootBounds : Flickable.StopAtBounds;
 
                 flickableItem.anchors.fill = scrollHelper;
                 //don't make the scrolling items overlap the background borders.
                 flickableItem.anchors.margins = Qt.binding(function() { return controlRoot.background && controlRoot.background.visible ? 2 : 0; });
                 flickableItem.clip = true;
+                flickableItem.interactive = Kirigami.Settings.isMobile
+            }
+            onPressed: {
+                mouse.accepted = false;
+                flickableItem.interactive = true;
+            }
+            onPositionChanged: {
+                mouse.accepted = false;
+            }
+            onReleased:  {
+                mouse.accepted = false;
+                flickableItem.interactive = false;
             }
             onWheel: {
                 if (isMobile || flickableItem.contentHeight < flickableItem.height) {
                     return;
                 }
-                //TODO: use kirigami for this more granular control
-              /*  var sampleItem = flickableItem.itemAt ? flickableItem.itemAt(0,flickableItem.contentY) : null;
-                var step = Math.min((sampleItem ? sampleItem.height : (Units.gridUnit + Units.smallSpacing * 2)) * Units.wheelScrollLines, Units.gridUnit * 8);
-                //TODO: config of how many lines the wheel scrolls
-                var y = wheel.pixelDelta.y != 0 ? wheel.pixelDelta.y : (wheel.angleDelta.y > 0 ? step : -step)*/
+
+                flickableItem.interactive = false;
                 var y = wheel.pixelDelta.y != 0 ? wheel.pixelDelta.y : wheel.angleDelta.y / 8
 
                 //if we don't have a pixeldelta, apply the configured mouse wheel lines
@@ -98,13 +105,15 @@ T.ScrollView {
 
                 //this is just for making the scrollbar appear
                 flickableItem.flick(0, 0);
-                cancelFlickStateTimer.restart();
+                flickableItem.cancelFlick();
             }
-            Timer {
-                id: cancelFlickStateTimer
-                interval: 150
-                onTriggered: scrollHelper.flickableItem.cancelFlick()
+
+            Connections {
+                target: scrollHelper.flickableItem
+                onFlickEnded: scrollHelper.flickableItem.interactive = false;
+                onMovementEnded: scrollHelper.flickableItem.interactive = false;
             }
+
              /*create a background only after Component.onCompleted because:
               * implementations can set their own background in a declarative way
               * ScrollView {background.visible: true} must *not* work, becasue all  upstream styles don't have a background so applications using this would break with other styles
