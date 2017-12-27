@@ -21,7 +21,7 @@
 
 
 import QtQuick 2.6
-import org.kde.qqc2desktopstyle.private 1.0 as StylePrivate
+import org.kde.desktop.private 1.0 as StylePrivate
 
 StylePrivate.StyleItem {
     id: styleitem
