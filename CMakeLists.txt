@@ -14,6 +14,11 @@ if("${CMAKE_SOURCE_DIR}" STREQUAL "${CMAKE_BINARY_DIR}")
 endif()
 
 option(BUILD_SHARED_LIBS "Build a shared module" ON)
+if (BUILD_SHARED_LIBS)
+    option(PLASMA_ENABLED "Build and install The Plasma style" ON)
+else()
+    option(PLASMA_ENABLED "Build and install The Plasma style" OFF)
+endif()
 
 if(NOT BUILD_SHARED_LIBS)
     set(STATIC_PLUGIN 1)
@@ -101,8 +106,8 @@ ecm_setup_version(PROJECT
 
 #########################################################################
 
-if (KF5IconThemes_FOUND AND KF5WidgetsAddons_FOUND)
-add_subdirectory(kirigami-plasmadesktop-integration)
+if (KF5IconThemes_FOUND AND KF5WidgetsAddons_FOUND AND PLASMA_ENABLED)
+    add_subdirectory(kirigami-plasmadesktop-integration)
 endif(KF5IconThemes_FOUND AND KF5WidgetsAddons_FOUND)
 
 #FIXME: this assumes there will always be a QQC2 release for each Qt release, needs
