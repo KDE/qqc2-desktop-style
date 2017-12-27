@@ -101,8 +101,6 @@ ecm_setup_version(PROJECT
 
 #########################################################################
 
-add_subdirectory(plugin)
-
 if (KF5IconThemes_FOUND AND KF5WidgetsAddons_FOUND)
 add_subdirectory(kirigami-plasmadesktop-integration)
 endif(KF5IconThemes_FOUND AND KF5WidgetsAddons_FOUND)
@@ -125,6 +123,8 @@ FOREACH(infileName ${inFiles})
         PATH_VARS  QQC2_VERSION
     )
 ENDFOREACH(infileName)
+
+add_subdirectory(plugin)
 
 if (NOT STATIC_PLUGIN)
     install(DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/org.kde.desktop DESTINATION ${KDE_INSTALL_QMLDIR}/QtQuick/Controls.2)

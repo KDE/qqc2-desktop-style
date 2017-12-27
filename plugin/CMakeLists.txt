@@ -15,7 +15,15 @@ set(qqc2desktopstyle_SRCS
 endif()
 
 if (STATIC_PLUGIN)
-    qt5_add_resources(RESOURCES ${CMAKE_CURRENT_SOURCE_DIR}/../style.qrc)
+    # Since all shipped QML files are preprocessed, it is necessary to also
+    # proprocess the QRC
+    configure_file(
+        ${CMAKE_CURRENT_SOURCE_DIR}/../style.qrc.in
+        ${CMAKE_CURRENT_BINARY_DIR}/style.qrc
+        @ONLY
+    )
+
+    qt5_add_resources(RESOURCES ${CMAKE_CURRENT_BINARY_DIR}/style.qrc)
 endif()
 
 add_library(qqc2desktopstyleplugin ${qqc2desktopstyle_SRCS} ${RESOURCES})

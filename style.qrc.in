@@ -1,0 +1,47 @@
+<RCC>
+    <qresource prefix="org.kde.desktop">
+        <file alias="qmldir">@CMAKE_CURRENT_BINARY_DIR@/../org.kde.desktop/qmldir</file>
+        <file alias="Button.qml">@CMAKE_CURRENT_BINARY_DIR@/../org.kde.desktop/Button.qml</file>
+        <file alias="CheckBox.qml">@CMAKE_CURRENT_BINARY_DIR@/../org.kde.desktop/CheckBox.qml</file>
+        <file alias="CheckDelegate.qml">@CMAKE_CURRENT_BINARY_DIR@/../org.kde.desktop/CheckDelegate.qml</file>
+        <file alias="CheckIndicator.qml">@CMAKE_CURRENT_BINARY_DIR@/../org.kde.desktop/CheckIndicator.qml</file>
+        <file alias="ComboBox.qml">@CMAKE_CURRENT_BINARY_DIR@/../org.kde.desktop/ComboBox.qml</file>
+        <file alias="Container.qml">@CMAKE_CURRENT_BINARY_DIR@/../org.kde.desktop/Container.qml</file>
+        <file alias="Control.qml">@CMAKE_CURRENT_BINARY_DIR@/../org.kde.desktop/Control.qml</file>
+        <file alias="Dial.qml">@CMAKE_CURRENT_BINARY_DIR@/../org.kde.desktop/Dial.qml</file>
+        <file alias="Dialog.qml">@CMAKE_CURRENT_BINARY_DIR@/../org.kde.desktop/Dialog.qml</file>
+        <file alias="DialogButtonBox.qml">@CMAKE_CURRENT_BINARY_DIR@/../org.kde.desktop/DialogButtonBox.qml</file>
+        <file alias="Drawer.qml">@CMAKE_CURRENT_BINARY_DIR@/../org.kde.desktop/Drawer.qml</file>
+        <file alias="Frame.qml">@CMAKE_CURRENT_BINARY_DIR@/../org.kde.desktop/Frame.qml</file>
+        <file alias="GroupBox.qml">@CMAKE_CURRENT_BINARY_DIR@/../org.kde.desktop/GroupBox.qml</file>
+        <file alias="ItemDelegate.qml">@CMAKE_CURRENT_BINARY_DIR@/../org.kde.desktop/ItemDelegate.qml</file>
+        <file alias="Label.qml">@CMAKE_CURRENT_BINARY_DIR@/../org.kde.desktop/Label.qml</file>
+        <file alias="Menu.qml">@CMAKE_CURRENT_BINARY_DIR@/../org.kde.desktop/Menu.qml</file>
+        <file alias="MenuItem.qml">@CMAKE_CURRENT_BINARY_DIR@/../org.kde.desktop/MenuItem.qml</file>
+        <file alias="Popup.qml">@CMAKE_CURRENT_BINARY_DIR@/../org.kde.desktop/Popup.qml</file>
+        <file alias="ProgressBar.qml">@CMAKE_CURRENT_BINARY_DIR@/../org.kde.desktop/ProgressBar.qml</file>
+        <file alias="RadioButton.qml">@CMAKE_CURRENT_BINARY_DIR@/../org.kde.desktop/RadioButton.qml</file>
+        <file alias="RadioDelegate.qml">@CMAKE_CURRENT_BINARY_DIR@/../org.kde.desktop/RadioDelegate.qml</file>
+        <file alias="RadioIndicator.qml">@CMAKE_CURRENT_BINARY_DIR@/../org.kde.desktop/RadioIndicator.qml</file>
+        <file alias="RangeSlider.qml">@CMAKE_CURRENT_BINARY_DIR@/../org.kde.desktop/RangeSlider.qml</file>
+        <file alias="ScrollBar.qml">@CMAKE_CURRENT_BINARY_DIR@/../org.kde.desktop/ScrollBar.qml</file>
+        <file alias="ScrollView.qml">@CMAKE_CURRENT_BINARY_DIR@/../org.kde.desktop/ScrollView.qml</file>
+        <file alias="Slider.qml">@CMAKE_CURRENT_BINARY_DIR@/../org.kde.desktop/Slider.qml</file>
+        <file alias="SpinBox.qml">@CMAKE_CURRENT_BINARY_DIR@/../org.kde.desktop/SpinBox.qml</file>
+        <file alias="Switch.qml">@CMAKE_CURRENT_BINARY_DIR@/../org.kde.desktop/Switch.qml</file>
+        <file alias="SwitchDelegate.qml">@CMAKE_CURRENT_BINARY_DIR@/../org.kde.desktop/SwitchDelegate.qml</file>
+        <file alias="SwitchIndicator.qml">@CMAKE_CURRENT_BINARY_DIR@/../org.kde.desktop/SwitchIndicator.qml</file>
+        <file alias="TabBar.qml">@CMAKE_CURRENT_BINARY_DIR@/../org.kde.desktop/TabBar.qml</file>
+        <file alias="TabButton.qml">@CMAKE_CURRENT_BINARY_DIR@/../org.kde.desktop/TabButton.qml</file>
+        <file alias="TextArea.qml">@CMAKE_CURRENT_BINARY_DIR@/../org.kde.desktop/TextArea.qml</file>
+        <file alias="TextField.qml">@CMAKE_CURRENT_BINARY_DIR@/../org.kde.desktop/TextField.qml</file>
+        <file alias="ToolBar.qml">@CMAKE_CURRENT_BINARY_DIR@/../org.kde.desktop/ToolBar.qml</file>
+        <file alias="ToolButton.qml">@CMAKE_CURRENT_BINARY_DIR@/../org.kde.desktop/ToolButton.qml</file>
+        <file alias="ToolTip.qml">@CMAKE_CURRENT_BINARY_DIR@/../org.kde.desktop/ToolTip.qml</file>
+    </qresource>
+    <qresource prefix="org.kde.desktop.private">
+        <file alias="qmldir">@CMAKE_CURRENT_BINARY_DIR@/../org.kde.desktop/private/qmldir</file>
+        <file alias="DefaultListItemBackground.qml">@CMAKE_CURRENT_BINARY_DIR@/../org.kde.desktop/private/DefaultListItemBackground.qml</file>
+    </qresource>
+</RCC>
+
