@@ -35,7 +35,7 @@ void QQc2DesktopStylePlugin::registerTypes(const char *uri)
     qmlRegisterType<KQuickStyleItem>(uri, 1, 0, "StyleItem");
 
 #ifdef QQC2_BUILD_TYPE_STATIC
-    qmlRegisterType(QStringLiteral("qrc:/org.kde.desktop/priavte/DefaultListItemBackground.qml"), uri, 2, 0, "DefaultListItemBackground");
+    qmlRegisterType(QStringLiteral("qrc:/org.kde.desktop.private/DefaultListItemBackground.qml"), uri, 2, 0, "DefaultListItemBackground");
 #endif
 
     qmlProtectModule(uri, 2);

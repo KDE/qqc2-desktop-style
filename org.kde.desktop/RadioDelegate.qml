@@ -23,7 +23,7 @@
 import QtQuick 2.5
 import QtQuick.Templates @QQC2_VERSION@ as T
 import org.kde.kirigami 2.2 as Kirigami
-import "private"
+import org.kde.desktop.private 2.0 as StylePrivate
 
 T.RadioDelegate {
     id: controlRoot
@@ -57,5 +57,5 @@ T.RadioDelegate {
         control: controlRoot
     }
 
-    background: DefaultListItemBackground {}
+    background: StylePrivate.DefaultListItemBackground {}
 }
