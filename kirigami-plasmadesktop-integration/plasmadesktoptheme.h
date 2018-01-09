@@ -25,6 +25,7 @@
 #include <QQuickItem>
 #include <QColor>
 #include <QPointer>
+#include <QIcon>
 
 class PlasmaDesktopTheme;
 class KIconLoader;
