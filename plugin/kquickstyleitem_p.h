@@ -60,7 +60,7 @@ class QQuickTableRowImageProvider1 : public QQuickImageProvider
 public:
     QQuickTableRowImageProvider1()
         : QQuickImageProvider(QQuickImageProvider::Pixmap) {}
-    QPixmap requestPixmap(const QString &id, QSize *size, const QSize &requestedSize);
+    QPixmap requestPixmap(const QString &id, QSize *size, const QSize &requestedSize) override;
 };
 
 class KQuickStyleItem: public QQuickItem
@@ -105,8 +105,8 @@ class KQuickStyleItem: public QQuickItem
     KQuickPadding* border() { return &m_border; }
 
 public:
-    KQuickStyleItem(QQuickItem *parent = 0);
-    ~KQuickStyleItem();
+    KQuickStyleItem(QQuickItem *parent = nullptr);
+    ~KQuickStyleItem() override;
 
     enum MenuItemType {
         SeparatorType = 0,
@@ -263,9 +263,9 @@ Q_SIGNALS:
     void textureHeightChanged(int h);
 
 protected:
-    virtual bool event(QEvent *);
-    virtual QSGNode *updatePaintNode(QSGNode *, UpdatePaintNodeData *);
-    virtual void updatePolish();
+    bool event(QEvent *) override;
+    QSGNode *updatePaintNode(QSGNode *, UpdatePaintNodeData *) override;
+    void updatePolish() override;
     bool eventFilter(QObject *watched, QEvent *event) override;
 
 private:

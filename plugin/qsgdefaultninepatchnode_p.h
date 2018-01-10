@@ -62,7 +62,7 @@ class QSGDefaultNinePatchNode : public QSGNinePatchNode
 {
 public:
     QSGDefaultNinePatchNode();
-    ~QSGDefaultNinePatchNode();
+    ~QSGDefaultNinePatchNode() override;
 
     void setTexture(QSGTexture *texture) override;
     void setBounds(const QRectF &bounds) override;

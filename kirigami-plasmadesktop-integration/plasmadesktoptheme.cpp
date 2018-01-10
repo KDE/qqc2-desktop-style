@@ -32,8 +32,7 @@
 class IconLoaderSingleton
 {
 public:
-    IconLoaderSingleton()
-    {}
+    IconLoaderSingleton() = default;
 
     KIconLoader self;
 };
@@ -104,9 +103,7 @@ public:
         Colors ret = {{}, KColorScheme(group, KColorScheme::ColorSet::Selection), KColorScheme(group, set)};
 
         QPalette pal;
-        static const QPalette::ColorGroup states[3] = { QPalette::Active, QPalette::Inactive, QPalette::Disabled };
-        for (int i = 0; i < 3; i++) {
-            QPalette::ColorGroup state = states[i];
+        for (auto state : { QPalette::Active, QPalette::Inactive, QPalette::Disabled }) {
             pal.setBrush(state, QPalette::WindowText, ret.scheme.foreground());
             pal.setBrush(state, QPalette::Window, ret.scheme.background());
             pal.setBrush(state, QPalette::Base, ret.scheme.background());
@@ -184,17 +181,13 @@ PlasmaDesktopTheme::PlasmaDesktopTheme(QObject *parent)
     syncColors();
 }
 
-PlasmaDesktopTheme::~PlasmaDesktopTheme()
-{
-}
+PlasmaDesktopTheme::~PlasmaDesktopTheme() = default;
 
 QIcon PlasmaDesktopTheme::iconFromTheme(const QString &name, const QColor &customColor)
 {
     QPalette pal = palette();
     if (customColor != Qt::transparent) {
-        static const QPalette::ColorGroup states[3] = { QPalette::Active, QPalette::Inactive, QPalette::Disabled };
-        for (int i = 0; i < 3; i++) {
-            QPalette::ColorGroup state = states[i];
+        for (auto state : { QPalette::Active, QPalette::Inactive, QPalette::Disabled }) {
             pal.setBrush(state, QPalette::WindowText, customColor);
         }
     }
@@ -232,7 +225,7 @@ void PlasmaDesktopTheme::syncColors()
     setNegativeTextColor(colors.scheme.foreground(KColorScheme::NegativeText).color());
     setNeutralTextColor(colors.scheme.foreground(KColorScheme::NeutralText).color());
     setPositiveTextColor(colors.scheme.foreground(KColorScheme::PositiveText).color());
-    
+
 
     //background
     setBackgroundColor(colors.scheme.background(KColorScheme::NormalBackground).color());
@@ -258,25 +251,25 @@ void PlasmaDesktopTheme::syncColors()
 
 QColor PlasmaDesktopTheme::buttonTextColor() const
 {
-    qWarning()<<"WARNING: buttonTextColor is deprecated, use textColor with colorSet: Theme.Button instead";
+    qWarning() << "WARNING: buttonTextColor is deprecated, use textColor with colorSet: Theme.Button instead";
     return m_buttonTextColor;
 }
 
 QColor PlasmaDesktopTheme::buttonBackgroundColor() const
 {
-    qWarning()<<"WARNING: buttonBackgroundColor is deprecated, use backgroundColor with colorSet: Theme.Button instead";
+    qWarning() << "WARNING: buttonBackgroundColor is deprecated, use backgroundColor with colorSet: Theme.Button instead";
     return m_buttonBackgroundColor;
 }
 
 QColor PlasmaDesktopTheme::buttonHoverColor() const
 {
-    qWarning()<<"WARNING: buttonHoverColor is deprecated, use backgroundColor with colorSet: Theme.Button instead";
+    qWarning() << "WARNING: buttonHoverColor is deprecated, use backgroundColor with colorSet: Theme.Button instead";
     return m_buttonHoverColor;
 }
 
 QColor PlasmaDesktopTheme::buttonFocusColor() const
 {
-    qWarning()<<"WARNING: buttonFocusColor is deprecated, use backgroundColor with colorSet: Theme.Button instead";
+    qWarning() << "WARNING: buttonFocusColor is deprecated, use backgroundColor with colorSet: Theme.Button instead";
     return m_buttonFocusColor;
 }
 
@@ -289,19 +282,19 @@ QColor PlasmaDesktopTheme::viewTextColor() const
 
 QColor PlasmaDesktopTheme::viewBackgroundColor() const
 {
-    qWarning()<<"WARNING: viewBackgroundColor is deprecated, use backgroundColor with colorSet: Theme.View instead";
+    qWarning() << "WARNING: viewBackgroundColor is deprecated, use backgroundColor with colorSet: Theme.View instead";
     return m_viewBackgroundColor;
 }
 
 QColor PlasmaDesktopTheme::viewHoverColor() const
 {
-    qWarning()<<"WARNING: viewHoverColor is deprecated, use backgroundColor with colorSet: Theme.View instead";
+    qWarning() << "WARNING: viewHoverColor is deprecated, use backgroundColor with colorSet: Theme.View instead";
     return m_viewHoverColor;
 }
 
 QColor PlasmaDesktopTheme::viewFocusColor() const
 {
-    qWarning()<<"WARNING: viewFocusColor is deprecated, use backgroundColor with colorSet: Theme.View instead";
+    qWarning() << "WARNING: viewFocusColor is deprecated, use backgroundColor with colorSet: Theme.View instead";
     return m_viewFocusColor;
 }
 

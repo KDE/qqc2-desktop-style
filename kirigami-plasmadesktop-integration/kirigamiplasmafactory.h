@@ -33,7 +33,7 @@ class KirigamiPlasmaFactory : public Kirigami::KirigamiPluginFactory
 
 public:
     explicit KirigamiPlasmaFactory(QObject *parent = nullptr);
-    ~KirigamiPlasmaFactory();
+    ~KirigamiPlasmaFactory() override;
 
     Kirigami::PlatformTheme *createPlatformTheme(QObject *parent) Q_DECL_OVERRIDE;
 };

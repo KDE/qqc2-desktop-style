@@ -25,9 +25,7 @@ KirigamiPlasmaFactory::KirigamiPlasmaFactory(QObject *parent)
 {
 }
 
-KirigamiPlasmaFactory::~KirigamiPlasmaFactory()
-{
-}
+KirigamiPlasmaFactory::~KirigamiPlasmaFactory() = default;
 
 Kirigami::PlatformTheme *KirigamiPlasmaFactory::createPlatformTheme(QObject *parent)
 {

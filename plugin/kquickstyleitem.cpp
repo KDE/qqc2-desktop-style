@@ -58,7 +58,7 @@
 
 KQuickStyleItem::KQuickStyleItem(QQuickItem *parent)
     : QQuickItem(parent),
-    m_styleoption(0),
+    m_styleoption(nullptr),
     m_itemType(Undefined),
     m_sunken(false),
     m_raised(false),
@@ -156,7 +156,7 @@ KQuickStyleItem::~KQuickStyleItem()
     else
         delete m_styleoption;
 
-    m_styleoption = 0;
+    m_styleoption = nullptr;
 }
 
 void KQuickStyleItem::initStyleOption()
@@ -188,7 +188,7 @@ void KQuickStyleItem::initStyleOption()
         QStyleOptionButton *opt = qstyleoption_cast<QStyleOptionButton*>(m_styleoption);
         opt->text = text();
         opt->icon = m_properties[QStringLiteral("icon")].value<QIcon>();
-        int e = qApp->style()->pixelMetric(QStyle::PM_ButtonIconSize, m_styleoption, 0);
+        int e = qApp->style()->pixelMetric(QStyle::PM_ButtonIconSize, m_styleoption, nullptr);
         opt->iconSize = QSize(e, e);
         opt->features = activeControl() == QLatin1String("default") ?
                     QStyleOptionButton::DefaultButton :
@@ -299,7 +299,7 @@ void KQuickStyleItem::initStyleOption()
         if (opt->icon.isNull() && !opt->text.isEmpty())
             opt->toolButtonStyle = Qt::ToolButtonTextOnly;
 
-        int e = qApp->style()->pixelMetric(QStyle::PM_ToolBarIconSize, m_styleoption, 0);
+        int e = qApp->style()->pixelMetric(QStyle::PM_ToolBarIconSize, m_styleoption, nullptr);
         opt->iconSize = QSize(e, e);
 
         const QFont font = qApp->font("QToolButton");
@@ -738,7 +738,7 @@ QString KQuickStyleItem::hitTest(int px, int py)
     case SpinBox :{
         subcontrol = qApp->style()->hitTestComplexControl(QStyle::CC_SpinBox,
                                                           qstyleoption_cast<QStyleOptionComplex*>(m_styleoption),
-                                                          QPoint(px,py), 0);
+                                                          QPoint(px,py), nullptr);
         if (subcontrol == QStyle::SC_SpinBoxUp)
             return QStringLiteral("up");
         else if (subcontrol == QStyle::SC_SpinBoxDown)
@@ -749,7 +749,7 @@ QString KQuickStyleItem::hitTest(int px, int py)
     case Slider: {
         subcontrol = qApp->style()->hitTestComplexControl(QStyle::CC_Slider,
                                                           qstyleoption_cast<QStyleOptionComplex*>(m_styleoption),
-                                                          QPoint(px,py), 0);
+                                                          QPoint(px,py), nullptr);
         if (subcontrol == QStyle::SC_SliderHandle)
             return QStringLiteral("handle");
     }
@@ -758,7 +758,7 @@ QString KQuickStyleItem::hitTest(int px, int py)
     case ScrollBar: {
         subcontrol = qApp->style()->hitTestComplexControl(QStyle::CC_ScrollBar,
                                                           qstyleoption_cast<QStyleOptionComplex*>(m_styleoption),
-                                                          QPoint(px,py), 0);
+                                                          QPoint(px,py), nullptr);
         switch (subcontrol) {
         case QStyle::SC_ScrollBarSlider:
             return QStringLiteral("handle");
@@ -865,7 +865,7 @@ QSize KQuickStyleItem::sizeFromContents(int width, int height)
             // We have to create a new style option since we might be calling with a QStyleOptionSpinBox
             QStyleOptionFrame frame;
             frame.state = m_styleoption->state;
-            frame.lineWidth = qApp->style()->pixelMetric(QStyle::PM_DefaultFrameWidth, m_styleoption, 0);
+            frame.lineWidth = qApp->style()->pixelMetric(QStyle::PM_DefaultFrameWidth, m_styleoption, nullptr);
             frame.rect = m_styleoption->rect;
             frame.styleObject = this;
             size = qApp->style()->sizeFromContents(QStyle::CT_LineEdit, &frame, QSize(width, height));
@@ -907,7 +907,7 @@ QSize KQuickStyleItem::sizeFromContents(int width, int height)
     case ComboBoxItem:
         if (static_cast<QStyleOptionMenuItem *>(m_styleoption)->menuItemType == QStyleOptionMenuItem::Scroller) {
             size.setHeight(qMax(QApplication::globalStrut().height(),
-                                qApp->style()->pixelMetric(QStyle::PM_MenuScrollerHeight, 0, 0)));
+                                qApp->style()->pixelMetric(QStyle::PM_MenuScrollerHeight, nullptr, nullptr)));
         } else {
             size = qApp->style()->sizeFromContents(QStyle::CT_MenuItem, m_styleoption, QSize(width,height));
         }
@@ -1002,47 +1002,47 @@ int KQuickStyleItem::pixelMetric(const QString &metric)
 {
 
     if (metric == QLatin1String("scrollbarExtent"))
-        return qApp->style()->pixelMetric(QStyle::PM_ScrollBarExtent, 0 );
+        return qApp->style()->pixelMetric(QStyle::PM_ScrollBarExtent, nullptr);
     else if (metric == QLatin1String("defaultframewidth"))
         return qApp->style()->pixelMetric(QStyle::PM_DefaultFrameWidth, m_styleoption);
     else if (metric == QLatin1String("taboverlap"))
-        return qApp->style()->pixelMetric(QStyle::PM_TabBarTabOverlap, 0 );
+        return qApp->style()->pixelMetric(QStyle::PM_TabBarTabOverlap, nullptr);
     else if (metric == QLatin1String("tabbaseoverlap"))
-        return qApp->style()->pixelMetric(QStyle::PM_TabBarBaseOverlap, m_styleoption );
+        return qApp->style()->pixelMetric(QStyle::PM_TabBarBaseOverlap, m_styleoption);
     else if (metric == QLatin1String("tabhspace"))
-        return qApp->style()->pixelMetric(QStyle::PM_TabBarTabHSpace, 0 );
+        return qApp->style()->pixelMetric(QStyle::PM_TabBarTabHSpace, nullptr);
     else if (metric == QLatin1String("indicatorwidth"))
-        return qApp->style()->pixelMetric(QStyle::PM_ExclusiveIndicatorWidth, 0 );
+        return qApp->style()->pixelMetric(QStyle::PM_ExclusiveIndicatorWidth, nullptr);
     else if (metric == QLatin1String("tabvspace"))
-        return qApp->style()->pixelMetric(QStyle::PM_TabBarTabVSpace, 0 );
+        return qApp->style()->pixelMetric(QStyle::PM_TabBarTabVSpace, nullptr);
     else if (metric == QLatin1String("tabbaseheight"))
-        return qApp->style()->pixelMetric(QStyle::PM_TabBarBaseHeight, 0 );
+        return qApp->style()->pixelMetric(QStyle::PM_TabBarBaseHeight, nullptr);
     else if (metric == QLatin1String("tabvshift"))
-        return qApp->style()->pixelMetric(QStyle::PM_TabBarTabShiftVertical, 0 );
+        return qApp->style()->pixelMetric(QStyle::PM_TabBarTabShiftVertical, nullptr);
     else if (metric == QLatin1String("menubarhmargin"))
-        return qApp->style()->pixelMetric(QStyle::PM_MenuBarHMargin, 0 );
+        return qApp->style()->pixelMetric(QStyle::PM_MenuBarHMargin, nullptr);
     else if (metric == QLatin1String("menubarvmargin"))
-        return qApp->style()->pixelMetric(QStyle::PM_MenuBarVMargin, 0 );
+        return qApp->style()->pixelMetric(QStyle::PM_MenuBarVMargin, nullptr);
     else if (metric == QLatin1String("menubarpanelwidth"))
-        return qApp->style()->pixelMetric(QStyle::PM_MenuBarPanelWidth, 0 );
+        return qApp->style()->pixelMetric(QStyle::PM_MenuBarPanelWidth, nullptr);
     else if (metric == QLatin1String("menubaritemspacing"))
-        return qApp->style()->pixelMetric(QStyle::PM_MenuBarItemSpacing, 0 );
+        return qApp->style()->pixelMetric(QStyle::PM_MenuBarItemSpacing, nullptr);
     else if (metric == QLatin1String("spacebelowmenubar"))
         return qApp->style()->styleHint(QStyle::SH_MainWindow_SpaceBelowMenuBar, m_styleoption);
     else if (metric == QLatin1String("menuhmargin"))
-        return qApp->style()->pixelMetric(QStyle::PM_MenuHMargin, 0 );
+        return qApp->style()->pixelMetric(QStyle::PM_MenuHMargin, nullptr);
     else if (metric == QLatin1String("menuvmargin"))
-        return qApp->style()->pixelMetric(QStyle::PM_MenuVMargin, 0 );
+        return qApp->style()->pixelMetric(QStyle::PM_MenuVMargin, nullptr);
     else if (metric == QLatin1String("menupanelwidth"))
-        return qApp->style()->pixelMetric(QStyle::PM_MenuPanelWidth, 0 );
+        return qApp->style()->pixelMetric(QStyle::PM_MenuPanelWidth, nullptr);
     else if (metric == QLatin1String("submenuoverlap"))
-        return qApp->style()->pixelMetric(QStyle::PM_SubMenuOverlap, 0 );
+        return qApp->style()->pixelMetric(QStyle::PM_SubMenuOverlap, nullptr);
     else if (metric == QLatin1String("splitterwidth"))
-        return qApp->style()->pixelMetric(QStyle::PM_SplitterWidth, 0 );
+        return qApp->style()->pixelMetric(QStyle::PM_SplitterWidth, nullptr);
     else if (metric == QLatin1String("scrollbarspacing"))
-        return abs(qApp->style()->pixelMetric(QStyle::PM_ScrollView_ScrollBarSpacing, 0 ));
+        return abs(qApp->style()->pixelMetric(QStyle::PM_ScrollView_ScrollBarSpacing, nullptr));
     else if (metric == QLatin1String("treeviewindentation"))
-        return qApp->style()->pixelMetric(QStyle::PM_TreeViewIndentation, 0 );
+        return qApp->style()->pixelMetric(QStyle::PM_TreeViewIndentation, nullptr);
     return 0;
 }
 
@@ -1113,7 +1113,7 @@ void KQuickStyleItem::setElementType(const QString &str)
     emit elementTypeChanged();
     if (m_styleoption) {
         delete m_styleoption;
-        m_styleoption = 0;
+        m_styleoption = nullptr;
     }
 
     // Only enable visible if the widget can animate
@@ -1245,7 +1245,7 @@ QRectF KQuickStyleItem::subControlRect(const QString &subcontrolString)
     case ItemBranchIndicator: {
         QStyleOption opt;
         opt.rect = QRect(0, 0, implicitWidth(), implicitHeight());
-        return qApp->style()->subElementRect(QStyle::SE_TreeViewDisclosureItem, &opt, 0);
+        return qApp->style()->subElementRect(QStyle::SE_TreeViewDisclosureItem, &opt, nullptr);
     }
     default:
         break;
@@ -1453,7 +1453,7 @@ void KQuickStyleItem::paint(QPainter *painter)
         break;
     case Menu: {
         QStyleHintReturnMask val;
-        qApp->style()->styleHint(QStyle::SH_Menu_Mask, m_styleoption, 0, &val);
+        qApp->style()->styleHint(QStyle::SH_Menu_Mask, m_styleoption, nullptr, &val);
         painter->save();
         painter->setClipRegion(val.region);
         painter->fillRect(m_styleoption->rect, m_styleoption->palette.window());
@@ -1558,7 +1558,7 @@ QSGNode *KQuickStyleItem::updatePaintNode(QSGNode *node, UpdatePaintNodeData *)
 {
     if (m_image.isNull()) {
         delete node;
-        return 0;
+        return nullptr;
     }
 
     QSGNinePatchNode *styleNode = static_cast<QSGNinePatchNode *>(node);
