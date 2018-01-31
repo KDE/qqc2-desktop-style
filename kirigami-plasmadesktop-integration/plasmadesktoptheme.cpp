@@ -174,6 +174,8 @@ PlasmaDesktopTheme::PlasmaDesktopTheme(QObject *parent)
 
     connect(this, &PlasmaDesktopTheme::colorSetChanged,
             this, &PlasmaDesktopTheme::syncColors);
+    connect(this, &PlasmaDesktopTheme::colorGroupChanged,
+            this, &PlasmaDesktopTheme::syncColors);
 
     connect(s_style->data(), &StyleSingleton::paletteChanged,
             this, &PlasmaDesktopTheme::syncColors);
@@ -199,7 +201,7 @@ QIcon PlasmaDesktopTheme::iconFromTheme(const QString &name, const QColor &custo
 
 void PlasmaDesktopTheme::syncColors()
 {
-    QPalette::ColorGroup group = QPalette::Active;
+    QPalette::ColorGroup group = (QPalette::ColorGroup)colorGroup();
     if (m_parentItem) {
         if (!m_parentItem->isEnabled()) {
             group = QPalette::Disabled;
