@@ -58,9 +58,9 @@ T.ComboBox {
         onPressed: mouse.accepted = false;
         onWheel: {
             if (wheel.pixelDelta.y < 0 || wheel.angleDelta.y < 0) {
-                controlRoot.currentIndex = (controlRoot.currentIndex + 1) % delegateModel.count
+                controlRoot.currentIndex = Math.min(controlRoot.currentIndex + 1, delegateModel.count -1);
             } else {
-                controlRoot.currentIndex = (controlRoot.currentIndex - 1 + delegateModel.count) % delegateModel.count
+                controlRoot.currentIndex = Math.max(controlRoot.currentIndex - 1, 0);
             }
         }
         T.TextField {
