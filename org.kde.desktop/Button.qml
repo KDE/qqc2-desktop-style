@@ -45,5 +45,8 @@ T.Button {
         text: controlRoot.text
         hasFocus: controlRoot.activeFocus
         activeControl: controlRoot.isDefault ? "default" : "f"
+        properties: {
+            "icon": control.icon ? (control.icon.name || control.icon.source) : ""
+        }
     }
 }

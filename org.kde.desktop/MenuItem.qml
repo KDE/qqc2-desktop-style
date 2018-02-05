@@ -39,17 +39,24 @@ T.MenuItem {
     padding: 3
     hoverEnabled: true
 
-    contentItem: Label {
-        leftPadding: !controlRoot.mirrored ? (controlRoot.indicator ? controlRoot.indicator.width : 0) + controlRoot.spacing : 0
-        rightPadding: controlRoot.mirrored ? (controlRoot.indicator ? controlRoot.indicator.width : 0) + controlRoot.spacing : 0
+    contentItem: RowLayout {
+        Kirigami.Icon {
+            visible: controlRoot.icon && (controlRoot.icon.name || controlRoot.icon.source)
+            source: controlRoot.icon ? (controlRoot.icon.name || controlRoot.icon.source) : ""
+            Layout.preferredWidth: height
+        }
+        Label {
+            leftPadding: !controlRoot.mirrored ? (controlRoot.indicator ? controlRoot.indicator.width : 0) + controlRoot.spacing : 0
+            rightPadding: controlRoot.mirrored ? (controlRoot.indicator ? controlRoot.indicator.width : 0) + controlRoot.spacing : 0
 
-        text: controlRoot.text
-        font: controlRoot.font
-        color: controlRoot.hovered && !controlRoot.pressed ? Kirigami.Theme.highlightedTextColor : Kirigami.Theme.textColor
-        elide: Text.ElideRight
-        visible: controlRoot.text
-        horizontalAlignment: Text.AlignLeft
-        verticalAlignment: Text.AlignVCenter
+            text: controlRoot.text
+            font: controlRoot.font
+            color: controlRoot.hovered && !controlRoot.pressed ? Kirigami.Theme.highlightedTextColor : Kirigami.Theme.textColor
+            elide: Text.ElideRight
+            visible: controlRoot.text
+            horizontalAlignment: Text.AlignLeft
+            verticalAlignment: Text.AlignVCenter
+        }
     }
 
     indicator: CheckIndicator {
