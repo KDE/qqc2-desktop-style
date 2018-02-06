@@ -31,8 +31,9 @@ T.TabBar {
     Kirigami.Theme.colorSet: Kirigami.Theme.Button
     Kirigami.Theme.inherit: false
 
-    implicitWidth: contentItem.implicitWidth
-    implicitHeight: contentItem.implicitHeight
+    //Some QStyles seem to not return sensible pixelmetrics here
+    implicitWidth: Math.max(Kirigami.Units.gridUnit * 6, contentItem.implicitWidth)
+    implicitHeight: Math.max(Kirigami.Units.gridUnit * 2, contentItem.implicitHeight)
 
     spacing: 0
 
