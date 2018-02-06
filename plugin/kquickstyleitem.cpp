@@ -187,7 +187,13 @@ void KQuickStyleItem::initStyleOption()
 
         QStyleOptionButton *opt = qstyleoption_cast<QStyleOptionButton*>(m_styleoption);
         opt->text = text();
-        opt->icon = m_properties[QStringLiteral("icon")].value<QIcon>();
+
+        const QVariant icon = m_properties[QStringLiteral("icon")];
+        if (icon.canConvert<QIcon>()) {
+            opt->icon = icon.value<QIcon>();
+        } else if (icon.canConvert<QString>()) {
+            opt->icon = QIcon::fromTheme(icon.value<QString>());
+        }
         int e = qApp->style()->pixelMetric(QStyle::PM_ButtonIconSize, m_styleoption, nullptr);
         opt->iconSize = QSize(e, e);
         opt->features = activeControl() == QLatin1String("default") ?
@@ -287,17 +293,20 @@ void KQuickStyleItem::initStyleOption()
         opt->state |= QStyle::State_AutoRaise;
         opt->activeSubControls = QStyle::SC_ToolButton;
         opt->text = text();
-        opt->icon = m_properties[QStringLiteral("icon")].value<QIcon>();
+        const QVariant icon = m_properties[QStringLiteral("icon")];
+        if (icon.canConvert<QIcon>()) {
+            opt->icon = icon.value<QIcon>();
+        } else if (icon.canConvert<QString>()) {
+            opt->icon = QIcon::fromTheme(icon.value<QString>());
+        }
 
         if (m_properties.value(QStringLiteral("menu")).toBool()) {
             opt->subControls |= QStyle::SC_ToolButtonMenu;
             opt->features = QStyleOptionToolButton::HasMenu;
         }
 
-        // For now icon only is displayed by default.
-        opt->toolButtonStyle = Qt::ToolButtonIconOnly;
-        if (opt->icon.isNull() && !opt->text.isEmpty())
-            opt->toolButtonStyle = Qt::ToolButtonTextOnly;
+        // For now both text and icon
+        opt->toolButtonStyle = Qt::ToolButtonTextBesideIcon;
 
         int e = qApp->style()->pixelMetric(QStyle::PM_ToolBarIconSize, m_styleoption, nullptr);
         opt->iconSize = QSize(e, e);

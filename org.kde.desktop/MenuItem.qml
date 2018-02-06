@@ -40,14 +40,18 @@ T.MenuItem {
     hoverEnabled: true
 
     contentItem: RowLayout {
+        Item {
+           Layout.preferredWidth: controlRoot.indicator.width
+        }
         Kirigami.Icon {
             visible: controlRoot.icon && (controlRoot.icon.name || controlRoot.icon.source)
             source: controlRoot.icon ? (controlRoot.icon.name || controlRoot.icon.source) : ""
+            Layout.fillHeight: true
+            
             Layout.preferredWidth: height
         }
         Label {
-            leftPadding: !controlRoot.mirrored ? (controlRoot.indicator ? controlRoot.indicator.width : 0) + controlRoot.spacing : 0
-            rightPadding: controlRoot.mirrored ? (controlRoot.indicator ? controlRoot.indicator.width : 0) + controlRoot.spacing : 0
+            Layout.fillWidth: true
 
             text: controlRoot.text
             font: controlRoot.font
