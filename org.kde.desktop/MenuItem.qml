@@ -36,18 +36,19 @@ T.MenuItem {
     baselineOffset: contentItem.y + contentItem.baselineOffset
 
     Layout.fillWidth: true
-    padding: 3
+    padding: 1
     hoverEnabled: true
 
     contentItem: RowLayout {
         Item {
-           Layout.preferredWidth: controlRoot.parent.hasCheckables || controlRoot.checkable ? controlRoot.indicator.width : 0
+           Layout.preferredWidth: controlRoot.ListView.view.hasCheckables || controlRoot.checkable ? controlRoot.indicator.width : 0
         }
         Kirigami.Icon {
             Layout.alignment: Qt.AlignVCenter
-            visible: controlRoot.parent.hasIcons || (controlRoot.icon && (controlRoot.icon.name.length > 0 || controlRoot.icon.source.length > 0))
+            visible: controlRoot.ListView.view.hasIcons || (controlRoot.icon && (controlRoot.icon.name.length > 0 || controlRoot.icon.source.length > 0))
             source: controlRoot.icon ? (controlRoot.icon.name || controlRoot.icon.source) : ""
             color: controlRoot.icon ? controlRoot.icon.color : "transparent"
+            selected: controlRoot.highlighted
             Layout.preferredHeight: Math.max(label.height, Kirigami.Units.iconSizes.small)
             Layout.preferredWidth: Layout.preferredHeight
         }
@@ -58,13 +59,24 @@ T.MenuItem {
 
             text: controlRoot.text
             font: controlRoot.font
-            color: controlRoot.hovered && !controlRoot.pressed ? Kirigami.Theme.highlightedTextColor : Kirigami.Theme.textColor
+            color: controlRoot.highlighted ? Kirigami.Theme.highlightedTextColor : Kirigami.Theme.textColor
             elide: Text.ElideRight
             visible: controlRoot.text
             horizontalAlignment: Text.AlignLeft
             verticalAlignment: Text.AlignVCenter
         }
     }
+
+//we can't use arrow: on old qqc2 releases
+@DISABLE_UNDER_QQC2_2_3@    arrow: Kirigami.Icon {
+@DISABLE_UNDER_QQC2_2_3@        x: controlRoot.mirrored ? controlRoot.padding : controlRoot.width - width - controlRoot.padding
+@DISABLE_UNDER_QQC2_2_3@        y: controlRoot.topPadding + (controlRoot.availableHeight - height) / 2
+@DISABLE_UNDER_QQC2_2_3@        source: controlRoot.mirrored ? "go-next-symbolic-rtl" : "go-next-symbolic"
+@DISABLE_UNDER_QQC2_2_3@        selected: controlRoot.highlighted
+@DISABLE_UNDER_QQC2_2_3@        width: Math.max(label.height, Kirigami.Units.iconSizes.small)
+@DISABLE_UNDER_QQC2_2_3@        height: width
+@DISABLE_UNDER_QQC2_2_3@        visible: controlRoot.subMenu
+@DISABLE_UNDER_QQC2_2_3@    }
 
     indicator: CheckIndicator {
         x: controlRoot.mirrored ? controlRoot.width - width - controlRoot.rightPadding : controlRoot.leftPadding
@@ -82,7 +94,7 @@ T.MenuItem {
         Rectangle {
             anchors.fill: parent
             color: Kirigami.Theme.highlightColor
-            opacity: controlRoot.hovered && !controlRoot.pressed ? 1 : 0
+            opacity: controlRoot.highlighted ? 1 : 0
             Behavior on opacity { NumberAnimation { duration: 150 } }
         }
     }

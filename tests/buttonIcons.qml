@@ -22,19 +22,33 @@ import QtQuick 2.6
 import QtQuick.Layouts 1.2
 import QtQuick.Controls 2.3 as Controls
 
-Item {
+Controls.ApplicationWindow {
     width: 600
     height: 600
-    ColumnLayout {
-        anchors.centerIn: parent
-        Controls.Button {
-            text: "Menu"
-            icon.name: "go-previous"
-            onClicked: menu.open();
-            Controls.Menu {
-                id: menu
-                y: parent.height
+    header: Controls.MenuBar {
+        Controls.Menu {
+            id: menu
+            y: parent.height
+            title: "&File"
 
+            Controls.MenuItem {
+                checkable: true
+                text: "Item1"
+                icon.name: "go-next"
+                icon.color: "red"
+            }
+            Controls.MenuItem {
+                text: "Item2"
+                icon.name: "folder-video"
+            }
+            Controls.MenuSeparator {
+            }
+            Controls.MenuItem {
+                checkable: true
+                text: "Item3"
+            }
+            Controls.Menu {
+                title: "Submenu"
                 Controls.MenuItem {
                     checkable: true
                     text: "Item1"
@@ -46,13 +60,18 @@ Item {
                     icon.name: "folder-video"
                 }
                 Controls.MenuItem {
-                    text: "Item2"
-                }
-                Controls.MenuItem {
-                    checkable: true
                     text: "Item3"
                 }
             }
+        }
+    }
+    ColumnLayout {
+        anchors.centerIn: parent
+        Controls.Button {
+            text: "Menu"
+            icon.name: "go-previous"
+            onClicked: menu.open();
+            
         }
         Controls.ToolButton {
             text: "text"
