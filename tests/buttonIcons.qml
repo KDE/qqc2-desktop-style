@@ -39,10 +39,18 @@ Item {
                     checkable: true
                     text: "Item1"
                     icon.name: "go-next"
+                    icon.color: "red"
                 }
                 Controls.MenuItem {
                     text: "Item2"
                     icon.name: "folder-video"
+                }
+                Controls.MenuItem {
+                    text: "Item2"
+                }
+                Controls.MenuItem {
+                    checkable: true
+                    text: "Item3"
                 }
             }
         }

@@ -41,16 +41,19 @@ T.MenuItem {
 
     contentItem: RowLayout {
         Item {
-           Layout.preferredWidth: controlRoot.indicator.width
+           Layout.preferredWidth: controlRoot.parent.hasCheckables || controlRoot.checkable ? controlRoot.indicator.width : 0
         }
         Kirigami.Icon {
-            visible: controlRoot.icon && (controlRoot.icon.name || controlRoot.icon.source)
+            Layout.alignment: Qt.AlignVCenter
+            visible: controlRoot.parent.hasIcons || (controlRoot.icon && (controlRoot.icon.name.length > 0 || controlRoot.icon.source.length > 0))
             source: controlRoot.icon ? (controlRoot.icon.name || controlRoot.icon.source) : ""
-            Layout.fillHeight: true
-            
-            Layout.preferredWidth: height
+            color: controlRoot.icon ? controlRoot.icon.color : "transparent"
+            Layout.preferredHeight: Math.max(label.height, Kirigami.Units.iconSizes.small)
+            Layout.preferredWidth: Layout.preferredHeight
         }
         Label {
+            id: label
+            Layout.alignment: Qt.AlignVCenter
             Layout.fillWidth: true
 
             text: controlRoot.text

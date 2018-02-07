@@ -37,7 +37,21 @@ T.Menu {
 
     margins: 0
 
-    contentItem: ColumnLayout {}
+    contentItem: ColumnLayout {
+        property bool hasCheckables: false
+        property bool hasIcons: false
+        onChildrenChanged: {
+            for (var i in children) {
+                var child = children[i];
+                if (child.checkable) {
+                    hasCheckables = true;
+                }
+                if (child.icon && (child.icon.name.length > 0 || child.icon.source.length > 0)) {
+                    hasIcons = true;
+                }
+            }
+        }
+    }
 
     enter: Transition {
         NumberAnimation {
