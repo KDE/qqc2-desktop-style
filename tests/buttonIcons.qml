@@ -21,8 +21,9 @@
 import QtQuick 2.6
 import QtQuick.Layouts 1.2
 import QtQuick.Controls 2.3 as Controls
+import org.kde.kirigami 2.2 as Kirigami
 
-Controls.ApplicationWindow {
+Kirigami.ApplicationWindow {
     width: 600
     height: 600
     header: Controls.MenuBar {
@@ -68,10 +69,9 @@ Controls.ApplicationWindow {
     ColumnLayout {
         anchors.centerIn: parent
         Controls.Button {
-            text: "Menu"
+            text: "text"
             icon.name: "go-previous"
-            onClicked: menu.open();
-            
+            icon.color: "red"
         }
         Controls.ToolButton {
             text: "text"
