@@ -46,7 +46,8 @@ T.Button {
         hasFocus: controlRoot.activeFocus
         activeControl: controlRoot.isDefault ? "default" : "f"
         properties: {
-            "icon": controlRoot.icon ? (controlRoot.icon.name || controlRoot.icon.source) : ""
+            "icon": controlRoot.icon ? (controlRoot.icon.name || controlRoot.icon.source) : "",
+            "iconColor": controlRoot.icon ? controlRoot.icon.color : "transparent"
         }
     }
 }

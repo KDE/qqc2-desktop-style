@@ -28,8 +28,6 @@ Kirigami.ApplicationWindow {
     height: 600
     header: Controls.MenuBar {
         Controls.Menu {
-            id: menu
-            y: parent.height
             title: "&File"
 
             Controls.MenuItem {
@@ -65,13 +63,57 @@ Kirigami.ApplicationWindow {
                 }
             }
         }
+        Controls.Menu {
+            title: "&Edit"
+
+            Controls.MenuItem {
+                text: "Item1"
+                icon.name: "go-next"
+            }
+            Controls.MenuItem {
+                text: "Item2"
+                icon.name: "go-next"
+            }
+        }
     }
     ColumnLayout {
         anchors.centerIn: parent
         Controls.Button {
+            id: coloredIconButton
             text: "text"
             icon.name: "go-previous"
-            icon.color: "red"
+        }
+        RowLayout {
+            Controls.Label {
+                text: "RGB color for icon:"
+            }
+            Controls.SpinBox{
+                id: red
+                editable: true
+                from: 0
+                to: 255
+                onValueModified: {
+                    coloredIconButton.icon.color = Qt.rgba(red.value/255, green.value/255, blue.value/255, 1);
+                }
+            }
+            Controls.SpinBox{
+                id: green
+                editable: true
+                from: 0
+                to: 255
+                onValueModified: {
+                    coloredIconButton.icon.color = Qt.rgba(red.value/255, green.value/255, blue.value/255, 1);
+                }
+            }
+            Controls.SpinBox{
+                id: blue
+                editable: true
+                from: 0
+                to: 255
+                onValueModified: {
+                    coloredIconButton.icon.color = Qt.rgba(red.value/255, green.value/255, blue.value/255, 1);
+                }
+            }
         }
         Controls.ToolButton {
             text: "text"

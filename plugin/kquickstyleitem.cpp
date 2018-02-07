@@ -192,7 +192,7 @@ void KQuickStyleItem::initStyleOption()
         if (icon.canConvert<QIcon>()) {
             opt->icon = icon.value<QIcon>();
         } else if (icon.canConvert<QString>()) {
-            opt->icon = QIcon::fromTheme(icon.value<QString>());
+            opt->icon = m_theme->iconFromTheme(icon.value<QString>(), m_properties[QStringLiteral("iconColor")].value<QColor>());
         }
         int e = qApp->style()->pixelMetric(QStyle::PM_ButtonIconSize, m_styleoption, nullptr);
         opt->iconSize = QSize(e, e);
@@ -297,7 +297,7 @@ void KQuickStyleItem::initStyleOption()
         if (icon.canConvert<QIcon>()) {
             opt->icon = icon.value<QIcon>();
         } else if (icon.canConvert<QString>()) {
-            opt->icon = QIcon::fromTheme(icon.value<QString>());
+            opt->icon = m_theme->iconFromTheme(icon.value<QString>(), m_properties[QStringLiteral("iconColor")].value<QColor>());
         }
 
         if (m_properties.value(QStringLiteral("menu")).toBool()) {
