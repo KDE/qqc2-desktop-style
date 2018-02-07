@@ -139,9 +139,9 @@ T.ComboBox {
             
             layer.effect: DropShadow {
                 transparentBorder: true
-                radius: 4
+                radius: 8
                 samples: 8
-                horizontalOffset: 2
+                horizontalOffset: 0
                 verticalOffset: 2
                 color: Qt.rgba(0, 0, 0, 0.3)
             }
