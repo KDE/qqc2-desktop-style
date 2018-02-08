@@ -45,8 +45,8 @@ T.DelayButton {
         id: styleitem
         control: controlRoot
         elementType: "button"
-        sunken: controlRoot.down || (controlRoot.checkable && controlRoot.checked)
-        raised: !(controlRoot.down || (controlRoot.checkable && controlRoot.checked))
+        sunken: controlRoot.down || controlRoot.checked
+        raised: !(controlRoot.down || controlRoot.checked)
         hover: controlRoot.hovered
         text: controlRoot.text
         hasFocus: controlRoot.activeFocus
@@ -67,7 +67,6 @@ T.DelayButton {
             value: controlRoot.progress * 100
             horizontal: true
             enabled: controlRoot.enabled
-
         }
     }
 }
