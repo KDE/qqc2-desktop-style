@@ -38,6 +38,7 @@ T.BusyIndicator {
     contentItem: Kirigami.Icon {
         source: "view-refresh"
         opacity: controlRoot.running ? 1 : 0
+        smooth: true
 
         // appearing/fading opacity change
         Behavior on opacity {
@@ -46,7 +47,7 @@ T.BusyIndicator {
 
         // rotating loading icon
         RotationAnimator {
-            target: controlRoot
+            target: controlRoot.contentItem
             running: controlRoot.visible && controlRoot.running
             from: 360
             to: 0
