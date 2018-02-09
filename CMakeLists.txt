@@ -96,8 +96,14 @@ endif(KF5IconThemes_FOUND AND KF5WidgetsAddons_FOUND)
 
 #FIXME: this assumes there will always be a QQC2 release for each Qt release, needs
 #something to discover what's the latest qqc2 version available
-math(EXPR QQC2_VERSION "${Qt5QuickControls2_VERSION_MINOR} - 7")
-set(QQC2_VERSION "2.${QQC2_VERSION}")
+math(EXPR QQC2_VERSION_MINOR "${Qt5QuickControls2_VERSION_MINOR} - 7")
+set(QQC2_VERSION "2.${QQC2_VERSION_MINOR}")
+
+if (QQC2_VERSION_MINOR LESS 3)
+    set(DISABLE_UNDER_QQC2_2_3 "//Needs QtQuick.Controls 2.3 ")
+else()
+    set(DISABLE_UNDER_QQC2_2_3 "")
+endif()
 
 # Find all the source qml files
 FILE(GLOB_RECURSE inFiles RELATIVE "${CMAKE_CURRENT_SOURCE_DIR}"
@@ -109,7 +115,7 @@ FOREACH(infileName ${inFiles})
         "${CMAKE_CURRENT_SOURCE_DIR}/${infileName}"
         "${CMAKE_CURRENT_BINARY_DIR}/${infileName}"
         INSTALL_DESTINATION  ${CMAKECONFIG_INSTALL_DIR}
-        PATH_VARS  QQC2_VERSION
+        PATH_VARS  QQC2_VERSION DISABLE_UNDER_QQC2_2_3
     )
 ENDFOREACH(infileName)
 

@@ -78,6 +78,7 @@ T.TabButton {
             "orientation": orientation,
             "tabpos": tabpos,
             "selectedpos": selectedpos
+            "icon": control.icon ? (control.icon.name || control.icon.source) : ""
         }
 
         enabled: controlRoot.enabled
