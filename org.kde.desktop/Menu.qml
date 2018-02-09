@@ -47,7 +47,7 @@ T.Menu {
 
         interactive: ApplicationWindow.window ? contentHeight > ApplicationWindow.window.height : false
         clip: true
-        currentIndex: control.currentIndex
+        currentIndex: control.currentIndex || 0
         keyNavigationEnabled: true
         keyNavigationWraps: true
 

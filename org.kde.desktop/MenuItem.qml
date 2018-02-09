@@ -37,7 +37,7 @@ T.MenuItem {
 
     Layout.fillWidth: true
     padding: 1
-    hoverEnabled: true
+    hoverEnabled: !Kirigami.Settings.isMobile
 
     contentItem: RowLayout {
         Item {
@@ -45,10 +45,11 @@ T.MenuItem {
         }
         Kirigami.Icon {
             Layout.alignment: Qt.AlignVCenter
-            visible: controlRoot.ListView.view.hasIcons || (controlRoot.icon && (controlRoot.icon.name.length > 0 || controlRoot.icon.source.length > 0))
+            visible: controlRoot.ListView.view.hasIcons || (controlRoot.icon != undefined && (controlRoot.icon.name.length > 0 || controlRoot.icon.source.length > 0))
             source: controlRoot.icon ? (controlRoot.icon.name || controlRoot.icon.source) : ""
             color: controlRoot.icon ? controlRoot.icon.color : "transparent"
-            selected: controlRoot.highlighted
+            //hovered is for retrocompatibility
+            selected: (controlRoot.highlighted || controlRoot.hovered)
             Layout.preferredHeight: Math.max(label.height, Kirigami.Units.iconSizes.small)
             Layout.preferredWidth: Layout.preferredHeight
         }
@@ -59,7 +60,7 @@ T.MenuItem {
 
             text: controlRoot.text
             font: controlRoot.font
-            color: controlRoot.highlighted ? Kirigami.Theme.highlightedTextColor : Kirigami.Theme.textColor
+            color: (controlRoot.highlighted || controlRoot.hovered) ? Kirigami.Theme.highlightedTextColor : Kirigami.Theme.textColor
             elide: Text.ElideRight
             visible: controlRoot.text
             horizontalAlignment: Text.AlignLeft
@@ -94,7 +95,7 @@ T.MenuItem {
         Rectangle {
             anchors.fill: parent
             color: Kirigami.Theme.highlightColor
-            opacity: controlRoot.highlighted ? 1 : 0
+            opacity: ((controlRoot.highlighted || controlRoot.hovered) || controlRoot.hovered) ? 1 : 0
             Behavior on opacity { NumberAnimation { duration: 150 } }
         }
     }
