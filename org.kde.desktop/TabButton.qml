@@ -77,7 +77,7 @@ T.TabButton {
             "hasFrame" : true,
             "orientation": orientation,
             "tabpos": tabpos,
-            "selectedpos": selectedpos
+            "selectedpos": selectedpos,
             "icon": control.icon ? (control.icon.name || control.icon.source) : ""
         }
 
