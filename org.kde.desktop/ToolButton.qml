@@ -30,7 +30,7 @@ T.ToolButton {
     Kirigami.Theme.colorSet: flat ? Kirigami.Theme.Window : Kirigami.Theme.Button
     Kirigami.Theme.inherit: flat
 
-    implicitWidth: background.implicitWidth
+    implicitWidth: text.length > 0 ? background.implicitWidth : implicitHeight
     implicitHeight: background.implicitHeight
 
     hoverEnabled: true //Qt.styleHints.useHoverEffects TODO: how to make this work in 5.7?
@@ -48,7 +48,8 @@ T.ToolButton {
         hasFocus: false
         activeControl: controlRoot.isDefault ? "default" : "f"
         properties: {
-            "icon": controlRoot.icon ? (controlRoot.icon.name || controlRoot.icon.source) : ""
+            "icon": controlRoot.icon ? (controlRoot.icon.name || controlRoot.icon.source) : "",
+            "iconColor": controlRoot.icon && controlRoot.icon.color.a > 0? controlRoot.icon.color : Kirigami.Theme.textColor
         }
     }
 }

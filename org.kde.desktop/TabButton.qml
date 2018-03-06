@@ -78,7 +78,8 @@ T.TabButton {
             "orientation": orientation,
             "tabpos": tabpos,
             "selectedpos": selectedpos,
-            "icon": control.icon ? (control.icon.name || control.icon.source) : ""
+            "icon": control.icon ? (control.icon.name || control.icon.source) : "",
+            "iconColor": controlRoot.icon ? controlRoot.icon.color : "transparent"
         }
 
         enabled: controlRoot.enabled
