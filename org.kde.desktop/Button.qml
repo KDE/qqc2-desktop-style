@@ -47,7 +47,7 @@ T.Button {
         activeControl: controlRoot.isDefault ? "default" : "f"
         properties: {
             "icon": controlRoot.icon ? (controlRoot.icon.name || controlRoot.icon.source) : "",
-            "iconColor": controlRoot.icon ? controlRoot.icon.color : "transparent"
+            "iconColor": controlRoot.icon && controlRoot.icon.color.a > 0? controlRoot.icon.color : Kirigami.Theme.textColor
         }
     }
 }

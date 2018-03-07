@@ -79,7 +79,7 @@ T.TabButton {
             "tabpos": tabpos,
             "selectedpos": selectedpos,
             "icon": control.icon ? (control.icon.name || control.icon.source) : "",
-            "iconColor": controlRoot.icon ? controlRoot.icon.color : "transparent"
+            "iconColor": controlRoot.icon && controlRoot.icon.color.a > 0? controlRoot.icon.color : Kirigami.Theme.textColor
         }
 
         enabled: controlRoot.enabled

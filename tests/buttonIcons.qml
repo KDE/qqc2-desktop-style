@@ -24,8 +24,11 @@ import QtQuick.Controls 2.3 as Controls
 import org.kde.kirigami 2.2 as Kirigami
 
 Kirigami.ApplicationWindow {
+    id: root
     width: 600
     height: 600
+    Kirigami.Theme.inherit: false
+    Kirigami.Theme.colorSet: Kirigami.Theme.Complementary
     header: Controls.MenuBar {
         Controls.Menu {
             title: "&File"
@@ -76,48 +79,72 @@ Kirigami.ApplicationWindow {
             }
         }
     }
-    ColumnLayout {
+    Rectangle {
+        id: background
         anchors.centerIn: parent
-        Controls.Button {
-            id: coloredIconButton
-            text: "text"
-            icon.name: "go-previous"
-        }
-        RowLayout {
-            Controls.Label {
-                text: "RGB color for icon:"
+        Kirigami.Theme.inherit: false
+        Kirigami.Theme.colorSet: Kirigami.Theme.Complementary
+
+        width: childrenRect.width
+        height: childrenRect.height
+        color: Kirigami.Theme.backgroundColor
+
+        ColumnLayout {
+
+            Controls.ComboBox {
+                Kirigami.Theme.inherit: true
+                currentIndex: 1
+                model: ["View", "Window", "Button", "Selection", "Tooltip", "Complementary"]
+                onCurrentTextChanged: background.Kirigami.Theme.colorSet = currentText
             }
-            Controls.SpinBox{
-                id: red
-                editable: true
-                from: 0
-                to: 255
-                onValueModified: {
-                    coloredIconButton.icon.color = Qt.rgba(red.value/255, green.value/255, blue.value/255, 1);
+            Controls.Button {
+                
+                Kirigami.Theme.inherit: true
+                text: "text"
+                icon.name: "go-previous"
+            }
+            Controls.Button {
+                id: coloredIconButton
+                text: "text"
+                icon.name: "go-previous"
+            }
+            RowLayout {
+                Controls.Label {
+                    text: "RGB color for icon:"
+                }
+                Controls.SpinBox{
+                    id: red
+                    editable: true
+                    from: 0
+                    to: 255
+                    onValueModified: {
+                        coloredIconButton.icon.color = Qt.rgba(red.value/255, green.value/255, blue.value/255, 1);
+                    }
+                }
+                Controls.SpinBox{
+                    id: green
+                    Kirigami.Theme.inherit: true
+                    editable: true
+                    from: 0
+                    to: 255
+                    onValueModified: {
+                        coloredIconButton.icon.color = Qt.rgba(red.value/255, green.value/255, blue.value/255, 1);
+                    }
+                }
+                Controls.SpinBox{
+                    id: blue
+                    editable: true
+                    from: 0
+                    to: 255
+                    onValueModified: {
+                        coloredIconButton.icon.color = Qt.rgba(red.value/255, green.value/255, blue.value/255, 1);
+                    }
                 }
             }
-            Controls.SpinBox{
-                id: green
-                editable: true
-                from: 0
-                to: 255
-                onValueModified: {
-                    coloredIconButton.icon.color = Qt.rgba(red.value/255, green.value/255, blue.value/255, 1);
-                }
+            Controls.ToolButton {
+                text: "text"
+                icon.name: "go-previous"
             }
-            Controls.SpinBox{
-                id: blue
-                editable: true
-                from: 0
-                to: 255
-                onValueModified: {
-                    coloredIconButton.icon.color = Qt.rgba(red.value/255, green.value/255, blue.value/255, 1);
-                }
-            }
-        }
-        Controls.ToolButton {
-            text: "text"
-            icon.name: "go-previous"
         }
     }
 }
