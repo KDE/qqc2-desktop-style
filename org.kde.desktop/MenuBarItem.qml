@@ -23,31 +23,36 @@
 import QtQuick 2.6
 import QtQuick.Layouts 1.2
 import QtQuick.Templates @QQC2_VERSION@ as T
-import org.kde.kirigami 2.2 as Kirigami
+import org.kde.kirigami 2.3 as Kirigami
 
 T.MenuBarItem {
     id: controlRoot
 
-    implicitWidth: Math.max(background ? background.implicitWidth : 0,
-                            contentItem.implicitWidth + leftPadding + rightPadding)
-    implicitHeight: Math.max(background ? background.implicitHeight : 0,
-                             contentItem.implicitHeight + topPadding + bottomPadding)
+    implicitWidth: contentItem.implicitWidth + leftPadding + rightPadding
+    implicitHeight: contentItem.implicitHeight + topPadding + bottomPadding
     baselineOffset: contentItem.y + contentItem.baselineOffset
 
     Layout.fillWidth: true
-    padding: 3
+    leftPadding: Kirigami.Units.largeSpacing
+    rightPadding: Kirigami.Units.largeSpacing
+    topPadding: Kirigami.Units.smallSpacing
+    bottomPadding: Kirigami.Units.smallSpacing
     hoverEnabled: true
 
+    Kirigami.MnemonicData.enabled: controlRoot.enabled && controlRoot.visible
+    Kirigami.MnemonicData.controlType: Kirigami.MnemonicData.MenuItem
+    Kirigami.MnemonicData.label: controlRoot.text
+
     contentItem: Label {
-        text: controlRoot.text
+        text: controlRoot.Kirigami.MnemonicData.richTextLabel
         font: controlRoot.font
         color: controlRoot.hovered && !controlRoot.pressed ? Kirigami.Theme.highlightedTextColor : Kirigami.Theme.textColor
         elide: Text.ElideRight
         visible: controlRoot.text
-        horizontalAlignment: Text.AlignLeft
+        horizontalAlignment: Text.AlignHCenter
         verticalAlignment: Text.AlignVCenter
     }
-
+onClicked: print(controlRoot.Kirigami.MnemonicData.richTextLabel)
     background: Item {
         anchors.fill: parent
         implicitWidth: Kirigami.Units.gridUnit * 8
@@ -55,7 +60,7 @@ T.MenuBarItem {
         Rectangle {
             anchors.fill: parent
             color: Kirigami.Theme.highlightColor
-            opacity: controlRoot.hovered && !controlRoot.pressed ? 1 : 0
+            opacity: controlRoot.down || controlRoot.highlighted  ? 0.7 : 0
             Behavior on opacity { NumberAnimation { duration: 150 } }
         }
     }

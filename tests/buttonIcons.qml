@@ -67,7 +67,7 @@ Kirigami.ApplicationWindow {
             }
         }
         Controls.Menu {
-            title: "&Edit"
+            title: "Edit"
 
             Controls.MenuItem {
                 text: "Item1"
