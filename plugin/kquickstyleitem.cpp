@@ -1552,10 +1552,29 @@ void KQuickStyleItem::setControl(QQuickItem *control)
 
     if (m_control) {
         m_control->removeEventFilter(this);
+        disconnect(m_control, 0, this, 0);
     }
 
     m_control = control;
-    m_control->installEventFilter(this);
+
+    if (m_control) {
+        m_control->installEventFilter(this);
+    
+        if (m_control->window()) {
+            m_window = m_control->window();
+            m_window->installEventFilter(this);
+        }
+        connect(m_control, &QQuickItem::windowChanged, this,
+                [this](QQuickWindow *window) {
+            if (m_window) {
+                m_window->removeEventFilter(this);
+            }
+            m_window = window;
+            if (m_window) {
+                m_window->installEventFilter(this);
+            }
+        });
+    }
 
     emit controlChanged();
 }
@@ -1609,9 +1628,19 @@ void KQuickStyleItem::updatePolish()
 
 bool KQuickStyleItem::eventFilter(QObject *watched, QEvent *event)
 {
-    if (event->type() == QEvent::FocusIn || event->type() == QEvent::FocusOut) {
-        QFocusEvent *fe = static_cast<QFocusEvent *>(event);
-        m_lastFocusReason = fe->reason();
+    if (watched == m_control) {
+        if (event->type() == QEvent::FocusIn || event->type() == QEvent::FocusOut) {
+            QFocusEvent *fe = static_cast<QFocusEvent *>(event);
+            m_lastFocusReason = fe->reason();
+        }
+    } else if (watched == m_window.data()) {
+        if (event->type() == QEvent::KeyPress || event->type() == QEvent::KeyRelease) {
+            QKeyEvent *ke = static_cast<QKeyEvent *>(event);
+            if (ke->key() == Qt::Key_Alt) {
+                updateItem();
+            }
+
+        }
     }
 
     return QQuickItem::eventFilter(watched, event);

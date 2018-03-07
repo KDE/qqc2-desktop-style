@@ -43,6 +43,13 @@ T.MenuBarItem {
     Kirigami.MnemonicData.controlType: Kirigami.MnemonicData.MenuItem
     Kirigami.MnemonicData.label: controlRoot.text
 
+    Shortcut {
+        //in case of explicit & the button manages it by itself
+        enabled: !(RegExp(/\&[^\&]/).test(controlRoot.text))
+        sequence: controlRoot.Kirigami.MnemonicData.sequence
+        onActivated: controlRoot.clicked();
+    }
+
     contentItem: Label {
         text: controlRoot.Kirigami.MnemonicData.richTextLabel
         font: controlRoot.font
@@ -52,7 +59,7 @@ T.MenuBarItem {
         horizontalAlignment: Text.AlignHCenter
         verticalAlignment: Text.AlignVCenter
     }
-onClicked: print(controlRoot.Kirigami.MnemonicData.richTextLabel)
+
     background: Item {
         anchors.fill: parent
         implicitWidth: Kirigami.Units.gridUnit * 8

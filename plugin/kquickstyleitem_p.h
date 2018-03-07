@@ -277,6 +277,7 @@ protected:
     Kirigami::PlatformTheme *m_theme = nullptr;
     QStyleOption *m_styleoption;
     QPointer<QQuickItem> m_control;
+    QPointer<QWindow> m_window;
     Type m_itemType;
 
     QString m_type;

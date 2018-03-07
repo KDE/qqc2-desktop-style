@@ -22,7 +22,7 @@
 import QtQuick 2.6
 import QtQuick.Templates @QQC2_VERSION@ as T
 import org.kde.qqc2desktopstyle.private 1.0 as StylePrivate
-import org.kde.kirigami 2.2 as Kirigami
+import org.kde.kirigami 2.3 as Kirigami
 
 T.Button {
     id: controlRoot
@@ -35,6 +35,15 @@ T.Button {
     hoverEnabled: true //Qt.styleHints.useHoverEffects TODO: how to make this work in 5.7?
 
     contentItem: Item {}
+    Kirigami.MnemonicData.enabled: controlRoot.enabled && controlRoot.visible
+    Kirigami.MnemonicData.controlType: Kirigami.MnemonicData.ActionElement
+    Kirigami.MnemonicData.label: controlRoot.text
+    Shortcut {
+        //in case of explicit & the button manages it by itself
+        enabled: !(RegExp(/\&[^\&]/).test(controlRoot.text))
+        sequence: controlRoot.Kirigami.MnemonicData.sequence
+        onActivated: controlRoot.clicked()
+    }
     background: StylePrivate.StyleItem {
         id: styleitem
         control: controlRoot
@@ -42,7 +51,7 @@ T.Button {
         sunken: controlRoot.pressed || (controlRoot.checkable && controlRoot.checked)
         raised: !(controlRoot.pressed || (controlRoot.checkable && controlRoot.checked))
         hover: controlRoot.hovered
-        text: controlRoot.text
+        text: controlRoot.Kirigami.MnemonicData.mnemonicLabel
         hasFocus: controlRoot.activeFocus
         activeControl: controlRoot.isDefault ? "default" : "f"
         properties: {

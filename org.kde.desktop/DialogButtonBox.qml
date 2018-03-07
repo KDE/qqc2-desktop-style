@@ -22,7 +22,7 @@
 
 import QtQuick 2.6
 import QtQuick.Templates @QQC2_VERSION@ as T
-import org.kde.kirigami 2.2 as Kirigami
+import org.kde.kirigami 2.3 as Kirigami
 
 T.DialogButtonBox {
     id: control
@@ -36,6 +36,7 @@ T.DialogButtonBox {
 
     delegate: Button {
         width: Math.min(implicitWidth, control.width / control.count - control.padding - control.spacing * control.count)
+        Kirigami.MnemonicData.controlType: Kirigami.MnemonicData.DialogButton
     }
 
     contentItem: ListView {
