@@ -923,7 +923,8 @@ QSize KQuickStyleItem::sizeFromContents(int width, int height)
         break;
     default:
         break;
-    }    return size;
+    }
+    return size.expandedTo(QSize(m_contentWidth, m_contentHeight));
 }
 
 qreal KQuickStyleItem::baselineOffset()
