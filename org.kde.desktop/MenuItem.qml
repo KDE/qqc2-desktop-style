@@ -30,9 +30,9 @@ T.MenuItem {
 
     implicitWidth: Math.max(background ? background.implicitWidth : 0,
                             contentItem.implicitWidth + leftPadding + rightPadding)
-    implicitHeight: Math.max(background ? background.implicitHeight : 0,
+    implicitHeight: visible ? Math.max(background ? background.implicitHeight : 0,
                              Math.max(contentItem.implicitHeight,
-                                      indicator ? indicator.implicitHeight : 0) + topPadding + bottomPadding)
+                                      indicator ? indicator.implicitHeight : 0) + topPadding + bottomPadding) : 0
     baselineOffset: contentItem.y + contentItem.baselineOffset
 
     Layout.fillWidth: true
@@ -57,7 +57,7 @@ T.MenuItem {
 
     contentItem: RowLayout {
         Item {
-           Layout.preferredWidth: controlRoot.ListView.view.hasCheckables || controlRoot.checkable ? controlRoot.indicator.width : 0
+           Layout.preferredWidth: controlRoot.ListView.view.hasCheckables || controlRoot.checkable ? controlRoot.indicator.width : Kirigami.Units.smallSpacing
         }
         Kirigami.Icon {
             Layout.alignment: Qt.AlignVCenter
