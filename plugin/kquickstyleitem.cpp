@@ -48,11 +48,7 @@
 #include <qstyleoption.h>
 #include <qapplication.h>
 #include <qquickwindow.h>
-#if QT_VERSION >= QT_VERSION_CHECK(5,8,0)
 #include <QtQuick/qsgninepatchnode.h>
-#else
-#include "qsgdefaultninepatchnode_p.h"
-#endif
 
 #include <Kirigami2/PlatformTheme>
 
@@ -1573,11 +1569,7 @@ QSGNode *KQuickStyleItem::updatePaintNode(QSGNode *node, UpdatePaintNodeData *)
 
     QSGNinePatchNode *styleNode = static_cast<QSGNinePatchNode *>(node);
     if (!styleNode)
-#if QT_VERSION >= QT_VERSION_CHECK(5,8,0)
         styleNode = window()->createNinePatchNode();
-#else
-        styleNode = new QSGDefaultNinePatchNode;
-#endif
 
 #ifdef QSG_RUNTIME_DESCRIPTION
     qsgnode_set_description(styleNode,
