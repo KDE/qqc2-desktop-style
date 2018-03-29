@@ -48,6 +48,7 @@ T.ToolButton {
     }
     background: StylePrivate.StyleItem {
         id: styleitem
+        anchors.fill:parent
         control: controlRoot
         elementType: controlRoot.flat ? "toolbutton" : "button"
         sunken: controlRoot.pressed || (controlRoot.checkable && controlRoot.checked)
