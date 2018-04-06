@@ -34,7 +34,7 @@ T.ToolBar {
     contentHeight: contentChildren[0].implicitHeight
 
     contentItem: Item {}
-position: is("header") ? ToolBar.Header : ToolBar.Footer
+    position: controlRoot.parent.footer == controlRoot ? ToolBar.Footer : ToolBar.Header
     background: Rectangle {
         implicitHeight: 40
         color: Kirigami.Theme.backgroundColor
