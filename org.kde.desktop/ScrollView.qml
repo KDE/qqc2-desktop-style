@@ -44,7 +44,6 @@ T.ScrollView {
     Component.onCompleted: {
         if (!controlRoot.background) {
             controlRoot.background = backgroundComponent.createObject(controlRoot);
-            print(controlRoot.background.width);
         }
     }
 
