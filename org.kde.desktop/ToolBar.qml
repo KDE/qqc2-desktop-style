@@ -34,7 +34,7 @@ T.ToolBar {
     contentHeight: contentChildren[0].implicitHeight
 
     contentItem: Item {}
-
+    position: controlRoot.parent.footer == controlRoot ? ToolBar.Footer : ToolBar.Header
     background: Rectangle {
         implicitHeight: 40
         color: Kirigami.Theme.backgroundColor
@@ -42,8 +42,8 @@ T.ToolBar {
             anchors {
                 left: parent.left
                 right: parent.right
-                top: controlRoot.parent.footer && controlRoot.parent.footer == controlRoot ? parent.top : undefined
-                bottom: controlRoot.parent.footer && controlRoot.parent.footer == controlRoot ? undefined : parent.bottom
+                top: controlRoot.position == T.ToolBar.Footer || (controlRoot.parent.footer && controlRoot.parent.footer == controlRoot) ? parent.top : undefined
+                bottom: controlRoot.position == T.ToolBar.Footer || (controlRoot.parent.footer && controlRoot.parent.footer == controlRoot) ? undefined : parent.bottom
             }
         }
     }

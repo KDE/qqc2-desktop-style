@@ -1,11 +1,11 @@
 cmake_minimum_required(VERSION 3.0)
 
-set(KF5_VERSION "5.42.0") # handled by release scripts
-set(KF5_DEP_VERSION "5.41.0") # handled by release scripts
+set(KF5_VERSION "5.45.0") # handled by release scripts
+set(KF5_DEP_VERSION "5.45.0") # handled by release scripts
 
 project(qqc2-desktop-style VERSION ${KF5_VERSION})
 
-set(REQUIRED_QT_VERSION "5.7.0")
+set(REQUIRED_QT_VERSION 5.8.0)
 
 ################# Disallow in-source build #################
 
@@ -30,7 +30,7 @@ include(FeatureSummary)
 
 ################# set KDE specific information #################
 
-find_package(ECM 5.41.0 REQUIRED NO_MODULE)
+find_package(ECM 5.45.0 REQUIRED NO_MODULE)
 
 # where to look first for cmake modules, before ${CMAKE_ROOT}/Modules/ is checked
 set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} ${ECM_MODULE_PATH} ${ECM_KDE_MODULE_DIR})
@@ -112,8 +112,14 @@ endif(KF5IconThemes_FOUND AND KF5WidgetsAddons_FOUND)
 
 #FIXME: this assumes there will always be a QQC2 release for each Qt release, needs
 #something to discover what's the latest qqc2 version available
-math(EXPR QQC2_VERSION "${Qt5QuickControls2_VERSION_MINOR} - 7")
-set(QQC2_VERSION "2.${QQC2_VERSION}")
+math(EXPR QQC2_VERSION_MINOR "${Qt5QuickControls2_VERSION_MINOR} - 7")
+set(QQC2_VERSION "2.${QQC2_VERSION_MINOR}")
+
+if (QQC2_VERSION_MINOR LESS 3)
+    set(DISABLE_UNDER_QQC2_2_3 "//Needs QtQuick.Controls 2.3 ")
+else()
+    set(DISABLE_UNDER_QQC2_2_3 "")
+endif()
 
 # Find all the source qml files
 FILE(GLOB_RECURSE inFiles RELATIVE "${CMAKE_CURRENT_SOURCE_DIR}"
@@ -125,7 +131,7 @@ FOREACH(infileName ${inFiles})
         "${CMAKE_CURRENT_SOURCE_DIR}/${infileName}"
         "${CMAKE_CURRENT_BINARY_DIR}/${infileName}"
         INSTALL_DESTINATION  ${CMAKECONFIG_INSTALL_DIR}
-        PATH_VARS  QQC2_VERSION
+        PATH_VARS  QQC2_VERSION DISABLE_UNDER_QQC2_2_3
     )
 ENDFOREACH(infileName)
 

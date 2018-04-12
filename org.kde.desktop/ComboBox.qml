@@ -58,9 +58,9 @@ T.ComboBox {
         onPressed: mouse.accepted = false;
         onWheel: {
             if (wheel.pixelDelta.y < 0 || wheel.angleDelta.y < 0) {
-                controlRoot.currentIndex = (controlRoot.currentIndex + 1) % delegateModel.count
+                controlRoot.currentIndex = Math.min(controlRoot.currentIndex + 1, delegateModel.count -1);
             } else {
-                controlRoot.currentIndex = (controlRoot.currentIndex - 1 + delegateModel.count) % delegateModel.count
+                controlRoot.currentIndex = Math.max(controlRoot.currentIndex - 1, 0);
             }
         }
         T.TextField {
@@ -76,7 +76,10 @@ T.ComboBox {
             readOnly: controlRoot.popup.visible
             inputMethodHints: controlRoot.inputMethodHints
             validator: controlRoot.validator
-            renderType: Window.devicePixelRatio % 1 !== 0 ? Text.QtRendering : Text.NativeRendering
+
+            // Work around Qt bug where NativeRendering breaks for non-integer scale factors
+            // https://bugreports.qt.io/browse/QTBUG-67007
+            renderType: Screen.devicePixelRatio % 1 !== 0 ? Text.QtRendering : Text.NativeRendering
             color: controlRoot.enabled ? Kirigami.Theme.textColor : Kirigami.Theme.disabledTextColor
             selectionColor: Kirigami.Theme.highlightColor
             selectedTextColor: Kirigami.Theme.highlightedTextColor
@@ -139,9 +142,9 @@ T.ComboBox {
             
             layer.effect: DropShadow {
                 transparentBorder: true
-                radius: 4
+                radius: 8
                 samples: 8
-                horizontalOffset: 2
+                horizontalOffset: 0
                 verticalOffset: 2
                 color: Qt.rgba(0, 0, 0, 0.3)
             }

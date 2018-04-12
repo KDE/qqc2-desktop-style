@@ -69,7 +69,7 @@ T.Dialog {
         
         layer.effect: DropShadow {
             transparentBorder: true
-            radius: 8
+            radius: 16
             samples: 16
             horizontalOffset: 0
             verticalOffset: 4

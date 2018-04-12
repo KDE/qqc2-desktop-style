@@ -23,7 +23,7 @@
 import QtQuick 2.6
 import QtQuick.Templates @QQC2_VERSION@ as T
 import QtQuick.Controls @QQC2_VERSION@
-import org.kde.kirigami 2.2 as Kirigami
+import org.kde.kirigami 2.3 as Kirigami
 
 T.CheckBox {
     id: controlRoot
@@ -50,11 +50,21 @@ T.CheckBox {
         control: controlRoot
     }
 
+    Kirigami.MnemonicData.enabled: controlRoot.enabled && controlRoot.visible
+    Kirigami.MnemonicData.controlType: Kirigami.MnemonicData.ActionElement
+    Kirigami.MnemonicData.label: controlRoot.text
+    Shortcut {
+        //in case of explicit & the button manages it by itself
+        enabled: !(RegExp(/\&[^\&]/).test(controlRoot.text))
+        sequence: controlRoot.Kirigami.MnemonicData.sequence
+        onActivated: controlRoot.toggle();
+    }
+
     contentItem: Label {
         leftPadding: controlRoot.indicator && !controlRoot.mirrored ? controlRoot.indicator.width + controlRoot.spacing : 0
         rightPadding: controlRoot.indicator && controlRoot.mirrored ? controlRoot.indicator.width + controlRoot.spacing : 0
         opacity: controlRoot.enabled ? 1 : 0.6
-        text: controlRoot.text
+        text: controlRoot.Kirigami.MnemonicData.richTextLabel
         font: controlRoot.font
         elide: Text.ElideRight
         visible: controlRoot.text

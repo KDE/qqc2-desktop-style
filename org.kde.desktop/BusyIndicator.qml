@@ -1,6 +1,6 @@
 /*
- * Copyright 2017 Marco Martin <mart@kde.org>
- * Copyright 2017 The Qt Company Ltd.
+ * Copyright 2018 Oleg Chernovskiy <adonai@xaker.ru>
+ * Copyright 2018 The Qt Company Ltd.
  *
  * GNU Lesser General Public License Usage
  * Alternatively, this file may be used under the terms of the GNU Lesser
@@ -21,34 +21,38 @@
 
 
 import QtQuick 2.6
+import org.kde.kirigami 2.2 as Kirigami
 import QtQuick.Templates @QQC2_VERSION@ as T
-import org.kde.kirigami 2.3 as Kirigami
 
-T.DialogButtonBox {
-    id: control
+T.BusyIndicator {
+    id: controlRoot
 
     implicitWidth: contentItem.implicitWidth + leftPadding + rightPadding
     implicitHeight: contentItem.implicitHeight + topPadding + bottomPadding
 
+    padding: 6
     spacing: Kirigami.Units.smallSpacing
-    padding: Kirigami.Units.smallSpacing
-    alignment: Qt.AlignRight
 
-    delegate: Button {
-        width: Math.min(implicitWidth, control.width / control.count - control.padding - control.spacing * control.count)
-        Kirigami.MnemonicData.controlType: Kirigami.MnemonicData.DialogButton
+    hoverEnabled: true
+
+    contentItem: Kirigami.Icon {
+        source: "view-refresh"
+        opacity: controlRoot.running ? 1 : 0
+        smooth: true
+
+        // appearing/fading opacity change
+        Behavior on opacity {
+            OpacityAnimator { duration: 250 }
+        }
+
+        // rotating loading icon
+        RotationAnimator {
+            target: controlRoot.contentItem
+            running: controlRoot.visible && controlRoot.running
+            from: 360
+            to: 0
+            loops: Animation.Infinite
+            duration: 1000
+        }
     }
-
-    contentItem: ListView {
-        implicitWidth: contentWidth
-        implicitHeight: 32
-
-        model: control.contentModel
-        spacing: control.spacing
-        orientation: ListView.Horizontal
-        boundsBehavior: Flickable.StopAtBounds
-        snapMode: ListView.SnapToItem
-    }
-
-    background: Item {}
 }

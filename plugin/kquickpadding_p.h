@@ -59,7 +59,7 @@ class KQuickPadding : public QObject
     int m_bottom;
 
 public:
-    KQuickPadding(QObject *parent = 0) :
+    KQuickPadding(QObject *parent = nullptr) :
         QObject(parent),
         m_left(0),
         m_top(0),

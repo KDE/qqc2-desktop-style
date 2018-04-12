@@ -25,7 +25,7 @@ import org.kde.desktop.private 1.0 as StylePrivate
 
 StylePrivate.StyleItem {
     id: styleitem
-    elementType: "checkbox"
+    elementType: control.autoExclusive ? "radiobutton" : "checkbox"
     sunken: control.pressed
     on: control.checked || control.pressed
     hover: control.hovered

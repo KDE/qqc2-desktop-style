@@ -20,7 +20,7 @@
  */
 
 
-import QtQuick 2.6
+import QtQuick 2.7
 import QtQuick.Layouts 1.2
 import QtGraphicalEffects 1.0
 import QtQuick.Controls @QQC2_VERSION@
@@ -37,7 +37,37 @@ T.Menu {
 
     margins: 0
 
-    contentItem: ColumnLayout {}
+@DISABLE_UNDER_QQC2_2_3@    delegate: MenuItem { }
+
+    contentItem: ListView {
+        implicitHeight: contentHeight
+        property bool hasCheckables: false
+        property bool hasIcons: false
+        model: control.contentModel
+
+        interactive: ApplicationWindow.window ? contentHeight > ApplicationWindow.window.height : false
+        clip: true
+        currentIndex: control.currentIndex || 0
+        keyNavigationEnabled: true
+        keyNavigationWraps: true
+
+        ScrollBar.vertical: ScrollBar {}
+    }
+
+    Connections {
+        target: control.contentItem.contentItem
+        onChildrenChanged: {
+            for (var i in control.contentItem.contentItem.children) {
+                var child = control.contentItem.contentItem.children[i];
+                if (child.checkable) {
+                    control.contentItem.hasCheckables = true;
+                }
+                if (child.icon && (child.icon.name.length > 0 || child.icon.source.length > 0)) {
+                    control.contentItem.hasIcons = true;
+                }
+            }
+        }
+    }
 
     enter: Transition {
         NumberAnimation {
@@ -70,9 +100,9 @@ T.Menu {
         
         layer.effect: DropShadow {
             transparentBorder: true
-            radius: 4
+            radius: 8
             samples: 8
-            horizontalOffset: 2
+            horizontalOffset: 0
             verticalOffset: 2
             color: Qt.rgba(0, 0, 0, 0.3)
         }

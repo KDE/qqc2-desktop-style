@@ -25,6 +25,7 @@
 #include <QQuickItem>
 #include <QColor>
 #include <QPointer>
+#include <QIcon>
 
 class PlasmaDesktopTheme;
 class KIconLoader;
@@ -45,8 +46,8 @@ class PlasmaDesktopTheme : public Kirigami::PlatformTheme
     Q_PROPERTY(QColor viewFocusColor READ viewFocusColor NOTIFY colorsChanged)
 
 public:
-    explicit PlasmaDesktopTheme(QObject *parent = 0);
-    ~PlasmaDesktopTheme();
+    explicit PlasmaDesktopTheme(QObject *parent = nullptr);
+    ~PlasmaDesktopTheme() override;
 
     Q_INVOKABLE QIcon iconFromTheme(const QString &name, const QColor &customColor = Qt::transparent) Q_DECL_OVERRIDE;
 

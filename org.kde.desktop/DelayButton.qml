@@ -21,11 +21,10 @@
 
 import QtQuick 2.6
 import QtQuick.Templates @QQC2_VERSION@ as T
+import org.kde.qqc2desktopstyle.private 1.0 as StylePrivate
+import org.kde.kirigami 2.2 as Kirigami
 
-import org.kde.desktop.private 1.0 as StylePrivate
-import org.kde.kirigami 2.3 as Kirigami
-
-T.Button {
+T.DelayButton {
     id: controlRoot
     Kirigami.Theme.colorSet: Kirigami.Theme.Button
     Kirigami.Theme.inherit: false
@@ -33,31 +32,41 @@ T.Button {
     implicitWidth: background.implicitWidth
     implicitHeight: background.implicitHeight
 
-    hoverEnabled: true //Qt.styleHints.useHoverEffects TODO: how to make this work in 5.7?
+    hoverEnabled: !Kirigami.Settings.isMobile
+
+    transition: Transition {
+        NumberAnimation {
+            duration: control.delay * (control.pressed ? 1.0 - control.progress : 0.3 * control.progress)
+        }
+    }
 
     contentItem: Item {}
-    Kirigami.MnemonicData.enabled: controlRoot.enabled && controlRoot.visible
-    Kirigami.MnemonicData.controlType: Kirigami.MnemonicData.ActionElement
-    Kirigami.MnemonicData.label: controlRoot.text
-    Shortcut {
-        //in case of explicit & the button manages it by itself
-        enabled: !(RegExp(/\&[^\&]/).test(controlRoot.text))
-        sequence: controlRoot.Kirigami.MnemonicData.sequence
-        onActivated: controlRoot.clicked()
-    }
     background: StylePrivate.StyleItem {
         id: styleitem
         control: controlRoot
         elementType: "button"
-        sunken: controlRoot.pressed || (controlRoot.checkable && controlRoot.checked)
-        raised: !(controlRoot.pressed || (controlRoot.checkable && controlRoot.checked))
+        sunken: controlRoot.down || controlRoot.checked
+        raised: !(controlRoot.down || controlRoot.checked)
         hover: controlRoot.hovered
-        text: controlRoot.Kirigami.MnemonicData.mnemonicLabel
+        text: controlRoot.text
         hasFocus: controlRoot.activeFocus
         activeControl: controlRoot.isDefault ? "default" : "f"
-        properties: {
-            "icon": controlRoot.icon ? (controlRoot.icon.name || controlRoot.icon.source) : "",
-            "iconColor": controlRoot.icon && controlRoot.icon.color.a > 0? controlRoot.icon.color : Kirigami.Theme.textColor
+
+        StylePrivate.StyleItem {
+            anchors {
+                bottom: parent.bottom
+                left: parent.left
+                right: parent.right
+                margins: 3
+            }
+            elementType: "progressbar"
+
+            control: controlRoot
+            maximum: 100
+            minimum: 0
+            value: controlRoot.progress * 100
+            horizontal: true
+            enabled: controlRoot.enabled
         }
     }
 }

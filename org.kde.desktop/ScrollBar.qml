@@ -23,6 +23,7 @@
 import QtQuick 2.6
 import org.kde.desktop.private 1.0 as StylePrivate
 import QtQuick.Templates @QQC2_VERSION@ as T
+import org.kde.kirigami 2.2 as Kirigami
 
 T.ScrollBar {
     id: controlRoot
@@ -39,6 +40,7 @@ T.ScrollBar {
         anchors.fill: parent
         visible: controlRoot.size < 1.0
         hoverEnabled: true
+        state: "inactive"
         onPositionChanged: style.activeControl = style.hitTest(mouse.x, mouse.y)
         onExited: style.activeControl = "groove";
         onPressed: {
@@ -78,12 +80,7 @@ T.ScrollBar {
             enabled: controlRoot.enabled
 
             visible: controlRoot.size < 1.0
-            opacity: mouseArea.containsMouse ? 1 : 0
-            Behavior on opacity {
-                OpacityAnimator {
-                    duration: 250
-                }
-            }
+            opacity: 1
 
             Timer {
                 id: buttonTimer
@@ -96,6 +93,7 @@ T.ScrollBar {
             }
         }
         StylePrivate.StyleItem {
+            id: inactiveStyle
             anchors.fill: parent
             control: controlRoot
             elementType: "scrollbar"
@@ -108,13 +106,52 @@ T.ScrollBar {
             enabled: controlRoot.enabled
 
             visible: controlRoot.size < 1.0
-            opacity: !mouseArea.containsMouse ? 1 : 0
-            Behavior on opacity {
-                OpacityAnimator {
-                    duration: 250
+            opacity: 1
+        }
+        states: [
+            State {
+                name: "hover"
+                when: mouseArea.containsMouse
+                PropertyChanges {
+                    target: style
+                    opacity: 1
+                }
+                PropertyChanges {
+                    target: inactiveStyle
+                    opacity: 0
+                }
+            },
+            State {
+                name: "inactive"
+                when: !mouseArea.containsMouse
+                PropertyChanges {
+                    target: style
+                    opacity: 0
+                }
+                PropertyChanges {
+                    target: inactiveStyle
+                    opacity: 1
                 }
             }
-        }
+        ]
+        transitions: [
+            Transition {
+                ParallelAnimation {
+                    NumberAnimation {
+                        target: style
+                        property: "opacity"
+                        duration: Kirigami.Units.shortDuration
+                        easing.type: Easing.InOutQuad
+                    }
+                    NumberAnimation {
+                        target: inactiveStyle
+                        property: "opacity"
+                        duration: Kirigami.Units.shortDuration
+                        easing.type: Easing.InOutQuad
+                    }
+                }
+            }
+        ]
     }
 
     contentItem: Item {}

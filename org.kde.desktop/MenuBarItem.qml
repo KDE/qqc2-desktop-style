@@ -21,53 +21,54 @@
 
 
 import QtQuick 2.6
+import QtQuick.Layouts 1.2
 import QtQuick.Templates @QQC2_VERSION@ as T
 import org.kde.kirigami 2.3 as Kirigami
 
-T.CheckBox {
-    id: control
+T.MenuBarItem {
+    id: controlRoot
 
     implicitWidth: contentItem.implicitWidth + leftPadding + rightPadding
-    implicitHeight: Math.max(contentItem.implicitHeight,
-                                      indicator ? indicator.implicitHeight : 0) + topPadding + bottomPadding
+    implicitHeight: contentItem.implicitHeight + topPadding + bottomPadding
     baselineOffset: contentItem.y + contentItem.baselineOffset
 
-    padding: 1
-    spacing: Kirigami.Units.smallSpacing
-
+    Layout.fillWidth: true
+    leftPadding: Kirigami.Units.largeSpacing
+    rightPadding: Kirigami.Units.largeSpacing
+    topPadding: Kirigami.Units.smallSpacing
+    bottomPadding: Kirigami.Units.smallSpacing
     hoverEnabled: true
 
-    indicator: SwitchIndicator {
-        LayoutMirroring.enabled: control.mirrored
-        LayoutMirroring.childrenInherit: true
-        height: 22
-        anchors {
-            left: parent.left
-            verticalCenter: parent.verticalCenter
-        }
-        control: control
-    }
+    Kirigami.MnemonicData.enabled: controlRoot.enabled && controlRoot.visible
+    Kirigami.MnemonicData.controlType: Kirigami.MnemonicData.MenuItem
+    Kirigami.MnemonicData.label: controlRoot.text
 
-    Kirigami.MnemonicData.enabled: control.enabled && control.visible
-    Kirigami.MnemonicData.controlType: Kirigami.MnemonicData.ActionElement
-    Kirigami.MnemonicData.label: control.text
     Shortcut {
         //in case of explicit & the button manages it by itself
-        enabled: !(RegExp(/\&[^\&]/).test(control.text))
-        sequence: control.Kirigami.MnemonicData.sequence
-        onActivated: control.toggle();
+        enabled: !(RegExp(/\&[^\&]/).test(controlRoot.text))
+        sequence: controlRoot.Kirigami.MnemonicData.sequence
+        onActivated: controlRoot.clicked();
     }
 
     contentItem: Label {
-        leftPadding: control.indicator && !control.mirrored ? control.indicator.width + control.spacing : 0
-        rightPadding: control.indicator && control.mirrored ? control.indicator.width + control.spacing : 0
-        opacity: control.enabled ? 1 : 0.6
-        text: control.Kirigami.MnemonicData.richTextLabel
-        font: control.font
-        color: Kirigami.Theme.textColor
+        text: controlRoot.Kirigami.MnemonicData.richTextLabel
+        font: controlRoot.font
+        color: controlRoot.hovered && !controlRoot.pressed ? Kirigami.Theme.highlightedTextColor : Kirigami.Theme.textColor
         elide: Text.ElideRight
-        visible: control.text
-        horizontalAlignment: Text.AlignLeft
+        visible: controlRoot.text
+        horizontalAlignment: Text.AlignHCenter
         verticalAlignment: Text.AlignVCenter
+    }
+
+    background: Item {
+        anchors.fill: parent
+        implicitWidth: Kirigami.Units.gridUnit * 8
+
+        Rectangle {
+            anchors.fill: parent
+            color: Kirigami.Theme.highlightColor
+            opacity: controlRoot.down || controlRoot.highlighted  ? 0.7 : 0
+            Behavior on opacity { NumberAnimation { duration: 150 } }
+        }
     }
 }
