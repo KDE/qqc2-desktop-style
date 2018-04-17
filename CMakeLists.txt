@@ -1,7 +1,7 @@
 cmake_minimum_required(VERSION 3.0)
 
-set(KF5_VERSION "5.45.0") # handled by release scripts
-set(KF5_DEP_VERSION "5.45.0") # handled by release scripts
+set(KF5_VERSION "5.39.0") # handled by release scripts
+set(KF5_DEP_VERSION "5.39.0") # handled by release scripts
 
 project(qqc2-desktop-style VERSION ${KF5_VERSION})
 
@@ -30,7 +30,7 @@ include(FeatureSummary)
 
 ################# set KDE specific information #################
 
-find_package(ECM 5.45.0 REQUIRED NO_MODULE)
+find_package(ECM 5.39.0 REQUIRED NO_MODULE)
 
 # where to look first for cmake modules, before ${CMAKE_ROOT}/Modules/ is checked
 set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} ${ECM_MODULE_PATH} ${ECM_KDE_MODULE_DIR})
@@ -41,13 +41,15 @@ include(KDEInstallDirs)
 include(KDECMakeSettings)
 include(KDECompilerSettings NO_POLICY_SCOPE)
 
-find_package(Qt5 ${REQUIRED_QT_VERSION} REQUIRED NO_MODULE COMPONENTS Core Quick Gui Widgets QuickControls2)
+find_package(Qt5 ${REQUIRED_QT_VERSION} REQUIRED NO_MODULE COMPONENTS Core Quick Gui Widgets QuickControls2 DBus Svg)
 
 find_package(KF5 ${KF5_DEP_VERSION} REQUIRED COMPONENTS Kirigami2)
 
 find_package(KF5 ${KF5_DEP_VERSION} COMPONENTS
                 IconThemes #KIconLoader
                 ConfigWidgets #KColorScheme
+Archive I18n
+ItemViews GuiAddons
             )
 
 if (NOT APPLE AND NOT WIN32)
