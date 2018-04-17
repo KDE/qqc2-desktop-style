@@ -54,43 +54,46 @@ T.ComboBox {
 
     indicator: Item {}
 
-    contentItem: MouseArea {
-        onPressed: mouse.accepted = false;
-        onWheel: {
-            if (wheel.pixelDelta.y < 0 || wheel.angleDelta.y < 0) {
-                controlRoot.currentIndex = Math.min(controlRoot.currentIndex + 1, delegateModel.count -1);
-            } else {
-                controlRoot.currentIndex = Math.max(controlRoot.currentIndex - 1, 0);
+    contentItem: T.TextField {
+        padding: 0
+        leftPadding: controlRoot.editable || controlRoot.mirrored ? 0 : 12
+        rightPadding: controlRoot.editable || !controlRoot.mirrored ? 0 : 12
+
+        MouseArea {
+            anchors.fill:parent
+            onPressed: mouse.accepted = false;
+            onWheel: {
+                if (wheel.pixelDelta.y < 0 || wheel.angleDelta.y < 0) {
+                    controlRoot.currentIndex = Math.min(controlRoot.currentIndex + 1, delegateModel.count -1);
+                } else {
+                    controlRoot.currentIndex = Math.max(controlRoot.currentIndex - 1, 0);
+                }
             }
         }
-        T.TextField {
-            anchors {
-                fill: parent
-                leftMargin: controlRoot.mirrored ? 12 : 1
-                rightMargin: !controlRoot.mirrored ? 12 : 1
-            }
+        text: controlRoot.editable ? controlRoot.editText : controlRoot.displayText
 
-            text: controlRoot.editText
+        enabled: controlRoot.editable
+        autoScroll: controlRoot.editable
+        readOnly: controlRoot.down
+        
+        visible: typeof(controlRoot.editable) != "undefined" && controlRoot.editable
+        inputMethodHints: controlRoot.inputMethodHints
+        validator: controlRoot.validator
 
-            visible: typeof(controlRoot.editable) != "undefined" && controlRoot.editable
-            readOnly: controlRoot.popup.visible
-            inputMethodHints: controlRoot.inputMethodHints
-            validator: controlRoot.validator
+        // Work around Qt bug where NativeRendering breaks for non-integer scale factors
+        // https://bugreports.qt.io/browse/QTBUG-67007
+        renderType: Screen.devicePixelRatio % 1 !== 0 ? Text.QtRendering : Text.NativeRendering
+        color: controlRoot.enabled ? Kirigami.Theme.textColor : Kirigami.Theme.disabledTextColor
+        selectionColor: Kirigami.Theme.highlightColor
+        selectedTextColor: Kirigami.Theme.highlightedTextColor
+        selectByMouse: true
 
-            // Work around Qt bug where NativeRendering breaks for non-integer scale factors
-            // https://bugreports.qt.io/browse/QTBUG-67007
-            renderType: Screen.devicePixelRatio % 1 !== 0 ? Text.QtRendering : Text.NativeRendering
-            color: controlRoot.enabled ? Kirigami.Theme.textColor : Kirigami.Theme.disabledTextColor
-            selectionColor: Kirigami.Theme.highlightColor
-            selectedTextColor: Kirigami.Theme.highlightedTextColor
-            selectByMouse: true
-
-            font: controlRoot.font
-            horizontalAlignment: Text.AlignLeft
-            verticalAlignment: Text.AlignVCenter
-            opacity: controlRoot.enabled ? 1 : 0.3
-        }
+        font: controlRoot.font
+        horizontalAlignment: Text.AlignLeft
+        verticalAlignment: Text.AlignVCenter
+        opacity: controlRoot.enabled ? 1 : 0.3
     }
+
 
     background: StylePrivate.StyleItem {
         id: styleitem
