@@ -40,8 +40,8 @@ T.ComboBox {
 
     hoverEnabled: true
     padding: 5
-    leftPadding: padding + 5
-    rightPadding: padding + 5
+    leftPadding: controlRoot.editable && controlRoot.mirrored ? 24 : padding
+    rightPadding: controlRoot.editable && !controlRoot.mirrored ? 24 : padding
 
     delegate: ItemDelegate {
         width: controlRoot.popup.width
@@ -56,20 +56,7 @@ T.ComboBox {
 
     contentItem: T.TextField {
         padding: 0
-        leftPadding: controlRoot.editable || controlRoot.mirrored ? 0 : 12
-        rightPadding: controlRoot.editable || !controlRoot.mirrored ? 0 : 12
 
-        MouseArea {
-            anchors.fill:parent
-            onPressed: mouse.accepted = false;
-            onWheel: {
-                if (wheel.pixelDelta.y < 0 || wheel.angleDelta.y < 0) {
-                    controlRoot.currentIndex = Math.min(controlRoot.currentIndex + 1, delegateModel.count -1);
-                } else {
-                    controlRoot.currentIndex = Math.max(controlRoot.currentIndex - 1, 0);
-                }
-            }
-        }
         text: controlRoot.editable ? controlRoot.editText : controlRoot.displayText
 
         enabled: controlRoot.editable
@@ -110,6 +97,22 @@ T.ComboBox {
         text: controlRoot.displayText
         properties: {
             "editable" : control.editable
+        }
+
+        MouseArea {
+            anchors {
+                fill: parent
+                leftMargin: controlRoot.leftPadding
+                rightMargin: controlRoot.rightPadding
+            }
+            visible: controlRoot.contentItem.visible
+            onWheel: {
+                if (wheel.pixelDelta.y < 0 || wheel.angleDelta.y < 0) {
+                    controlRoot.currentIndex = Math.min(controlRoot.currentIndex + 1, delegateModel.count -1);
+                } else {
+                    controlRoot.currentIndex = Math.max(controlRoot.currentIndex - 1, 0);
+                }
+            }
         }
     }
 
