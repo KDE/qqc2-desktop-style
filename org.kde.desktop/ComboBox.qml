@@ -105,13 +105,14 @@ T.ComboBox {
                 leftMargin: controlRoot.leftPadding
                 rightMargin: controlRoot.rightPadding
             }
-            visible: controlRoot.contentItem.visible
+            acceptedButtons: Qt.NoButton
             onWheel: {
                 if (wheel.pixelDelta.y < 0 || wheel.angleDelta.y < 0) {
                     controlRoot.currentIndex = Math.min(controlRoot.currentIndex + 1, delegateModel.count -1);
                 } else {
                     controlRoot.currentIndex = Math.max(controlRoot.currentIndex - 1, 0);
                 }
+                controlRoot.activated(controlRoot.currentIndex);
             }
         }
     }
