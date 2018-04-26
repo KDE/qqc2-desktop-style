@@ -1006,7 +1006,6 @@ void KQuickStyleItem::updateRect()
 
 int KQuickStyleItem::pixelMetric(const QString &metric)
 {
-
     if (metric == QLatin1String("scrollbarExtent"))
         return qApp->style()->pixelMetric(QStyle::PM_ScrollBarExtent, nullptr);
     else if (metric == QLatin1String("defaultframewidth"))
@@ -1049,6 +1048,18 @@ int KQuickStyleItem::pixelMetric(const QString &metric)
         return abs(qApp->style()->pixelMetric(QStyle::PM_ScrollView_ScrollBarSpacing, nullptr));
     else if (metric == QLatin1String("treeviewindentation"))
         return qApp->style()->pixelMetric(QStyle::PM_TreeViewIndentation, nullptr);
+    else if (metric == QLatin1String("layouthorizontalspacing"))
+        return qApp->style()->pixelMetric(QStyle::PM_LayoutHorizontalSpacing, nullptr);
+    else if (metric == QLatin1String("layoutverticalspacing"))
+        return qApp->style()->pixelMetric(QStyle::PM_LayoutVerticalSpacing, nullptr);
+    else if (metric == QLatin1String("layoutleftmargin"))
+        return qApp->style()->pixelMetric(QStyle::PM_LayoutLeftMargin, nullptr);
+    else if (metric == QLatin1String("layouttopmargin"))
+        return qApp->style()->pixelMetric(QStyle::PM_LayoutTopMargin, nullptr);
+    else if (metric == QLatin1String("layoutrightmargin"))
+        return qApp->style()->pixelMetric(QStyle::PM_LayoutRightMargin, nullptr);
+    else if (metric == QLatin1String("layoutbottommargin"))
+        return qApp->style()->pixelMetric(QStyle::PM_LayoutBottomMargin, nullptr);
     return 0;
 }
 

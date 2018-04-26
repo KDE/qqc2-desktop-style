@@ -22,6 +22,7 @@
 
 import QtQuick 2.6
 import QtQuick.Templates @QQC2_VERSION@ as T
+import org.kde.qqc2desktopstyle.private 1.0 as StylePrivate
 
 T.Control {
     id: control
@@ -30,4 +31,13 @@ T.Control {
                             (contentItem ? contentItem.implicitWidth : 0) + leftPadding + rightPadding)
     implicitHeight: Math.max(background ? background.implicitHeight : 0,
                              (contentItem ? contentItem.implicitHeight : 0) + topPadding + bottomPadding)
+
+    leftPadding: styleItem.pixelMetric("layoutleftmargin")
+    topPadding: styleItem.pixelMetric("layouttopmargin")
+    rightPadding: styleItem.pixelMetric("layoutrightmargin")
+    bottomPadding: styleItem.pixelMetric("layoutbottommargin")
+
+    StylePrivate.StyleItem {
+        id: styleItem
+    }
 }
