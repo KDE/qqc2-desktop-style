@@ -34,6 +34,7 @@ T.ScrollBar {
     hoverEnabled: true
 
     visible: controlRoot.size < 1.0
+    stepSize: 0.02
 
     background: MouseArea {
         id: mouseArea
@@ -45,11 +46,11 @@ T.ScrollBar {
         onExited: style.activeControl = "groove";
         onPressed: {
             if (style.activeControl == "down") {
-                buttonTimer.increment = 0.02;
+                buttonTimer.increment = 1;
                 buttonTimer.running = true;
                 mouse.accepted = true
             } else if (style.activeControl == "up") {
-                buttonTimer.increment = -0.02;
+                buttonTimer.increment = -1;
                 buttonTimer.running = true;
                 mouse.accepted = true
             } else {
@@ -88,7 +89,11 @@ T.ScrollBar {
                 repeat: true
                 interval: 150
                 onTriggered: {
-                    controlRoot.position += increment;
+                    if (increment > 0) {
+                        controlRoot.increase();
+                    } else {
+                        controlRoot.decrease();
+                    }
                 }
             }
         }
