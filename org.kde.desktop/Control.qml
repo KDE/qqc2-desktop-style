@@ -37,7 +37,7 @@ T.Control {
     rightPadding: styleItem.pixelMetric("layoutrightmargin")
     bottomPadding: styleItem.pixelMetric("layoutbottommargin")
 
-    StylePrivate.StyleItem {
+    property Item __style: StylePrivate.StyleItem {
         id: styleItem
     }
 }
