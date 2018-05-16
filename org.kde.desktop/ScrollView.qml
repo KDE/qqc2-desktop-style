@@ -47,7 +47,10 @@ T.ScrollView {
         }
     }
 
-    onChildrenChanged: {
+    onContentChildrenChanged: {
+        if (scrollHelper.flickableItem) {
+            return;
+        }
         for (var i in controlRoot.children) {
             var candidate = children[i];
             if (candidate.hasOwnProperty("contentY")) {
