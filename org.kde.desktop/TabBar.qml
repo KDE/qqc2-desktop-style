@@ -66,7 +66,16 @@ T.TabBar {
         }
     }
 
-    background: Item {
+    background: MouseArea {
+        acceptedButtons: Qt.NoButton
+        onWheel: {
+            if (wheel.pixelDelta.y < 0 || wheel.angleDelta.y < 0) {
+                controlRoot.currentIndex = Math.min(controlRoot.currentIndex + 1, controlRoot.contentModel.count -1);
+            } else {
+                controlRoot.currentIndex = Math.max(controlRoot.currentIndex - 1, 0);
+            }
+        }
+
         Rectangle {
             anchors {
                 left: parent.left
