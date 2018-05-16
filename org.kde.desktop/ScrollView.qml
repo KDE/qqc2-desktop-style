@@ -48,9 +48,14 @@ T.ScrollView {
     }
 
     onChildrenChanged: {
-        if (controlRoot.children[controlRoot.children.length - 1].hasOwnProperty("contentY")) {
-            scrollHelper.flickableItem = controlRoot.children[controlRoot.children.length - 1];
-        }            
+        for (var i in controlRoot.children) {
+            var candidate = children[i];
+            if (candidate.hasOwnProperty("contentY")) {
+                print(candidate)
+                scrollHelper.flickableItem = candidate;
+                console.log("using", candidate)
+            }
+        }
     }
 
     children: [
@@ -63,11 +68,11 @@ T.ScrollView {
                 flickableItem.boundsBehavior = scrollHelper.isMobile ? Flickable.DragAndOvershootBounds : Flickable.StopAtBounds;
             }
             property Flickable flickableItem
-            onFlickableItemChanged: {
-                flickableItem.parent = scrollHelper;
-                flickableItem.boundsBehavior = scrollHelper.isMobile ? Flickable.DragAndOvershootBounds : Flickable.StopAtBounds;
 
-                flickableItem.anchors.fill = scrollHelper;
+            onFlickableItemChanged: {
+
+                flickableItem.boundsBehavior = scrollHelper.isMobile ? Flickable.DragAndOvershootBounds : Flickable.StopAtBounds;
+                
                 //don't make the scrolling items overlap the background borders.
                 flickableItem.anchors.margins = Qt.binding(function() { return controlRoot.background && controlRoot.background.visible ? 2 : 0; });
                 flickableItem.clip = true;
