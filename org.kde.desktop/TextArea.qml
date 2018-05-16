@@ -70,7 +70,6 @@ T.TextArea {
     background: StylePrivate.StyleItem {
         id: style
         control: controlRoot
-        visible: controlRoot.backgroundVisible
         elementType: "edit"
         implicitWidth: 200
         implicitHeight: 22
