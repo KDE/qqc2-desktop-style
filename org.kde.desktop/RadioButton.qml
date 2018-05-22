@@ -70,5 +70,9 @@ T.RadioButton {
         visible: control.text
         horizontalAlignment: Text.AlignLeft
         verticalAlignment: Text.AlignVCenter
+
+        FocusRect {
+            control: controlRoot
+        }
     }
 }
