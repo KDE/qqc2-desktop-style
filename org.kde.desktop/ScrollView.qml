@@ -47,20 +47,6 @@ T.ScrollView {
         }
     }
 
-    onContentChildrenChanged: {
-        if (scrollHelper.flickableItem) {
-            return;
-        }
-        for (var i in controlRoot.children) {
-            var candidate = children[i];
-            if (candidate.hasOwnProperty("contentY")) {
-                print(candidate)
-                scrollHelper.flickableItem = candidate;
-                console.log("using", candidate)
-            }
-        }
-    }
-
     children: [
         MouseArea {
             id: scrollHelper
@@ -70,7 +56,7 @@ T.ScrollView {
             onIsMobileChanged: {
                 flickableItem.boundsBehavior = scrollHelper.isMobile ? Flickable.DragAndOvershootBounds : Flickable.StopAtBounds;
             }
-            property Flickable flickableItem
+            readonly property Flickable flickableItem: controlRoot.contentItem
 
             onFlickableItemChanged: {
 
