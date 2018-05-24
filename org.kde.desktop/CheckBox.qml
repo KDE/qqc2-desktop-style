@@ -37,7 +37,6 @@ T.CheckBox {
     baselineOffset: contentItem.y + contentItem.baselineOffset
 
     padding: 1
-    spacing: Kirigami.Units.smallSpacing
 
     hoverEnabled: true
 
