@@ -27,7 +27,7 @@ import org.kde.kirigami 2.3 as Kirigami
 import "private"
 
 T.RadioButton {
-    id: control
+    id: controlRoot
 
     implicitWidth: Math.max(background ? background.implicitWidth : 0,
                             contentItem.implicitWidth + leftPadding + rightPadding)
@@ -41,33 +41,33 @@ T.RadioButton {
     hoverEnabled: true
 
     indicator: RadioIndicator {
-        LayoutMirroring.enabled: control.mirrored
+        LayoutMirroring.enabled: controlRoot.mirrored
         LayoutMirroring.childrenInherit: true
         anchors {
             left: parent.left
             verticalCenter: parent.verticalCenter
         }
-        control: control
+        control: controlRoot
     }
 
-    Kirigami.MnemonicData.enabled: control.enabled && control.visible
+    Kirigami.MnemonicData.enabled: controlRoot.enabled && controlRoot.visible
     Kirigami.MnemonicData.controlType: Kirigami.MnemonicData.ActionElement
-    Kirigami.MnemonicData.label: control.text
+    Kirigami.MnemonicData.label: controlRoot.text
     Shortcut {
         //in case of explicit & the button manages it by itself
-        enabled: !(RegExp(/\&[^\&]/).test(control.text))
-        sequence: control.Kirigami.MnemonicData.sequence
-        onActivated: control.checked = true
+        enabled: !(RegExp(/\&[^\&]/).test(controlRoot.text))
+        sequence: controlRoot.Kirigami.MnemonicData.sequence
+        onActivated: controlRoot.checked = true
     }
+
     contentItem: Label {
-        leftPadding: control.indicator && !control.mirrored ? control.indicator.width + control.spacing : 0
-        rightPadding: control.indicator && control.mirrored ? control.indicator.width + control.spacing : 0
-        opacity: control.enabled ? 1 : 0.6
-        text: control.Kirigami.MnemonicData.richTextLabel
-        font: control.font
-        color: Kirigami.Theme.textColor
+        leftPadding: controlRoot.indicator && !controlRoot.mirrored ? controlRoot.indicator.width + controlRoot.spacing : 0
+        rightPadding: controlRoot.indicator && controlRoot.mirrored ? controlRoot.indicator.width + controlRoot.spacing : 0
+        opacity: controlRoot.enabled ? 1 : 0.6
+        text: controlRoot.Kirigami.MnemonicData.richTextLabel
+        font: controlRoot.font
         elide: Text.ElideRight
-        visible: control.text
+        visible: controlRoot.text
         horizontalAlignment: Text.AlignLeft
         verticalAlignment: Text.AlignVCenter
 
