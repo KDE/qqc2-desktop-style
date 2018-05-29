@@ -27,6 +27,7 @@ import org.kde.kirigami 2.2 as Kirigami
 
 T.Slider {
     id: controlRoot
+    palette: Kirigami.Theme.palette
     Kirigami.Theme.colorSet: Kirigami.Theme.Button
 
     implicitWidth: background.implicitWidth

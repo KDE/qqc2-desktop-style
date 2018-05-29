@@ -30,6 +30,7 @@ import org.kde.kirigami 2.2 as Kirigami
 T.Menu {
     id: control
 
+    palette: Kirigami.Theme.palette
     implicitWidth: Math.max(background ? background.implicitWidth : 0,
                             contentItem ? contentItem.implicitWidth + leftPadding + rightPadding : 0)
     implicitHeight: Math.max(background ? background.implicitHeight : 0,

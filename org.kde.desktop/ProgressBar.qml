@@ -27,6 +27,7 @@ import QtQuick.Templates @QQC2_VERSION@ as T
 T.ProgressBar {
     id: controlRoot
 
+    palette: Kirigami.Theme.palette
     implicitWidth: 250
     implicitHeight: 22
 

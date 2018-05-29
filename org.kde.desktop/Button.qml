@@ -26,6 +26,8 @@ import org.kde.kirigami 2.3 as Kirigami
 
 T.Button {
     id: controlRoot
+
+    palette: Kirigami.Theme.palette
     Kirigami.Theme.colorSet: Kirigami.Theme.Button
     Kirigami.Theme.inherit: false
 

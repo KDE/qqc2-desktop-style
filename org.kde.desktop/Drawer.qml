@@ -28,6 +28,7 @@ import org.kde.kirigami 2.2 as Kirigami
 T.Drawer {
     id: control
 
+    palette: Kirigami.Theme.palette
     parent: T.ApplicationWindow.overlay
 
     implicitWidth: Math.max(background ? background.implicitWidth : 0, contentWidth + leftPadding + rightPadding)

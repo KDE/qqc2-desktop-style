@@ -29,6 +29,7 @@ import "private"
 T.CheckBox {
     id: controlRoot
 
+    palette: Kirigami.Theme.palette
     implicitWidth: Math.max(background ? background.implicitWidth : 0,
                             contentItem.implicitWidth + leftPadding + rightPadding)
     implicitHeight: Math.max(background ? background.implicitHeight : 0,

@@ -27,6 +27,7 @@ import org.kde.kirigami 2.3 as Kirigami
 T.DialogButtonBox {
     id: control
 
+    palette: Kirigami.Theme.palette
     implicitWidth: contentItem.implicitWidth + leftPadding + rightPadding
     implicitHeight: contentItem.implicitHeight + topPadding + bottomPadding
 

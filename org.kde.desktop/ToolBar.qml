@@ -27,6 +27,7 @@ import org.kde.kirigami 2.2 as Kirigami
 T.ToolBar {
     id: controlRoot
 
+    palette: Kirigami.Theme.palette
     implicitWidth: Math.max(background ? background.implicitWidth : 0, contentWidth + leftPadding + rightPadding)
     implicitHeight: Math.max(background ? background.implicitHeight : 0, contentHeight + topPadding + bottomPadding)
 

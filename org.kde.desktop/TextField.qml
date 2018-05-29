@@ -29,6 +29,7 @@ import org.kde.qqc2desktopstyle.private 1.0 as StylePrivate
 
 T.TextField {
     id: controlRoot
+    palette: Kirigami.Theme.palette
     Kirigami.Theme.colorSet: Kirigami.Theme.View
     Kirigami.Theme.inherit: false
 

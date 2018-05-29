@@ -712,7 +712,12 @@ void KQuickStyleItem::resolvePalette()
     if (QCoreApplication::testAttribute(Qt::AA_SetPalette))
         return;
 
-    m_styleoption->palette = m_theme->palette();
+    const QVariant controlPalette = m_control ? m_control->property("palette") : QVariant();
+    if (controlPalette.isValid()) {
+        m_styleoption->palette = controlPalette.value<QPalette>();
+    } else {
+        m_styleoption->palette = m_theme->palette();
+    }
 }
 
 /*
