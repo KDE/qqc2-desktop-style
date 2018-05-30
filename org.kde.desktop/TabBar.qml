@@ -34,7 +34,7 @@ T.TabBar {
 
     //Some QStyles seem to not return sensible pixelmetrics here
     implicitWidth: Math.max(Kirigami.Units.gridUnit * 6, contentItem.implicitWidth)
-    implicitHeight: Math.max(Kirigami.Units.gridUnit * 2, contentItem.implicitHeight)
+    implicitHeight: contentItem.implicitHeight
 
     spacing: 0
 
