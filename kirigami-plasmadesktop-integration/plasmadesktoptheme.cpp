@@ -169,6 +169,36 @@ PlasmaDesktopTheme::PlasmaDesktopTheme(QObject *parent)
                 });
     }
 
+    connect(this, &PlatformTheme::colorsChanged, this, [this]() {
+        if (colorSet() != Custom) {
+            return;
+        }
+
+        QPalette pal;
+        for (auto state : { QPalette::Active, QPalette::Inactive, QPalette::Disabled }) {
+            pal.setBrush(state, QPalette::WindowText, textColor());
+            pal.setBrush(state, QPalette::Window, backgroundColor());
+            pal.setBrush(state, QPalette::Base, backgroundColor());
+            pal.setBrush(state, QPalette::Text, textColor());
+            pal.setBrush(state, QPalette::Button, backgroundColor());
+            pal.setBrush(state, QPalette::ButtonText, textColor());
+            pal.setBrush(state, QPalette::Highlight, highlightColor());
+            pal.setBrush(state, QPalette::HighlightedText, highlightedTextColor());
+            pal.setBrush(state, QPalette::ToolTipBase, backgroundColor());
+            pal.setBrush(state, QPalette::ToolTipText, textColor());
+
+            pal.setColor(state, QPalette::Light, KColorScheme::shade(backgroundColor(), KColorScheme::LightShade));
+            pal.setColor(state, QPalette::Midlight, KColorScheme::shade(backgroundColor(), KColorScheme::MidlightShade));
+            pal.setColor(state, QPalette::Mid, KColorScheme::shade(backgroundColor(), KColorScheme::MidShade));
+            pal.setColor(state, QPalette::Dark, KColorScheme::shade(backgroundColor(), KColorScheme::DarkShade));
+            pal.setColor(state, QPalette::Shadow, KColorScheme::shade(backgroundColor(), KColorScheme::ShadowShade));
+
+            pal.setBrush(state, QPalette::AlternateBase, KColorScheme::shade(backgroundColor(), KColorScheme::MidShade));
+            pal.setBrush(state, QPalette::Link, linkColor());
+            pal.setBrush(state, QPalette::LinkVisited, visitedLinkColor());
+        }
+        setPalette(pal);
+    });
     //TODO: correct? depends from https://codereview.qt-project.org/206889
     connect(qGuiApp, &QGuiApplication::fontDatabaseChanged, this, [this]() {setDefaultFont(qApp->font());});
 
@@ -201,6 +231,10 @@ QIcon PlasmaDesktopTheme::iconFromTheme(const QString &name, const QColor &custo
 
 void PlasmaDesktopTheme::syncColors()
 {
+    //don't set ourselves for a custom color set
+    if (colorSet() == Custom) {
+        return;
+    }
     QPalette::ColorGroup group = (QPalette::ColorGroup)colorGroup();
     if (m_parentItem) {
         if (!m_parentItem->isEnabled()) {
