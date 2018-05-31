@@ -29,7 +29,7 @@ import org.kde.kirigami 2.2 as Kirigami
 T.Label {
     id: control
 
-    palette: Kirigami.Theme.palette
+    @DISABLE_UNDER_QQC2_2_3@ palette: Kirigami.Theme.palette
     verticalAlignment: lineCount > 1 ? Text.AlignTop : Text.AlignVCenter
 
     activeFocusOnTab: false

@@ -23,11 +23,12 @@
 import QtQuick 2.6
 import org.kde.qqc2desktopstyle.private 1.0 as StylePrivate
 import QtQuick.Templates @QQC2_VERSION@ as T
+import org.kde.kirigami 2.3 as Kirigami
 
 T.ProgressBar {
     id: controlRoot
 
-    palette: Kirigami.Theme.palette
+    @DISABLE_UNDER_QQC2_2_3@ palette: Kirigami.Theme.palette
     implicitWidth: 250
     implicitHeight: 22
 

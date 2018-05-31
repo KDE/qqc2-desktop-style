@@ -28,7 +28,7 @@ import org.kde.kirigami 2.3 as Kirigami
 T.MenuBarItem {
     id: controlRoot
 
-    palette: Kirigami.Theme.palette
+    @DISABLE_UNDER_QQC2_2_3@ palette: Kirigami.Theme.palette
     implicitWidth: contentItem.implicitWidth + leftPadding + rightPadding
     implicitHeight: contentItem.implicitHeight + topPadding + bottomPadding
     baselineOffset: contentItem.y + contentItem.baselineOffset

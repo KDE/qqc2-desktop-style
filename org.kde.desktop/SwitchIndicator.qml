@@ -26,7 +26,6 @@ import org.kde.qqc2desktopstyle.private 1.0 as StylePrivate
 Item {
     property alias control: slider.control
 
-    palette: Kirigami.Theme.palette
     implicitWidth: 32
     implicitHeight : 22
 

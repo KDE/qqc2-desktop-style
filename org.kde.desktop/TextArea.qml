@@ -28,7 +28,7 @@ import org.kde.qqc2desktopstyle.private 1.0 as StylePrivate
 
 T.TextArea {
     id: controlRoot
-    palette: Kirigami.Theme.palette
+    @DISABLE_UNDER_QQC2_2_3@ palette: Kirigami.Theme.palette
     Kirigami.Theme.colorSet: Kirigami.Theme.View
     Kirigami.Theme.inherit: false
 
