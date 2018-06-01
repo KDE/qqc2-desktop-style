@@ -27,7 +27,7 @@ import org.kde.kirigami 2.2 as Kirigami
 
 T.Slider {
     id: controlRoot
-    @DISABLE_UNDER_QQC2_2_3@ palette: Kirigami.Theme.palette
+    @DISABLE_UNDER_QQC2_2_4@ palette: Kirigami.Theme.palette
     Kirigami.Theme.colorSet: Kirigami.Theme.Button
 
     implicitWidth: background.implicitWidth

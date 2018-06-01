@@ -27,7 +27,7 @@ import org.kde.kirigami 2.4 as Kirigami
 T.Container {
     id: control
 
-    @DISABLE_UNDER_QQC2_2_3@ palette: Kirigami.Theme.palette
+    @DISABLE_UNDER_QQC2_2_4@ palette: Kirigami.Theme.palette
     implicitWidth: Math.max(background ? background.implicitWidth : 0,
                             (contentItem ? contentItem.implicitWidth : 0) + leftPadding + rightPadding)
     implicitHeight: Math.max(background ? background.implicitHeight : 0,

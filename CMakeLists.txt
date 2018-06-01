@@ -105,6 +105,12 @@ else()
     set(DISABLE_UNDER_QQC2_2_3 "")
 endif()
 
+if (QQC2_VERSION_MINOR LESS 4)
+    set(DISABLE_UNDER_QQC2_2_4 "//Needs QtQuick.Controls 2.4 ")
+else()
+    set(DISABLE_UNDER_QQC2_2_4 "")
+endif()
+
 # Find all the source qml files
 FILE(GLOB_RECURSE inFiles RELATIVE "${CMAKE_CURRENT_SOURCE_DIR}"
     "${CMAKE_CURRENT_SOURCE_DIR}/org.kde.desktop/*")
@@ -116,6 +122,7 @@ FOREACH(infileName ${inFiles})
         "${CMAKE_CURRENT_BINARY_DIR}/${infileName}"
         INSTALL_DESTINATION  ${CMAKECONFIG_INSTALL_DIR}
         PATH_VARS  QQC2_VERSION DISABLE_UNDER_QQC2_2_3
+        DISABLE_UNDER_QQC2_2_4
     )
 ENDFOREACH(infileName)
 

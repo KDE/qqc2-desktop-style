@@ -28,7 +28,7 @@ import org.kde.kirigami 2.3 as Kirigami
 T.ProgressBar {
     id: controlRoot
 
-    @DISABLE_UNDER_QQC2_2_3@ palette: Kirigami.Theme.palette
+    @DISABLE_UNDER_QQC2_2_4@ palette: Kirigami.Theme.palette
     implicitWidth: 250
     implicitHeight: 22
 

@@ -28,7 +28,7 @@ import org.kde.kirigami 2.2 as Kirigami
 T.RangeSlider {
     id: control
 
-    @DISABLE_UNDER_QQC2_2_3@ palette: Kirigami.Theme.palette
+    @DISABLE_UNDER_QQC2_2_4@ palette: Kirigami.Theme.palette
     implicitWidth: Math.max(background ? background.implicitWidth : 0,
         Math.max(first.handle ? first.handle.implicitWidth : 0,
                  second.handle ? second.handle.implicitWidth : 0) + leftPadding + rightPadding)

@@ -28,7 +28,7 @@ import org.kde.kirigami 2.3 as Kirigami
 T.MenuItem {
     id: controlRoot
 
-    @DISABLE_UNDER_QQC2_2_3@ palette: Kirigami.Theme.palette
+    @DISABLE_UNDER_QQC2_2_4@ palette: Kirigami.Theme.palette
     implicitWidth: Math.max(background ? background.implicitWidth : 0,
                             contentItem.implicitWidth + leftPadding + rightPadding)
     implicitHeight: visible ? Math.max(background ? background.implicitHeight : 0,

@@ -30,7 +30,7 @@ import org.kde.kirigami 2.2 as Kirigami
 
 T.ComboBox {
     id: controlRoot
-    @DISABLE_UNDER_QQC2_2_3@ palette: Kirigami.Theme.palette
+    @DISABLE_UNDER_QQC2_2_4@ palette: Kirigami.Theme.palette
     //NOTE: typeof necessary to not have warnings on Qt 5.7
     Kirigami.Theme.colorSet: typeof(editable) != "undefined" && editable ? Kirigami.Theme.View : Kirigami.Theme.Button
     Kirigami.Theme.inherit: false
