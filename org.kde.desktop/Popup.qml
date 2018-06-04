@@ -38,6 +38,7 @@ T.Popup {
     contentHeight: contentItem.implicitHeight || (contentChildren.length === 1 ? contentChildren[0].implicitHeight : 0)
 
     padding: 12
+    clip: true
 
     enter: Transition {
         NumberAnimation {
