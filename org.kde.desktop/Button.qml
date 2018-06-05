@@ -48,6 +48,7 @@ T.Button {
     }
     background: StylePrivate.StyleItem {
         id: styleitem
+        anchors.fill: parent
         control: controlRoot
         elementType: "button"
         sunken: controlRoot.pressed || (controlRoot.checkable && controlRoot.checked)
