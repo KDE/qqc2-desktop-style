@@ -713,11 +713,15 @@ void KQuickStyleItem::resolvePalette()
         return;
 
     const QVariant controlPalette = m_control ? m_control->property("palette") : QVariant();
+#if (QT_VERSION >= QT_VERSION_CHECK(5, 11, 0))
     if (controlPalette.isValid()) {
         m_styleoption->palette = controlPalette.value<QPalette>();
     } else {
         m_styleoption->palette = m_theme->palette();
     }
+#else
+    m_styleoption->palette = m_theme->palette();
+#endif
 }
 
 /*
