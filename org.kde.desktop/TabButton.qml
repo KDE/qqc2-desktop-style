@@ -26,7 +26,7 @@ import QtQml.Models 2.1
 import QtQuick.Controls @QQC2_VERSION@
 import org.kde.qqc2desktopstyle.private 1.0 as StylePrivate
 import QtQuick.Templates @QQC2_VERSION@ as T
-import org.kde.kirigami 2.3 as Kirigami
+import org.kde.kirigami 2.4 as Kirigami
 
 T.TabButton {
     id: controlRoot
