@@ -30,7 +30,7 @@ T.Slider {
     @DISABLE_UNDER_QQC2_2_4@ palette: Kirigami.Theme.palette
     Kirigami.Theme.colorSet: Kirigami.Theme.Button
 
-    implicitWidth: background.implicitWidth
+    implicitWidth: Kirigami.Units.gridUnit * 12
     implicitHeight: background.implicitHeight
 
     hoverEnabled: true
