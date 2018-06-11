@@ -41,7 +41,7 @@ T.RadioButton {
 
     hoverEnabled: true
 
-    indicator: RadioIndicator {
+    indicator: CheckIndicator {
         LayoutMirroring.enabled: controlRoot.mirrored
         LayoutMirroring.childrenInherit: true
         anchors {

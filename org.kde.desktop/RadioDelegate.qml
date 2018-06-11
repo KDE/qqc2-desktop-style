@@ -51,7 +51,7 @@ T.RadioDelegate {
         verticalAlignment: Text.AlignVCenter
     }
 
-    indicator: RadioIndicator {
+    indicator: CheckIndicator {
         x: controlRoot.mirrored ? controlRoot.leftPadding : controlRoot.width - width - controlRoot.rightPadding
         y: controlRoot.topPadding + (controlRoot.availableHeight - height) / 2
 
