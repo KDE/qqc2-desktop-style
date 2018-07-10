@@ -63,7 +63,7 @@ T.Menu {
                 if (child.checkable) {
                     control.contentItem.hasCheckables = true;
                 }
-                if (child.icon && (child.icon.name.length > 0 || child.icon.source.length > 0)) {
+                if (child.icon && child.icon.hasOwnProperty("name") && (child.icon.name.length > 0 || child.icon.source.length > 0)) {
                     control.contentItem.hasIcons = true;
                 }
             }
