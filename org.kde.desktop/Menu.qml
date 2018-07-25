@@ -41,6 +41,7 @@ T.Menu {
 @DISABLE_UNDER_QQC2_2_3@    delegate: MenuItem { }
 
     contentItem: ListView {
+        implicitWidth: control.contentItem.childrenRect.width
         implicitHeight: contentHeight
         property bool hasCheckables: false
         property bool hasIcons: false

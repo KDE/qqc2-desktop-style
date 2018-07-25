@@ -37,7 +37,9 @@ T.MenuItem {
     baselineOffset: contentItem.y + contentItem.baselineOffset
 
     Layout.fillWidth: true
-    padding: 1
+    padding: Kirigami.Units.smallSpacing
+    leftPadding: Kirigami.Units.largeSpacing
+    rightPadding: Kirigami.Units.largeSpacing
     hoverEnabled: !Kirigami.Settings.isMobile
 
     Kirigami.MnemonicData.enabled: controlRoot.enabled && controlRoot.visible
