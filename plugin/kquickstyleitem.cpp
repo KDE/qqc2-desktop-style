@@ -453,7 +453,7 @@ void KQuickStyleItem::initStyleOption()
             }
             if (m_properties[QStringLiteral("icon")].canConvert<QIcon>())
                 opt->icon = m_properties[QStringLiteral("icon")].value<QIcon>();
-            setProperty("_q_showUnderlined", m_hints["showUnderlined"].toBool());
+            setProperty("_q_showUnderlined", m_hints[QStringLiteral("showUnderlined")].toBool());
 
             const QFont font = qApp->font(m_itemType == ComboBoxItem ?"QComboMenuItem" : "QMenu");
             opt->font = font;
@@ -736,7 +736,7 @@ void KQuickStyleItem::resolvePalette()
 
 QString KQuickStyleItem::style() const
 {
-    QString style = qApp->style()->metaObject()->className();
+    QString style = QString::fromLatin1(qApp->style()->metaObject()->className());
     style = style.toLower();
     if (style.startsWith(QLatin1Char('q')))
         style = style.right(style.length() - 1);
@@ -1679,7 +1679,7 @@ QPixmap QQuickTableRowImageProvider1::requestPixmap(const QString &id, QSize *si
     QStyleOptionViewItem opt;
     opt.state |= QStyle::State_Enabled;
     opt.rect = QRect(0, 0, width, height);
-    QString style = qApp->style()->metaObject()->className();
+    QString style = QString::fromLatin1(qApp->style()->metaObject()->className());
     opt.features = 0;
 
     if (id.contains(QLatin1String("selected")))

@@ -71,13 +71,13 @@ public:
     int right() const { return m_right; }
     int bottom() const { return m_bottom; }
 
-public slots:
+public Q_SLOTS:
     void setLeft(int arg) { if (m_left != arg) {m_left = arg; emit leftChanged();}}
     void setTop(int arg) { if (m_top != arg) {m_top = arg; emit topChanged();}}
     void setRight(int arg) { if (m_right != arg) {m_right = arg; emit rightChanged();}}
     void setBottom(int arg) {if (m_bottom != arg) {m_bottom = arg; emit bottomChanged();}}
 
-signals:
+Q_SIGNALS:
     void leftChanged();
     void topChanged();
     void rightChanged();

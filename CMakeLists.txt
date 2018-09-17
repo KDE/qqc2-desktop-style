@@ -30,7 +30,7 @@ include(ECMSetupVersion)
 include(ECMGenerateHeaders)
 include(KDEInstallDirs)
 include(KDECMakeSettings)
-include(KDECompilerSettings NO_POLICY_SCOPE)
+include(KDEFrameworkCompilerSettings NO_POLICY_SCOPE)
 
 find_package(Qt5 ${REQUIRED_QT_VERSION} REQUIRED NO_MODULE COMPONENTS Core Quick Gui Widgets QuickControls2)
 
