@@ -139,7 +139,7 @@ Q_SIGNALS:
 private:
     QHash<QPair<Kirigami::PlatformTheme::ColorSet, QPalette::ColorGroup>, Colors> m_cache;
 };
-Q_GLOBAL_STATIC_WITH_ARGS(QScopedPointer<StyleSingleton>, s_style, (new StyleSingleton));
+Q_GLOBAL_STATIC_WITH_ARGS(QScopedPointer<StyleSingleton>, s_style, (new StyleSingleton))
 
 PlasmaDesktopTheme::PlasmaDesktopTheme(QObject *parent)
     : PlatformTheme(parent)
