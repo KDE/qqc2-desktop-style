@@ -41,6 +41,12 @@ T.ScrollView {
     Kirigami.Theme.colorSet: Kirigami.Theme.View
     Kirigami.Theme.inherit: !background || !background.visible
 
+    //size in pixel to accomodate the border drawn by qstyle
+    leftPadding: background && background.visible ? 2 : 0
+    topPadding: background && background.visible ? 2 : 0
+    rightPadding: background && background.visible ? 2 : 0
+    bottomPadding: background && background.visible ? 2 : 0
+    
     //create a background only after Component.onCompleted, see on the component creation below for explanation
     Component.onCompleted: {
         if (!controlRoot.background) {
