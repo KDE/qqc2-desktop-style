@@ -190,8 +190,17 @@ void KQuickStyleItem::initStyleOption()
         } else if (icon.canConvert<QString>()) {
             opt->icon = m_theme->iconFromTheme(icon.value<QString>(), m_properties[QStringLiteral("iconColor")].value<QColor>());
         }
-        int e = qApp->style()->pixelMetric(QStyle::PM_ButtonIconSize, m_styleoption, nullptr);
-        opt->iconSize = QSize(e, e);
+        auto iconSize = QSize(m_properties[QStringLiteral("iconWidth")].toInt(), m_properties[QStringLiteral("iconHeight")].toInt());
+        if (iconSize.isEmpty()) {
+            int e = qApp->style()->pixelMetric(QStyle::PM_ButtonIconSize, m_styleoption, nullptr);
+            if (iconSize.width() <= 0) {
+                iconSize.setWidth(e);
+            }
+            if (iconSize.height() <= 0) {
+                iconSize.setHeight(e);
+            }
+        }
+        opt->iconSize = iconSize;
         opt->features = activeControl() == QLatin1String("default") ?
                     QStyleOptionButton::DefaultButton :
                     QStyleOptionButton::None;
