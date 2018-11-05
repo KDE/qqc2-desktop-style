@@ -195,6 +195,9 @@ void KQuickStyleItem::initStyleOption()
         opt->features = activeControl() == QLatin1String("default") ?
                     QStyleOptionButton::DefaultButton :
                     QStyleOptionButton::None;
+        if (m_properties[QStringLiteral("flat")].toBool()) {
+            opt->features |= QStyleOptionButton::Flat;
+        }
         const QFont font = qApp->font("QPushButton");
         opt->fontMetrics = QFontMetrics(font);
         QObject * menu = m_properties[QStringLiteral("menu")].value<QObject *>();
