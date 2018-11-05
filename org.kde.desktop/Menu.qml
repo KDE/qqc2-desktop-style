@@ -94,7 +94,6 @@ T.Menu {
     background: Rectangle {
         radius: 2
         implicitWidth: Kirigami.Units.gridUnit * 8
-        implicitHeight: 40
         color: Kirigami.Theme.backgroundColor
         property color borderColor: Kirigami.Theme.textColor
         border.color: Qt.rgba(borderColor.r, borderColor.g, borderColor.b, 0.3)
