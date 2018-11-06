@@ -42,7 +42,7 @@
 #ifndef KQUICKPADDING_H
 #define KQUICKPADDING_H
 
-#include <QtCore/qobject.h>
+#include <qobject.h>
 
 class KQuickPadding : public QObject
 {
