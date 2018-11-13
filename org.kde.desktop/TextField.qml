@@ -26,6 +26,7 @@ import QtQuick.Controls @QQC2_VERSION@ as Controls
 import QtQuick.Templates @QQC2_VERSION@ as T
 import org.kde.kirigami 2.4 as Kirigami
 import org.kde.qqc2desktopstyle.private 1.0 as StylePrivate
+import "private" as Private
 
 T.TextField {
     id: controlRoot
@@ -46,11 +47,42 @@ T.TextField {
     selectionColor: Kirigami.Theme.highlightColor
     selectedTextColor: Kirigami.Theme.highlightedTextColor
     verticalAlignment: TextInput.AlignVCenter
+    hoverEnabled: !Kirigami.Settings.tabletMode
 
     // Work around Qt bug where NativeRendering breaks for non-integer scale factors
     // https://bugreports.qt.io/browse/QTBUG-67007
     renderType: Screen.devicePixelRatio % 1 !== 0 ? Text.QtRendering : Text.NativeRendering
-    selectByMouse: true
+    selectByMouse: !Kirigami.Settings.tabletMode
+
+    cursorDelegate: Kirigami.Settings.tabletMode ? mobileCursor : undefined
+    Component {
+        id: mobileCursor
+        Private.MobileCursor {
+            control: controlRoot
+        }
+    }
+    onFocusChanged: {
+        if (focus) {
+            Private.MobileTextActionsToolBar.controlRoot = controlRoot;
+        }
+    }
+
+    onPressAndHold: {
+        if (!Kirigami.Settings.tabletMode) {
+            return;
+        }
+        forceActiveFocus();
+        cursorPosition = positionAt(event.x, event.y);
+        selectWord();
+    }
+    Private.MobileCursor {
+        control: controlRoot
+        selectionStartHandle: true
+        property var rect: control.positionToRectangle(control.selectionStart)
+        //FIXME: this magic values seem to be always valid, for every font,every dpi, every scaling
+        x: rect.x + 5
+        y: rect.y + 6
+    }
 
     Controls.Label {
         id: placeholder

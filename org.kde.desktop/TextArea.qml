@@ -25,6 +25,7 @@ import QtQuick.Window 2.1
 import QtQuick.Templates @QQC2_VERSION@ as T
 import org.kde.kirigami 2.4 as Kirigami
 import org.kde.qqc2desktopstyle.private 1.0 as StylePrivate
+import "private" as Private
 
 T.TextArea {
     id: controlRoot
@@ -45,12 +46,45 @@ T.TextArea {
     selectionColor: Kirigami.Theme.highlightColor
     selectedTextColor: Kirigami.Theme.highlightedTextColor
     wrapMode: Text.WordWrap
+    hoverEnabled: !Kirigami.Settings.tabletMode
     verticalAlignment: TextEdit.AlignTop
 
     // Work around Qt bug where NativeRendering breaks for non-integer scale factors
     // https://bugreports.qt.io/browse/QTBUG-67007
     renderType: Screen.devicePixelRatio % 1 !== 0 ? Text.QtRendering : Text.NativeRendering
-    selectByMouse: true
+
+    selectByMouse: !Kirigami.Settings.tabletMode
+
+    cursorDelegate: Kirigami.Settings.tabletMode ? mobileCursor : undefined
+    Component {
+        id: mobileCursor
+        Private.MobileCursor {
+            control: controlRoot
+        }
+    }
+
+    onPressAndHold: {
+        if (!Kirigami.Settings.tabletMode) {
+            return;
+        }
+        forceActiveFocus();
+        cursorPosition = positionAt(event.x, event.y);
+        selectWord();
+    }
+
+    Private.MobileCursor {
+        control: controlRoot
+        selectionStartHandle: true
+        property var rect: control.positionToRectangle(control.selectionStart)
+        x: rect.x
+        y: rect.y
+    }
+
+    onFocusChanged: {
+        if (focus) {
+            Private.MobileTextActionsToolBar.controlRoot = controlRoot;
+        }
+    }
 
     Label {
         id: placeholder
