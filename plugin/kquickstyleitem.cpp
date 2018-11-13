@@ -335,8 +335,7 @@ void KQuickStyleItem::initStyleOption()
             opt->features = QStyleOptionToolButton::HasMenu;
         }
 
-        // For now both text and icon
-        opt->toolButtonStyle = Qt::ToolButtonTextBesideIcon;
+        opt->toolButtonStyle = Qt::ToolButtonFollowStyle;
 
         int e = KQuickStyleItem::style()->pixelMetric(QStyle::PM_ToolBarIconSize, m_styleoption, nullptr);
         opt->iconSize = QSize(e, e);
