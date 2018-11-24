@@ -50,6 +50,7 @@
 
 class QWidget;
 class QStyleOption;
+class QStyle;
 
 namespace Kirigami {
     class PlatformTheme;
@@ -82,7 +83,7 @@ class KQuickStyleItem: public QQuickItem
     Q_PROPERTY( QString elementType READ elementType WRITE setElementType NOTIFY elementTypeChanged)
     Q_PROPERTY( QString text READ text WRITE setText NOTIFY textChanged)
     Q_PROPERTY( QString activeControl READ activeControl WRITE setActiveControl NOTIFY activeControlChanged)
-    Q_PROPERTY( QString style READ style NOTIFY styleChanged)
+    Q_PROPERTY( QString styleName READ styleName NOTIFY styleChanged)
     Q_PROPERTY( QVariantMap hints READ hints WRITE setHints NOTIFY hintChanged RESET resetHints)
     Q_PROPERTY( QVariantMap properties READ properties WRITE setProperties NOTIFY propertiesChanged)
     Q_PROPERTY( QFont font READ font NOTIFY fontChanged)
@@ -175,7 +176,7 @@ public:
     QVariantMap hints() const { return m_hints; }
     QVariantMap properties() const { return m_properties; }
     QFont font() const { return m_font;}
-    QString style() const;
+    QString styleName() const;
 
     void setSunken(bool sunken) { if (m_sunken != sunken) {m_sunken = sunken; emit sunkenChanged();}}
     void setRaised(bool raised) { if (m_raised!= raised) {m_raised = raised; emit raisedChanged();}}
@@ -218,6 +219,8 @@ public:
 
     QQuickItem *control() const;
     void setControl(QQuickItem *control);
+
+    static QStyle *style();
 
 public Q_SLOTS:
     int pixelMetric(const QString&);
@@ -314,6 +317,8 @@ protected:
 
     QImage m_image;
     KQuickPadding m_border;
+
+    static QStyle *s_style;
 };
 
 
