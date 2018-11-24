@@ -1647,7 +1647,7 @@ QSGNode *KQuickStyleItem::updatePaintNode(QSGNode *node, UpdatePaintNodeData *)
 #ifdef QSG_RUNTIME_DESCRIPTION
     qsgnode_set_description(styleNode,
                             QString::fromLatin1("%1:%2, '%3'")
-                            .arg(style())
+                            .arg(styleName())
                             .arg(elementType())
                             .arg(text()));
 #endif
