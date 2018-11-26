@@ -391,8 +391,8 @@ void KQuickStyleItem::initStyleOption()
 
         QStyleOptionFrame *opt = qstyleoption_cast<QStyleOptionFrame*>(m_styleoption);
         opt->frameShape = QFrame::StyledPanel;
-        opt->lineWidth = 1;
-        opt->midLineWidth = 1;
+        opt->lineWidth = KQuickStyleItem::style()->pixelMetric(QStyle::PM_DefaultFrameWidth, m_styleoption, nullptr);
+        opt->midLineWidth = KQuickStyleItem::style()->pixelMetric(QStyle::PM_DefaultFrameWidth, m_styleoption, nullptr);
     }
         break;
     case FocusRect: {
@@ -515,7 +515,7 @@ void KQuickStyleItem::initStyleOption()
             m_styleoption = new QStyleOptionFrame();
 
         QStyleOptionFrame *opt = qstyleoption_cast<QStyleOptionFrame*>(m_styleoption);
-        opt->lineWidth = 1; // this must be non-zero
+        opt->lineWidth = qMax(1, KQuickStyleItem::style()->pixelMetric(QStyle::PM_DefaultFrameWidth, m_styleoption, nullptr)); //this must be non zero
     }
         break;
     case ComboBox :{
@@ -602,7 +602,7 @@ void KQuickStyleItem::initStyleOption()
 
         QStyleOptionGroupBox *opt = qstyleoption_cast<QStyleOptionGroupBox*>(m_styleoption);
         opt->text = text();
-        opt->lineWidth = 1;
+        opt->lineWidth = KQuickStyleItem::style()->pixelMetric(QStyle::PM_DefaultFrameWidth, m_styleoption, nullptr);
         opt->subControls = QStyle::SC_GroupBoxLabel;
         opt->features = 0;
         if (m_properties[QStringLiteral("sunken")].toBool()) { // Qt draws an ugly line here so I ignore it
@@ -1431,9 +1431,8 @@ void KQuickStyleItem::paint(QPainter *painter)
     case RadioButton:
         KQuickStyleItem::style()->drawControl(QStyle::CE_RadioButton, m_styleoption, painter);
         break;
-    case Edit: {
+    case Edit:
         KQuickStyleItem::style()->drawPrimitive(QStyle::PE_PanelLineEdit, m_styleoption, painter);
-    }
         break;
     case MacHelpButton:
         //Not managed as mac is not supported
