@@ -72,6 +72,7 @@ T.ScrollView {
                 //don't make the scrolling items overlap the background borders.
                 flickableItem.anchors.margins = Qt.binding(function() { return controlRoot.background && controlRoot.background.visible ? 2 : 0; });
                 flickableItem.clip = true;
+                flickableItem.pixelAligned = true;
                 flickableItem.interactive = Kirigami.Settings.isMobile
             }
             onPressed: {
