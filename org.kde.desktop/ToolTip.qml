@@ -42,6 +42,10 @@ T.ToolTip {
     margins: 6
     padding: 6
 
+    visible: Kirigami.Settings.tabletMode ? parent.pressed : parent.hovered
+    delay: Kirigami.Settings.tabletMode ? Qt.styleHints.mousePressAndHoldInterval : 1000
+    timeout: 5000
+
     closePolicy: T.Popup.CloseOnEscape | T.Popup.CloseOnPressOutsideParent | T.Popup.CloseOnReleaseOutsideParent
 
     contentItem: Controls.Label {
