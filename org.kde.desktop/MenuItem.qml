@@ -30,7 +30,7 @@ T.MenuItem {
 
     @DISABLE_UNDER_QQC2_2_4@ palette: Kirigami.Theme.palette
     implicitWidth: Math.max(background ? background.implicitWidth : 0,
-                            contentItem.implicitWidth + leftPadding + rightPadding)
+                            contentItem.implicitWidth + leftPadding + rightPadding + (arrow ? arrow.implicitWidth : 0))
     implicitHeight: visible ? Math.max(background ? background.implicitHeight : 0,
                              Math.max(contentItem.implicitHeight,
                                       indicator ? indicator.implicitHeight : 0) + topPadding + bottomPadding) : 0
