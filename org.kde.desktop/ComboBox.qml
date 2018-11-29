@@ -86,6 +86,7 @@ T.ComboBox {
             }
             if (indexUnderMouse > -1) {
                 controlRoot.currentIndex = indexUnderMouse;
+                controlRoot.activated(indexUnderMouse);
             }
         }
         onCanceled: {
