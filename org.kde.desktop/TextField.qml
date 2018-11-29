@@ -58,7 +58,7 @@ T.TextField {
     Component {
         id: mobileCursor
         Private.MobileCursor {
-            control: controlRoot
+            target: controlRoot
         }
     }
     onFocusChanged: {
@@ -76,12 +76,11 @@ T.TextField {
         selectWord();
     }
     Private.MobileCursor {
-        control: controlRoot
+        target: controlRoot
         selectionStartHandle: true
-        property var rect: control.positionToRectangle(control.selectionStart)
-        //FIXME: this magic values seem to be always valid, for every font,every dpi, every scaling
-        x: rect.x + 5
-        y: rect.y + 6
+        property var rect: controlRoot.positionToRectangle(controlRoot.selectionStart)
+        x: rect.x + target.padding
+        y: rect.y + target.padding
     }
 
     Controls.Label {

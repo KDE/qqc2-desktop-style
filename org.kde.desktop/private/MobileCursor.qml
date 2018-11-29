@@ -25,11 +25,11 @@ Item {
     width: 1 //<-important that this is actually a single device pixel
     height: Kirigami.Units.gridUnit
 
-    property Item control
+    property Item target
 
     property bool selectionStartHandle: false
     
-    visible: Kirigami.Settings.tabletMode && ((control.focus && !selectionStartHandle) || control.selectedText.length > 0)
+    visible: Kirigami.Settings.tabletMode && ((target.activeFocus && !selectionStartHandle) || target.selectedText.length > 0)
 
     Rectangle {
         width: Math.round(Kirigami.Units.devicePixelRatio * 3)
@@ -57,17 +57,17 @@ Item {
             }
             preventStealing: true
             onPositionChanged: {
-                var pos = mapToItem(control, mouse.x, mouse.y);
-                pos = control.positionAt(pos.x, pos.y);
+                var pos = mapToItem(target, mouse.x, mouse.y);
+                pos = target.positionAt(pos.x, pos.y);
 
-                if (control.selectedText.length > 0) {
+                if (target.selectedText.length > 0) {
                     if (selectionStartHandle) {
-                        control.select(Math.min(pos, control.selectionEnd - 1), control.selectionEnd);
+                        target.select(Math.min(pos, target.selectionEnd - 1), target.selectionEnd);
                     } else {
-                        control.select(control.selectionStart, Math.max(pos, control.selectionStart + 1));
+                        target.select(target.selectionStart, Math.max(pos, target.selectionStart + 1));
                     }
                 } else {
-                    control.cursorPosition = pos;
+                    target.cursorPosition = pos;
                 }
             }
         }

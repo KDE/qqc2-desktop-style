@@ -28,6 +28,8 @@ import org.kde.qqc2desktopstyle.private 1.0 as StylePrivate
 import QtGraphicalEffects 1.0
 import org.kde.kirigami 2.4 as Kirigami
 
+import "private" as Private
+
 T.ComboBox {
     id: controlRoot
     @DISABLE_UNDER_QQC2_2_4@ palette: Kirigami.Theme.palette
@@ -47,7 +49,7 @@ T.ComboBox {
     delegate: ItemDelegate {
         width: controlRoot.popup.width
         text: controlRoot.textRole ? (Array.isArray(controlRoot.model) ? modelData[controlRoot.textRole] : model[controlRoot.textRole]) : modelData
-        highlighted: controlRoot.highlightedIndex == index
+        highlighted: mouseArea.pressed ? listView.currentIndex == index : controlRoot.highlightedIndex == index
         property bool separatorVisible: false
         Kirigami.Theme.colorSet: controlRoot.Kirigami.Theme.inherit ? controlRoot.Kirigami.Theme.colorSet : Kirigami.Theme.View
         Kirigami.Theme.inherit: controlRoot.Kirigami.Theme.inherit
@@ -55,33 +57,120 @@ T.ComboBox {
 
     indicator: Item {}
 
-    contentItem: T.TextField {
-        padding: 0
+    contentItem: MouseArea {
+        id: mouseArea
+        anchors.fill: parent
+        acceptedButtons: Qt.LeftButton
+        preventStealing: true
+        property int indexUnderMouse: -1
+        onWheel: {
+            if (wheel.pixelDelta.y < 0 || wheel.angleDelta.y < 0) {
+                controlRoot.currentIndex = Math.min(controlRoot.currentIndex + 1, delegateModel.count -1);
+            } else {
+                controlRoot.currentIndex = Math.max(controlRoot.currentIndex - 1, 0);
+            }
+            controlRoot.activated(controlRoot.currentIndex);
+        }
+        onPressed: {
+            indexUnderMouse = -1;
+            listView.currentIndex = controlRoot.highlightedIndex
+            controlRoot.down = true;
+            controlRoot.pressed = true;
+            controlRoot.popup.visible = !controlRoot.popup.visible;
+        }
+        onReleased: {
+            if (!containsMouse) {
+                controlRoot.down = false;
+                controlRoot.pressed = false;
+                controlRoot.popup.visible = false;
+            }
+            if (indexUnderMouse > -1) {
+                controlRoot.currentIndex = indexUnderMouse;
+            }
+        }
+        onCanceled: {
+            controlRoot.down = false;
+            controlRoot.pressed = false;
+        }
+        onPositionChanged: {
+            var pos = listView.mapFromItem(this, mouse.x, mouse.y);
+            indexUnderMouse = listView.indexAt(pos.x, pos.y);
+            listView.currentIndex = indexUnderMouse;
+        }
 
-        text: controlRoot.editable ? controlRoot.editText : controlRoot.displayText
+        Connections {
+            target: popup
+            onClosed: {
+                controlRoot.down = false;
+                controlRoot.pressed = false;
+            }
+        }
+        T.TextField {
+            id: textField
+            padding: 0
+            anchors {
+                fill:parent
+                leftMargin: controlRoot.leftPadding
+                rightMargin: controlRoot.rightPadding
+                topMargin: controlRoot.topPadding
+                bottomMargin: controlRoot.bottomPadding
+            }
+            text: controlRoot.editable ? controlRoot.editText : controlRoot.displayText
 
-        enabled: controlRoot.editable
-        autoScroll: controlRoot.editable
-        readOnly: controlRoot.down
-        
-        visible: typeof(controlRoot.editable) != "undefined" && controlRoot.editable
-        inputMethodHints: controlRoot.inputMethodHints
-        validator: controlRoot.validator
+            enabled: controlRoot.editable
+            autoScroll: controlRoot.editable
+            readOnly: controlRoot.down
+            
+            visible: typeof(controlRoot.editable) != "undefined" && controlRoot.editable
+            inputMethodHints: controlRoot.inputMethodHints
+            validator: controlRoot.validator
 
-        // Work around Qt bug where NativeRendering breaks for non-integer scale factors
-        // https://bugreports.qt.io/browse/QTBUG-67007
-        renderType: Screen.devicePixelRatio % 1 !== 0 ? Text.QtRendering : Text.NativeRendering
-        color: controlRoot.enabled ? Kirigami.Theme.textColor : Kirigami.Theme.disabledTextColor
-        selectionColor: Kirigami.Theme.highlightColor
-        selectedTextColor: Kirigami.Theme.highlightedTextColor
-        selectByMouse: true
+            // Work around Qt bug where NativeRendering breaks for non-integer scale factors
+            // https://bugreports.qt.io/browse/QTBUG-67007
+            renderType: Screen.devicePixelRatio % 1 !== 0 ? Text.QtRendering : Text.NativeRendering
+            color: controlRoot.enabled ? Kirigami.Theme.textColor : Kirigami.Theme.disabledTextColor
+            selectionColor: Kirigami.Theme.highlightColor
+            selectedTextColor: Kirigami.Theme.highlightedTextColor
 
-        font: controlRoot.font
-        horizontalAlignment: Text.AlignLeft
-        verticalAlignment: Text.AlignVCenter
-        opacity: controlRoot.enabled ? 1 : 0.3
+            selectByMouse: !Kirigami.Settings.tabletMode
+            cursorDelegate: Kirigami.Settings.tabletMode ? mobileCursor : undefined
+
+            font: controlRoot.font
+            horizontalAlignment: Text.AlignLeft
+            verticalAlignment: Text.AlignVCenter
+            opacity: controlRoot.enabled ? 1 : 0.3
+
+            onFocusChanged: {
+                if (focus) {
+                    Private.MobileTextActionsToolBar.controlRoot = textField;
+                }
+            }
+
+            onPressAndHold: {
+                if (!Kirigami.Settings.tabletMode) {
+                    return;
+                }
+                forceActiveFocus();
+                cursorPosition = positionAt(event.x, event.y);
+                selectWord();
+            }
+        }
     }
 
+    Component {
+        id: mobileCursor
+        Private.MobileCursor {
+            target: textField
+        }
+    }
+
+    Private.MobileCursor {
+        target: textField
+        selectionStartHandle: true
+        property var rect: target.positionToRectangle(target.selectionStart)
+        x: rect.x + 5
+        y: rect.y + 6
+    }
 
     background: StylePrivate.StyleItem {
         id: styleitem
@@ -99,23 +188,6 @@ T.ComboBox {
         properties: {
             "editable" : control.editable
         }
-
-        MouseArea {
-            anchors {
-                fill: parent
-                leftMargin: controlRoot.leftPadding
-                rightMargin: controlRoot.rightPadding
-            }
-            acceptedButtons: Qt.NoButton
-            onWheel: {
-                if (wheel.pixelDelta.y < 0 || wheel.angleDelta.y < 0) {
-                    controlRoot.currentIndex = Math.min(controlRoot.currentIndex + 1, delegateModel.count -1);
-                } else {
-                    controlRoot.currentIndex = Math.max(controlRoot.currentIndex - 1, 0);
-                }
-                controlRoot.activated(controlRoot.currentIndex);
-            }
-        }
     }
 
     popup: T.Popup {
@@ -128,7 +200,7 @@ T.ComboBox {
         Kirigami.Theme.inherit: controlRoot.Kirigami.Theme.inherit
 
         contentItem: ListView {
-            id: listview
+            id: listView
             clip: true
             implicitHeight: contentHeight
             model: controlRoot.popup.visible ? controlRoot.delegateModel : null

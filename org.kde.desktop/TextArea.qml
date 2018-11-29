@@ -59,7 +59,7 @@ T.TextArea {
     Component {
         id: mobileCursor
         Private.MobileCursor {
-            control: controlRoot
+            target: controlRoot
         }
     }
 
@@ -73,9 +73,9 @@ T.TextArea {
     }
 
     Private.MobileCursor {
-        control: controlRoot
+        target: controlRoot
         selectionStartHandle: true
-        property var rect: control.positionToRectangle(control.selectionStart)
+        property var rect: target.positionToRectangle(target.selectionStart)
         x: rect.x
         y: rect.y
     }
