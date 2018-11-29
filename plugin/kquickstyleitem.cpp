@@ -883,11 +883,13 @@ QSize KQuickStyleItem::sizeFromContents(int width, int height)
 
         int contentWidth = btn->fontMetrics.width(btn->text);
         int contentHeight = btn->fontMetrics.height();
+
         if (!btn->icon.isNull()) {
             //+4 matches a hardcoded value in QStyle and acts as a margin between the icon and the text.
             contentWidth += btn->iconSize.width() + 4;
             contentHeight = qMax(btn->fontMetrics.height(), btn->iconSize.height());
         }
+
         int newWidth = qMax(width, contentWidth);
         int newHeight = qMax(height, contentHeight);
         size = KQuickStyleItem::style()->sizeFromContents(QStyle::CT_PushButton, m_styleoption, QSize(newWidth, newHeight)); }
@@ -912,14 +914,19 @@ QSize KQuickStyleItem::sizeFromContents(int width, int height)
         {
             // We have to create a new style option since we might be calling with a QStyleOptionSpinBox
             QStyleOptionFrame frame;
-            frame.state = m_styleoption->state;
+            //+2 to be consistent with the hardcoded verticalmargin in QLineEdit
+            int contentHeight = frame.fontMetrics.height() + 2;
+
+            frame.state = m_styleoption->state | QStyle::State_Sunken;
             frame.lineWidth = KQuickStyleItem::style()->pixelMetric(QStyle::PM_DefaultFrameWidth, m_styleoption, nullptr);
             frame.rect = m_styleoption->rect;
             frame.styleObject = this;
-            size = KQuickStyleItem::style()->sizeFromContents(QStyle::CT_LineEdit, &frame, QSize(width, height));
-            if (m_itemType == SpinBox)
+
+            size = KQuickStyleItem::style()->sizeFromContents(QStyle::CT_LineEdit, &frame, QSize(width, qMax(height, contentHeight)).expandedTo(QApplication::globalStrut()));
+            if (m_itemType == SpinBox) {
                 size.setWidth(KQuickStyleItem::style()->sizeFromContents(QStyle::CT_SpinBox,
-                                                              m_styleoption, QSize(width + 2, height)).width());
+                                m_styleoption, QSize(width + 2, height)).width());
+            }
         }
         break;
     case GroupBox: {
