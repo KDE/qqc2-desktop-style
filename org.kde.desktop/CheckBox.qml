@@ -45,6 +45,7 @@ T.CheckBox {
     indicator: CheckIndicator {
         LayoutMirroring.enabled: controlRoot.mirrored
         LayoutMirroring.childrenInherit: true
+        width: height
         anchors {
             left: parent.left
             verticalCenter: parent.verticalCenter
