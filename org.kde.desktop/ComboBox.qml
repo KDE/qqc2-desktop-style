@@ -37,7 +37,7 @@ T.ComboBox {
     Kirigami.Theme.colorSet: typeof(editable) != "undefined" && editable ? Kirigami.Theme.View : Kirigami.Theme.Button
     Kirigami.Theme.inherit: false
 
-    implicitWidth: background.implicitWidth + leftPadding + rightPadding
+    implicitWidth: Math.max(200, background.implicitWidth + leftPadding + rightPadding)
     implicitHeight: background.implicitHeight
     baselineOffset: contentItem.y + contentItem.baselineOffset
 

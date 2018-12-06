@@ -46,7 +46,7 @@ T.ScrollView {
     topPadding: background && background.visible ? 2 : 0
     rightPadding: background && background.visible ? 2 : 0
     bottomPadding: background && background.visible ? 2 : 0
-    
+
     //create a background only after Component.onCompleted, see on the component creation below for explanation
     Component.onCompleted: {
         if (!controlRoot.background) {
@@ -68,12 +68,12 @@ T.ScrollView {
             onFlickableItemChanged: {
 
                 flickableItem.boundsBehavior = scrollHelper.isMobile ? Flickable.DragAndOvershootBounds : Flickable.StopAtBounds;
-                
+
                 //don't make the scrolling items overlap the background borders.
                 flickableItem.anchors.margins = Qt.binding(function() { return controlRoot.background && controlRoot.background.visible ? 2 : 0; });
                 flickableItem.clip = true;
-                flickableItem.pixelAligned = true;
                 flickableItem.interactive = Kirigami.Settings.isMobile
+                flickableItem.parent = scrollHelper;
             }
             onPressed: {
                 mouse.accepted = false;
@@ -84,7 +84,7 @@ T.ScrollView {
             }
             onReleased:  {
                 mouse.accepted = false;
-                flickableItem.interactive = false;
+                //flickableItem.interactive = false;
             }
             onWheel: {
                 if (isMobile || flickableItem.contentHeight < flickableItem.height) {
@@ -111,8 +111,14 @@ T.ScrollView {
 
             Connections {
                 target: scrollHelper.flickableItem
-                onFlickEnded: scrollHelper.flickableItem.interactive = false;
-                onMovementEnded: scrollHelper.flickableItem.interactive = false;
+                onFlickEnded: {
+                    scrollHelper.flickableItem.interactive = false;
+                    scrollHelper.flickableItem.contentY = Math.round(scrollHelper.flickableItem.contentY);
+                }
+                onMovementEnded: {
+                    scrollHelper.flickableItem.interactive = false;
+                    scrollHelper.flickableItem.contentY = Math.round(scrollHelper.flickableItem.contentY);
+                }
             }
 
              /*create a background only after Component.onCompleted because:
