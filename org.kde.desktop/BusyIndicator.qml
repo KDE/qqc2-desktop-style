@@ -50,8 +50,8 @@ T.BusyIndicator {
         RotationAnimator {
             target: controlRoot.contentItem
             running: controlRoot.visible && controlRoot.running
-            from: 360
-            to: 0
+            from: 0
+            to: 360
             loops: Animation.Infinite
             duration: 1000
         }
