@@ -54,7 +54,7 @@ T.TextField {
     renderType: Screen.devicePixelRatio % 1 !== 0 ? Text.QtRendering : Text.NativeRendering
     selectByMouse: !Kirigami.Settings.tabletMode
 
-    cursorDelegate: Kirigami.Settings.tabletMode ? mobileCursor : undefined
+    cursorDelegate: Kirigami.Settings.tabletMode ? mobileCursor : null
     Component {
         id: mobileCursor
         Private.MobileCursor {
