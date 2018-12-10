@@ -38,7 +38,7 @@ T.Menu {
 
     margins: 0
 
-@DISABLE_UNDER_QQC2_2_3@    delegate: MenuItem { width: parent.width; onImplicitWidthChanged: control.contentItem.contentItem.childrenChanged() }
+@DISABLE_UNDER_QQC2_2_3@    delegate: MenuItem { onImplicitWidthChanged: control.contentItem.contentItem.childrenChanged() }
 
     contentItem: ListView {
         implicitHeight: contentHeight

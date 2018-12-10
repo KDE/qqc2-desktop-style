@@ -36,6 +36,8 @@ T.MenuItem {
                                       indicator ? indicator.implicitHeight : 0) + topPadding + bottomPadding) : 0
     baselineOffset: contentItem.y + contentItem.baselineOffset
 
+    width: parent.width
+
     Layout.fillWidth: true
     padding: Kirigami.Units.smallSpacing
     leftPadding: Kirigami.Units.largeSpacing
