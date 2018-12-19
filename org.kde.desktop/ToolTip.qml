@@ -42,7 +42,7 @@ T.ToolTip {
     margins: 6
     padding: 6
 
-    visible: Kirigami.Settings.tabletMode ? parent.pressed : parent.hovered
+    visible: parent && (Kirigami.Settings.tabletMode ? parent.pressed : (parent.hasOwnProperty("hovered") ? parent.hovered : parent.containsMouse))
     delay: Kirigami.Settings.tabletMode ? Qt.styleHints.mousePressAndHoldInterval : 1000
     timeout: 5000
 
