@@ -5,7 +5,7 @@ set(KF5_DEP_VERSION "5.54.0") # handled by release scripts
 
 project(qqc2-desktop-style VERSION ${KF5_VERSION})
 
-set(REQUIRED_QT_VERSION 5.9.0)
+set(REQUIRED_QT_VERSION 5.10.0)
 
 ################# Disallow in-source build #################
 
