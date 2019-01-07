@@ -39,7 +39,7 @@ T.Button {
     contentItem: Item {}
     Kirigami.MnemonicData.enabled: controlRoot.enabled && controlRoot.visible
     Kirigami.MnemonicData.controlType: Kirigami.MnemonicData.ActionElement
-    Kirigami.MnemonicData.label: controlRoot.text
+    Kirigami.MnemonicData.label: controlRoot.display !== T.AbstractButton.IconOnly ? controlRoot.text : ""
     Shortcut {
         //in case of explicit & the button manages it by itself
         enabled: !(RegExp(/\&[^\&]/).test(controlRoot.text))
@@ -58,7 +58,7 @@ T.Button {
         hasFocus: controlRoot.activeFocus
         activeControl: controlRoot.isDefault ? "default" : "f"
         properties: {
-            "icon": controlRoot.icon ? (controlRoot.icon.name || controlRoot.icon.source) : "",
+            "icon": controlRoot.icon && controlRoot.display !== T.AbstractButton.TextOnly ? (controlRoot.icon.name || controlRoot.icon.source) : "",
             "iconColor": controlRoot.icon && controlRoot.icon.color.a > 0? controlRoot.icon.color : Kirigami.Theme.textColor,
             "iconWidth": controlRoot.icon && controlRoot.icon.width ? controlRoot.icon.width : 0,
             "iconHeight": controlRoot.icon && controlRoot.icon.height ? controlRoot.icon.height : 0,
