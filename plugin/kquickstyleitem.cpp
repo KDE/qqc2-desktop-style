@@ -192,7 +192,7 @@ void KQuickStyleItem::initStyleOption()
     Q_ASSERT(m_theme);
 
     if (m_styleoption)
-        m_styleoption->state = 0;
+        m_styleoption->state = nullptr;
 
     QString sizeHint = m_hints.value(QStringLiteral("size")).toString();
 
@@ -242,7 +242,7 @@ void KQuickStyleItem::initStyleOption()
             m_styleoption = new QStyleOptionViewItem();
 
         QStyleOptionViewItem *opt = qstyleoption_cast<QStyleOptionViewItem*>(m_styleoption);
-        opt->features = 0;
+        opt->features = nullptr;
         if (activeControl() == QLatin1String("alternate"))
             opt->features |= QStyleOptionViewItem::Alternate;
     }
@@ -541,7 +541,7 @@ void KQuickStyleItem::initStyleOption()
         else if (value() & (1<<1))
             opt->activeSubControls = QStyle::SC_SpinBoxDown;
         opt->subControls = QStyle::SC_All;
-        opt->stepEnabled = 0;
+        opt->stepEnabled = nullptr;
         if (value() & (1<<2))
             opt->stepEnabled |= QAbstractSpinBox::StepUpEnabled;
         if (value() & (1<<3))
@@ -603,7 +603,7 @@ void KQuickStyleItem::initStyleOption()
         opt->text = text();
         opt->lineWidth = KQuickStyleItem::style()->pixelMetric(QStyle::PM_DefaultFrameWidth, m_styleoption, nullptr);
         opt->subControls = QStyle::SC_GroupBoxLabel;
-        opt->features = 0;
+        opt->features = nullptr;
         if (m_properties[QStringLiteral("sunken")].toBool()) { // Qt draws an ugly line here so I ignore it
             opt->subControls |= QStyle::SC_GroupBoxFrame;
         } else {
@@ -1611,7 +1611,7 @@ void KQuickStyleItem::setControl(QQuickItem *control)
 
     if (m_control) {
         m_control->removeEventFilter(this);
-        disconnect(m_control, 0, this, 0);
+        disconnect(m_control, nullptr, this, nullptr);
     }
 
     m_control = control;
@@ -1719,7 +1719,7 @@ QPixmap QQuickTableRowImageProvider1::requestPixmap(const QString &id, QSize *si
     opt.state |= QStyle::State_Enabled;
     opt.rect = QRect(0, 0, width, height);
     QString style = QString::fromLatin1(KQuickStyleItem::style()->metaObject()->className());
-    opt.features = 0;
+    opt.features = nullptr;
 
     if (id.contains(QLatin1String("selected")))
         opt.state |= QStyle::State_Selected;
