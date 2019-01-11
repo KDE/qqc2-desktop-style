@@ -36,6 +36,9 @@ T.ToolTip {
     x: parent ? (parent.width - implicitWidth) / 2 : 0
     y: -implicitHeight - 3
 
+    // Always show the tooltip on top of everything else
+    z: 999
+
     implicitWidth: contentItem.implicitWidth + leftPadding + rightPadding
     implicitHeight: contentItem.implicitHeight + topPadding + bottomPadding
 
