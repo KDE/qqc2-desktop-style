@@ -65,7 +65,7 @@ T.ComboBox {
         property int indexUnderMouse: -1
         onWheel: {
             if (wheel.pixelDelta.y < 0 || wheel.angleDelta.y < 0) {
-                controlRoot.currentIndex = Math.min(controlRoot.currentIndex + 1, delegateModel.count -1);
+                controlRoot.currentIndex = Math.min(controlRoot.currentIndex + 1, model.count -1);
             } else {
                 controlRoot.currentIndex = Math.max(controlRoot.currentIndex - 1, 0);
             }
@@ -134,7 +134,7 @@ T.ComboBox {
             selectedTextColor: Kirigami.Theme.highlightedTextColor
 
             selectByMouse: !Kirigami.Settings.tabletMode
-            cursorDelegate: Kirigami.Settings.tabletMode ? mobileCursor : undefined
+            cursorDelegate: Kirigami.Settings.tabletMode ? mobileCursor : null
 
             font: controlRoot.font
             horizontalAlignment: Text.AlignLeft
@@ -202,9 +202,10 @@ T.ComboBox {
 
         contentItem: ListView {
             id: listView
-            clip: true
+
             implicitHeight: contentHeight
-            model: controlRoot.popup.visible ? controlRoot.delegateModel : null
+            model: controlRoot.model
+            delegate: controlRoot.delegate
             currentIndex: controlRoot.highlightedIndex
             highlightRangeMode: ListView.ApplyRange
             highlightMoveDuration: 0
