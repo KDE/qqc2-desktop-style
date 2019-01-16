@@ -179,8 +179,7 @@ T.ComboBox {
         elementType: "combobox"
         anchors.fill: parent
         hover: controlRoot.hovered
-        sunken: controlRoot.pressed
-        raised: !sunken
+        on: controlRoot.pressed
         hasFocus: controlRoot.activeFocus
         enabled: controlRoot.enabled
         // contentHeight as in QComboBox magic numbers taken from QQC1 style
