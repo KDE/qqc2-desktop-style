@@ -178,7 +178,7 @@ T.ComboBox {
         control: controlRoot
         elementType: "combobox"
         anchors.fill: parent
-        hover: controlRoot.hovered
+        hover: controlRoot.hovered || controlRoot.pressed
         on: controlRoot.pressed
         hasFocus: controlRoot.activeFocus
         enabled: controlRoot.enabled
