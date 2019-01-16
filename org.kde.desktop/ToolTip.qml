@@ -53,6 +53,7 @@ T.ToolTip {
 
     contentItem: Controls.Label {
         text: controlRoot.text
+        wrapMode: Text.WordWrap
         font: controlRoot.font
         Kirigami.Theme.colorSet: Kirigami.Theme.Tooltip
         color: Kirigami.Theme.textColor
