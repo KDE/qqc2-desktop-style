@@ -53,6 +53,10 @@ T.ComboBox {
         property bool separatorVisible: false
         Kirigami.Theme.colorSet: controlRoot.Kirigami.Theme.inherit ? controlRoot.Kirigami.Theme.colorSet : Kirigami.Theme.View
         Kirigami.Theme.inherit: controlRoot.Kirigami.Theme.inherit
+        onClicked: {
+            controlRoot.currentIndex = index;
+            controlRoot.popup.visible = false;
+        }
     }
 
     indicator: Item {}
