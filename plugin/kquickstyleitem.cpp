@@ -209,6 +209,8 @@ void KQuickStyleItem::initStyleOption()
         const QVariant icon = m_properties[QStringLiteral("icon")];
         if (icon.canConvert<QIcon>()) {
             opt->icon = icon.value<QIcon>();
+        } else if (icon.canConvert<QUrl>() && icon.value<QUrl>().isLocalFile()) {
+            opt->icon = QIcon(icon.value<QUrl>().toLocalFile());
         } else if (icon.canConvert<QString>()) {
             opt->icon = m_theme->iconFromTheme(icon.value<QString>(), m_properties[QStringLiteral("iconColor")].value<QColor>());
         }
