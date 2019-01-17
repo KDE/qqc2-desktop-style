@@ -69,7 +69,7 @@ T.ComboBox {
         property int indexUnderMouse: -1
         onWheel: {
             if (wheel.pixelDelta.y < 0 || wheel.angleDelta.y < 0) {
-                controlRoot.currentIndex = Math.min(controlRoot.currentIndex + 1, model.count -1);
+                controlRoot.currentIndex = Math.min(controlRoot.currentIndex + 1, delegateModel.count -1);
             } else {
                 controlRoot.currentIndex = Math.max(controlRoot.currentIndex - 1, 0);
             }
@@ -207,7 +207,7 @@ T.ComboBox {
             id: listView
 
             implicitHeight: contentHeight
-            model: controlRoot.model
+            model: controlRoot.delegateModel
             delegate: controlRoot.delegate
             currentIndex: controlRoot.highlightedIndex
             highlightRangeMode: ListView.ApplyRange
