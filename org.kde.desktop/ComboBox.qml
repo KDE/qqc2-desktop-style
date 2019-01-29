@@ -202,6 +202,7 @@ T.ComboBox {
         bottomMargin: 6
         Kirigami.Theme.colorSet: Kirigami.Theme.View
         Kirigami.Theme.inherit: controlRoot.Kirigami.Theme.inherit
+        modal: true
 
         contentItem: ListView {
             id: listView
