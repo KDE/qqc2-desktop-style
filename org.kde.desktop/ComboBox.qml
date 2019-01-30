@@ -207,6 +207,11 @@ T.ComboBox {
         contentItem: ListView {
             id: listView
 
+            // this causes us to load at least one delegate
+            // this is essential in guessing the contentHeight
+            // which is needed to initially resize the popup
+            cacheBuffer: 1
+
             implicitHeight: contentHeight
             model: controlRoot.delegateModel
             delegate: controlRoot.delegate
