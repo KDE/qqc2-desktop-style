@@ -73,6 +73,9 @@ T.SpinBox {
                     controlRoot.increase();
                 }
             }
+            // Normally the TextInput does this automatically, but the MouseArea on
+            // top of it blocks that behavior, so we need to explicitly do it here
+            cursorShape: Qt.IBeamCursor
         }
     }
 
