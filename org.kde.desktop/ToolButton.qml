@@ -61,7 +61,15 @@ T.ToolButton {
         activeControl: controlRoot.isDefault ? "default" : "f"
         properties: {
             "icon": controlRoot.icon ? (controlRoot.icon.name || controlRoot.icon.source) : "",
-            "iconColor": controlRoot.icon && controlRoot.icon.color.a > 0? controlRoot.icon.color : Kirigami.Theme.textColor
+            "iconColor": controlRoot.icon && controlRoot.icon.color.a > 0? controlRoot.icon.color : Kirigami.Theme.textColor,
+            "toolButtonStyle": controlRoot.display == T.ToolButton.IconOnly
+                                ? Qt.ToolButtonIconOnly :
+                               controlRoot.display == T.ToolButton.TextOnly
+                                ? Qt.ToolButtonTextOnly :
+                               controlRoot.display == T.ToolButton.TextBesideIcon
+                                ? Qt.ToolButtonTextBesideIcon :
+                               controlRoot.display == T.ToolButton.TextUnderIcon
+                                ? Qt.ToolButtonTextUnderIcon : Qt.ToolButtonFollowStyle
         }
     }
 }

@@ -337,7 +337,19 @@ void KQuickStyleItem::initStyleOption()
             opt->features = QStyleOptionToolButton::HasMenu;
         }
 
-        opt->toolButtonStyle = Qt::ToolButtonFollowStyle;
+        const int toolButtonStyle = m_properties.value(QStringLiteral("toolButtonStyle")).toInt();
+
+        switch (toolButtonStyle) {
+        case Qt::ToolButtonIconOnly:
+        case Qt::ToolButtonTextOnly:
+        case Qt::ToolButtonTextBesideIcon:
+        case Qt::ToolButtonTextUnderIcon:
+        case Qt::ToolButtonFollowStyle:
+            opt->toolButtonStyle = (Qt::ToolButtonStyle)toolButtonStyle;
+            break;
+        default:
+            opt->toolButtonStyle = Qt::ToolButtonFollowStyle;
+        }
 
         int e = KQuickStyleItem::style()->pixelMetric(QStyle::PM_ToolBarIconSize, m_styleoption, nullptr);
         opt->iconSize = QSize(e, e);
