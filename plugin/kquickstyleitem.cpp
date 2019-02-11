@@ -541,6 +541,24 @@ void KQuickStyleItem::initStyleOption()
         opt->fontMetrics = QFontMetrics(font);
         opt->currentText = text();
         opt->editable = m_properties[QStringLiteral("editable")].toBool();
+
+        const QVariant icon = m_properties[QStringLiteral("currentIcon")];
+        if (icon.canConvert<QIcon>()) {
+            opt->currentIcon = icon.value<QIcon>();
+        } else if (icon.canConvert<QString>()) {
+            opt->currentIcon = m_theme->iconFromTheme(icon.value<QString>(), m_properties[QStringLiteral("iconColor")].value<QColor>());
+        }
+        auto iconSize = QSize(m_properties[QStringLiteral("iconWidth")].toInt(), m_properties[QStringLiteral("iconHeight")].toInt());
+        if (iconSize.isEmpty()) {
+            int e = KQuickStyleItem::style()->pixelMetric(QStyle::PM_ButtonIconSize, m_styleoption, nullptr);
+            if (iconSize.width() <= 0) {
+                iconSize.setWidth(e);
+            }
+            if (iconSize.height() <= 0) {
+                iconSize.setHeight(e);
+            }
+        }
+        opt->iconSize = iconSize;
     }
         break;
     case SpinBox: {
