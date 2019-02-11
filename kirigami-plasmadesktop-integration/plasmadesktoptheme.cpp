@@ -232,6 +232,7 @@ void PlasmaDesktopTheme::syncColors()
 
     //background
     setBackgroundColor(colors.scheme.background(KColorScheme::NormalBackground).color());
+    setAlternateBackgroundColor(colors.scheme.background(KColorScheme::AlternateBackground).color());
     setHighlightColor(colors.selectionScheme.background(KColorScheme::NormalBackground).color());
 
     //decoration

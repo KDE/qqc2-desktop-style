@@ -43,10 +43,14 @@ T.ScrollBar {
         visible: controlRoot.size < 1.0
         hoverEnabled: true
         state: "inactive"
-        onPositionChanged: style.activeControl = style.hitTest(mouse.x, mouse.y)
+        acceptedButtons: Qt.LeftButton | Qt.MiddleButton
         onExited: style.activeControl = "groove";
         onPressed: {
-            if (style.activeControl == "down") {
+            if (mouse.buttons & Qt.MiddleButton) {
+                style.activeControl = "handle";
+                controlRoot.position = Math.min(1 - controlRoot.size, Math.max(0, mouse.y/(controlRoot.orientation == Qt.Vertical ? height: width) - controlRoot.size/2));
+                mouse.accepted = true;
+            } else if (style.activeControl == "down") {
                 buttonTimer.increment = 1;
                 buttonTimer.running = true;
                 mouse.accepted = true
@@ -54,8 +58,24 @@ T.ScrollBar {
                 buttonTimer.increment = -1;
                 buttonTimer.running = true;
                 mouse.accepted = true
+            } else if (style.activeControl == "downPage") {
+                buttonTimer.increment = controlRoot.size;
+                buttonTimer.running = true;
+                mouse.accepted = true
+            } else if (style.activeControl == "upPage") {
+                buttonTimer.increment = -controlRoot.size;
+                buttonTimer.running = true;
+                mouse.accepted = true
             } else {
                 mouse.accepted = false
+            }
+        }
+        onPositionChanged: {
+            style.activeControl = style.hitTest(mouse.x, mouse.y)
+            if (mouse.buttons & Qt.MiddleButton) {
+                style.activeControl = "handle";
+                controlRoot.position = Math.min(1 - controlRoot.size, Math.max(0, mouse.y/(controlRoot.orientation == Qt.Vertical ? height: width) - controlRoot.size/2));
+                mouse.accepted = true;
             }
         }
         onReleased: {
@@ -89,11 +109,14 @@ T.ScrollBar {
                 property real increment
                 repeat: true
                 interval: 150
+                triggeredOnStart: true
                 onTriggered: {
-                    if (increment > 0) {
+                    if (increment == 1) {
                         controlRoot.increase();
-                    } else {
+                    } else if (increment == -1) {
                         controlRoot.decrease();
+                    } else {
+                        controlRoot.position = Math.min(1 - controlRoot.size, Math.max(0, controlRoot.position + increment));
                     }
                 }
             }
