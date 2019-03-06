@@ -34,9 +34,13 @@ T.SwitchDelegate {
                                       indicator ? indicator.implicitHeight : 0) + topPadding + bottomPadding
     hoverEnabled: true
 
-    padding: 4
-    spacing: 4
-    rightPadding: 20
+    padding: Kirigami.Settings.tabletMode ? Kirigami.Units.largeSpacing : Kirigami.Units.smallSpacing
+
+    leftPadding: LayoutMirroring.enabled && internal.scrollBar && internal.scrollBar.visible ? internal.scrollBar.width : padding*2
+    topPadding: padding
+
+    rightPadding: !LayoutMirroring.enabled && internal.scrollBar && internal.scrollBar.visible ? internal.scrollBar.width : padding*2
+    bottomPadding: padding
 
     contentItem: Label {
         leftPadding: controlRoot.mirrored ? (controlRoot.indicator ? controlRoot.indicator.width : 0) + controlRoot.spacing : 0
@@ -59,4 +63,21 @@ T.SwitchDelegate {
     }
 
     background: DefaultListItemBackground {}
+
+    QtObject {
+        id: internal
+        property T.ScrollBar scrollBar
+    }
+
+    Component.onCompleted: {
+        var candidate = controlRoot.ListView.view || (controlRoot.parent ? controlRoot.parent.ListView.view : null)
+        //Search for a ScrollView
+        while (candidate) {
+            if (candidate.T.ScrollBar.vertical) {
+                internal.scrollBar = candidate.T.ScrollBar.vertical
+                break;
+            }
+            candidate = candidate.parent
+        }
+    }
 }
