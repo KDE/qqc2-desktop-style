@@ -29,7 +29,7 @@ import org.kde.kirigami 2.4 as Kirigami
 T.RoundButton {
     id: controlRoot
     @DISABLE_UNDER_QQC2_2_4@ palette: Kirigami.Theme.palette
-    Kirigami.Theme.colorSet: controlRoot.activeFocus ? Kirigami.Theme.Selection : Kirigami.Theme.Button
+    Kirigami.Theme.colorSet: !flat && controlRoot.activeFocus ? Kirigami.Theme.Selection : Kirigami.Theme.Button
     Kirigami.Theme.inherit: false
 
     implicitWidth: Math.max(background ? background.implicitWidth : 0,
@@ -50,8 +50,17 @@ T.RoundButton {
         RowLayout {
             id: mainLayout
             anchors.centerIn: parent
+            Kirigami.Icon {
+                Layout.preferredWidth: Kirigami.Units.iconSizes.smallMedium
+                Layout.preferredHeight: Kirigami.Units.iconSizes.smallMedium
+                Layout.fillWidth: true
+                Layout.fillHeight: true
+                visible: source.length > 0
+                source: controlRoot.icon ? (controlRoot.icon.name || controlRoot.icon.source) : ""
+            }
             Controls.Label {
                 text: controlRoot.text
+                visible: text.length > 0
             }
         }
     }
