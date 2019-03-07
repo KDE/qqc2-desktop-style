@@ -34,6 +34,7 @@ T.ToolBar {
     contentWidth: contentChildren[0].implicitWidth
     contentHeight: contentChildren[0].implicitHeight
 
+    padding: Kirigami.Units.smallSpacing
     contentItem: Item {}
     position: controlRoot.parent.footer == controlRoot ? ToolBar.Footer : ToolBar.Header
     background: Rectangle {
