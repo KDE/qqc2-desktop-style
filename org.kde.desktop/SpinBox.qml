@@ -66,13 +66,26 @@ T.SpinBox {
         MouseArea {
             anchors.fill: parent
             onPressed: mouse.accepted = false;
+
+            property int wheelDelta: 0
+
+            onExited: wheelDelta = 0
             onWheel: {
-                if (wheel.pixelDelta.y < 0 || wheel.angleDelta.y < 0) {
-                    controlRoot.decrease();
-                } else {
+                wheelDelta += wheel.angleDelta.y;
+                // magic number 120 for common "one click"
+                // See: http://qt-project.org/doc/qt-5/qml-qtquick-wheelevent.html#angleDelta-prop
+                while (wheelDelta >= 120) {
+                    wheelDelta -= 120;
                     controlRoot.increase();
+                    controlRoot.valueModified();
+                }
+                while (wheelDelta <= -120) {
+                    wheelDelta += 120;
+                    controlRoot.decrease();
+                    controlRoot.valueModified();
                 }
             }
+
             // Normally the TextInput does this automatically, but the MouseArea on
             // top of it blocks that behavior, so we need to explicitly do it here
             cursorShape: Qt.IBeamCursor
