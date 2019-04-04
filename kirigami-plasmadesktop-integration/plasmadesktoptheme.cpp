@@ -144,7 +144,7 @@ Q_GLOBAL_STATIC_WITH_ARGS(QScopedPointer<StyleSingleton>, s_style, (new StyleSin
 PlasmaDesktopTheme::PlasmaDesktopTheme(QObject *parent)
     : PlatformTheme(parent)
 {
-   // setHasCustomIconColoring(true);
+    setSupportsIconColoring(true);
     m_parentItem = qobject_cast<QQuickItem *>(parent);
 
     //null in case parent is a normal QObject
