@@ -87,7 +87,7 @@ ecm_setup_version(PROJECT
     SOVERSION 5)
 
 #########################################################################
-
+add_definitions(-DQT_NO_FOREACH)
 add_subdirectory(plugin)
 
 if (KF5IconThemes_FOUND AND KF5WidgetsAddons_FOUND)
