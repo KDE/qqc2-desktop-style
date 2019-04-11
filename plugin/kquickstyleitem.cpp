@@ -331,6 +331,17 @@ void KQuickStyleItem::initStyleOption()
         } else if (icon.canConvert<QString>()) {
             opt->icon = m_theme->iconFromTheme(icon.value<QString>(), m_properties[QStringLiteral("iconColor")].value<QColor>());
         }
+        auto iconSize = QSize(m_properties[QStringLiteral("iconWidth")].toInt(), m_properties[QStringLiteral("iconHeight")].toInt());
+        if (iconSize.isEmpty()) {
+            int e = KQuickStyleItem::style()->pixelMetric(QStyle::PM_ToolBarIconSize, m_styleoption, nullptr);
+            if (iconSize.width() <= 0) {
+                iconSize.setWidth(e);
+            }
+            if (iconSize.height() <= 0) {
+                iconSize.setHeight(e);
+            }
+        }
+        opt->iconSize = iconSize;
 
         if (m_properties.value(QStringLiteral("menu")).toBool()) {
             opt->subControls |= QStyle::SC_ToolButtonMenu;
@@ -350,9 +361,6 @@ void KQuickStyleItem::initStyleOption()
         default:
             opt->toolButtonStyle = Qt::ToolButtonFollowStyle;
         }
-
-        int e = KQuickStyleItem::style()->pixelMetric(QStyle::PM_ToolBarIconSize, m_styleoption, nullptr);
-        opt->iconSize = QSize(e, e);
 
         const QFont font = qApp->font("QToolButton");
         opt->font = font;
