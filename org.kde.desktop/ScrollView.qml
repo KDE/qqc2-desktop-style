@@ -23,7 +23,7 @@
 import QtQuick 2.9
 import QtQuick.Controls @QQC2_VERSION@
 import QtQuick.Templates @QQC2_VERSION@ as T
-import org.kde.kirigami 2.4 as Kirigami
+import org.kde.kirigami 2.9 as Kirigami
 import org.kde.qqc2desktopstyle.private 1.0 as StylePrivate
 
 T.ScrollView {
@@ -34,9 +34,6 @@ T.ScrollView {
     @DISABLE_UNDER_QQC2_2_4@ palette: Kirigami.Theme.palette
     implicitWidth: Math.max(background ? background.implicitWidth : 0, contentWidth + leftPadding + rightPadding)
     implicitHeight: Math.max(background ? background.implicitHeight : 0, contentHeight + topPadding + bottomPadding)
-
-    contentWidth: scrollHelper.flickableItem ? scrollHelper.flickableItem.contentWidth : 0
-    contentHeight: scrollHelper.flickableItem ? scrollHelper.flickableItem.contentHeight : 0
 
     Kirigami.Theme.colorSet: Kirigami.Theme.View
     Kirigami.Theme.inherit: !background || !background.visible
@@ -54,88 +51,24 @@ T.ScrollView {
         }
     }
 
-    children: [
-        MouseArea {
-            id: scrollHelper
-            anchors.fill: parent
-            drag.filterChildren: !Kirigami.Settings.isMobile
-            property bool isMobile: !verticalScrollBar.interactive
-            onIsMobileChanged: {
-                flickableItem.boundsBehavior = scrollHelper.isMobile ? Flickable.DragAndOvershootBounds : Flickable.StopAtBounds;
-            }
-            readonly property Flickable flickableItem: controlRoot.contentItem
-
-            onFlickableItemChanged: {
-
-                flickableItem.boundsBehavior = scrollHelper.isMobile ? Flickable.DragAndOvershootBounds : Flickable.StopAtBounds;
-
-                //don't make the scrolling items overlap the background borders.
-                flickableItem.anchors.margins = Qt.binding(function() { return controlRoot.background && controlRoot.background.visible ? 2 : 0; });
-                flickableItem.clip = true;
-                flickableItem.interactive = Kirigami.Settings.isMobile
-                flickableItem.parent = scrollHelper;
-            }
-            onPressed: {
-                mouse.accepted = false;
-                flickableItem.interactive = true;
-            }
-            onPositionChanged: {
-                mouse.accepted = false;
-            }
-            onReleased:  {
-                mouse.accepted = false;
-                //flickableItem.interactive = false;
-            }
-            onWheel: {
-                if (isMobile || flickableItem.contentHeight < flickableItem.height) {
-                    return;
-                }
-
-                flickableItem.interactive = false;
-                var y = wheel.pixelDelta.y != 0 ? wheel.pixelDelta.y : wheel.angleDelta.y / 8
-
-                //if we don't have a pixeldelta, apply the configured mouse wheel lines
-                if (!wheel.pixelDelta.y) {
-                    y *= Kirigami.Settings.mouseWheelScrollLines;
-                }
-
-                var minYExtent = flickableItem.topMargin - flickableItem.originY;
-                var maxYExtent = flickableItem.height - (flickableItem.contentHeight + flickableItem.bottomMargin + flickableItem.originY);
-
-                flickableItem.contentY = Math.min(-maxYExtent, Math.max(-minYExtent, flickableItem.contentY - y));
-
-                //this is just for making the scrollbar appear
-                flickableItem.flick(0, 0);
-                flickableItem.cancelFlick();
-            }
-
-            Connections {
-                target: scrollHelper.flickableItem
-                onFlickEnded: {
-                    scrollHelper.flickableItem.interactive = false;
-                    scrollHelper.flickableItem.contentY = Math.round(scrollHelper.flickableItem.contentY);
-                }
-                onMovementEnded: {
-                    scrollHelper.flickableItem.interactive = false;
-                    scrollHelper.flickableItem.contentY = Math.round(scrollHelper.flickableItem.contentY);
-                }
-            }
-
-             /*create a background only after Component.onCompleted because:
-              * implementations can set their own background in a declarative way
-              * ScrollView {background.visible: true} must *not* work, becasue all  upstream styles don't have a background so applications using this would break with other styles
-              * This is child of scrollHelper as it would break native scrollview finding of the flickable if it was a direct child
-              */
-            Component {
-                id: backgroundComponent
-                StylePrivate.StyleItem {
-                    control: controlRoot
-                    elementType: "edit"
-                    visible: false
-                    sunken: true
-                    hasFocus: controlRoot.activeFocus || scrollHelper.flickableItem.activeFocus
-                    hover: controlRoot.hovered
-                }
+    data: [
+        Kirigami.WheelHandler {
+            target: controlRoot.contentItem
+        },
+        /*create a background only after Component.onCompleted because:
+        * implementations can set their own background in a declarative way
+        * ScrollView {background.visible: true} must *not* work, becasue all  upstream styles don't have a background so applications using this would break with other styles
+        * This is child of scrollHelper as it would break native scrollview finding of the flickable if it was a direct child
+        */
+        Component {
+            id: backgroundComponent
+            StylePrivate.StyleItem {
+                control: controlRoot
+                elementType: "edit"
+                visible: false
+                sunken: true
+                hasFocus: controlRoot.activeFocus || scrollHelper.flickableItem.activeFocus
+                hover: controlRoot.hovered
             }
         }
     ]
