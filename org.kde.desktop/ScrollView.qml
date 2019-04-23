@@ -67,7 +67,7 @@ T.ScrollView {
                 elementType: "edit"
                 visible: false
                 sunken: true
-                hasFocus: controlRoot.activeFocus || scrollHelper.flickableItem.activeFocus
+                hasFocus: controlRoot.activeFocus || controlRoot.contentItem.activeFocus
                 hover: controlRoot.hovered
             }
         }
