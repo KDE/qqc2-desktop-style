@@ -86,12 +86,16 @@ T.TextField {
         y: rect.y + target.padding
     }
 
-    Controls.Label {
+    Text {
         id: placeholder
         x: controlRoot.leftPadding
         y: controlRoot.topPadding
         width: controlRoot.width - (controlRoot.leftPadding + controlRoot.rightPadding)
         height: controlRoot.height - (controlRoot.topPadding + controlRoot.bottomPadding)
+
+        // Work around Qt bug where NativeRendering breaks for non-integer scale factors
+        // https://bugreports.qt.io/browse/QTBUG-67007
+        renderType: Screen.devicePixelRatio % 1 !== 0 ? Text.QtRendering : Text.NativeRendering
 
         text: controlRoot.placeholderText
         font: controlRoot.font
