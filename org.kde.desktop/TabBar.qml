@@ -40,7 +40,8 @@ T.TabBar {
 
     contentItem: ListView {
         implicitWidth: contentWidth
-        implicitHeight: controlRoot.contentModel.get(0).height
+        // The binding to contentModel.count is so it updates when the TabBar is populated on demand
+        implicitHeight: controlRoot.contentModel.get(controlRoot.contentModel.count * 0).height
 
         model: controlRoot.contentModel
         currentIndex: controlRoot.currentIndex
