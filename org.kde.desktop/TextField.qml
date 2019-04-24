@@ -67,6 +67,9 @@ T.TextField {
         }
     }
 
+    onTextChanged: Private.MobileTextActionsToolBar.shouldBeVisible = false;
+    onPressed: Private.MobileTextActionsToolBar.shouldBeVisible = true;
+
     onPressAndHold: {
         if (!Kirigami.Settings.tabletMode) {
             return;

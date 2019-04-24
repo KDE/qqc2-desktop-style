@@ -43,6 +43,7 @@ Item {
         Rectangle {
             width: Math.round(Kirigami.Units.gridUnit/1.5)
             height: width
+            visible: MobileTextActionsToolBar.shouldBeVisible
             anchors {
                 horizontalCenter: parent.horizontalCenter
                 verticalCenter: parent.bottom
