@@ -67,6 +67,8 @@ Q_SIGNALS:
     void colorsChanged();
 
 private:
+    QWindow *renderWindow();
+
     QPointer<QQuickItem> m_parentItem;
     QPointer<QWindow> m_window;
     //legacy colors
