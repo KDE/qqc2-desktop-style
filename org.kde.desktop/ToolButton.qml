@@ -53,8 +53,7 @@ T.ToolButton {
         anchors.fill:parent
         control: controlRoot
         elementType: controlRoot.flat ? "toolbutton" : "button"
-        sunken: controlRoot.pressed || (controlRoot.checkable && controlRoot.checked)
-        raised: !(controlRoot.pressed || (controlRoot.checkable && controlRoot.checked))
+        on: controlRoot.pressed || (controlRoot.checkable && controlRoot.checked)
         hover: controlRoot.hovered
         text: controlRoot.Kirigami.MnemonicData.mnemonicLabel
         hasFocus: false
