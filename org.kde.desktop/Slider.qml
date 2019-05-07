@@ -34,9 +34,10 @@ T.Slider {
     implicitHeight: background.implicitHeight
 
     hoverEnabled: true
+    LayoutMirroring.enabled: Qt.application.layoutDirection === Qt.RightToLeft
 
     handle: Item {}
-    
+
     snapMode: T.Slider.SnapOnRelease
 
     background: StylePrivate.StyleItem {
@@ -50,7 +51,7 @@ T.Slider {
         maximum: controlRoot.to*100
         minimum: controlRoot.from*100
         step: controlRoot.stepSize*100
-        value: (horizontal ? controlRoot.visualPosition : 1 - controlRoot.visualPosition)*controlRoot.to*100
+        value: controlRoot.value*100
         horizontal: controlRoot.orientation === Qt.Horizontal
         enabled: controlRoot.enabled
         hasFocus: controlRoot.activeFocus
