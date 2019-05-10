@@ -74,7 +74,7 @@ T.ScrollBar {
             style.activeControl = style.hitTest(mouse.x, mouse.y)
             if (mouse.buttons & Qt.MiddleButton) {
                 style.activeControl = "handle";
-                controlRoot.position = Math.min(1 - controlRoot.size, Math.max(0, mouse.y/(controlRoot.orientation == Qt.Vertical ? height: width) - controlRoot.size/2));
+                controlRoot.position = Math.min(1 - controlRoot.size, Math.max(0, mouse.y/style.length - controlRoot.size/2));
                 mouse.accepted = true;
             }
         }
@@ -89,6 +89,9 @@ T.ScrollBar {
 
         StylePrivate.StyleItem {
             id: style
+
+            readonly property real length: (controlRoot.orientation == Qt.Vertical ? height : width)
+
             control: controlRoot
             anchors.fill: parent
             elementType: "scrollbar"
@@ -96,8 +99,8 @@ T.ScrollBar {
             activeControl: "none"
             sunken: controlRoot.pressed
             minimum: 0
-            maximum: (controlRoot.height/controlRoot.size - controlRoot.height)
-            value: controlRoot.position * (controlRoot.height/controlRoot.size)
+            maximum: style.length/controlRoot.size - style.length
+            value: controlRoot.position * (style.length/controlRoot.size)
             horizontal: controlRoot.orientation == Qt.Horizontal
             enabled: controlRoot.enabled
 
