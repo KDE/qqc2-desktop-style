@@ -597,8 +597,8 @@ void KQuickStyleItem::initStyleOption()
         QStyleOptionSlider *opt = qstyleoption_cast<QStyleOptionSlider*>(m_styleoption);
         opt->orientation = horizontal() ? Qt::Horizontal : Qt::Vertical;
         opt->upsideDown = !horizontal();
-        opt->minimum = minimum();
-        opt->maximum = maximum();
+        opt->minimum = qMax(0, minimum());
+        opt->maximum = qMax(0, maximum());
         opt->sliderPosition = value();
         opt->singleStep = step();
 
@@ -630,8 +630,8 @@ void KQuickStyleItem::initStyleOption()
 
         QStyleOptionProgressBar *opt = qstyleoption_cast<QStyleOptionProgressBar*>(m_styleoption);
         opt->orientation = horizontal() ? Qt::Horizontal : Qt::Vertical;
-        opt->minimum = minimum();
-        opt->maximum = maximum();
+        opt->minimum = qMax(0, minimum());
+        opt->maximum = qMax(0, maximum());
         opt->progress = value();
     }
         break;
@@ -659,8 +659,8 @@ void KQuickStyleItem::initStyleOption()
             m_styleoption = new QStyleOptionSlider();
 
         QStyleOptionSlider *opt = qstyleoption_cast<QStyleOptionSlider*>(m_styleoption);
-        opt->minimum = minimum();
-        opt->maximum = maximum();
+        opt->minimum = qMax(0, minimum());
+        opt->maximum = qMax(0, maximum());
         opt->pageStep = qMax(0, int(horizontal() ? width() : height()));
         opt->orientation = horizontal() ? Qt::Horizontal : Qt::Vertical;
         opt->sliderPosition = value();
@@ -1554,7 +1554,7 @@ void KQuickStyleItem::paint(QPainter *painter)
         KQuickStyleItem::style()->drawComplexControl(QStyle::CC_GroupBox, qstyleoption_cast<QStyleOptionComplex*>(m_styleoption), painter);
         break;
     case ScrollBar:
-        KQuickStyleItem::style()->drawComplexControl(QStyle::CC_ScrollBar, qstyleoption_cast<QStyleOptionComplex*>(m_styleoption), painter);
+        KQuickStyleItem::style()->drawComplexControl(QStyle::CC_ScrollBar, qstyleoption_cast<QStyleOptionSlider *>(m_styleoption), painter);
         break;
     case Menu: {
         QStyleHintReturnMask val;
