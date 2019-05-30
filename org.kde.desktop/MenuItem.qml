@@ -117,7 +117,6 @@ T.MenuItem {
             anchors.fill: parent
             color: Kirigami.Theme.highlightColor
             opacity: (controlRoot.highlighted || controlRoot.hovered) ? 1 : 0
-            Behavior on opacity { NumberAnimation { duration: 150 } }
         }
     }
 }

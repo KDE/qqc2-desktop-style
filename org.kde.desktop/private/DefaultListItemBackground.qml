@@ -32,10 +32,6 @@ Rectangle {
         anchors.fill: parent
         color: Kirigami.Theme.highlightColor
         opacity: controlRoot.hovered && !controlRoot.pressed ? 0.2 : 0
-        Behavior on opacity { NumberAnimation { duration: 150 } }
-    }
-    Behavior on color {
-        ColorAnimation { duration: 150 }
     }
 }
 
