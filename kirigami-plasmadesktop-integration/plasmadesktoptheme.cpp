@@ -24,7 +24,6 @@
 #include <QPalette>
 #include <QDebug>
 #include <QQuickWindow>
-#include <QTimer>
 #include <KIconLoader>
 
 #include <KColorScheme>
