@@ -34,7 +34,7 @@ T.ScrollBar {
 
     hoverEnabled: true
 
-    visible: controlRoot.size < 1.0
+    visible: controlRoot.size < 1.0 && controlRoot.policy !== T.ScrollBar.AlwaysOff
     stepSize: 0.02
 
     background: MouseArea {
