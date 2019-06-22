@@ -87,6 +87,20 @@ T.MenuItem {
             horizontalAlignment: Text.AlignLeft
             verticalAlignment: Text.AlignVCenter
         }
+        Label {
+            id: shortcut
+            Layout.alignment: Qt.AlignVCenter
+
+            visible: controlRoot.action && controlRoot.action.hasOwnProperty("shortcut") && controlRoot.action.shortcut !== undefined
+            text: visible ? controlRoot.action.shortcut : ""
+            font: controlRoot.font
+            color: label.color
+            horizontalAlignment: Text.AlignRight
+            verticalAlignment: Text.AlignVCenter
+        }
+        Item {
+           Layout.preferredWidth: Kirigami.Units.smallSpacing
+        }
     }
 
 //we can't use arrow: on old qqc2 releases
