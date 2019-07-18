@@ -206,6 +206,7 @@ T.ComboBox {
         Kirigami.Theme.colorSet: Kirigami.Theme.View
         Kirigami.Theme.inherit: controlRoot.Kirigami.Theme.inherit
         modal: true
+        closePolicy: Controls.Popup.CloseOnEscape | Controls.Popup.CloseOnPressOutside
 
         contentItem: ListView {
             id: listView
