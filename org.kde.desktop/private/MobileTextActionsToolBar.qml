@@ -35,11 +35,16 @@ Popup {
     closePolicy: Popup.NoAutoClose
     property bool shouldBeVisible: false
 
-    x: controlRoot ? Math.min(Math.max(0, controlRoot.mapToItem(root.parent, controlRoot.positionToRectangle(controlRoot.selectionStart).x, 0).x - root.width/2), controlRoot.Window.contentItem.width - root.width) : 0
+    x: {
+        if (!controlRoot || !controlRoot.Window.contentItem) {
+            return 0;
+        }
+        return Math.min(Math.max(0, controlRoot.mapToItem(root.parent, controlRoot.positionToRectangle(controlRoot.selectionStart).x, 0).x - root.width/2), controlRoot.Window.contentItem.width - root.width);
+    }
 
     y: {
-        if (!controlRoot) {
-            return false;
+        if (!controlRoot || !controlRoot.Window.contentItem) {
+            return 0;
         }
         var desiredY = controlRoot.mapToItem(root.parent, 0, controlRoot.positionToRectangle(controlRoot.selectionStart).y).y  - root.height;
 
