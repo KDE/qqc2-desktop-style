@@ -62,6 +62,29 @@ set_package_properties(ConfigWidgets PROPERTIES DESCRIPTION "KF5 WidgetAddons fr
 
 find_package(PkgConfig)
 
+set(CMAKECONFIG_INSTALL_DIR "${KDE_INSTALL_CMAKEPACKAGEDIR}/KF5QQC2DesktopStyle")
+
+configure_package_config_file(
+  "${CMAKE_CURRENT_SOURCE_DIR}/KF5QQC2DesktopStyleConfig.cmake.in"
+  "${CMAKE_CURRENT_BINARY_DIR}/KF5QQC2DesktopStyleConfig.cmake"
+  INSTALL_DESTINATION  ${CMAKECONFIG_INSTALL_DIR}
+  PATH_VARS  KF5_INCLUDE_INSTALL_DIR CMAKE_INSTALL_PREFIX
+)
+
+install(FILES
+  "${CMAKE_CURRENT_BINARY_DIR}/KF5QQC2DesktopStyleConfig.cmake"
+  "${CMAKE_CURRENT_BINARY_DIR}/KF5QQC2DesktopStyleConfigVersion.cmake"
+  DESTINATION "${CMAKECONFIG_INSTALL_DIR}"
+  COMPONENT Devel
+)
+
+
+ecm_setup_version(PROJECT
+    VARIABLE_PREFIX QQC2DESKTOPSTYLE
+    PACKAGE_VERSION_FILE "${CMAKE_CURRENT_BINARY_DIR}/KF5QQC2DesktopStyleConfigVersion.cmake"
+    SOVERSION 5)
+
+# legacy support for CMake Config files with typo KF5QQC2Desk_opStyle TODO: KF6 remove
 set(CMAKECONFIG_INSTALL_DIR "${KDE_INSTALL_CMAKEPACKAGEDIR}/KF5QQC2DeskopStyle")
 
 configure_package_config_file(
@@ -81,7 +104,6 @@ install(FILES
 
 ecm_setup_version(PROJECT
     VARIABLE_PREFIX QQC2DESKTOPSTYLE
-    VERSION_HEADER "${CMAKE_CURRENT_BINARY_DIR}/qqc2desktopstyle_version.h"
     PACKAGE_VERSION_FILE "${CMAKE_CURRENT_BINARY_DIR}/KF5QQC2DeskopStyleConfigVersion.cmake"
     SOVERSION 5)
 
