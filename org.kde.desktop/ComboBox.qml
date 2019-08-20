@@ -222,6 +222,7 @@ T.ComboBox {
             currentIndex: controlRoot.highlightedIndex
             highlightRangeMode: ListView.ApplyRange
             highlightMoveDuration: 0
+            boundsBehavior: Flickable.StopAtBounds
             T.ScrollBar.vertical: Controls.ScrollBar { }
         }
         background: Rectangle {
