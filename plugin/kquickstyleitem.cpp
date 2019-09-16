@@ -939,9 +939,28 @@ QSize KQuickStyleItem::sizeFromContents(int width, int height)
         int newHeight = qMax(height, btn->fontMetrics.height());
         size = KQuickStyleItem::style()->sizeFromContents(QStyle::CT_ComboBox, m_styleoption, QSize(newWidth, newHeight)); }
         break;
-    case Tab:
-        size = KQuickStyleItem::style()->sizeFromContents(QStyle::CT_TabBarTab, m_styleoption, QSize(width,height));
+    case Tab: {
+        QStyleOptionTab *tab = qstyleoption_cast<QStyleOptionTab*>(m_styleoption);
+
+        int contentWidth = tab->fontMetrics.width(tab->text);
+        int contentHeight = tab->fontMetrics.height();
+
+        if (!tab->icon.isNull()) {
+            //+4 matches a hardcoded value in QStyle and acts as a margin between the icon and the text.
+            contentWidth += tab->iconSize.width() + 4;
+            contentHeight = qMax(contentHeight, tab->iconSize.height());
+        }
+
+        contentWidth += KQuickStyleItem::style()->pixelMetric(QStyle::PM_TabBarTabHSpace, tab);
+        contentHeight += KQuickStyleItem::style()->pixelMetric(QStyle::PM_TabBarTabVSpace, tab);
+
+        const int newWidth = qMax(width, contentWidth);
+        const int newHeight = qMax(height, contentHeight);
+
+        size = KQuickStyleItem::style()->sizeFromContents(QStyle::CT_TabBarTab, m_styleoption, QSize(newWidth, newHeight));
+
         break;
+    }
     case Slider:
         size = KQuickStyleItem::style()->sizeFromContents(QStyle::CT_Slider, m_styleoption, QSize(width,height));
         break;
