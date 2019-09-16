@@ -900,7 +900,7 @@ QSize KQuickStyleItem::sizeFromContents(int width, int height)
         }
         if (btn->toolButtonStyle != Qt::ToolButtonIconOnly) {
             QSize textSize = btn->fontMetrics.size(Qt::TextShowMnemonic, btn->text);
-            textSize.setWidth(textSize.width() + btn->fontMetrics.width(QLatin1Char(' '))*2);
+            textSize.setWidth(textSize.width() + btn->fontMetrics.horizontalAdvance(QLatin1Char(' '))*2);
             if (btn->toolButtonStyle == Qt::ToolButtonTextUnderIcon) {
                 h += 4 + textSize.height();
                 if (textSize.width() > w)
@@ -920,7 +920,7 @@ QSize KQuickStyleItem::sizeFromContents(int width, int height)
     case Button: {
         QStyleOptionButton *btn = qstyleoption_cast<QStyleOptionButton*>(m_styleoption);
 
-        int contentWidth = btn->fontMetrics.width(btn->text);
+        int contentWidth = btn->fontMetrics.boundingRect(btn->text).width();
         int contentHeight = btn->fontMetrics.height();
 
         if (!btn->icon.isNull()) {
@@ -935,14 +935,14 @@ QSize KQuickStyleItem::sizeFromContents(int width, int height)
         break;
     case ComboBox: {
         QStyleOptionComboBox *btn = qstyleoption_cast<QStyleOptionComboBox*>(m_styleoption);
-        int newWidth = qMax(width, btn->fontMetrics.width(btn->currentText));
+        int newWidth = qMax(width, btn->fontMetrics.boundingRect(btn->currentText).width());
         int newHeight = qMax(height, btn->fontMetrics.height());
         size = KQuickStyleItem::style()->sizeFromContents(QStyle::CT_ComboBox, m_styleoption, QSize(newWidth, newHeight)); }
         break;
     case Tab: {
         QStyleOptionTab *tab = qstyleoption_cast<QStyleOptionTab*>(m_styleoption);
 
-        int contentWidth = tab->fontMetrics.width(tab->text);
+        int contentWidth = tab->fontMetrics.boundingRect(tab->text).width();
         int contentHeight = tab->fontMetrics.height();
 
         if (!tab->icon.isNull()) {
@@ -990,7 +990,7 @@ QSize KQuickStyleItem::sizeFromContents(int width, int height)
     case GroupBox: {
             QStyleOptionGroupBox *box = qstyleoption_cast<QStyleOptionGroupBox*>(m_styleoption);
             QFontMetrics metrics(box->fontMetrics);
-            int baseWidth = metrics.width(box->text) + metrics.width(QLatin1Char(' '));
+            int baseWidth = metrics.boundingRect(box->text + QLatin1Char(' ')).width();
             int baseHeight = metrics.height() + m_contentHeight;
             if (box->subControls & QStyle::SC_GroupBoxCheckBox) {
                 baseWidth += KQuickStyleItem::style()->pixelMetric(QStyle::PM_IndicatorWidth);
@@ -1428,7 +1428,7 @@ void KQuickStyleItem::paint(QPainter *painter)
         QPixmap pixmap;
         // Only draw through style once
         const QString pmKey = QLatin1String("itemrow") % QString::number(m_styleoption->state,16) % activeControl();
-        if (!QPixmapCache::find(pmKey, pixmap) || pixmap.width() < width() || height() != pixmap.height()) {
+        if (!QPixmapCache::find(pmKey, &pixmap) || pixmap.width() < width() || height() != pixmap.height()) {
             int newSize = width();
             pixmap = QPixmap(newSize, height());
             pixmap.fill(Qt::transparent);
