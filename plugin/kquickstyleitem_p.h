@@ -101,6 +101,11 @@ class KQuickStyleItem: public QQuickItem
     Q_PROPERTY( int textureWidth READ textureWidth WRITE setTextureWidth NOTIFY textureWidthChanged)
     Q_PROPERTY( int textureHeight READ textureHeight WRITE setTextureHeight NOTIFY textureHeightChanged)
 
+    Q_PROPERTY( int leftPadding READ leftPadding NOTIFY leftPaddingChanged)
+    Q_PROPERTY( int topPadding READ topPadding NOTIFY topPaddingChanged)
+    Q_PROPERTY( int rightPadding READ rightPadding NOTIFY rightPaddingChanged)
+    Q_PROPERTY( int bottomPadding READ bottomPadding NOTIFY bottomPaddingChanged)
+
     Q_PROPERTY( QQuickItem *control READ control WRITE setControl NOTIFY controlChanged)
 
     KQuickPadding* border() { return &m_border; }
@@ -208,6 +213,11 @@ public:
     virtual void initStyleOption ();
     void resolvePalette();
 
+    int leftPadding() const;
+    int topPadding() const;
+    int rightPadding() const;
+    int bottomPadding() const;
+
     Q_INVOKABLE qreal textWidth(const QString &);
     Q_INVOKABLE qreal textHeight(const QString &);
 
@@ -264,6 +274,11 @@ Q_SIGNALS:
 
     void textureWidthChanged(int w);
     void textureHeightChanged(int h);
+
+    void leftPaddingChanged();
+    void topPaddingChanged();
+    void rightPaddingChanged();
+    void bottomPaddingChanged();
 
 protected:
     bool event(QEvent *) override;

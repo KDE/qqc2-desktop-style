@@ -797,6 +797,54 @@ void KQuickStyleItem::resolvePalette()
     }
 }
 
+int KQuickStyleItem::leftPadding() const
+{
+    switch (m_itemType) {
+    case Frame: {
+        const QRect cr = KQuickStyleItem::style()->subElementRect(QStyle::SE_ShapedFrameContents, m_styleoption);
+        return cr.left() - m_styleoption->rect.left();
+    }
+    default:
+        return 0;
+    }
+}
+
+int KQuickStyleItem::topPadding() const
+{
+    switch (m_itemType) {
+    case Frame: {
+        const QRect cr = KQuickStyleItem::style()->subElementRect(QStyle::SE_ShapedFrameContents, m_styleoption);
+        return cr.top() - m_styleoption->rect.top();
+    }
+    default:
+        return 0;
+    }
+}
+
+int KQuickStyleItem::rightPadding() const
+{
+    switch (m_itemType) {
+    case Frame: {
+        const QRect cr = KQuickStyleItem::style()->subElementRect(QStyle::SE_ShapedFrameContents, m_styleoption);
+        return m_styleoption->rect.right() - cr.right();
+    }
+    default:
+        return 0;
+    }
+}
+
+int KQuickStyleItem::bottomPadding() const
+{
+    switch (m_itemType) {
+    case Frame: {
+        const QRect cr = KQuickStyleItem::style()->subElementRect(QStyle::SE_ShapedFrameContents, m_styleoption);
+        return m_styleoption->rect.bottom() - cr.bottom();
+    }
+    default:
+        return 0;
+    }
+}
+
 /*
  *   Property style
  *
@@ -1312,6 +1360,10 @@ void KQuickStyleItem::setElementType(const QString &str)
     } else {
         m_itemType = Undefined;
     }
+    emit leftPaddingChanged();
+    emit rightPaddingChanged();
+    emit topPaddingChanged();
+    emit bottomPaddingChanged();
     updateSizeHint();
 }
 
@@ -1465,6 +1517,8 @@ void KQuickStyleItem::paint(QPainter *painter)
         }
         break;
     case Frame:
+        m_styleoption->state |= QStyle::State_Sunken;
+        m_styleoption->state &= ~QStyle::State_Raised;
         KQuickStyleItem::style()->drawControl(QStyle::CE_ShapedFrame, m_styleoption, painter);
         break;
     case FocusFrame:

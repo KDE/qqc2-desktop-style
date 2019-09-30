@@ -39,10 +39,10 @@ T.ScrollView {
     Kirigami.Theme.inherit: !background || !background.visible
 
     //size in pixel to accomodate the border drawn by qstyle
-    leftPadding: background && background.visible ? 2 : 0
-    topPadding: background && background.visible ? 2 : 0
-    rightPadding: background && background.visible ? 2 : 0
-    bottomPadding: background && background.visible ? 2 : 0
+    leftPadding: background && background.visible && background.hasOwnProperty("leftPadding") ? background.leftPadding : 0
+    topPadding: background && background.visible && background.hasOwnProperty("topPadding") ? background.topPadding : 0
+    rightPadding: background && background.visible && background.hasOwnProperty("rightPadding") ? background.rightPadding : 0
+    bottomPadding: background && background.visible && background.hasOwnProperty("bottomPadding") ? background.bottomPadding : 0
 
     //create a background only after Component.onCompleted, see on the component creation below for explanation
     Component.onCompleted: {
@@ -63,12 +63,28 @@ T.ScrollView {
         Component {
             id: backgroundComponent
             StylePrivate.StyleItem {
-                control: controlRoot
+                control: controlRoot.contentItem
                 elementType: "edit"
+                property int leftPadding: frame.leftPadding
+                property int topPadding: frame.topPadding
+                property int rightPadding: frame.rightPadding
+                property int bottomPadding: frame.bottomPadding
                 visible: false
                 sunken: true
+                raised: false
                 hasFocus: controlRoot.activeFocus || controlRoot.contentItem.activeFocus
                 hover: controlRoot.hovered
+                //This is just for the proper margin metrics
+                StylePrivate.StyleItem {
+                    id: frame
+                    anchors.fill:parent
+                    control: controlRoot
+                    elementType: "frame"
+                    visible: false
+                    sunken: true
+                    hasFocus: controlRoot.activeFocus || controlRoot.contentItem.activeFocus
+                    hover: controlRoot.hovered
+                }
             }
         }
     ]
