@@ -34,12 +34,11 @@ include(KDEFrameworkCompilerSettings NO_POLICY_SCOPE)
 
 find_package(Qt5 ${REQUIRED_QT_VERSION} REQUIRED NO_MODULE COMPONENTS Core Quick Gui Widgets QuickControls2)
 
-find_package(KF5 ${KF5_DEP_VERSION} REQUIRED COMPONENTS Kirigami2)
+find_package(KF5 ${KF5_DEP_VERSION} REQUIRED COMPONENTS Config Kirigami2)
 
-find_package(KF5 ${KF5_DEP_VERSION} COMPONENTS
-                IconThemes #KIconLoader
-                ConfigWidgets #KColorScheme
-            )
+# IconThemes and ConfigWidgets are optional
+find_package(KF5IconThemes ${KF5_DEP_VERSION})
+find_package(KF5ConfigWidgets ${KF5_DEP_VERSION})
 
 if (NOT APPLE AND NOT WIN32)
     find_package(X11)
