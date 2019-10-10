@@ -89,7 +89,10 @@ KQuickStyleItem::KQuickStyleItem(QQuickItem *parent)
     m_textureHeight(0),
     m_lastFocusReason(Qt::NoFocusReason)
 {
-    if (!qApp->style()) {
+    // There is no styleChanged signal and QApplication sends QEvent::StyleChange only to all QWidgets
+    if (qApp->style()) {
+        connect(qApp->style(), &QObject::destroyed, this, &KQuickStyleItem::styleChanged);
+    } else {
         KSharedConfig::Ptr kdeglobals = KSharedConfig::openConfig();
         KConfigGroup cg(kdeglobals, "KDE");
         auto style = s_style;
@@ -1686,9 +1689,6 @@ bool KQuickStyleItem::event(QEvent *ev)
             polish();
         }
         return true;
-    } else if (ev->type() == QEvent::StyleChange) {
-        if (m_itemType == ScrollBar)
-            initStyleOption();
     }
     return QQuickItem::event(ev);
 }
@@ -1816,6 +1816,20 @@ bool KQuickStyleItem::eventFilter(QObject *watched, QEvent *event)
     }
 
     return QQuickItem::eventFilter(watched, event);
+}
+
+void KQuickStyleItem::styleChanged()
+{
+    if (!qApp->style() || QApplication::closingDown()) {
+        return;
+    }
+
+    Q_ASSERT(qApp->style() != sender());
+
+    connect(qApp->style(), &QObject::destroyed, this, &KQuickStyleItem::styleChanged);
+
+    updateSizeHint();
+    updateItem();
 }
 
 QPixmap QQuickTableRowImageProvider1::requestPixmap(const QString &id, QSize *size, const QSize &requestedSize)

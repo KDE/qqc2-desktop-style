@@ -83,7 +83,7 @@ class KQuickStyleItem: public QQuickItem
     Q_PROPERTY( QString elementType READ elementType WRITE setElementType NOTIFY elementTypeChanged)
     Q_PROPERTY( QString text READ text WRITE setText NOTIFY textChanged)
     Q_PROPERTY( QString activeControl READ activeControl WRITE setActiveControl NOTIFY activeControlChanged)
-    Q_PROPERTY( QString styleName READ styleName NOTIFY styleChanged)
+    Q_PROPERTY( QString styleName READ styleName NOTIFY styleNameChanged)
     Q_PROPERTY( QVariantMap hints READ hints WRITE setHints NOTIFY hintChanged RESET resetHints)
     Q_PROPERTY( QVariantMap properties READ properties WRITE setProperties NOTIFY propertiesChanged)
     Q_PROPERTY( QFont font READ font NOTIFY fontChanged)
@@ -262,7 +262,7 @@ Q_SIGNALS:
     void valueChanged();
     void activeControlChanged();
     void infoChanged();
-    void styleChanged();
+    void styleNameChanged();
     void paintMarginsChanged();
     void hintChanged();
     void propertiesChanged();
@@ -290,6 +290,7 @@ private:
     const char* classNameForItem() const;
     QSize sizeFromContents(int width, int height);
     qreal baselineOffset();
+    void styleChanged();
 
 protected:
     Kirigami::PlatformTheme *m_theme = nullptr;
