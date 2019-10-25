@@ -25,7 +25,7 @@
 \section overview Introduction
 This is a style for QtQuicControls2 which is using QStyle to paint the controls in order to give it a native look and feel.
 It has no api, applications shouldn't (and can't) use it directly, but they can depend from this framework in their desktop version if they want to impose an integrated look when running on the desktop.
-It will be used when te environment variable QT_QUICK_CONTROLS_STYLE=org.kde.desktop is exported, or from the following C++ code:
+It will be used when the environment variable QT_QUICK_CONTROLS_STYLE=org.kde.desktop is exported, or from the following C++ code:
 @code
 #include <QQuickStyle>
 ...
