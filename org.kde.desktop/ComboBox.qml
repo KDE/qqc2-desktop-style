@@ -53,13 +53,15 @@ T.ComboBox {
         property bool separatorVisible: false
         Kirigami.Theme.colorSet: controlRoot.Kirigami.Theme.inherit ? controlRoot.Kirigami.Theme.colorSet : Kirigami.Theme.View
         Kirigami.Theme.inherit: controlRoot.Kirigami.Theme.inherit
-        onClicked: {
-            controlRoot.currentIndex = index;
-            controlRoot.popup.visible = false;
-        }
     }
 
     indicator: Item {}
+
+    StylePrivate.PropertyWriter {
+        id: controlRootWriter
+        target: controlRoot
+        propertyName: 'currentIndex'
+    }
 
     contentItem: MouseArea {
         id: mouseArea
@@ -69,11 +71,10 @@ T.ComboBox {
         property int indexUnderMouse: -1
         onWheel: {
             if (wheel.pixelDelta.y < 0 || wheel.angleDelta.y < 0) {
-                controlRoot.currentIndex = Math.min(controlRoot.currentIndex + 1, delegateModel.count -1);
+                controlRoot.incrementCurrentIndex();
             } else {
-                controlRoot.currentIndex = Math.max(controlRoot.currentIndex - 1, 0);
+                controlRoot.decrementCurrentIndex();
             }
-            controlRoot.activated(controlRoot.currentIndex);
         }
         onPressed: {
             indexUnderMouse = -1;
@@ -89,7 +90,7 @@ T.ComboBox {
                 controlRoot.popup.visible = false;
             }
             if (indexUnderMouse > -1) {
-                controlRoot.currentIndex = indexUnderMouse;
+                controlRootWriter.writeProperty(indexUnderMouse);
                 controlRoot.activated(indexUnderMouse);
             }
         }
