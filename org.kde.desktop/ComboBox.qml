@@ -77,6 +77,10 @@ T.ComboBox {
             }
         }
         onPressed: {
+            if (controlRoot.focusPolicy & Qt.ClickFocus) {
+                controlRoot.forceActiveFocus();
+            }
+
             indexUnderMouse = -1;
             listView.currentIndex = controlRoot.highlightedIndex
             controlRoot.down = true;
