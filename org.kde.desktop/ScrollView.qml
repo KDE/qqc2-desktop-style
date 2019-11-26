@@ -72,6 +72,7 @@ T.ScrollView {
                 visible: false
                 sunken: true
                 raised: false
+                enabled: controlRoot.contentItem.enabled
                 hasFocus: controlRoot.activeFocus || controlRoot.contentItem.activeFocus
                 hover: controlRoot.hovered
                 //This is just for the proper margin metrics
@@ -91,6 +92,7 @@ T.ScrollView {
     ScrollBar.vertical: ScrollBar {
         id: verticalScrollBar
         parent: controlRoot
+        enabled: controlRoot.contentItem.enabled
         x: controlRoot.mirrored ? 0 : controlRoot.width - width
         y: controlRoot.topPadding
         height: controlRoot.availableHeight
@@ -99,6 +101,7 @@ T.ScrollView {
 
     ScrollBar.horizontal: ScrollBar {
         parent: controlRoot
+        enabled: controlRoot.contentItem.enabled
         x: controlRoot.leftPadding
         y: controlRoot.height - height
         width: controlRoot.availableWidth
