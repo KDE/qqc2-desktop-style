@@ -29,7 +29,7 @@ T.TabBar {
     id: controlRoot
 
     @DISABLE_UNDER_QQC2_2_4@ palette: Kirigami.Theme.palette
-    Kirigami.Theme.colorSet: Kirigami.Theme.Button
+    Kirigami.Theme.colorSet: Kirigami.Theme.Window
     Kirigami.Theme.inherit: false
 
     //Some QStyles seem to not return sensible pixelmetrics here
