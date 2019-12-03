@@ -32,7 +32,11 @@ void QQc2DesktopStylePlugin::registerTypes(const char *uri)
  
     qmlRegisterType<KQuickStyleItem>(uri, 1, 0, "StyleItem");
     qmlRegisterType<KPropertyWriter>(uri, 1, 0, "PropertyWriter");
-
+#if QT_VERSION < QT_VERSION_CHECK(5, 14, 0)
+    qmlRegisterType<KQuickPadding>();
+#else
+    qmlRegisterAnonymousType<KQuickPadding>(uri, 1);
+#endif
     qmlProtectModule(uri, 2);
 }
 
