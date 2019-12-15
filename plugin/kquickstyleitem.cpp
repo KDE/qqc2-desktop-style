@@ -139,6 +139,8 @@ KQuickStyleItem::KQuickStyleItem(QQuickItem *parent)
 
     connect(this, &KQuickStyleItem::heightChanged, this, &KQuickStyleItem::updateBaselineOffset);
     connect(this, &KQuickStyleItem::contentHeightChanged, this, &KQuickStyleItem::updateBaselineOffset);
+
+    connect(qApp, &QApplication::fontChanged, this, &KQuickStyleItem::updateSizeHint, Qt::QueuedConnection);
 }
 
 KQuickStyleItem::~KQuickStyleItem()
