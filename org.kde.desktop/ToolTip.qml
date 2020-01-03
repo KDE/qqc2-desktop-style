@@ -33,7 +33,7 @@ T.ToolTip {
     Kirigami.Theme.colorSet: Kirigami.Theme.Tooltip
     Kirigami.Theme.inherit: false
 
-    x: parent ? (parent.width - implicitWidth) / 2 : 0
+    x: parent ? Math.round((parent.width - implicitWidth) / 2) : 0
     y: -implicitHeight - 3
 
     // Always show the tooltip on top of everything else
