@@ -36,10 +36,10 @@ T.ItemDelegate {
 
     padding: Kirigami.Settings.tabletMode ? Kirigami.Units.largeSpacing : Kirigami.Units.smallSpacing
 
-    leftPadding: LayoutMirroring.enabled && internal.scrollBar && internal.scrollBar.visible ? internal.scrollBar.width : padding*2
+    leftPadding: padding*2
     topPadding: padding
 
-    rightPadding: !LayoutMirroring.enabled && internal.scrollBar && internal.scrollBar.visible ? internal.scrollBar.width : padding*2
+    rightPadding: padding*2
     bottomPadding: padding
 
     contentItem: Label {
@@ -53,23 +53,6 @@ T.ItemDelegate {
         visible: controlRoot.text
         horizontalAlignment: Text.AlignLeft
         verticalAlignment: Text.AlignVCenter
-    }
-
-    QtObject {
-        id: internal
-        property T.ScrollBar scrollBar
-    }
-
-    Component.onCompleted: {
-        var candidate = controlRoot.ListView.view || (controlRoot.parent ? controlRoot.parent.ListView.view : null)
-        //Search for a ScrollView
-        while (candidate) {
-            if (candidate.T.ScrollBar.vertical) {
-                internal.scrollBar = candidate.T.ScrollBar.vertical
-                break;
-            }
-            candidate = candidate.parent
-        }
     }
 
     background: DefaultListItemBackground {}
