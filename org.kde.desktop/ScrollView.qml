@@ -39,10 +39,13 @@ T.ScrollView {
     Kirigami.Theme.inherit: !background || !background.visible
 
     //size in pixel to accomodate the border drawn by qstyle
-    leftPadding: background && background.visible && background.hasOwnProperty("leftPadding") ? background.leftPadding : 0
-    topPadding: background && background.visible && background.hasOwnProperty("topPadding") ? background.topPadding : 0
-    rightPadding: background && background.visible && background.hasOwnProperty("rightPadding") ? background.rightPadding : 0
-    bottomPadding: background && background.visible && background.hasOwnProperty("bottomPadding") ? background.bottomPadding : 0
+    leftPadding: (internal.backgroundVisible && background.hasOwnProperty("leftPadding") ? background.leftPadding : 0)
+                    + (LayoutMirroring.enabled ? internal.verticalScrollBarWidth : 0)
+    topPadding: internal.backgroundVisible && background.hasOwnProperty("topPadding") ? background.topPadding : 0
+    rightPadding: (internal.backgroundVisible && background.hasOwnProperty("rightPadding") ? background.rightPadding : 0)
+                    + (!LayoutMirroring.enabled ? internal.verticalScrollBarWidth : 0)
+    bottomPadding: (internal.backgroundVisible && background.hasOwnProperty("bottomPadding") ? background.bottomPadding : 0)
+                    + internal.horizontalScrollBarWidth
 
     //create a background only after Component.onCompleted, see on the component creation below for explanation
     Component.onCompleted: {
@@ -87,6 +90,14 @@ T.ScrollView {
                     hover: controlRoot.hovered
                 }
             }
+        },
+
+        QtObject {
+            id: internal
+
+            readonly property bool backgroundVisible: controlRoot.background && controlRoot.background.visible
+            readonly property real verticalScrollBarWidth: controlRoot.ScrollBar.vertical.visible && !Kirigami.Settings.tabletMode ? controlRoot.ScrollBar.vertical.width : 0
+            readonly property real horizontalScrollBarWidth: controlRoot.ScrollBar.horizontal.visible && !Kirigami.Settings.tabletMode ? controlRoot.ScrollBar.horizontal.width : 0
         }
     ]
     ScrollBar.vertical: ScrollBar {
