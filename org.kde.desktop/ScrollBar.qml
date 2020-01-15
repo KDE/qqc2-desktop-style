@@ -50,13 +50,13 @@ T.ScrollBar {
             id: handleGraphics
             property real handleState: 0
 
-            x: controlRoot.orientation == Qt.Vertical
+            x: Math.round(controlRoot.orientation == Qt.Vertical
                 ? (parent.width - width) - (parent.width/2 - width/2) * handleState
-                : 0
+                : 0)
             
-            y: controlRoot.orientation == Qt.Horizontal
+            y: Math.round(controlRoot.orientation == Qt.Horizontal
                 ? (parent.height - height) - (parent.height/2 - height/2) * handleState
-                : 0
+                : 0)
 
 
             NumberAnimation {
