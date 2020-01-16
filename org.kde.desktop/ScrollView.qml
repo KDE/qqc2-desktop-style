@@ -104,9 +104,10 @@ T.ScrollView {
         id: verticalScrollBar
         parent: controlRoot
         enabled: controlRoot.contentItem.enabled
+
         x: controlRoot.mirrored
-            ? (internal.backgroundVisible && background.hasOwnProperty("leftPadding") ? background.leftPadding : 0)
-            : controlRoot.width - width - (internal.backgroundVisible && background.hasOwnProperty("rightPadding") ? background.rightPadding : 0)
+            ? (internal.backgroundVisible && controlRoot.background.hasOwnProperty("leftPadding") ? controlRoot.background.leftPadding : 0)
+            : controlRoot.width - width - (internal.backgroundVisible && controlRoot.background.hasOwnProperty("rightPadding") ? controlRoot.background.rightPadding: 0)
         y: controlRoot.topPadding
         height: controlRoot.availableHeight
         active: controlRoot.ScrollBar.horizontal || controlRoot.ScrollBar.horizontal.active
@@ -116,7 +117,7 @@ T.ScrollView {
         parent: controlRoot
         enabled: controlRoot.contentItem.enabled
         x: controlRoot.leftPadding
-        y: controlRoot.height - height - (internal.backgroundVisible && background.hasOwnProperty("bottomPadding") ? background.bottomPadding : 0)
+        y: controlRoot.height - height - (internal.backgroundVisible && controlRoot.background.hasOwnProperty("bottomPadding") ? controlRoot.background.bottomPadding : 0)
         width: controlRoot.availableWidth
         active: controlRoot.ScrollBar.vertical || controlRoot.ScrollBar.vertical.active
     }
