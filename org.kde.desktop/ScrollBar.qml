@@ -36,7 +36,7 @@ T.ScrollBar {
 
     visible: controlRoot.size < 1.0 && controlRoot.policy !== T.ScrollBar.AlwaysOff
     stepSize: 0.02
-    interactive: !Kirigami.Settings.tabletMode
+    interactive: !Kirigami.Settings.hasTransientTouchInput
 
     onPositionChanged: {
         disappearTimer.restart();
@@ -45,7 +45,7 @@ T.ScrollBar {
 
     contentItem: Item {
         visible: !controlRoot.interactive
-        
+
         Rectangle {
             id: handleGraphics
             property real handleState: 0
