@@ -233,6 +233,12 @@ void PlasmaDesktopTheme::syncColors()
     setBackgroundColor(colors.scheme.background(KColorScheme::NormalBackground).color());
     setAlternateBackgroundColor(colors.scheme.background(KColorScheme::AlternateBackground).color());
     setHighlightColor(colors.selectionScheme.background(KColorScheme::NormalBackground).color());
+    setActiveBackgroundColor(colors.scheme.background(KColorScheme::ActiveBackground).color());
+    setLinkBackgroundColor(colors.scheme.background(KColorScheme::LinkBackground).color());
+    setVisitedLinkBackgroundColor(colors.scheme.background(KColorScheme::VisitedBackground).color());
+    setNegativeBackgroundColor(colors.scheme.background(KColorScheme::NegativeBackground).color());
+    setNeutralBackgroundColor(colors.scheme.background(KColorScheme::NeutralBackground).color());
+    setPositiveBackgroundColor(colors.scheme.background(KColorScheme::PositiveBackground).color());
 
     //decoration
     setHoverColor(colors.scheme.decoration(KColorScheme::HoverColor).color());
