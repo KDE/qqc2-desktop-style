@@ -77,17 +77,5 @@ T.TabBar {
                 controlRoot.currentIndex = Math.max(controlRoot.currentIndex - 1, 0);
             }
         }
-
-        Rectangle {
-            anchors {
-                left: parent.left
-                right: parent.right
-                bottom : controlRoot.position == T.TabBar.Header ? parent.bottom : undefined
-                top : controlRoot.position == T.TabBar.Header ? undefined : parent.top
-            }
-            height: 1
-            color: Kirigami.Theme.textColor
-            opacity: 0.4
-        }
     }
 }
