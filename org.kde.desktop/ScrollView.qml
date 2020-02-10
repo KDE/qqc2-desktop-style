@@ -45,7 +45,7 @@ T.ScrollView {
     rightPadding: (internal.backgroundVisible && background.hasOwnProperty("rightPadding") ? background.rightPadding : 0)
                     + (!LayoutMirroring.enabled ? internal.verticalScrollBarWidth : 0)
     bottomPadding: (internal.backgroundVisible && background.hasOwnProperty("bottomPadding") ? background.bottomPadding : 0)
-                    + internal.horizontalScrollBarWidth
+                    + internal.horizontalScrollBarHeight
 
     //create a background only after Component.onCompleted, see on the component creation below for explanation
     Component.onCompleted: {
@@ -97,7 +97,7 @@ T.ScrollView {
 
             readonly property bool backgroundVisible: controlRoot.background && controlRoot.background.visible
             readonly property real verticalScrollBarWidth: controlRoot.ScrollBar.vertical.visible && !Kirigami.Settings.tabletMode ? controlRoot.ScrollBar.vertical.width : 0
-            readonly property real horizontalScrollBarWidth: controlRoot.ScrollBar.horizontal.visible && !Kirigami.Settings.tabletMode ? controlRoot.ScrollBar.horizontal.width : 0
+            readonly property real horizontalScrollBarHeight: controlRoot.ScrollBar.horizontal.visible && !Kirigami.Settings.tabletMode ? controlRoot.ScrollBar.horizontal.height : 0
         }
     ]
     ScrollBar.vertical: ScrollBar {
