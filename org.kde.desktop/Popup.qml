@@ -21,9 +21,8 @@
 
 
 import QtQuick 2.6
-import QtGraphicalEffects 1.0
 import QtQuick.Templates @QQC2_VERSION@ as T
-import org.kde.kirigami 2.4 as Kirigami
+import org.kde.kirigami 2.12 as Kirigami
 
 T.Popup {
     id: control
@@ -62,20 +61,17 @@ T.Popup {
 
     contentItem: Item { }
 
-    background: Rectangle {
+    background: Kirigami.ShadowedRectangle {
         radius: 2
         color: Kirigami.Theme.backgroundColor
+
         property color borderColor: Kirigami.Theme.textColor
         border.color: Qt.rgba(borderColor.r, borderColor.g, borderColor.b, 0.3)
-        layer.enabled: true
-        
-        layer.effect: DropShadow {
-            transparentBorder: true
-            radius: 8
-            samples: 16
-            horizontalOffset: 0
-            verticalOffset: 4
-            color: Qt.rgba(0, 0, 0, 0.3)
-        }
+        border.width: 1
+
+        shadow.xOffset: 0
+        shadow.yOffset: 4
+        shadow.color: Qt.rgba(0, 0, 0, 0.3)
+        shadow.size: 8
     }
 }

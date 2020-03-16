@@ -25,8 +25,7 @@ import QtQuick.Window 2.2
 import QtQuick.Templates @QQC2_VERSION@ as T
 import QtQuick.Controls @QQC2_VERSION@ as Controls
 import org.kde.qqc2desktopstyle.private 1.0 as StylePrivate
-import QtGraphicalEffects 1.0
-import org.kde.kirigami 2.4 as Kirigami
+import org.kde.kirigami 2.12 as Kirigami
 
 import "private" as Private
 
@@ -231,25 +230,22 @@ T.ComboBox {
             boundsBehavior: Flickable.StopAtBounds
             T.ScrollBar.vertical: Controls.ScrollBar { }
         }
-        background: Rectangle {
+        background: Kirigami.ShadowedRectangle {
             anchors {
                 fill: parent
                 margins: -1
             }
             radius: 2
             color: Kirigami.Theme.backgroundColor
+
             property color borderColor: Kirigami.Theme.textColor
             border.color: Qt.rgba(borderColor.r, borderColor.g, borderColor.b, 0.3)
-            layer.enabled: true
-            
-            layer.effect: DropShadow {
-                transparentBorder: true
-                radius: 8
-                samples: 8
-                horizontalOffset: 0
-                verticalOffset: 2
-                color: Qt.rgba(0, 0, 0, 0.3)
-            }
+            border.width: 1
+
+            shadow.xOffset: 0
+            shadow.yOffset: 2
+            shadow.color: Qt.rgba(0, 0, 0, 0.3)
+            shadow.size: 8
         }
     }
 }

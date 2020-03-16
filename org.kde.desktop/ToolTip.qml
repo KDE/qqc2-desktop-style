@@ -21,10 +21,9 @@
 
 
 import QtQuick 2.6
-import QtGraphicalEffects 1.0
 import QtQuick.Controls @QQC2_VERSION@ as Controls
 import QtQuick.Templates @QQC2_VERSION@ as T
-import org.kde.kirigami 2.4 as Kirigami
+import org.kde.kirigami 2.12 as Kirigami
 
 T.ToolTip {
     id: controlRoot
@@ -60,21 +59,15 @@ T.ToolTip {
         color: Kirigami.Theme.textColor
     }
 
-
-    background: Rectangle {
+    background: Kirigami.ShadowedRectangle {
         radius: 3
         opacity: 0.95
         color: Kirigami.Theme.backgroundColor
         Kirigami.Theme.colorSet: Kirigami.Theme.Tooltip
-        layer.enabled: true
-        layer.effect: DropShadow {
-            transparentBorder: true
-            radius: 4
-            samples: 8
-            horizontalOffset: 0
-            verticalOffset: 2
-            color: Qt.rgba(0, 0, 0, 0.3)
-        }
-    }
 
+        shadow.xOffset: 0
+        shadow.yOffset: 2
+        shadow.size: 4
+        shadow.color: Qt.rgba(0, 0, 0, 0.3)
+    }
 }

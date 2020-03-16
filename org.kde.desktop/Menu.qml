@@ -22,10 +22,9 @@
 
 import QtQuick 2.7
 import QtQuick.Layouts 1.2
-import QtGraphicalEffects 1.0
 import QtQuick.Controls @QQC2_VERSION@
 import QtQuick.Templates @QQC2_VERSION@ as T
-import org.kde.kirigami 2.4 as Kirigami
+import org.kde.kirigami 2.12 as Kirigami
 
 T.Menu {
     id: control
@@ -97,21 +96,18 @@ T.Menu {
         }
     }
 
-    background: Rectangle {
+    background: Kirigami.ShadowedRectangle {
         radius: 2
         implicitWidth: Kirigami.Units.gridUnit * 8
         color: Kirigami.Theme.backgroundColor
+
         property color borderColor: Kirigami.Theme.textColor
         border.color: Qt.rgba(borderColor.r, borderColor.g, borderColor.b, 0.3)
-        layer.enabled: true
-        
-        layer.effect: DropShadow {
-            transparentBorder: true
-            radius: 8
-            samples: 8
-            horizontalOffset: 0
-            verticalOffset: 2
-            color: Qt.rgba(0, 0, 0, 0.3)
-        }
+        border.width: 1
+
+        shadow.xOffset: 0
+        shadow.yOffset: 2
+        shadow.color: Qt.rgba(0, 0, 0, 0.3)
+        shadow.size: 8
     }
 }
