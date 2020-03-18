@@ -37,15 +37,13 @@ T.CheckBox {
                                       indicator ? indicator.implicitHeight : 0) + topPadding + bottomPadding)
     baselineOffset: contentItem.y + contentItem.baselineOffset
 
-    padding: 1
-    spacing: Kirigami.Units.smallSpacing
+    spacing: indicator && typeof indicator.pixelMetric === "function" ? indicator.pixelMetric("checkboxlabelspacing") : Kirigami.Units.smallSpacing
 
     hoverEnabled: true
 
     indicator: CheckIndicator {
         LayoutMirroring.enabled: controlRoot.mirrored
         LayoutMirroring.childrenInherit: true
-        width: height
         anchors {
             left: parent.left
             verticalCenter: parent.verticalCenter
@@ -64,8 +62,11 @@ T.CheckBox {
     }
 
     contentItem: Label {
-        leftPadding: controlRoot.indicator && !controlRoot.mirrored ? controlRoot.indicator.width + controlRoot.spacing : 0
-        rightPadding: controlRoot.indicator && controlRoot.mirrored ? controlRoot.indicator.width + controlRoot.spacing : 0
+        readonly property int indicatorEffectiveWidth: controlRoot.indicator && typeof controlRoot.indicator.pixelMetric === "function"
+            ? controlRoot.indicator.pixelMetric("indicatorwidth") : controlRoot.indicator.width
+
+        leftPadding: controlRoot.indicator && !controlRoot.mirrored ? indicatorEffectiveWidth + controlRoot.spacing : 0
+        rightPadding: controlRoot.indicator && controlRoot.mirrored ? indicatorEffectiveWidth + controlRoot.spacing : 0
         opacity: controlRoot.enabled ? 1 : 0.6
         text: controlRoot.Kirigami.MnemonicData.richTextLabel
         font: controlRoot.font

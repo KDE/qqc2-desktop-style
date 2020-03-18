@@ -1177,7 +1177,13 @@ int KQuickStyleItem::pixelMetric(const QString &metric)
     else if (metric == QLatin1String("tabhspace"))
         return KQuickStyleItem::style()->pixelMetric(QStyle::PM_TabBarTabHSpace, nullptr);
     else if (metric == QLatin1String("indicatorwidth"))
+        return KQuickStyleItem::style()->pixelMetric(QStyle::PM_IndicatorWidth, nullptr);
+    else if (metric == QLatin1String("exclusiveindicatorwidth"))
         return KQuickStyleItem::style()->pixelMetric(QStyle::PM_ExclusiveIndicatorWidth, nullptr);
+    else if (metric == QLatin1String("checkboxlabelspacing"))
+        return KQuickStyleItem::style()->pixelMetric(QStyle::PM_CheckBoxLabelSpacing, nullptr);
+    else if (metric == QLatin1String("ratiobuttonlabelspacing"))
+        return KQuickStyleItem::style()->pixelMetric(QStyle::PM_RadioButtonLabelSpacing, nullptr);
     else if (metric == QLatin1String("tabvspace"))
         return KQuickStyleItem::style()->pixelMetric(QStyle::PM_TabBarTabVSpace, nullptr);
     else if (metric == QLatin1String("tabbaseheight"))

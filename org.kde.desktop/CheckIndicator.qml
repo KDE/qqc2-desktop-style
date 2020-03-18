@@ -31,7 +31,4 @@ StylePrivate.StyleItem {
     hover: control.hovered
     enabled: control.enabled
     properties: {"partiallyChecked": (control.checkState === Qt.PartiallyChecked) }
-    implicitWidth: pixelMetric("indicatorwidth")
-    implicitHeight : implicitWidth
 }
-
