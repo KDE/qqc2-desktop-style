@@ -196,8 +196,14 @@ T.ComboBox {
         Kirigami.Theme.colorSet: Kirigami.Theme.View
         Kirigami.Theme.inherit: controlRoot.Kirigami.Theme.inherit
         modal: true
-        dim: false
+        dim: true
         closePolicy: Controls.Popup.CloseOnEscape | Controls.Popup.CloseOnPressOutside
+
+        // Forces it to have a transparent dimmer.
+        // A dimmer is needed for "click outside" to work reliably in some views
+        // but default dimmer would, well, dim the contents in pure QtQuick windows,
+        // like ApplicationWindow, which we don't want.
+        Controls.Overlay.modal: Item { }
 
         contentItem: ListView {
             id: listView
