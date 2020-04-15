@@ -117,9 +117,15 @@ if (KF5IconThemes_FOUND AND KF5WidgetsAddons_FOUND)
 add_subdirectory(kirigami-plasmadesktop-integration)
 endif(KF5IconThemes_FOUND AND KF5WidgetsAddons_FOUND)
 
-#FIXME: this assumes there will always be a QQC2 release for each Qt release, needs
-#something to discover what's the latest qqc2 version available
-math(EXPR QQC2_VERSION_MINOR "${Qt5QuickControls2_VERSION_MINOR} - 7")
+# FIXME: this assumes there will always be a QQC2 release for each Qt release, needs
+# something to discover what's the latest qqc2 version available
+# Since 5.12, QQC2 version is sync with Qt's minor version:
+# https://github.com/qt/qtquickcontrols2/commit/3c7bfc156797b2f3ef08a8cf620b79da80e4b061
+if (Qt5QuickControls2_VERSION_MINOR LESS 12)
+    math(EXPR QQC2_VERSION_MINOR "${Qt5QuickControls2_VERSION_MINOR} - 7")
+else()
+    set(QQC2_VERSION_MINOR "${Qt5QuickControls2_VERSION_MINOR}")
+endif()
 set(QQC2_VERSION "2.${QQC2_VERSION_MINOR}")
 
 if (QQC2_VERSION_MINOR LESS 3)
