@@ -13,6 +13,7 @@ target_link_libraries(org.kde.desktop
         Qt5::Core
         KF5::Kirigami2
     PRIVATE
+        Qt5::DBus
         Qt5::Qml
         Qt5::Quick
         KF5::ConfigWidgets

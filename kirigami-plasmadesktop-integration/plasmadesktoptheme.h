@@ -53,6 +53,9 @@ public:
 Q_SIGNALS:
     void colorsChanged();
 
+protected Q_SLOTS:
+    void configurationChanged();
+
 private:
     QPointer<QQuickItem> m_parentItem;
     QPointer<QWindow> m_window;

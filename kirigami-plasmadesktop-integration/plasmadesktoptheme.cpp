@@ -14,6 +14,8 @@
 #include <KIconLoader>
 
 #include <KColorScheme>
+#include <KConfigGroup>
+#include <QDBusConnection>
 
 class IconLoaderSingleton
 {
@@ -156,8 +158,17 @@ PlasmaDesktopTheme::PlasmaDesktopTheme(QObject *parent)
                 });
     }
 
+    // Use DBus in order to listen for kdeglobals changes directly, as the
+    // QApplication doesn't expose the font variants we're looking for,
+    // namely smallFont.
+    QDBusConnection::sessionBus().connect( QString(),
+        QStringLiteral( "/KGlobalSettings" ),
+        QStringLiteral( "org.kde.KGlobalSettings" ),
+        QStringLiteral( "notifyChange" ), this, SLOT(configurationChanged()));
+
     //TODO: correct? depends from https://codereview.qt-project.org/206889
     connect(qGuiApp, &QGuiApplication::fontDatabaseChanged, this, [this]() {setDefaultFont(qApp->font());});
+    configurationChanged();
 
     connect(this, &PlasmaDesktopTheme::colorSetChanged,
             this, &PlasmaDesktopTheme::syncColors);
@@ -171,6 +182,21 @@ PlasmaDesktopTheme::PlasmaDesktopTheme(QObject *parent)
 }
 
 PlasmaDesktopTheme::~PlasmaDesktopTheme() = default;
+
+void PlasmaDesktopTheme::configurationChanged()
+{
+    KSharedConfigPtr ptr = KSharedConfig::openConfig();
+    KConfigGroup general( ptr->group("general") );
+    setSmallFont(general.readEntry("smallestReadableFont", []() {
+        auto smallFont = qApp->font();
+        if (smallFont.pixelSize() != -1) {
+            smallFont.setPixelSize(smallFont.pixelSize()-2);
+        } else {
+            smallFont.setPointSize(smallFont.pointSize()-2);
+        }
+        return smallFont;
+    }()));
+}
 
 QIcon PlasmaDesktopTheme::iconFromTheme(const QString &name, const QColor &customColor)
 {
