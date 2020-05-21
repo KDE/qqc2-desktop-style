@@ -83,6 +83,9 @@ public:
         case PlatformTheme::Complementary:
             set = KColorScheme::ColorSet::Complementary;
             break;
+        case PlatformTheme::Header:
+            set = KColorScheme::ColorSet::Header;
+            break;
         case PlatformTheme::Window:
         default:
             set = KColorScheme::ColorSet::Window;
