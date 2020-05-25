@@ -13,7 +13,7 @@ StylePrivate.StyleItem {
     id: styleitem
     elementType: control.autoExclusive ? "radiobutton" : "checkbox"
     sunken: control.pressed
-    on: control.checked || control.pressed
+    on: control.checked
     hover: control.hovered
     enabled: control.enabled
     properties: {"partiallyChecked": (control.checkState === Qt.PartiallyChecked) }
