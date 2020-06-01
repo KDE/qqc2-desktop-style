@@ -49,7 +49,12 @@ T.Menu {
 
     Connections {
         target: control.contentItem.contentItem
-        onChildrenChanged: {
+
+@DISABLE_UNDER_QT_5_14@ function
+        onChildrenChanged
+@DISABLE_UNDER_QT_5_14@ ()
+@DISABLE_AT_QT_5_14@ :
+        {
             for (var i in control.contentItem.contentItem.children) {
                 var child = control.contentItem.contentItem.children[i];
                 if (child.checkable) {
