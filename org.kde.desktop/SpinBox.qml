@@ -27,6 +27,7 @@ T.SpinBox {
 
 
     hoverEnabled: true
+    editable: true
 
     validator: IntValidator {
         locale: controlRoot.locale.name
