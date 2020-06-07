@@ -24,8 +24,10 @@ T.ToolTip {
     // Always show the tooltip on top of everything else
     z: 999
 
-    implicitWidth: contentItem.implicitWidth + leftPadding + rightPadding
-    implicitHeight: contentItem.implicitHeight + topPadding + bottomPadding
+    // Math.ceil() prevents blurry edges and prevents unecessary text wrapping
+    // (vs using floor or sometimes round).
+    implicitWidth: Math.ceil(contentItem.implicitWidth) + leftPadding + rightPadding
+    implicitHeight: Math.ceil(contentItem.implicitHeight) + topPadding + bottomPadding
 
     margins: 6
     padding: 6
@@ -45,15 +47,22 @@ T.ToolTip {
         color: Kirigami.Theme.textColor
     }
 
+    // TODO: Consider replacing this with a StyleItem
     background: Kirigami.ShadowedRectangle {
         radius: 3
-        opacity: 0.95
         color: Kirigami.Theme.backgroundColor
         Kirigami.Theme.colorSet: Kirigami.Theme.Tooltip
 
+        // Roughly but doesn't exactly match the medium shadow setting for Breeze menus/tooltips.
+        // TODO: Find a way to more closely match the user's Breeze settings.
         shadow.xOffset: 0
-        shadow.yOffset: 2
-        shadow.size: 4
-        shadow.color: Qt.rgba(0, 0, 0, 0.3)
+        shadow.yOffset: 4
+        shadow.size: 16
+        shadow.color: Qt.rgba(0, 0, 0, 0.2)
+
+        border.width: 1
+        // TODO: Replace this with a frame or separator color role if that becomes a thing.
+        // Matches the color used by Breeze::Style::drawPanelTipLabelPrimitive()
+        border.color: Kirigami.ColorUtils.linearInterpolation(background.color, Kirigami.Theme.textColor, 0.25)
     }
 }
