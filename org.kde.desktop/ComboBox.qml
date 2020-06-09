@@ -32,7 +32,7 @@ T.ComboBox {
     rightPadding: controlRoot.editable && !controlRoot.mirrored ? 24 : padding
 
     delegate: ItemDelegate {
-        width: controlRoot.popup.width
+        width: listView.width
         text: controlRoot.textRole ? (Array.isArray(controlRoot.model) ? modelData[controlRoot.textRole] : model[controlRoot.textRole]) : modelData
         highlighted: mouseArea.pressed ? listView.currentIndex == index : controlRoot.highlightedIndex == index
         property bool separatorVisible: false
@@ -205,22 +205,25 @@ T.ComboBox {
         // like ApplicationWindow, which we don't want.
         Controls.Overlay.modal: Item { }
 
-        contentItem: ListView {
-            id: listView
+        contentItem: ScrollView {
+            background: Rectangle {}
+            ScrollBar.horizontal.policy: ScrollBar.AlwaysOff
+            ListView {
+                id: listView
 
-            // this causes us to load at least one delegate
-            // this is essential in guessing the contentHeight
-            // which is needed to initially resize the popup
-            cacheBuffer: 1
+                // this causes us to load at least one delegate
+                // this is essential in guessing the contentHeight
+                // which is needed to initially resize the popup
+                cacheBuffer: 1
 
-            implicitHeight: contentHeight
-            model: controlRoot.delegateModel
-            delegate: controlRoot.delegate
-            currentIndex: controlRoot.highlightedIndex
-            highlightRangeMode: ListView.ApplyRange
-            highlightMoveDuration: 0
-            boundsBehavior: Flickable.StopAtBounds
-            T.ScrollBar.vertical: Controls.ScrollBar { }
+                implicitHeight: contentHeight
+                model: controlRoot.delegateModel
+                delegate: controlRoot.delegate
+                currentIndex: controlRoot.highlightedIndex
+                highlightRangeMode: ListView.ApplyRange
+                highlightMoveDuration: 0
+                boundsBehavior: Flickable.StopAtBounds
+            }
         }
         background: Kirigami.ShadowedRectangle {
             anchors {
