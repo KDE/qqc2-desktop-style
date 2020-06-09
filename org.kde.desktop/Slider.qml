@@ -16,8 +16,8 @@ T.Slider {
     @DISABLE_UNDER_QQC2_2_4@ palette: Kirigami.Theme.palette
     Kirigami.Theme.colorSet: Kirigami.Theme.Button
 
-    implicitWidth: Kirigami.Units.gridUnit * 12
-    implicitHeight: background.implicitHeight
+    implicitWidth: background.horizontal ? Kirigami.Units.gridUnit * 12 : background.implicitWidth
+    implicitHeight: background.horizontal ? background.implicitHeight : Kirigami.Units.gridUnit * 12
 
     hoverEnabled: true
     LayoutMirroring.enabled: Qt.application.layoutDirection === Qt.RightToLeft
@@ -31,8 +31,8 @@ T.Slider {
         elementType: "slider"
         sunken: controlRoot.pressed
         implicitWidth: 200
-        contentHeight: horizontal ? 22 : implicitWidth
-        contentWidth: horizontal ? implicitWidth : 22
+        contentWidth: horizontal ? controlRoot.implicitWidth : 22
+        contentHeight: horizontal ? 22 : controlRoot.implicitHeight
 
         maximum: controlRoot.to*100
         minimum: controlRoot.from*100
