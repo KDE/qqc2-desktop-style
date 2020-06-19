@@ -57,7 +57,7 @@ T.MenuItem {
             color: controlRoot.icon ? controlRoot.icon.color : "transparent"
             //hovered is for retrocompatibility
             selected: (controlRoot.highlighted || controlRoot.hovered)
-            Layout.preferredHeight: Math.max(label.height, Kirigami.Units.iconSizes.small)
+            Layout.preferredHeight: Math.max(Kirigami.Units.fontMetrics.roundedIconSize(label.height), Kirigami.Units.iconSizes.small)
             Layout.preferredWidth: Layout.preferredHeight
         }
         Label {
@@ -95,7 +95,7 @@ T.MenuItem {
 @DISABLE_UNDER_QQC2_2_3@        y: controlRoot.topPadding + (controlRoot.availableHeight - height) / 2
 @DISABLE_UNDER_QQC2_2_3@        source: controlRoot.mirrored ? "go-next-symbolic-rtl" : "go-next-symbolic"
 @DISABLE_UNDER_QQC2_2_3@        selected: controlRoot.highlighted
-@DISABLE_UNDER_QQC2_2_3@        width: Math.max(label.height, Kirigami.Units.iconSizes.small)
+@DISABLE_UNDER_QQC2_2_3@        width: Math.max(Kirigami.Units.fontMetrics.roundedIconSize(label.height), Kirigami.Units.iconSizes.small)
 @DISABLE_UNDER_QQC2_2_3@        height: width
 @DISABLE_UNDER_QQC2_2_3@        visible: controlRoot.subMenu
 @DISABLE_UNDER_QQC2_2_3@    }
