@@ -10,19 +10,28 @@
 
 
 \section overview Introduction
-This is a style for QtQuicControls2 which is using QStyle to paint the controls in order to give it a native look and feel.
-It has no api, applications shouldn't (and can't) use it directly, but they can depend from this framework in their desktop version if they want to impose an integrated look when running on the desktop.
-It will be used when the environment variable QT_QUICK_CONTROLS_STYLE=org.kde.desktop is exported, or from the following C++ code:
-@code
-#include <QQuickStyle>
-...
-int main(int argc, char *argv[])
-{
-    ...
-    QQuickStyle::setStyle("org.kde.desktop");
-    ...
-}
-@endcode
+
+QQC2-Desktop-Style is a style for Qt Quick Controls 2 (QQC2) which uses [`QStyle`](https://doc.qt.io/qt-5/qstyle.html) to paint the controls in order to give them native look and feel.
+
+This framework has no public API, applications should not (and can not) use it directly. Instead, developers should add this framework as a dependency of their desktop apps.
+
+Style name is `"org.kde.desktop"`. It can be enabled like [any other QQC2 style](https://doc.qt.io/qt-5/qtquickcontrols2-styles.html#using-styles-in-qt-quick-controls), e.g.:
+ - via environment variable `QT_QUICK_CONTROLS_STYLE=org.kde.desktop`
+ - from the C++ code:
+
+    @code{cpp}
+    #include <QQuickStyle>
+
+    int main(int argc, char *argv[])
+    {
+        QGuiApplication app(argc, argv);
+
+        QQuickStyle::setStyle("org.kde.desktop");
+
+        QQmlApplicationEngine engine;
+        // ...
+    }
+    @endcode
 
 @authors
 Marco Martin \<notmart@gmail.com\><br>
