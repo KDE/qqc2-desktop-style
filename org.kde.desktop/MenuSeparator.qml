@@ -20,5 +20,6 @@ T.MenuSeparator {
         id: separator
         anchors.centerIn: controlRoot
         width: controlRoot.width
+        height: implicitHeight
     }
 }
