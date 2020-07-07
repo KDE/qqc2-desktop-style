@@ -13,7 +13,7 @@ import org.kde.kirigami 2.4 as Kirigami
 T.MenuSeparator {
     id: controlRoot
 
-    implicitHeight: Kirigami.Units.smallSpacing + separator.height
+    implicitHeight: Kirigami.Units.smallSpacing + separator.implicitHeight
     width: parent.width
 
     background: Kirigami.Separator {
