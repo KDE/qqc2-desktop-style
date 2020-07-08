@@ -11,7 +11,7 @@
 #ifndef KQUICKPADDING_H
 #define KQUICKPADDING_H
 
-#include <qobject.h>
+#include <QObject>
 
 class KQuickPadding : public QObject
 {

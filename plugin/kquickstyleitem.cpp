@@ -10,18 +10,18 @@
 
 #include "kquickstyleitem_p.h"
 
-#include <qstringbuilder.h>
-#include <qpainter.h>
-#include <qpixmapcache.h>
-#include <qstyle.h>
-#include <qstylefactory.h>
+#include <QStringBuilder>
+#include <QPainter>
+#include <QPixmapCache>
+#include <QStyle>
+#include <QStyleFactory>
 #include <qstyleoption.h>
-#include <qapplication.h>
-#include <qquickwindow.h>
+#include <QApplication>
+#include <QQuickWindow>
 #include <QtQuick/qsgninepatchnode.h>
 
 #include <ksharedconfig.h>
-#include <kconfiggroup.h>
+#include <KConfigGroup>
 
 #include <Kirigami2/PlatformTheme>
 

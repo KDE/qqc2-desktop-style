@@ -21,7 +21,7 @@
 //
 
 //#include <private/qtquickglobal_p.h>
-#include "qsgninepatchnode.h"
+#include <QSGNinePatchNode>
 #include <QtQuick/qsggeometry.h>
 #include <QtQuick/qsgtexturematerial.h>
 
