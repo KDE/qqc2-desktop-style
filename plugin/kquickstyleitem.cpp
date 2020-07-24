@@ -915,8 +915,10 @@ QSize KQuickStyleItem::sizeFromContents(int width, int height)
         int h = 0;
         if (btn->toolButtonStyle != Qt::ToolButtonTextOnly) {
             QSize icon = btn->iconSize;
-            w = icon.width();
-            h = icon.height();
+            if (btn->toolButtonStyle == Qt::ToolButtonIconOnly || !btn->icon.isNull()) {
+                w = icon.width();
+                h = icon.height();
+            }
         }
         if (btn->toolButtonStyle != Qt::ToolButtonIconOnly) {
             QSize textSize = btn->fontMetrics.size(Qt::TextShowMnemonic, btn->text);
