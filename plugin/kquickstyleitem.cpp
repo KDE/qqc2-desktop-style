@@ -206,8 +206,8 @@ void KQuickStyleItem::initStyleOption()
         }
         const QFont font = qApp->font("QPushButton");
         opt->fontMetrics = QFontMetrics(font);
-        QObject * menu = m_properties[QStringLiteral("menu")].value<QObject *>();
-        if (menu) {
+        bool hasMenu = m_properties[QStringLiteral("menu")].toBool();
+        if (hasMenu) {
             opt->features |= QStyleOptionButton::HasMenu;
         }
     }
@@ -317,8 +317,7 @@ void KQuickStyleItem::initStyleOption()
         opt->iconSize = iconSize;
 
         if (m_properties.value(QStringLiteral("menu")).toBool()) {
-            opt->subControls |= QStyle::SC_ToolButtonMenu;
-            opt->features = QStyleOptionToolButton::HasMenu;
+            opt->features = QStyleOptionToolButton::Menu;
         }
 
         const int toolButtonStyle = m_properties.value(QStringLiteral("toolButtonStyle")).toInt();
@@ -934,6 +933,9 @@ QSize KQuickStyleItem::sizeFromContents(int width, int height)
                 w = textSize.width();
                 h = textSize.height();
             }
+        }
+        if (btn->features & QStyleOptionToolButton::Menu) {
+            w += KQuickStyleItem::style()->subControlRect(QStyle::CC_ToolButton, btn, QStyle::SC_ToolButtonMenu).width();
         }
         btn->rect.setSize(QSize(w, h));
         size = KQuickStyleItem::style()->sizeFromContents(QStyle::CT_ToolButton, m_styleoption, QSize(w, h)); }
