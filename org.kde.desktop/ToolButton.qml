@@ -38,12 +38,13 @@ T.ToolButton {
         id: styleitem
         anchors.fill:parent
         control: controlRoot
-        elementType: controlRoot.flat ? "toolbutton" : "button"
+        elementType: "toolbutton"
         on: controlRoot.pressed || (controlRoot.checkable && controlRoot.checked)
         hover: controlRoot.hovered
         text: controlRoot.Kirigami.MnemonicData.mnemonicLabel
         hasFocus: false
         activeControl: controlRoot.isDefault ? "default" : "f"
+        raised: !controlRoot.flat
         properties: {
             "icon": controlRoot.icon ? (controlRoot.icon.name || controlRoot.icon.source) : "",
             "iconColor": controlRoot.icon && controlRoot.icon.color.a > 0? controlRoot.icon.color : Kirigami.Theme.textColor,

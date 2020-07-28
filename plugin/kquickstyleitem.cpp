@@ -295,7 +295,11 @@ void KQuickStyleItem::initStyleOption()
         QStyleOptionToolButton *opt =
                 qstyleoption_cast<QStyleOptionToolButton*>(m_styleoption);
         opt->subControls = QStyle::SC_ToolButton;
-        opt->state |= QStyle::State_AutoRaise;
+
+        if (!m_raised || m_on) {
+            opt->state |= QStyle::State_AutoRaise;
+        }
+
         opt->activeSubControls = QStyle::SC_ToolButton;
         opt->text = text();
         const QVariant icon = m_properties[QStringLiteral("icon")];
