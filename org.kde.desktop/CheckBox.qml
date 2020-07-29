@@ -9,33 +9,20 @@
 import QtQuick 2.6
 import QtQuick.Templates @QQC2_VERSION@ as T
 import QtQuick.Controls @QQC2_VERSION@
+import org.kde.qqc2desktopstyle.private 1.0 as StylePrivate
 import org.kde.kirigami 2.4 as Kirigami
-import "private"
 
 T.CheckBox {
     id: controlRoot
 
     @DISABLE_UNDER_QQC2_2_4@ palette: Kirigami.Theme.palette
-    implicitWidth: Math.max(background ? background.implicitWidth : 0,
-                            contentItem.implicitWidth + leftPadding + rightPadding)
-    implicitHeight: Math.max(background ? background.implicitHeight : 0,
-                             Math.max(contentItem.implicitHeight,
-                                      indicator ? indicator.implicitHeight : 0) + topPadding + bottomPadding)
-    baselineOffset: contentItem.y + contentItem.baselineOffset
-
-    spacing: indicator && typeof indicator.pixelMetric === "function" ? indicator.pixelMetric("checkboxlabelspacing") : Kirigami.Units.smallSpacing
+    implicitWidth: background.implicitWidth
+    implicitHeight: background.implicitHeight
 
     hoverEnabled: true
 
-    indicator: CheckIndicator {
-        LayoutMirroring.enabled: controlRoot.mirrored
-        LayoutMirroring.childrenInherit: true
-        anchors {
-            left: parent.left
-            verticalCenter: parent.verticalCenter
-        }
-        control: controlRoot
-    }
+    contentItem: Item {}
+    indicator: Item {}
 
     Kirigami.MnemonicData.enabled: controlRoot.enabled && controlRoot.visible
     Kirigami.MnemonicData.controlType: Kirigami.MnemonicData.ActionElement
@@ -47,22 +34,23 @@ T.CheckBox {
         onActivated: controlRoot.toggle();
     }
 
-    contentItem: Label {
-        readonly property int indicatorEffectiveWidth: controlRoot.indicator && typeof controlRoot.indicator.pixelMetric === "function"
-            ? controlRoot.indicator.pixelMetric("indicatorwidth") : controlRoot.indicator.width
-
-        leftPadding: controlRoot.indicator && !controlRoot.mirrored ? indicatorEffectiveWidth + controlRoot.spacing : 0
-        rightPadding: controlRoot.indicator && controlRoot.mirrored ? indicatorEffectiveWidth + controlRoot.spacing : 0
-        opacity: controlRoot.enabled ? 1 : 0.6
-        text: controlRoot.Kirigami.MnemonicData.richTextLabel
-        font: controlRoot.font
-        elide: Text.ElideRight
-        visible: controlRoot.text
-        horizontalAlignment: Text.AlignLeft
-        verticalAlignment: Text.AlignVCenter
-
-        FocusRect {
-            control: controlRoot
+    background: StylePrivate.StyleItem {
+        id: styleItem
+        anchors.fill: parent
+        control: controlRoot
+        elementType: "checkbox"
+        sunken: control.pressed
+        on: control.checked
+        hover: control.hovered
+        enabled: control.enabled
+        text: controlRoot.Kirigami.MnemonicData.mnemonicLabel
+        hasFocus: controlRoot.activeFocus
+        properties: {
+            "icon": controlRoot.icon && controlRoot.display !== T.AbstractButton.TextOnly ? (controlRoot.icon.name || controlRoot.icon.source) : "",
+            "iconColor": controlRoot.icon && controlRoot.icon.color.a > 0 ? controlRoot.icon.color : Kirigami.Theme.textColor,
+            "iconWidth": controlRoot.icon && controlRoot.icon.width ? controlRoot.icon.width : 0,
+            "iconHeight": controlRoot.icon && controlRoot.icon.height ? controlRoot.icon.height : 0,
+            "partiallyChecked": control.checkState === Qt.PartiallyChecked
         }
     }
 }
