@@ -11,6 +11,7 @@ import QtQuick.Layouts 1.2
 import QtQuick.Controls @QQC2_VERSION@
 import QtQuick.Templates @QQC2_VERSION@ as T
 import org.kde.kirigami 2.12 as Kirigami
+import org.kde.qqc2desktopstyle.private 1.0 as StylePrivate
 
 T.Menu {
     id: control
@@ -22,6 +23,11 @@ T.Menu {
                              contentItem ? contentItem.implicitHeight : 0) + topPadding + bottomPadding
 
     margins: 0
+
+    leftPadding: styleItem.pixelMetric("menupanelwidth") + styleItem.pixelMetric("menuhmargin")
+    rightPadding: leftPadding
+    topPadding: styleItem.pixelMetric("menupanelwidth") + styleItem.pixelMetric("menuvmargin")
+    bottomPadding: topPadding
 
 @DISABLE_UNDER_QQC2_2_3@    delegate: MenuItem { onImplicitWidthChanged: control.contentItem.contentItem.childrenChanged() }
 
@@ -87,18 +93,13 @@ T.Menu {
         }
     }
 
-    background: Kirigami.ShadowedRectangle {
-        radius: 2
-        implicitWidth: Kirigami.Units.gridUnit * 8
-        color: Kirigami.Theme.backgroundColor
-
-        property color borderColor: Kirigami.Theme.textColor
-        border.color: Qt.rgba(borderColor.r, borderColor.g, borderColor.b, 0.3)
-        border.width: 1
-
-        shadow.xOffset: 0
-        shadow.yOffset: 2
-        shadow.color: Qt.rgba(0, 0, 0, 0.3)
-        shadow.size: 8
+   background: StylePrivate.StyleItem {
+        id: styleItem
+        elementType: "menu"
+        enabled: control.enabled
+        hasFocus: control.activeFocus
+        properties: {
+            "checkable": control.hasCheckables
+        }
     }
 }

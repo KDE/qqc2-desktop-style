@@ -321,7 +321,9 @@ void KQuickStyleItem::initStyleOption()
         opt->iconSize = iconSize;
 
         if (m_properties.value(QStringLiteral("menu")).toBool()) {
-            opt->features = QStyleOptionToolButton::Menu;
+            opt->features = QStyleOptionToolButton::Menu | QStyleOptionToolButton::HasMenu;
+            opt->activeSubControls |= QStyle::SC_ToolButtonMenu;
+            opt->subControls |= QStyle::SC_ToolButtonMenu;
         }
 
         const int toolButtonStyle = m_properties.value(QStringLiteral("toolButtonStyle")).toInt();
@@ -438,8 +440,12 @@ void KQuickStyleItem::initStyleOption()
     }
         break;
     case Menu: {
-        if (!m_styleoption)
+        if (!m_styleoption) {
             m_styleoption = new QStyleOptionMenuItem();
+        }
+        auto menu = qstyleoption_cast<QStyleOptionMenuItem*>(m_styleoption);
+        menu->menuHasCheckableItems = m_properties[QStringLiteral("checkable")].toBool();
+        menu->maxIconWidth = style()->pixelMetric(QStyle::PM_SmallIconSize, menu);
     }
         break;
     case MenuItem:
@@ -482,8 +488,23 @@ void KQuickStyleItem::initStyleOption()
                                                           QStyleOptionMenuItem::NonExclusive;
                 }
             }
-            if (m_properties[QStringLiteral("icon")].canConvert<QIcon>())
-                opt->icon = m_properties[QStringLiteral("icon")].value<QIcon>();
+            const QVariant icon = m_properties[QStringLiteral("icon")];
+            if (icon.canConvert<QIcon>()) {
+                opt->icon = icon.value<QIcon>();
+            } else if (icon.canConvert<QUrl>() && icon.value<QUrl>().isLocalFile()) {
+                opt->icon = QIcon(icon.value<QUrl>().toLocalFile());
+            } else if (icon.canConvert<QString>()) {
+                opt->icon = m_theme->iconFromTheme(icon.value<QString>(), m_properties[QStringLiteral("iconColor")].value<QColor>());
+            }
+            opt->menuHasCheckableItems = m_properties[QStringLiteral("menuHasCheckables")].toBool();
+            opt->maxIconWidth = style()->pixelMetric(QStyle::PM_SmallIconSize, opt);
+            qDebug() << parentItem()  << parentItem()->parentItem();
+            auto menu =  parentItem()->property("menu").value<QQuickItem*>();
+            if (menu) {
+                auto menuRect = menu->mapRectToItem(m_control, QRectF({0, 0}, menu->size()));
+                qDebug() << opt->rect << "menu rect" << menuRect;
+                opt->menuRect = menuRect.toRect();
+            }
             setProperty("_q_showUnderlined", m_hints[QStringLiteral("showUnderlined")].toBool());
 
             const QFont font = qApp->font(m_itemType == ComboBoxItem ?"QComboMenuItem" : "QMenu");
@@ -1074,14 +1095,17 @@ QSize KQuickStyleItem::sizeFromContents(int width, int height)
         size = KQuickStyleItem::style()->sizeFromContents(QStyle::CT_Menu, m_styleoption, QSize(width,height));
         break;
     case MenuItem:
-    case ComboBoxItem:
-        if (static_cast<QStyleOptionMenuItem *>(m_styleoption)->menuItemType == QStyleOptionMenuItem::Scroller) {
+    case ComboBoxItem: {
+        auto item = static_cast<QStyleOptionMenuItem *>(m_styleoption);
+        if (item->menuItemType == QStyleOptionMenuItem::Scroller) {
             size.setHeight(qMax(QApplication::globalStrut().height(),
                                 KQuickStyleItem::style()->pixelMetric(QStyle::PM_MenuScrollerHeight, nullptr, nullptr)));
         } else {
-            size = KQuickStyleItem::style()->sizeFromContents(QStyle::CT_MenuItem, m_styleoption, QSize(width,height));
+            QSize contentSize = item->fontMetrics.size(Qt::TextShowMnemonic, item->text);
+            size = KQuickStyleItem::style()->sizeFromContents(QStyle::CT_MenuItem, m_styleoption, contentSize);
         }
         break;
+    }
     default:
         break;
     }
@@ -1652,7 +1676,6 @@ void KQuickStyleItem::paint(QPainter *painter)
         painter->fillRect(m_styleoption->rect, m_styleoption->palette.window());
         painter->restore();
         KQuickStyleItem::style()->drawPrimitive(QStyle::PE_PanelMenu, m_styleoption, painter);
-
         if (int fw = KQuickStyleItem::style()->pixelMetric(QStyle::PM_MenuPanelWidth)) {
             QStyleOptionFrame frame;
             frame.state = QStyle::State_None;

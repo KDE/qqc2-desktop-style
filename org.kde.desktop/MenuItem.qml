@@ -10,24 +10,17 @@ import QtQuick 2.6
 import QtQuick.Layouts 1.2
 import QtQuick.Templates @QQC2_VERSION@ as T
 import org.kde.kirigami 2.4 as Kirigami
+import org.kde.qqc2desktopstyle.private 1.0 as StylePrivate
 
 T.MenuItem {
     id: controlRoot
 
     @DISABLE_UNDER_QQC2_2_4@ palette: Kirigami.Theme.palette
-    implicitWidth: Math.max(background ? background.implicitWidth : 0,
-                            contentItem.implicitWidth + leftPadding + rightPadding + (arrow ? arrow.implicitWidth : 0))
-    implicitHeight: visible ? Math.max(background ? background.implicitHeight : 0,
-                             Math.max(contentItem.implicitHeight,
-                                      indicator ? indicator.implicitHeight : 0) + topPadding + bottomPadding) : 0
-    baselineOffset: contentItem.y + contentItem.baselineOffset
+    implicitWidth: background.implicitWidth
+    implicitHeight: background.implicitHeight
 
-    width: parent ? parent.width : implicitWidth
 
     Layout.fillWidth: true
-    padding: Kirigami.Units.smallSpacing
-    leftPadding: Kirigami.Units.largeSpacing
-    rightPadding: Kirigami.Units.largeSpacing
     hoverEnabled: !Kirigami.Settings.isMobile
 
     Kirigami.MnemonicData.enabled: controlRoot.enabled && controlRoot.visible
@@ -46,77 +39,24 @@ T.MenuItem {
         }
     }
 
-    contentItem: RowLayout {
-        Item {
-           Layout.preferredWidth: (controlRoot.ListView.view && controlRoot.ListView.view.hasCheckables) || controlRoot.checkable ? controlRoot.indicator.width : Kirigami.Units.smallSpacing
-        }
-        Kirigami.Icon {
-            Layout.alignment: Qt.AlignVCenter
-            visible: (controlRoot.ListView.view && controlRoot.ListView.view.hasIcons) || (controlRoot.icon != undefined && (controlRoot.icon.name.length > 0 || controlRoot.icon.source.length > 0))
-            source: controlRoot.icon ? (controlRoot.icon.name || controlRoot.icon.source) : ""
-            color: controlRoot.icon ? controlRoot.icon.color : "transparent"
-            //hovered is for retrocompatibility
-            selected: (controlRoot.highlighted || controlRoot.hovered)
-            Layout.preferredHeight: Math.max(Kirigami.Units.fontMetrics.roundedIconSize(label.height), Kirigami.Units.iconSizes.small)
-            Layout.preferredWidth: Layout.preferredHeight
-        }
-        Label {
-            id: label
-            Layout.alignment: Qt.AlignVCenter
-            Layout.fillWidth: true
-
-            text: controlRoot.Kirigami.MnemonicData.richTextLabel
-            font: controlRoot.font
-            color: (controlRoot.highlighted || controlRoot.hovered) ? Kirigami.Theme.highlightedTextColor : Kirigami.Theme.textColor
-            elide: Text.ElideRight
-            visible: controlRoot.text
-            horizontalAlignment: Text.AlignLeft
-            verticalAlignment: Text.AlignVCenter
-        }
-        Label {
-            id: shortcut
-            Layout.alignment: Qt.AlignVCenter
-
-            visible: controlRoot.action && controlRoot.action.hasOwnProperty("shortcut") && controlRoot.action.shortcut !== undefined
-            text: visible ? controlRoot.action.shortcut : ""
-            font: controlRoot.font
-            color: label.color
-            horizontalAlignment: Text.AlignRight
-            verticalAlignment: Text.AlignVCenter
-        }
-        Item {
-           Layout.preferredWidth: Kirigami.Units.smallSpacing
-        }
-    }
-
-//we can't use arrow: on old qqc2 releases
-@DISABLE_UNDER_QQC2_2_3@    arrow: Kirigami.Icon {
-@DISABLE_UNDER_QQC2_2_3@        x: controlRoot.mirrored ? controlRoot.padding : controlRoot.width - width - controlRoot.padding
-@DISABLE_UNDER_QQC2_2_3@        y: controlRoot.topPadding + (controlRoot.availableHeight - height) / 2
-@DISABLE_UNDER_QQC2_2_3@        source: controlRoot.mirrored ? "go-next-symbolic-rtl" : "go-next-symbolic"
-@DISABLE_UNDER_QQC2_2_3@        selected: controlRoot.highlighted
-@DISABLE_UNDER_QQC2_2_3@        width: Math.max(Kirigami.Units.fontMetrics.roundedIconSize(label.height), Kirigami.Units.iconSizes.small)
-@DISABLE_UNDER_QQC2_2_3@        height: width
-@DISABLE_UNDER_QQC2_2_3@        visible: controlRoot.subMenu
-@DISABLE_UNDER_QQC2_2_3@    }
-
-    indicator: CheckIndicator {
-        x: controlRoot.mirrored ? controlRoot.width - width - controlRoot.rightPadding : controlRoot.leftPadding
-        y: controlRoot.topPadding + (controlRoot.availableHeight - height) / 2
-
-        visible: controlRoot.checkable
-        on: controlRoot.checked
+    background: StylePrivate.StyleItem {
+        elementType: "menuitem"
         control: controlRoot
-    }
-
-    background: Item {
-        anchors.fill: parent
-        implicitWidth: Kirigami.Units.gridUnit * 8
-
-        Rectangle {
-            anchors.fill: parent
-            color: Kirigami.Theme.highlightColor
-            opacity: (controlRoot.highlighted || controlRoot.hovered) ? 1 : 0
+        hover: control.hovered
+        on: controlRoot.hovered
+        selected: controlRoot.hovered
+        enabled: control.enabled
+        hasFocus: controlRoot.activeFocus
+        text: controlRoot.Kirigami.MnemonicData.mnemonicLabel
+        properties: {
+            "icon": (controlRoot.ListView.view && controlRoot.ListView.view.hasIcons) || (controlRoot.icon != undefined && (controlRoot.icon.name.length > 0 || controlRoot.icon.source.length > 0)) ? (controlRoot.icon.name || controlRoot.icon.source) : "",
+            "iconColor": controlRoot.icon && controlRoot.icon.color.a > 0 ? controlRoot.icon.color : Kirigami.Theme.textColor,
+            "iconWidth": controlRoot.icon ?  Math.max(Kirigami.Units.fontMetrics.roundedIconSize(font), Kirigami.Units.iconSizes.small) : 0,
+            "iconHeight": controlRoot.icon ?  Math.max(Kirigami.Units.fontMetrics.roundedIconSize(font), Kirigami.Units.iconSizes.small) : 0,
+            "shortcut": controlRoot.action && controlRoot.action.hasOwnProperty("shortcut") && controlRoot.action.shortcut !== undefined ? controlRoot.action.shortcut : "",
+            "type": controlRoot.subMenu !== null ? 2 : 1,
+            "checkable": controlRoot.checkable,
+            "menuHasCheckables": controlRoot.ListView.view && controlRoot.ListView.view.hasCheckables
         }
     }
 }

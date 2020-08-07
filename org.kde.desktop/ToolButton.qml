@@ -17,7 +17,7 @@ T.ToolButton {
     @DISABLE_UNDER_QQC2_2_4@ palette: Kirigami.Theme.palette
     Kirigami.Theme.colorSet: flat ? Kirigami.Theme.Window : Kirigami.Theme.Button
     Kirigami.Theme.inherit: flat
-
+    property var debug:  controlRoot.icon && controlRoot.icon.color.a > 0? controlRoot.icon.color : Kirigami.Theme.textColor
     implicitWidth: text.length > 0 ? background.implicitWidth : implicitHeight
     implicitHeight: background.implicitHeight
 
@@ -45,6 +45,7 @@ T.ToolButton {
         hasFocus: false
         activeControl: controlRoot.isDefault ? "default" : "f"
         raised: !controlRoot.flat
+        property var debug:  controlRoot.icon && controlRoot.icon.color.a > 0? controlRoot.icon.color : Kirigami.Theme.textColor
         properties: {
             "icon": controlRoot.icon ? (controlRoot.icon.name || controlRoot.icon.source) : "",
             "iconColor": controlRoot.icon && controlRoot.icon.color.a > 0? controlRoot.icon.color : Kirigami.Theme.textColor,
