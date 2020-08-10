@@ -498,13 +498,7 @@ void KQuickStyleItem::initStyleOption()
             }
             opt->menuHasCheckableItems = m_properties[QStringLiteral("menuHasCheckables")].toBool();
             opt->maxIconWidth = style()->pixelMetric(QStyle::PM_SmallIconSize, opt);
-            qDebug() << parentItem()  << parentItem()->parentItem();
-            auto menu =  parentItem()->property("menu").value<QQuickItem*>();
-            if (menu) {
-                auto menuRect = menu->mapRectToItem(m_control, QRectF({0, 0}, menu->size()));
-                qDebug() << opt->rect << "menu rect" << menuRect;
-                opt->menuRect = menuRect.toRect();
-            }
+
             setProperty("_q_showUnderlined", m_hints[QStringLiteral("showUnderlined")].toBool());
 
             const QFont font = qApp->font(m_itemType == ComboBoxItem ?"QComboMenuItem" : "QMenu");

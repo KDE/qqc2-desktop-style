@@ -23,6 +23,7 @@ T.Menu {
                              contentItem ? contentItem.implicitHeight : 0) + topPadding + bottomPadding
 
     margins: 0
+    overlap: -styleItem.pixelMetric("submenuoverlap")
 
     leftPadding: styleItem.pixelMetric("menupanelwidth") + styleItem.pixelMetric("menuhmargin")
     rightPadding: leftPadding
