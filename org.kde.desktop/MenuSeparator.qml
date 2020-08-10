@@ -8,18 +8,22 @@
 
 import QtQuick 2.6
 import QtQuick.Templates @QQC2_VERSION@ as T
-import org.kde.kirigami 2.4 as Kirigami
+import org.kde.qqc2desktopstyle.private 1.0 as StylePrivate
 
 T.MenuSeparator {
     id: controlRoot
 
-    implicitHeight: Kirigami.Units.smallSpacing + separator.implicitHeight
-    width: parent.width
+    @DISABLE_UNDER_QQC2_2_4@ palette: Kirigami.Theme.palette
+    implicitWidth: background.implicitWidth
+    implicitHeight: background.implicitHeight
 
-    background: Kirigami.Separator {
-        id: separator
-        anchors.centerIn: controlRoot
-        width: controlRoot.width
-        height: implicitHeight
+    background: StylePrivate.StyleItem {
+        elementType: "menuitem"
+        control: controlRoot
+        enabled: control.enabled
+        properties: {
+            "type": 0,
+            "menuHasCheckables": controlRoot.ListView.view && controlRoot.ListView.view.hasCheckables
+        }
     }
 }
