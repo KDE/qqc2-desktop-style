@@ -19,6 +19,13 @@ ApplicationWindow
             }
         }
 
+        ComboBox {
+            Layout.fillWidth: true
+            textRole: "key"
+            model: comboModel
+            editable: true
+        }
+
         ListView {
             Layout.fillWidth: true
             Layout.fillHeight: true
