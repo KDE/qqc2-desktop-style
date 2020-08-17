@@ -296,7 +296,7 @@ void KQuickStyleItem::initStyleOption()
                 qstyleoption_cast<QStyleOptionToolButton*>(m_styleoption);
         opt->subControls = QStyle::SC_ToolButton;
 
-        if (!m_raised || m_on) {
+        if (!m_raised) {
             opt->state |= QStyle::State_AutoRaise;
         }
 
@@ -321,7 +321,7 @@ void KQuickStyleItem::initStyleOption()
         opt->iconSize = iconSize;
 
         if (m_properties.value(QStringLiteral("menu")).toBool()) {
-            opt->features = QStyleOptionToolButton::Menu;
+            opt->features |= QStyleOptionToolButton::HasMenu;
         }
 
         const int toolButtonStyle = m_properties.value(QStringLiteral("toolButtonStyle")).toInt();
@@ -703,10 +703,13 @@ void KQuickStyleItem::initStyleOption()
     } else {
         m_styleoption->palette.setCurrentColorGroup(QPalette::Disabled);
     }
-    if (m_active)
+
+    if (m_active) {
         m_styleoption->state |= QStyle::State_Active;
-    else
+    } else {
         m_styleoption->palette.setCurrentColorGroup(QPalette::Inactive);
+    }
+
     if (m_sunken)
         m_styleoption->state |= QStyle::State_Sunken;
     if (m_raised)
@@ -967,9 +970,6 @@ QSize KQuickStyleItem::sizeFromContents(int width, int height)
                 w = textSize.width();
                 h = textSize.height();
             }
-        }
-        if (btn->features & QStyleOptionToolButton::Menu) {
-            w += KQuickStyleItem::style()->subControlRect(QStyle::CC_ToolButton, btn, QStyle::SC_ToolButtonMenu).width();
         }
         btn->rect.setSize(QSize(w, h));
         size = KQuickStyleItem::style()->sizeFromContents(QStyle::CT_ToolButton, m_styleoption, QSize(w, h)); }

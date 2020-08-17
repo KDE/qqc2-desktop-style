@@ -42,14 +42,23 @@ T.ToolButton {
         on: controlRoot.pressed || (controlRoot.checkable && controlRoot.checked)
         hover: controlRoot.hovered
         text: controlRoot.Kirigami.MnemonicData.mnemonicLabel
-        hasFocus: false
+        hasFocus: !controlRoot.flat && (controlRoot.pressed || controlRoot.hovered)
         activeControl: controlRoot.isDefault ? "default" : "f"
         raised: !controlRoot.flat
+
+        // Set this to true to have the style render a menu arrow for the
+        // ToolButton.
+        // Note: If you use this, ensure you check whether your background item
+        // has this property at all, otherwise things will break with different
+        // QtQuick styles!
+        property bool showMenuArrow: false
+
         properties: {
             "icon": controlRoot.icon ? (controlRoot.icon.name || controlRoot.icon.source) : "",
             "iconColor": controlRoot.icon && controlRoot.icon.color.a > 0? controlRoot.icon.color : Kirigami.Theme.textColor,
             "iconWidth": controlRoot.icon ? controlRoot.icon.width : 0,
             "iconHeight": controlRoot.icon ? controlRoot.icon.height : 0,
+            "menu": showMenuArrow,
             "toolButtonStyle": controlRoot.display == T.ToolButton.IconOnly
                                 ? Qt.ToolButtonIconOnly :
                                controlRoot.display == T.ToolButton.TextOnly
