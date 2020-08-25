@@ -22,10 +22,8 @@ T.ToolSeparator {
 
     background: Kirigami.Separator {
         id: separator
-        anchors {
-            top: controlRoot.top
-            bottom: controlRoot.bottom
-            horizontalCenter: controlRoot.horizontalCenter
-        }
+        anchors.centerIn: controlRoot
+        height: controlRoot.height
+        width: implicitWidth
     }
 }
