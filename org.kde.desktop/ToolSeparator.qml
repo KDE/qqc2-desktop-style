@@ -18,7 +18,7 @@ T.ToolSeparator {
     rightPadding: Kirigami.Units.smallSpacing
 
     implicitWidth: separator.width + controlRoot.leftPadding + controlRoot.rightPadding
-    implicitHeight: parent.height
+    implicitHeight: parent.height - topPadding - bottomPadding
 
     background: Kirigami.Separator {
         id: separator
