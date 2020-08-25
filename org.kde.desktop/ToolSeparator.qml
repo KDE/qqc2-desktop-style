@@ -12,8 +12,8 @@ import org.kde.kirigami 2.4 as Kirigami
 T.ToolSeparator {
     id: controlRoot
 
-    topPadding: 0
-    bottomPadding: 0
+    topPadding: Kirigami.Units.smallSpacing
+    bottomPadding: Kirigami.Units.smallSpacing
     leftPadding: Kirigami.Units.smallSpacing
     rightPadding: Kirigami.Units.smallSpacing
 
