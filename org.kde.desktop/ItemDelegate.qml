@@ -6,7 +6,7 @@
 */
 
 
-import QtQuick 2.5
+import QtQuick 2.6
 import QtQuick.Templates @QQC2_VERSION@ as T
 import org.kde.kirigami 2.4 as Kirigami
 import "private"
@@ -28,17 +28,30 @@ T.ItemDelegate {
     rightPadding: padding*2
     bottomPadding: padding
 
-    contentItem: Label {
+    contentItem: Row {
+
         leftPadding: controlRoot.mirrored ? (controlRoot.indicator ? controlRoot.indicator.width : 0) + controlRoot.spacing : 0
         rightPadding: !controlRoot.mirrored ? (controlRoot.indicator ? controlRoot.indicator.width : 0) + controlRoot.spacing : 0
 
-        text: controlRoot.text
-        font: controlRoot.font
-        color: controlRoot.highlighted || controlRoot.checked || (controlRoot.pressed && !controlRoot.checked && !controlRoot.sectionDelegate) ? Kirigami.Theme.highlightedTextColor : (controlRoot.enabled ? Kirigami.Theme.textColor : Kirigami.Theme.disabledTextColor)
-        elide: Text.ElideRight
-        visible: controlRoot.text
-        horizontalAlignment: Text.AlignLeft
-        verticalAlignment: Text.AlignVCenter
+        Kirigami.Icon {
+            id: theIcon
+            source: icon.name ? icon.name : icon.source
+            height: label.height
+            width: height
+        }
+
+        Label {
+            id: label
+
+            text: controlRoot.text
+            font: controlRoot.font
+            color: controlRoot.highlighted || controlRoot.checked || (controlRoot.pressed && !controlRoot.checked && !controlRoot.sectionDelegate) ? Kirigami.Theme.highlightedTextColor : (controlRoot.enabled ? Kirigami.Theme.textColor : Kirigami.Theme.disabledTextColor)
+            elide: Text.ElideRight
+            visible: controlRoot.text
+            horizontalAlignment: Text.AlignLeft
+            verticalAlignment: Text.AlignVCenter
+            leftPadding: theIcon.visible ? controlRoot.padding : 0
+        }
     }
 
     background: DefaultListItemBackground {}
