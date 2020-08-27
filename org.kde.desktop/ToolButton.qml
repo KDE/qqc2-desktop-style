@@ -42,7 +42,7 @@ T.ToolButton {
         on: controlRoot.pressed || (controlRoot.checkable && controlRoot.checked)
         hover: controlRoot.hovered
         text: controlRoot.Kirigami.MnemonicData.mnemonicLabel
-        hasFocus: !controlRoot.flat && (controlRoot.pressed || controlRoot.hovered)
+        hasFocus: !controlRoot.flat && controlRoot.pressed
         activeControl: controlRoot.isDefault ? "default" : "f"
         raised: !controlRoot.flat
 
