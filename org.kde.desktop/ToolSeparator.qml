@@ -12,18 +12,14 @@ import org.kde.kirigami 2.4 as Kirigami
 T.ToolSeparator {
     id: controlRoot
 
-    topPadding: Kirigami.Units.smallSpacing
-    bottomPadding: Kirigami.Units.smallSpacing
-    leftPadding: Kirigami.Units.smallSpacing
-    rightPadding: Kirigami.Units.smallSpacing
+    implicitWidth: Math.max(implicitBackgroundWidth + leftInset + rightInset,
+                            implicitContentWidth + leftPadding + rightPadding)
+    implicitHeight: Math.max(implicitBackgroundHeight + topInset + bottomInset,
+                             implicitContentHeight + topPadding + bottomPadding)
 
-    implicitWidth: separator.width + controlRoot.leftPadding + controlRoot.rightPadding
-    implicitHeight: parent.height - topPadding - bottomPadding
-
-    background: Kirigami.Separator {
-        id: separator
-        anchors.centerIn: controlRoot
-        height: controlRoot.height
-        width: implicitWidth
+    contentItem: Kirigami.Separator {
+        // implicitHeight is the same as ToolBar implicitHeight minus ToolBar padding if not horizontal
+        implicitHeight: horizontal ? Math.floor(Kirigami.Units.devicePixelRatio) : 40 - (Kirigami.Units.smallSpacing * 2)
+        implicitWidth: horizontal ? 40 - (Kirigami.Units.smallSpacing * 2) : Math.floor(Kirigami.Units.devicePixelRatio)
     }
 }
