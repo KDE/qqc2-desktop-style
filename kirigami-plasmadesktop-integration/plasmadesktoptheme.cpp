@@ -45,6 +45,14 @@ public:
     {
         connect(qGuiApp, &QGuiApplication::paletteChanged,
                 this, &StyleSingleton::refresh);
+
+        // Use DBus in order to listen for kdeglobals changes directly, as the
+        // QApplication doesn't expose the font variants we're looking for,
+        // namely smallFont.
+        QDBusConnection::sessionBus().connect( QString(),
+        QStringLiteral( "/KGlobalSettings" ),
+        QStringLiteral( "org.kde.KGlobalSettings" ),
+        QStringLiteral( "notifyChange" ), this, SIGNAL(configurationChanged()));
     }
 
     void refresh()
@@ -125,6 +133,7 @@ public:
     KColorScheme viewScheme;
 
 Q_SIGNALS:
+    void configurationChanged();
     void paletteChanged();
 
 private:
@@ -161,14 +170,6 @@ PlasmaDesktopTheme::PlasmaDesktopTheme(QObject *parent)
                 });
     }
 
-    // Use DBus in order to listen for kdeglobals changes directly, as the
-    // QApplication doesn't expose the font variants we're looking for,
-    // namely smallFont.
-    QDBusConnection::sessionBus().connect( QString(),
-        QStringLiteral( "/KGlobalSettings" ),
-        QStringLiteral( "org.kde.KGlobalSettings" ),
-        QStringLiteral( "notifyChange" ), this, SLOT(configurationChanged()));
-
     //TODO: correct? depends from https://codereview.qt-project.org/206889
     connect(qGuiApp, &QGuiApplication::fontDatabaseChanged, this, [this]() {setDefaultFont(qApp->font());});
     configurationChanged();
@@ -180,6 +181,9 @@ PlasmaDesktopTheme::PlasmaDesktopTheme(QObject *parent)
 
     connect(s_style->data(), &StyleSingleton::paletteChanged,
             this, &PlasmaDesktopTheme::syncColors);
+
+    connect(s_style->data(), &StyleSingleton::configurationChanged,
+            this, &PlasmaDesktopTheme::configurationChanged);
 
     syncColors();
 }
