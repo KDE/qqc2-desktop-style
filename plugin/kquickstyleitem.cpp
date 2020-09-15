@@ -254,7 +254,8 @@ void KQuickStyleItem::initStyleOption()
         if (!m_styleoption)
             m_styleoption = new QStyleOption;
 
-        m_styleoption->state = QStyle::State_Item; // We don't want to fully support Win 95
+        if (m_properties.value(QStringLiteral("isItem")).toBool())
+            m_styleoption->state = QStyle::State_Item;
         if (m_properties.value(QStringLiteral("hasChildren")).toBool())
             m_styleoption->state |= QStyle::State_Children;
         if (m_properties.value(QStringLiteral("hasSibling")).toBool()) // Even this one could go away
