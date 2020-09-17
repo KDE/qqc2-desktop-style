@@ -25,6 +25,10 @@ T.ToolBar {
     position: controlRoot.parent.footer == controlRoot ? ToolBar.Footer : ToolBar.Header
     background: Rectangle {
         implicitHeight: 40
+        // Use header colors if available; if not, this will fall back to
+        // Window colors
+        Kirigami.Theme.colorSet: Kirigami.Theme.Header
+        Kirigami.Theme.inherit: false
         color: Kirigami.Theme.backgroundColor
         Kirigami.Separator {
             anchors {
