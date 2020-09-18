@@ -13,6 +13,11 @@ import org.kde.kirigami 2.4 as Kirigami
 T.ToolBar {
     id: controlRoot
 
+    // Use header colors if available; if not, this will fall back to
+    // Window colors
+    Kirigami.Theme.colorSet: Kirigami.Theme.Header
+    Kirigami.Theme.inherit: false
+
     @DISABLE_UNDER_QQC2_2_4@ palette: Kirigami.Theme.palette
     implicitWidth: Math.max(background ? background.implicitWidth : 0, contentWidth + leftPadding + rightPadding)
     implicitHeight: Math.max(background ? background.implicitHeight : 0, contentHeight + topPadding + bottomPadding)
@@ -25,10 +30,6 @@ T.ToolBar {
     position: controlRoot.parent.footer == controlRoot ? ToolBar.Footer : ToolBar.Header
     background: Rectangle {
         implicitHeight: 40
-        // Use header colors if available; if not, this will fall back to
-        // Window colors
-        Kirigami.Theme.colorSet: Kirigami.Theme.Header
-        Kirigami.Theme.inherit: false
         color: Kirigami.Theme.backgroundColor
         Kirigami.Separator {
             anchors {
