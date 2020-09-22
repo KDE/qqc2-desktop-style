@@ -28,7 +28,7 @@ T.ToolBar {
     // (if not, this will fall back to window colors)
     // Window colors
     Kirigami.Theme.colorSet: position == T.ToolBar.Footer || (parent.footer && parent.footer == controlRoot) ? Kirigami.Theme.Window : Kirigami.Theme.Header
-    Kirigami.Theme.inherit: position == T.ToolBar.Footer || (parent.footer && parent.footer == controlRoot) == T.ToolBar.header ? true :  false
+    Kirigami.Theme.inherit: false
 
     background: Rectangle {
         implicitHeight: 40
