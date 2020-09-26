@@ -84,9 +84,10 @@ T.ScrollBar {
         acceptedButtons: Qt.LeftButton | Qt.MiddleButton
         onExited: style.activeControl = "groove";
         onPressed: {
+            var jump_position = Math.min(1 - controlRoot.size, Math.max(0, mouse.y/(controlRoot.orientation == Qt.Vertical ? height: width) - controlRoot.size/2));
             if (mouse.buttons & Qt.MiddleButton) {
                 style.activeControl = "handle";
-                controlRoot.position = Math.min(1 - controlRoot.size, Math.max(0, mouse.y/(controlRoot.orientation == Qt.Vertical ? height: width) - controlRoot.size/2));
+                controlRoot.position = jump_position;
                 mouse.accepted = true;
             } else if (style.activeControl == "down") {
                 buttonTimer.increment = 1;
@@ -97,12 +98,20 @@ T.ScrollBar {
                 buttonTimer.running = true;
                 mouse.accepted = true
             } else if (style.activeControl == "downPage") {
-                buttonTimer.increment = controlRoot.size;
-                buttonTimer.running = true;
+                if (style.styleHint("scrollToClickPosition")) {
+                    controlRoot.position = jump_position;
+                } else {
+                    buttonTimer.increment = controlRoot.size;
+                    buttonTimer.running = true;
+                }
                 mouse.accepted = true
             } else if (style.activeControl == "upPage") {
-                buttonTimer.increment = -controlRoot.size;
-                buttonTimer.running = true;
+                if (style.styleHint("scrollToClickPosition")) {
+                    controlRoot.position = jump_position;
+                } else {
+                    buttonTimer.increment = -controlRoot.size;
+                    buttonTimer.running = true;
+                }
                 mouse.accepted = true
             } else {
                 mouse.accepted = false
