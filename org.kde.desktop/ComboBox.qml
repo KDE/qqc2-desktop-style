@@ -206,7 +206,9 @@ T.ComboBox {
         Controls.Overlay.modal: Item { }
 
         contentItem: ScrollView {
-            background: Rectangle {}
+            background: Rectangle {
+                color: Kirigami.Theme.backgroundColor
+            }
             ScrollBar.horizontal.policy: ScrollBar.AlwaysOff
             ListView {
                 id: listView
