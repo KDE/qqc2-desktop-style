@@ -6,7 +6,7 @@
 */
 
 
-import QtQuick 2.6
+import QtQuick 2.12
 import QtQuick.Window 2.1
 import QtQuick.Templates @QQC2_VERSION@ as T
 import org.kde.kirigami 2.4 as Kirigami
@@ -52,6 +52,21 @@ T.TextArea {
     onTextChanged: Private.MobileTextActionsToolBar.shouldBeVisible = false;
     onPressed: Private.MobileTextActionsToolBar.shouldBeVisible = true;
 
+    TapHandler {
+        acceptedDevices: PointerDevice.Mouse | PointerDevice.Stylus
+        acceptedButtons: Qt.LeftButton | Qt.RightButton
+        
+        // unfortunately, taphandler's pressed event only triggers when the press is lifted
+        // we need to use the longpress signal since it triggers when the button is first pressed
+        longPressThreshold: 0
+        onLongPressed: Private.TextFieldContextMenu.targetClick(point, controlRoot);
+    }
+    
+    Keys.onPressed: {
+        // trigger if context menu button is pressed
+        Private.TextFieldContextMenu.targetKeyPressed(event, controlRoot)
+    }
+    
     onPressAndHold: {
         if (!Kirigami.Settings.tabletMode) {
             return;
