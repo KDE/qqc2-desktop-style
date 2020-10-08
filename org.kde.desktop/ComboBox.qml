@@ -95,7 +95,8 @@ T.ComboBox {
 
         Connections {
             target: popup
-            onClosed: {
+@DISABLE_AT_QT_5_14@ onClosed: {
+@DISABLE_UNDER_QT_5_14@ function onClosed() {
                 controlRoot.down = false;
                 controlRoot.pressed = false;
             }
