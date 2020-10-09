@@ -256,6 +256,7 @@ protected:
     bool eventFilter(QObject *watched, QEvent *event) override;
 
 private:
+    QIcon iconFromIconProperty() const;
     const char* classNameForItem() const;
     QSize sizeFromContents(int width, int height);
     qreal baselineOffset();

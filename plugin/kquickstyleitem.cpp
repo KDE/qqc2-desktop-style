@@ -179,14 +179,8 @@ void KQuickStyleItem::initStyleOption()
         QStyleOptionButton *opt = qstyleoption_cast<QStyleOptionButton*>(m_styleoption);
         opt->text = text();
 
-        const QVariant icon = m_properties[QStringLiteral("icon")];
-        if (icon.canConvert<QIcon>()) {
-            opt->icon = icon.value<QIcon>();
-        } else if (icon.canConvert<QUrl>() && icon.value<QUrl>().isLocalFile()) {
-            opt->icon = QIcon(icon.value<QUrl>().toLocalFile());
-        } else if (icon.canConvert<QString>()) {
-            opt->icon = m_theme->iconFromTheme(icon.value<QString>(), m_properties[QStringLiteral("iconColor")].value<QColor>());
-        }
+        opt->icon = iconFromIconProperty();
+
         auto iconSize = QSize(m_properties[QStringLiteral("iconWidth")].toInt(), m_properties[QStringLiteral("iconHeight")].toInt());
         if (iconSize.isEmpty()) {
             int e = KQuickStyleItem::style()->pixelMetric(QStyle::PM_ButtonIconSize, m_styleoption, nullptr);
@@ -303,12 +297,9 @@ void KQuickStyleItem::initStyleOption()
 
         opt->activeSubControls = QStyle::SC_ToolButton;
         opt->text = text();
-        const QVariant icon = m_properties[QStringLiteral("icon")];
-        if (icon.canConvert<QIcon>()) {
-            opt->icon = icon.value<QIcon>();
-        } else if (icon.canConvert<QString>()) {
-            opt->icon = m_theme->iconFromTheme(icon.value<QString>(), m_properties[QStringLiteral("iconColor")].value<QColor>());
-        }
+
+        opt->icon = iconFromIconProperty();
+
         auto iconSize = QSize(m_properties[QStringLiteral("iconWidth")].toInt(), m_properties[QStringLiteral("iconHeight")].toInt());
         if (iconSize.isEmpty()) {
             int e = KQuickStyleItem::style()->pixelMetric(QStyle::PM_ToolBarIconSize, m_styleoption, nullptr);
@@ -483,8 +474,7 @@ void KQuickStyleItem::initStyleOption()
                                                           QStyleOptionMenuItem::NonExclusive;
                 }
             }
-            if (m_properties[QStringLiteral("icon")].canConvert<QIcon>())
-                opt->icon = m_properties[QStringLiteral("icon")].value<QIcon>();
+            opt->icon = iconFromIconProperty();
             setProperty("_q_showUnderlined", m_hints[QStringLiteral("showUnderlined")].toBool());
 
             const QFont font = qApp->font(m_itemType == ComboBoxItem ?"QComboMenuItem" : "QMenu");
@@ -507,14 +497,8 @@ void KQuickStyleItem::initStyleOption()
             opt->state |= QStyle::State_NoChange;
         opt->text = text();
 
-        const QVariant icon = m_properties[QStringLiteral("icon")];
-        if (icon.canConvert<QIcon>()) {
-            opt->icon = icon.value<QIcon>();
-        } else if (icon.canConvert<QUrl>() && icon.value<QUrl>().isLocalFile()) {
-            opt->icon = QIcon(icon.value<QUrl>().toLocalFile());
-        } else if (icon.canConvert<QString>()) {
-            opt->icon = m_theme->iconFromTheme(icon.value<QString>(), m_properties[QStringLiteral("iconColor")].value<QColor>());
-        }
+        opt->icon = iconFromIconProperty();
+
         auto iconSize = QSize(m_properties[QStringLiteral("iconWidth")].toInt(), m_properties[QStringLiteral("iconHeight")].toInt());
         if (iconSize.isEmpty()) {
             int e = KQuickStyleItem::style()->pixelMetric(QStyle::PM_ButtonIconSize, m_styleoption, nullptr);
@@ -740,6 +724,35 @@ void KQuickStyleItem::initStyleOption()
         m_styleoption->state |= QStyle::State_Small;
     }
 
+}
+
+QIcon KQuickStyleItem::iconFromIconProperty() const
+{
+    QIcon icon;
+    const QVariant iconProperty = m_properties[QStringLiteral("icon")];
+    switch(iconProperty.type()){
+    case QVariant::Icon:
+        icon = iconProperty.value<QIcon>();
+        break;
+    case QVariant::Url:
+    case QVariant::String: {
+        QString iconSource = iconProperty.toString();
+        if (iconSource.startsWith(QLatin1String("qrc:/"))) {
+            iconSource = iconSource.mid(3);
+        } else if (iconSource.startsWith(QLatin1String("file:/"))) {
+            iconSource = QUrl(iconSource).path();
+        }
+        if (iconSource.contains(QLatin1String("/"))) {
+            icon = QIcon(iconSource);
+        } else {
+            icon = m_theme->iconFromTheme(iconSource, m_properties[QStringLiteral("iconColor")].value<QColor>());
+        }
+    }
+        break;
+    default:
+        break;
+    }
+    return icon;
 }
 
 const char* KQuickStyleItem::classNameForItem() const
