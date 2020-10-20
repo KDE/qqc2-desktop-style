@@ -80,7 +80,7 @@ T.MenuItem {
             
             Shortcut {
                 id: itemShortcut
-                sequence: (parent.visible && controlRoot.action !== null) ? controlRoot.action.shortcut : ""
+                sequence: (shortcut.visible && controlRoot.action !== null) ? controlRoot.action.shortcut : ""
             }
             
             text: visible ? itemShortcut.nativeText : ""
