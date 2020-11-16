@@ -24,9 +24,6 @@ T.ProgressBar {
 
     background: StylePrivate.StyleItem {
         elementType: "progressbar"
-Text {
-    text: controlRoot.inverted
-}
         control: controlRoot
         maximum: indeterminate ? 0 : controlRoot.to*100
         minimum: indeterminate ? 0 : controlRoot.from*100
