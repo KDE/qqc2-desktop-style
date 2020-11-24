@@ -52,28 +52,25 @@ T.ScrollView {
         Component {
             id: backgroundComponent
             StylePrivate.StyleItem {
+                id: styled
                 control: controlRoot.contentItem
-                elementType: "edit"
-                property int leftPadding: frame.leftPadding
-                property int topPadding: frame.topPadding
-                property int rightPadding: frame.rightPadding
-                property int bottomPadding: frame.bottomPadding
+                elementType: "frame"
                 visible: false
                 sunken: true
                 raised: false
                 enabled: controlRoot.contentItem.enabled
                 hasFocus: controlRoot.activeFocus || controlRoot.contentItem.activeFocus
                 hover: controlRoot.hovered
-                //This is just for the proper margin metrics
-                StylePrivate.StyleItem {
-                    id: frame
-                    anchors.fill:parent
-                    control: controlRoot
-                    elementType: "frame"
-                    visible: false
-                    sunken: true
-                    hasFocus: controlRoot.activeFocus || controlRoot.contentItem.activeFocus
-                    hover: controlRoot.hovered
+
+                Rectangle {
+                    anchors {
+                        leftMargin: styled.leftPadding
+                        rightMargin: styled.rightPadding
+                        bottomMargin: styled.bottomPadding
+                        topMargin: styled.topPadding
+                    }
+                    anchors.fill: parent
+                    color: Kirigami.Theme.backgroundColor
                 }
             }
         },
