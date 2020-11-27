@@ -53,8 +53,8 @@ T.RoundButton {
     background: Rectangle {
         property color borderColor: Qt.tint(Kirigami.Theme.textColor, Qt.rgba(Kirigami.Theme.backgroundColor.r, Kirigami.Theme.backgroundColor.g, Kirigami.Theme.backgroundColor.b, 0.7))
 
-        implicitWidth: Kirigami.Units.iconSizes.large
-        implicitHeight: Kirigami.Units.iconSizes.large
+        implicitWidth: Kirigami.Units.gridUnit * 2
+        implicitHeight: Kirigami.Units.gridUnit * 2
         radius: controlRoot.radius
         color: (controlRoot.activeFocus && (controlRoot.hovered || controlRoot.highlighted)) || controlRoot.down || controlRoot.checked ? Qt.lighter(borderColor, 1.1) : Kirigami.Theme.backgroundColor
 
