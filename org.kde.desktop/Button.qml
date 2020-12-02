@@ -37,8 +37,8 @@ T.Button {
         anchors.fill: parent
         control: controlRoot
         elementType: "button"
-        sunken: controlRoot.pressed || (controlRoot.checkable && controlRoot.checked)
-        raised: !(controlRoot.pressed || (controlRoot.checkable && controlRoot.checked))
+        sunken: controlRoot.down || (controlRoot.checkable && controlRoot.checked)
+        raised: !(controlRoot.down || (controlRoot.checkable && controlRoot.checked))
         hover: controlRoot.hovered
         text: controlRoot.Kirigami.MnemonicData.mnemonicLabel
         hasFocus: controlRoot.activeFocus
