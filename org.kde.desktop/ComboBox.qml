@@ -47,11 +47,10 @@ T.ComboBox {
         padding: 0
         text: controlRoot.editable ? controlRoot.editText : controlRoot.displayText
 
-        enabled: controlRoot.editable
         autoScroll: controlRoot.editable
-        readOnly: controlRoot.down
+        readOnly: !(typeof(controlRoot.editable) != "undefined" && controlRoot.editable) || controlRoot.down
 
-        visible: typeof(controlRoot.editable) != "undefined" && controlRoot.editable
+        visible: true
         inputMethodHints: controlRoot.inputMethodHints
         validator: controlRoot.validator
 

@@ -1602,11 +1602,6 @@ void KQuickStyleItem::paint(QPainter *painter)
         KQuickStyleItem::style()->drawComplexControl(QStyle::CC_ComboBox,
                                           qstyleoption_cast<QStyleOptionComplex*>(m_styleoption),
                                           painter);
-        // This is needed on mac as it will use the painter color and ignore the palette
-        QPen pen = painter->pen();
-        painter->setPen(m_styleoption->palette.text().color());
-        KQuickStyleItem::style()->drawControl(QStyle::CE_ComboBoxLabel, m_styleoption, painter);
-        painter->setPen(pen);
     }    break;
     case SpinBox:
 #ifdef Q_OS_MAC
