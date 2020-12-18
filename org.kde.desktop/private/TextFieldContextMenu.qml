@@ -6,9 +6,9 @@
 
 pragma Singleton
 
-import QtQuick 2.6
+import QtQuick 2.12
 import QtQuick.Controls @QQC2_VERSION@ 
-import org.kde.kirigami 2.5 as Kirigami
+import org.kde.kirigami 2.14 as Kirigami
 
 Menu {
     id: contextMenu
@@ -30,8 +30,8 @@ Menu {
     }
     
     // target is pressed with mouse
-    function targetClick(handlerPoint, newTarget) {
-        if (handlerPoint.pressedButtons === Qt.RightButton) { // only accept just right click
+    function targetClick(event, newTarget) {
+        if (event.button === Qt.RightButton) { // only accept just right click
             if (contextMenu.visible) {
                 deselectWhenMenuClosed = false; // don't deselect text if menu closed by right click on textfield
                 close();
@@ -43,7 +43,7 @@ Menu {
                 
                 target.persistentSelection = true; // persist selection when menu is opened
                 storeCursorAndSelection();
-                popup(handlerPoint.position.x + 1, handlerPoint.position.y + 1); // slightly locate context menu away from mouse so no item is selected when menu is opened
+                popup(event.x + 1, event.y + 1); // slightly locate context menu away from mouse so no item is selected when menu is opened
             }
         } else {
             close();

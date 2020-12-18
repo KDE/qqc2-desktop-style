@@ -50,30 +50,27 @@ T.TextArea {
     }
 
     onTextChanged: Private.MobileTextActionsToolBar.shouldBeVisible = false;
-    onPressed: Private.MobileTextActionsToolBar.shouldBeVisible = true;
 
-    TapHandler {
-        acceptedDevices: PointerDevice.Mouse | PointerDevice.Stylus
-        acceptedButtons: Qt.LeftButton | Qt.RightButton
-        
-        // unfortunately, taphandler's pressed event only triggers when the press is lifted
-        // we need to use the longpress signal since it triggers when the button is first pressed
-        longPressThreshold: 0
-        onLongPressed: Private.TextFieldContextMenu.targetClick(point, controlRoot);
-    }
-    
     Keys.onPressed: {
         // trigger if context menu button is pressed
         Private.TextFieldContextMenu.targetKeyPressed(event, controlRoot)
     }
-    
-    onPressAndHold: {
-        if (!Kirigami.Settings.tabletMode) {
-            return;
+
+    onPressed: {
+        if (event.buttons & Qt.RightButton) {
+            Private.TextFieldContextMenu.targetClick(event, controlRoot);
         }
-        forceActiveFocus();
-        cursorPosition = positionAt(event.x, event.y);
-        selectWord();
+    }
+
+    onPressAndHold: {
+        if (Kirigami.Settings.tabletMode) {
+            forceActiveFocus();
+            cursorPosition = positionAt(event.x, event.y);
+            selectWord();
+            Private.MobileTextActionsToolBar.shouldBeVisible = true;
+        } else {
+            Private.TextFieldContextMenu.targetClick(event, controlRoot);
+        }
     }
 
     Private.MobileCursor {
