@@ -16,7 +16,7 @@ import "private" as Private
 
 T.TextField {
     id: controlRoot
-    @DISABLE_UNDER_QQC2_2_4@ palette: Kirigami.Theme.palette
+    palette: Kirigami.Theme.palette
     Kirigami.Theme.colorSet: Kirigami.Theme.View
     Kirigami.Theme.inherit: false
 

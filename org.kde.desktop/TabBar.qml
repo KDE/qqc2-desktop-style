@@ -14,7 +14,7 @@ import QtQuick.Templates @QQC2_VERSION@ as T
 T.TabBar {
     id: controlRoot
 
-    @DISABLE_UNDER_QQC2_2_4@ palette: Kirigami.Theme.palette
+    palette: Kirigami.Theme.palette
     Kirigami.Theme.colorSet: Kirigami.Theme.Window
     Kirigami.Theme.inherit: false
 

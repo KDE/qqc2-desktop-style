@@ -14,7 +14,7 @@ import org.kde.qqc2desktopstyle.private 1.0 as StylePrivate
 T.ToolButton {
     id: controlRoot
 
-    @DISABLE_UNDER_QQC2_2_4@ palette: Kirigami.Theme.palette
+    palette: Kirigami.Theme.palette
     Kirigami.Theme.colorSet: flat ? Kirigami.Theme.Window : Kirigami.Theme.Button
     Kirigami.Theme.inherit: flat
 

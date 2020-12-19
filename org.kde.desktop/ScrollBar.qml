@@ -14,7 +14,7 @@ import org.kde.kirigami 2.11 as Kirigami
 T.ScrollBar {
     id: controlRoot
 
-    @DISABLE_UNDER_QQC2_2_4@ palette: Kirigami.Theme.palette
+    palette: Kirigami.Theme.palette
     implicitWidth: background.implicitWidth
     implicitHeight: background.implicitHeight
 

@@ -13,7 +13,7 @@ import org.kde.kirigami 2.4 as Kirigami
 T.DialogButtonBox {
     id: control
 
-    @DISABLE_UNDER_QQC2_2_4@ palette: Kirigami.Theme.palette
+    palette: Kirigami.Theme.palette
     implicitWidth: contentItem.implicitWidth + leftPadding + rightPadding
     implicitHeight: contentItem.implicitHeight + topPadding + bottomPadding
 

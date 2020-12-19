@@ -15,7 +15,7 @@ import org.kde.qqc2desktopstyle.private 1.0 as StylePrivate
 T.Dial {
     id: controlRoot
 
-    @DISABLE_UNDER_QQC2_2_4@ palette: Kirigami.Theme.palette
+    palette: Kirigami.Theme.palette
     implicitWidth: 128
     implicitHeight: 128
 

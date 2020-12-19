@@ -14,7 +14,7 @@ import org.kde.kirigami 2.4 as Kirigami
 
 T.RoundButton {
     id: controlRoot
-    @DISABLE_UNDER_QQC2_2_4@ palette: Kirigami.Theme.palette
+    palette: Kirigami.Theme.palette
     Kirigami.Theme.colorSet: !flat && controlRoot.activeFocus ? Kirigami.Theme.Selection : Kirigami.Theme.Button
     Kirigami.Theme.inherit: false
 

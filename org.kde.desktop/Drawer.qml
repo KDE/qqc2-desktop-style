@@ -14,7 +14,7 @@ import org.kde.kirigami 2.4 as Kirigami
 T.Drawer {
     id: control
 
-    @DISABLE_UNDER_QQC2_2_4@ palette: Kirigami.Theme.palette
+    palette: Kirigami.Theme.palette
     parent: T.ApplicationWindow.overlay
 
     implicitWidth: Math.max(background ? background.implicitWidth : 0, contentWidth + leftPadding + rightPadding)

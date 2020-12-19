@@ -128,38 +128,16 @@ else()
 endif()
 set(QQC2_VERSION "2.${QQC2_VERSION_MINOR}")
 
-if (QQC2_VERSION_MINOR LESS 3)
-    set(DISABLE_UNDER_QQC2_2_3 "//Needs QtQuick.Controls 2.3 ")
-else()
-    set(DISABLE_UNDER_QQC2_2_3 "")
-endif()
-
-if (QQC2_VERSION_MINOR LESS 4)
-    set(DISABLE_UNDER_QQC2_2_4 "//Needs QtQuick.Controls 2.4 ")
-else()
-    set(DISABLE_UNDER_QQC2_2_4 "")
-endif()
-
-if (Qt5Qml_VERSION_STRING VERSION_GREATER_EQUAL 5.14)
-    set(DISABLE_UNDER_QT_5_14 "")
-    set(DISABLE_AT_QT_5_14 "//Disabled since Qt 5.14 ")
-else()
-    set(DISABLE_UNDER_QT_5_14 "//Needs Qt 5.14 ")
-    set(DISABLE_AT_QT_5_14 "")
-endif()
-
 # Find all the source qml files
 FILE(GLOB_RECURSE inFiles RELATIVE "${CMAKE_CURRENT_SOURCE_DIR}"
     "${CMAKE_CURRENT_SOURCE_DIR}/org.kde.desktop/*")
 
     #for each file, replace @QQC2_VERSION@ with the version we found
 FOREACH(infileName ${inFiles})
-    configure_package_config_file(
+    configure_file(
         "${CMAKE_CURRENT_SOURCE_DIR}/${infileName}"
         "${CMAKE_CURRENT_BINARY_DIR}/${infileName}"
-        INSTALL_DESTINATION  ${CMAKECONFIG_INSTALL_DIR}
-        PATH_VARS  QQC2_VERSION DISABLE_UNDER_QQC2_2_3
-        DISABLE_UNDER_QQC2_2_4
+        @ONLY
     )
 ENDFOREACH(infileName)
 
