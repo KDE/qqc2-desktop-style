@@ -1831,6 +1831,14 @@ bool KQuickStyleItem::eventFilter(QObject *watched, QEvent *event)
             QFocusEvent *fe = static_cast<QFocusEvent *>(event);
             m_lastFocusReason = fe->reason();
         }
+        // Page accepts mouse events without doing anything with them (for a workaround wrt dragging from empty areas of flickables) when the interaction is pure mouse, steal events from them, so a parent handler can initiate a window drag from empty areas, either Kirigami.ApplicationWindow or the breeze style from a QQwuickwidget
+        if (event->type() == QEvent::MouseButtonPress) {
+            QMouseEvent *me = static_cast<QMouseEvent *>(event);
+            if (me->source() == Qt::MouseEventNotSynthesized && watched->inherits("QQuickPage")) {
+                event->setAccepted(false);
+                return true;
+            }
+        }
     } else if (watched == m_window.data()) {
         if (event->type() == QEvent::KeyPress || event->type() == QEvent::KeyRelease) {
             QKeyEvent *ke = static_cast<QKeyEvent *>(event);
