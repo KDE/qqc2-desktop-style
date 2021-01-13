@@ -8,6 +8,7 @@
 #include <QQmlEngine>
 #include <QQmlContext>
 #include <QGuiApplication>
+#include <QQuickRenderControl>
 #include <QPalette>
 #include <QDebug>
 #include <QQuickWindow>
@@ -151,23 +152,9 @@ PlasmaDesktopTheme::PlasmaDesktopTheme(QObject *parent)
     if (m_parentItem) {
         connect(m_parentItem.data(), &QQuickItem::enabledChanged,
                 this, &PlasmaDesktopTheme::syncColors);
-        if (m_parentItem && m_parentItem->window()) {
-            connect(m_parentItem->window(), &QWindow::activeChanged,
-                    this, &PlasmaDesktopTheme::syncColors);
-            m_window = m_parentItem->window();
-        }
+        syncWindow();
         connect(m_parentItem.data(), &QQuickItem::windowChanged,
-                this, [this]() {
-                    if (m_window) {
-                        disconnect(m_window.data(), &QWindow::activeChanged,
-                                this, &PlasmaDesktopTheme::syncColors);
-                    }
-                    if (m_parentItem && m_parentItem->window()) {
-                        connect(m_parentItem->window(), &QWindow::activeChanged,
-                                this, &PlasmaDesktopTheme::syncColors);
-                    }
-                    syncColors();
-                });
+                this, &PlasmaDesktopTheme::syncWindow);
     }
 
     //TODO: correct? depends from https://codereview.qt-project.org/206889
@@ -189,6 +176,33 @@ PlasmaDesktopTheme::PlasmaDesktopTheme(QObject *parent)
 }
 
 PlasmaDesktopTheme::~PlasmaDesktopTheme() = default;
+
+void PlasmaDesktopTheme::syncWindow()
+{
+    if (m_window) {
+        disconnect(m_window.data(), &QWindow::activeChanged,
+                this, &PlasmaDesktopTheme::syncColors);
+    }
+
+    QWindow *window = nullptr;
+    if (m_parentItem) {
+        QQuickWindow *qw = m_parentItem->window();
+
+        window = QQuickRenderControl::renderWindowFor(qw);
+        if (!window) {
+            window = qw;
+        }
+        connect(qw, &QQuickWindow::sceneGraphInitialized,
+                this, &PlasmaDesktopTheme::syncWindow);
+    }
+    m_window = window;
+
+    if (window) {
+        connect(m_window.data(), &QWindow::activeChanged,
+                this, &PlasmaDesktopTheme::syncColors);
+        syncColors();
+    }
+}
 
 void PlasmaDesktopTheme::configurationChanged()
 {
@@ -229,7 +243,7 @@ void PlasmaDesktopTheme::syncColors()
         //in the case of QQuickWidget the window() will never be active
         //and the widgets will always have the inactive palette.
         // better to always show it active than always show it inactive
-        } else if (m_parentItem->window() && !m_parentItem->window()->isActive() && m_parentItem->window()->isExposed()) {
+        } else if (m_window && !m_window->isActive() && m_window->isExposed()) {
             group = QPalette::Inactive;
         }
     }

@@ -38,6 +38,7 @@ public:
 
     Q_INVOKABLE QIcon iconFromTheme(const QString &name, const QColor &customColor = Qt::transparent) override;
 
+    void syncWindow();
     void syncColors();
 
     QColor buttonTextColor() const;
