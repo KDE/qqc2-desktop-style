@@ -192,8 +192,10 @@ void PlasmaDesktopTheme::syncWindow()
         if (!window) {
             window = qw;
         }
-        connect(qw, &QQuickWindow::sceneGraphInitialized,
-                this, &PlasmaDesktopTheme::syncWindow);
+        if (qw) {
+            connect(qw, &QQuickWindow::sceneGraphInitialized,
+                    this, &PlasmaDesktopTheme::syncWindow);
+        }
     }
     m_window = window;
 
