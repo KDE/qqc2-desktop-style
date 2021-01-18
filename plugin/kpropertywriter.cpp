@@ -32,7 +32,7 @@ void KPropertyWriter::setTarget(QObject *target)
     }
 
     m_target = target;
-    emit targetChanged(m_target);
+    Q_EMIT targetChanged(m_target);
 }
 
 void KPropertyWriter::setPropertyName(const QString &propertyName)
@@ -42,7 +42,7 @@ void KPropertyWriter::setPropertyName(const QString &propertyName)
     }
 
     m_propertyName = propertyName;
-    emit propertyNameChanged(m_propertyName);
+    Q_EMIT propertyNameChanged(m_propertyName);
 }
 
 #include "moc_kpropertywriter_p.cpp"

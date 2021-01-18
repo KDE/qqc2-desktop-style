@@ -41,10 +41,10 @@ public:
     int bottom() const { return m_bottom; }
 
 public Q_SLOTS:
-    void setLeft(int arg) { if (m_left != arg) {m_left = arg; emit leftChanged();}}
-    void setTop(int arg) { if (m_top != arg) {m_top = arg; emit topChanged();}}
-    void setRight(int arg) { if (m_right != arg) {m_right = arg; emit rightChanged();}}
-    void setBottom(int arg) {if (m_bottom != arg) {m_bottom = arg; emit bottomChanged();}}
+    void setLeft(int arg) { if (m_left != arg) {m_left = arg; Q_EMIT leftChanged();}}
+    void setTop(int arg) { if (m_top != arg) {m_top = arg; Q_EMIT topChanged();}}
+    void setRight(int arg) { if (m_right != arg) {m_right = arg; Q_EMIT rightChanged();}}
+    void setBottom(int arg) {if (m_bottom != arg) {m_bottom = arg; Q_EMIT bottomChanged();}}
 
 Q_SIGNALS:
     void leftChanged();

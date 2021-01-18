@@ -1158,7 +1158,7 @@ void KQuickStyleItem::setContentWidth(int arg)
 {
     if (m_contentWidth != arg) {
         m_contentWidth = arg;
-        emit contentWidthChanged(arg);
+        Q_EMIT contentWidthChanged(arg);
     }
 }
 
@@ -1166,7 +1166,7 @@ void KQuickStyleItem::setContentHeight(int arg)
 {
     if (m_contentHeight != arg) {
         m_contentHeight = arg;
-        emit contentHeightChanged(arg);
+        Q_EMIT contentHeightChanged(arg);
     }
 }
 
@@ -1289,12 +1289,12 @@ void KQuickStyleItem::setHints(const QVariantMap &str)
         updateSizeHint();
         if (m_styleoption->state & QStyle::State_Mini) {
             m_font.setPointSize(9.);
-            emit fontChanged();
+            Q_EMIT fontChanged();
         } else if (m_styleoption->state & QStyle::State_Small) {
             m_font.setPointSize(11.);
-            emit fontChanged();
+            Q_EMIT fontChanged();
         } else {
-            emit hintChanged();
+            Q_EMIT hintChanged();
         }
     }
 }
@@ -1312,7 +1312,7 @@ void KQuickStyleItem::setElementType(const QString &str)
 
     m_type = str;
 
-    emit elementTypeChanged();
+    Q_EMIT elementTypeChanged();
     if (m_styleoption) {
         delete m_styleoption;
         m_styleoption = nullptr;
@@ -1389,10 +1389,10 @@ void KQuickStyleItem::setElementType(const QString &str)
     } else {
         m_itemType = Undefined;
     }
-    emit leftPaddingChanged();
-    emit rightPaddingChanged();
-    emit topPaddingChanged();
-    emit bottomPaddingChanged();
+    Q_EMIT leftPaddingChanged();
+    Q_EMIT rightPaddingChanged();
+    Q_EMIT topPaddingChanged();
+    Q_EMIT bottomPaddingChanged();
     updateSizeHint();
 }
 
@@ -1724,7 +1724,7 @@ void KQuickStyleItem::setTextureWidth(int w)
     if (m_textureWidth == w)
         return;
     m_textureWidth = w;
-    emit textureWidthChanged(m_textureWidth);
+    Q_EMIT textureWidthChanged(m_textureWidth);
     update();
 }
 
@@ -1733,7 +1733,7 @@ void KQuickStyleItem::setTextureHeight(int h)
     if (m_textureHeight == h)
         return;
     m_textureHeight = h;
-    emit textureHeightChanged(m_textureHeight);
+    Q_EMIT textureHeightChanged(m_textureHeight);
     update();
 }
 
@@ -1774,7 +1774,7 @@ void KQuickStyleItem::setControl(QQuickItem *control)
         });
     }
 
-    emit controlChanged();
+    Q_EMIT controlChanged();
 }
 
 QSGNode *KQuickStyleItem::updatePaintNode(QSGNode *node, UpdatePaintNodeData *)

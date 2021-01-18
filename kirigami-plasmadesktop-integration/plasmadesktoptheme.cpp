@@ -291,7 +291,7 @@ void PlasmaDesktopTheme::syncColors()
     m_viewHoverColor = (*s_style)->viewScheme.decoration(KColorScheme::HoverColor).color();
     m_viewFocusColor = (*s_style)->viewScheme.decoration(KColorScheme::FocusColor).color();
 
-    emit colorsChanged();
+    Q_EMIT colorsChanged();
 }
 
 QColor PlasmaDesktopTheme::buttonTextColor() const

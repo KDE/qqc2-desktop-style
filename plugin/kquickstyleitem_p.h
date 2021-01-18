@@ -152,25 +152,25 @@ public:
     QFont font() const { return m_font;}
     QString styleName() const;
 
-    void setSunken(bool sunken) { if (m_sunken != sunken) {m_sunken = sunken; emit sunkenChanged();}}
-    void setRaised(bool raised) { if (m_raised!= raised) {m_raised = raised; emit raisedChanged();}}
-    void setActive(bool active) { if (m_active!= active) {m_active = active; emit activeChanged();}}
-    void setSelected(bool selected) { if (m_selected!= selected) {m_selected = selected; emit selectedChanged();}}
-    void sethasFocus(bool focus) { if (m_focus != focus) {m_focus = focus; emit hasFocusChanged();}}
-    void setOn(bool on) { if (m_on != on) {m_on = on ; emit onChanged();}}
-    void setHover(bool hover) { if (m_hover != hover) {m_hover = hover ; emit hoverChanged();}}
-    void setHorizontal(bool horizontal) { if (m_horizontal != horizontal) {m_horizontal = horizontal; emit horizontalChanged();}}
-    void setTransient(bool transient) { if (m_transient != transient) {m_transient = transient; emit transientChanged();}}
-    void setMinimum(int minimum) { if (m_minimum!= minimum) {m_minimum = minimum; emit minimumChanged();}}
-    void setMaximum(int maximum) { if (m_maximum != maximum) {m_maximum = maximum; emit maximumChanged();}}
-    void setValue(int value) { if (m_value!= value) {m_value = value; emit valueChanged();}}
-    void setStep(int step) { if (m_step != step) { m_step = step; emit stepChanged(); }}
-    void setPaintMargins(int value) { if (m_paintMargins!= value) {m_paintMargins = value; emit paintMarginsChanged(); } }
+    void setSunken(bool sunken) { if (m_sunken != sunken) {m_sunken = sunken; Q_EMIT sunkenChanged();}}
+    void setRaised(bool raised) { if (m_raised!= raised) {m_raised = raised; Q_EMIT raisedChanged();}}
+    void setActive(bool active) { if (m_active!= active) {m_active = active; Q_EMIT activeChanged();}}
+    void setSelected(bool selected) { if (m_selected!= selected) {m_selected = selected; Q_EMIT selectedChanged();}}
+    void sethasFocus(bool focus) { if (m_focus != focus) {m_focus = focus; Q_EMIT hasFocusChanged();}}
+    void setOn(bool on) { if (m_on != on) {m_on = on ; Q_EMIT onChanged();}}
+    void setHover(bool hover) { if (m_hover != hover) {m_hover = hover ; Q_EMIT hoverChanged();}}
+    void setHorizontal(bool horizontal) { if (m_horizontal != horizontal) {m_horizontal = horizontal; Q_EMIT horizontalChanged();}}
+    void setTransient(bool transient) { if (m_transient != transient) {m_transient = transient; Q_EMIT transientChanged();}}
+    void setMinimum(int minimum) { if (m_minimum!= minimum) {m_minimum = minimum; Q_EMIT minimumChanged();}}
+    void setMaximum(int maximum) { if (m_maximum != maximum) {m_maximum = maximum; Q_EMIT maximumChanged();}}
+    void setValue(int value) { if (m_value!= value) {m_value = value; Q_EMIT valueChanged();}}
+    void setStep(int step) { if (m_step != step) { m_step = step; Q_EMIT stepChanged(); }}
+    void setPaintMargins(int value) { if (m_paintMargins!= value) {m_paintMargins = value; Q_EMIT paintMarginsChanged(); } }
     void setElementType(const QString &str);
-    void setText(const QString &str) { if (m_text != str) {m_text = str; emit textChanged();}}
-    void setActiveControl(const QString &str) { if (m_activeControl != str) {m_activeControl = str; emit activeControlChanged();}}
+    void setText(const QString &str) { if (m_text != str) {m_text = str; Q_EMIT textChanged();}}
+    void setActiveControl(const QString &str) { if (m_activeControl != str) {m_activeControl = str; Q_EMIT activeControlChanged();}}
     void setHints(const QVariantMap &str);
-    void setProperties(const QVariantMap &props) { if (m_properties != props) { m_properties = props; emit propertiesChanged(); } }
+    void setProperties(const QVariantMap &props) { if (m_properties != props) { m_properties = props; Q_EMIT propertiesChanged(); } }
     void resetHints();
 
     int contentWidth() const { return m_contentWidth; }
