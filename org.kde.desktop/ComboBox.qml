@@ -121,17 +121,28 @@ T.ComboBox {
         }
 
         MouseArea {
+            property int wheelDelta: 0
+
             anchors {
                 fill: parent
                 leftMargin: controlRoot.leftPadding
                 rightMargin: controlRoot.rightPadding
             }
+
             acceptedButtons: Qt.NoButton
+
             onWheel: {
-                if (wheel.pixelDelta.y < 0 || wheel.angleDelta.y < 0) {
-                    controlRoot.incrementCurrentIndex();
-                } else {
+                var delta = wheel.angleDelta.y || wheel.angleDelta.x
+                wheelDelta += delta;
+                // magic number 120 for common "one click"
+                // See: https://doc.qt.io/qt-5/qml-qtquick-wheelevent.html#angleDelta-prop
+                while (wheelDelta >= 120) {
+                    wheelDelta -= 120;
                     controlRoot.decrementCurrentIndex();
+                }
+                while (wheelDelta <= -120) {
+                    wheelDelta += 120;
+                    controlRoot.incrementCurrentIndex();
                 }
             }
         }
