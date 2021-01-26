@@ -63,6 +63,18 @@ T.RadioButton {
 
         FocusRect {
             control: controlRoot
+
+            anchors {
+                leftMargin: (controlRoot.mirrored ? parent.rightPadding : parent.leftPadding ) - Kirigami.Units.smallSpacing / 2
+                left: parent.left
+                top: parent.top
+                bottom: parent.bottom
+                topMargin: parent.topPadding - 1
+                bottomMargin: parent.bottomPadding - 1
+            }
+
+            width: parent.paintedWidth + Kirigami.Units.smallSpacing
+            visible: control.activeFocus
         }
     }
 }
