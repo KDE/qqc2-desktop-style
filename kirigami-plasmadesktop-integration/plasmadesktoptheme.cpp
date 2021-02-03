@@ -53,7 +53,9 @@ public:
         QDBusConnection::sessionBus().connect( QString(),
         QStringLiteral( "/KGlobalSettings" ),
         QStringLiteral( "org.kde.KGlobalSettings" ),
-        QStringLiteral( "notifyChange" ), this, SIGNAL(configurationChanged()));
+        QStringLiteral( "notifyChange" ), this, SLOT(notifyWatchersConfigurationChange()));
+
+        connect(qGuiApp, &QGuiApplication::fontDatabaseChanged, this, &StyleSingleton::notifyWatchersConfigurationChange);
     }
 
     void refresh()
@@ -62,7 +64,7 @@ public:
         buttonScheme = KColorScheme(QPalette::Active, KColorScheme::ColorSet::Button);
         viewScheme = KColorScheme(QPalette::Active, KColorScheme::ColorSet::View);
 
-        Q_EMIT paletteChanged();
+        notifyWatchersPaletteChange();
     }
 
     Colors loadColors(Kirigami::PlatformTheme::ColorSet cs, QPalette::ColorGroup group)
@@ -130,12 +132,24 @@ public:
         return ret;
     }
 
+    void notifyWatchersPaletteChange()
+    {
+        for (auto watcher : qAsConst(watchers)) {
+            watcher->syncColors();
+        }
+    }
+
+    Q_SLOT void notifyWatchersConfigurationChange()
+    {
+        for (auto watcher : qAsConst(watchers)) {
+            watcher->configurationChanged();
+        }
+    }
+
     KColorScheme buttonScheme;
     KColorScheme viewScheme;
 
-Q_SIGNALS:
-    void configurationChanged();
-    void paletteChanged();
+    QVector<QPointer<PlasmaDesktopTheme>> watchers;
 
 private:
     QHash<QPair<Kirigami::PlatformTheme::ColorSet, QPalette::ColorGroup>, Colors> m_cache;
@@ -146,36 +160,26 @@ PlasmaDesktopTheme::PlasmaDesktopTheme(QObject *parent)
     : PlatformTheme(parent)
 {
     setSupportsIconColoring(true);
-    m_parentItem = qobject_cast<QQuickItem *>(parent);
 
-    //null in case parent is a normal QObject
-    if (m_parentItem) {
-        connect(m_parentItem.data(), &QQuickItem::enabledChanged,
-                this, &PlasmaDesktopTheme::syncColors);
-        syncWindow();
-        connect(m_parentItem.data(), &QQuickItem::windowChanged,
-                this, &PlasmaDesktopTheme::syncWindow);
+    auto parentItem = qobject_cast<QQuickItem *>(parent);
+    if (parentItem) {
+        connect(parentItem, &QQuickItem::enabledChanged, this, &PlasmaDesktopTheme::syncColors);
+        connect(parentItem, &QQuickItem::windowChanged, this, &PlasmaDesktopTheme::syncWindow);
+
     }
 
-    //TODO: correct? depends from https://codereview.qt-project.org/206889
-    connect(qGuiApp, &QGuiApplication::fontDatabaseChanged, this, [this]() {setDefaultFont(qApp->font());});
-    configurationChanged();
+    addChangeWatcher(this, std::bind(&PlasmaDesktopTheme::syncColors, this));
 
-    connect(this, &PlasmaDesktopTheme::colorSetChanged,
-            this, &PlasmaDesktopTheme::syncColors);
-    connect(this, &PlasmaDesktopTheme::colorGroupChanged,
-            this, &PlasmaDesktopTheme::syncColors);
+    (*s_style)->watchers.append(this);
 
-    connect(s_style->data(), &StyleSingleton::paletteChanged,
-            this, &PlasmaDesktopTheme::syncColors);
-
-    connect(s_style->data(), &StyleSingleton::configurationChanged,
-            this, &PlasmaDesktopTheme::configurationChanged);
-
+    syncWindow();
     syncColors();
 }
 
-PlasmaDesktopTheme::~PlasmaDesktopTheme() = default;
+PlasmaDesktopTheme::~PlasmaDesktopTheme()
+{
+    (*s_style)->watchers.removeOne(this);
+}
 
 void PlasmaDesktopTheme::syncWindow()
 {
@@ -185,8 +189,10 @@ void PlasmaDesktopTheme::syncWindow()
     }
 
     QWindow *window = nullptr;
-    if (m_parentItem) {
-        QQuickWindow *qw = m_parentItem->window();
+
+    auto parentItem = qobject_cast<QQuickItem *>(parent());
+    if (parentItem) {
+        QQuickWindow *qw = parentItem->window();
 
         window = QQuickRenderControl::renderWindowFor(qw);
         if (!window) {
@@ -219,6 +225,8 @@ void PlasmaDesktopTheme::configurationChanged()
         }
         return smallFont;
     }()));
+
+    setDefaultFont(qGuiApp->font());
 }
 
 QIcon PlasmaDesktopTheme::iconFromTheme(const QString &name, const QColor &customColor)
@@ -238,8 +246,9 @@ QIcon PlasmaDesktopTheme::iconFromTheme(const QString &name, const QColor &custo
 void PlasmaDesktopTheme::syncColors()
 {
     QPalette::ColorGroup group = (QPalette::ColorGroup)colorGroup();
-    if (m_parentItem) {
-        if (!m_parentItem->isEnabled()) {
+    auto parentItem = qobject_cast<QQuickItem*>(parent());
+    if (parentItem) {
+        if (!parentItem->isEnabled()) {
             group = QPalette::Disabled;
         //Why also checking the window is exposed?
         //in the case of QQuickWidget the window() will never be active
@@ -251,7 +260,6 @@ void PlasmaDesktopTheme::syncColors()
     }
 
     const auto colors = (*s_style)->loadColors(colorSet(), group);
-    setPalette(colors.palette);
 
     //foreground
     setTextColor(colors.scheme.foreground(KColorScheme::NormalText).color());
@@ -279,68 +287,6 @@ void PlasmaDesktopTheme::syncColors()
     //decoration
     setHoverColor(colors.scheme.decoration(KColorScheme::HoverColor).color());
     setFocusColor(colors.scheme.decoration(KColorScheme::FocusColor).color());
-
-    //legacy stuff
-    m_buttonTextColor = (*s_style)->buttonScheme.foreground(KColorScheme::NormalText).color();
-    m_buttonBackgroundColor = (*s_style)->buttonScheme.background(KColorScheme::NormalBackground).color();
-    m_buttonHoverColor = (*s_style)->buttonScheme.decoration(KColorScheme::HoverColor).color();
-    m_buttonFocusColor = (*s_style)->buttonScheme.decoration(KColorScheme::FocusColor).color();
-
-    m_viewTextColor = (*s_style)->viewScheme.foreground(KColorScheme::NormalText).color();
-    m_viewBackgroundColor = (*s_style)->viewScheme.background(KColorScheme::NormalBackground).color();
-    m_viewHoverColor = (*s_style)->viewScheme.decoration(KColorScheme::HoverColor).color();
-    m_viewFocusColor = (*s_style)->viewScheme.decoration(KColorScheme::FocusColor).color();
-
-    Q_EMIT colorsChanged();
-}
-
-QColor PlasmaDesktopTheme::buttonTextColor() const
-{
-    qWarning() << "WARNING: buttonTextColor is deprecated, use textColor with colorSet: Theme.Button instead";
-    return m_buttonTextColor;
-}
-
-QColor PlasmaDesktopTheme::buttonBackgroundColor() const
-{
-    qWarning() << "WARNING: buttonBackgroundColor is deprecated, use backgroundColor with colorSet: Theme.Button instead";
-    return m_buttonBackgroundColor;
-}
-
-QColor PlasmaDesktopTheme::buttonHoverColor() const
-{
-    qWarning() << "WARNING: buttonHoverColor is deprecated, use backgroundColor with colorSet: Theme.Button instead";
-    return m_buttonHoverColor;
-}
-
-QColor PlasmaDesktopTheme::buttonFocusColor() const
-{
-    qWarning() << "WARNING: buttonFocusColor is deprecated, use backgroundColor with colorSet: Theme.Button instead";
-    return m_buttonFocusColor;
-}
-
-
-QColor PlasmaDesktopTheme::viewTextColor() const
-{
-    qWarning()<<"WARNING: viewTextColor is deprecated, use backgroundColor with colorSet: Theme.View instead";
-    return m_viewTextColor;
-}
-
-QColor PlasmaDesktopTheme::viewBackgroundColor() const
-{
-    qWarning() << "WARNING: viewBackgroundColor is deprecated, use backgroundColor with colorSet: Theme.View instead";
-    return m_viewBackgroundColor;
-}
-
-QColor PlasmaDesktopTheme::viewHoverColor() const
-{
-    qWarning() << "WARNING: viewHoverColor is deprecated, use backgroundColor with colorSet: Theme.View instead";
-    return m_viewHoverColor;
-}
-
-QColor PlasmaDesktopTheme::viewFocusColor() const
-{
-    qWarning() << "WARNING: viewFocusColor is deprecated, use backgroundColor with colorSet: Theme.View instead";
-    return m_viewFocusColor;
 }
 
 #include "plasmadesktoptheme.moc"
