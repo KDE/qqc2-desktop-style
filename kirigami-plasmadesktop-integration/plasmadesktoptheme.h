@@ -31,8 +31,11 @@ public:
     void syncWindow();
     void syncColors();
 
+protected:
+    bool event(QEvent *event) override;
+
 protected Q_SLOTS:
-    void configurationChanged();
+    void syncFont();
 
 private:
     friend class StyleSingleton;
