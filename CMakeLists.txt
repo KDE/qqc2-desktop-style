@@ -1,7 +1,7 @@
 cmake_minimum_required(VERSION 3.5)
 
 set(KF_VERSION "5.80.0") # handled by release scripts
-set(KF5_DEP_VERSION "5.79.0") # handled by release scripts
+set(KF_DEP_VERSION "5.79.0") # handled by release scripts
 
 project(qqc2-desktop-style VERSION ${KF_VERSION})
 
@@ -34,11 +34,11 @@ include(KDEFrameworkCompilerSettings NO_POLICY_SCOPE)
 
 find_package(Qt5 ${REQUIRED_QT_VERSION} REQUIRED NO_MODULE COMPONENTS Core Quick Gui Widgets QuickControls2 DBus)
 
-find_package(KF5 ${KF5_DEP_VERSION} REQUIRED COMPONENTS Config Kirigami2)
+find_package(KF5 ${KF_DEP_VERSION} REQUIRED COMPONENTS Config Kirigami2)
 
 # IconThemes and ConfigWidgets are optional
-find_package(KF5IconThemes ${KF5_DEP_VERSION})
-find_package(KF5ConfigWidgets ${KF5_DEP_VERSION})
+find_package(KF5IconThemes ${KF_DEP_VERSION})
+find_package(KF5ConfigWidgets ${KF_DEP_VERSION})
 
 if (NOT APPLE AND NOT WIN32)
     find_package(X11)
