@@ -15,10 +15,7 @@ import org.kde.kirigami 2.4 as Kirigami
 T.Label {
     id: control
 
-    palette: Kirigami.Theme.palette
     verticalAlignment: lineCount > 1 ? Text.AlignTop : Text.AlignVCenter
-
-    activeFocusOnTab: false
 
     // Work around Qt bug where NativeRendering breaks for non-integer scale factors
     // https://bugreports.qt.io/browse/QTBUG-67007
@@ -34,20 +31,6 @@ T.Label {
         acceptedButtons: Qt.NoButton // Not actually accepting clicks, just changing the cursor
     }
 
-    font.capitalization: Kirigami.Theme.defaultFont.capitalization
-    font.family: Kirigami.Theme.defaultFont.family
-    font.italic: Kirigami.Theme.defaultFont.italic
-    font.letterSpacing: Kirigami.Theme.defaultFont.letterSpacing
-    font.pointSize: Kirigami.Theme.defaultFont.pointSize
-    font.strikeout: Kirigami.Theme.defaultFont.strikeout
-    font.underline: Kirigami.Theme.defaultFont.underline
-    font.weight: Kirigami.Theme.defaultFont.weight
-    font.wordSpacing: Kirigami.Theme.defaultFont.wordSpacing
     color: Kirigami.Theme.textColor
     linkColor: Kirigami.Theme.linkColor
-
-    opacity: enabled? 1 : 0.6
-
-    Accessible.role: Accessible.StaticText
-    Accessible.name: text
 }
