@@ -35,6 +35,17 @@ T.SpinBox {
         top: Math.max(controlRoot.from, controlRoot.to)
     }
 
+    // SpinBox does not update its value during editing, see QTBUG-91281
+    Connections {
+        target: controlRoot.contentItem
+        function onTextEdited() {
+            if (controlRoot.contentItem.text) {
+                controlRoot.value = controlRoot.valueFromText(controlRoot.contentItem.text, controlRoot.locale)
+                controlRoot.valueModified()
+            }
+        }
+    }
+
     contentItem: TextInput {
         z: 2
         text: controlRoot.textFromValue(controlRoot.value, controlRoot.locale)
