@@ -21,7 +21,7 @@ T.ToolButton {
     implicitWidth: text.length > 0 ? background.implicitWidth : implicitHeight
     implicitHeight: background.implicitHeight
 
-    hoverEnabled: true //Qt.styleHints.useHoverEffects TODO: how to make this work in 5.7?
+    hoverEnabled: Qt.styleHints.useHoverEffects
 
     flat: true
     contentItem: Item {}

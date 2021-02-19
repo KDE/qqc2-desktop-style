@@ -20,7 +20,7 @@ T.Button {
     implicitWidth: background.implicitWidth
     implicitHeight: background.implicitHeight
 
-    hoverEnabled: true //Qt.styleHints.useHoverEffects TODO: how to make this work in 5.7?
+    hoverEnabled: Qt.styleHints.useHoverEffects
 
     contentItem: Item {}
     Kirigami.MnemonicData.enabled: controlRoot.enabled && controlRoot.visible
