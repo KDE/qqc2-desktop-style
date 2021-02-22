@@ -10,58 +10,99 @@ import QtQuick.Layouts 1.2
 import QtQuick.Templates @QQC2_VERSION@ as T
 import QtQuick.Controls @QQC2_VERSION@ as Controls
 import org.kde.qqc2desktopstyle.private 1.0 as StylePrivate
-import org.kde.kirigami 2.4 as Kirigami
+import org.kde.kirigami 2.16 as Kirigami
 
 T.RoundButton {
     id: controlRoot
-    palette: Kirigami.Theme.palette
-    Kirigami.Theme.colorSet: !flat && controlRoot.activeFocus ? Kirigami.Theme.Selection : Kirigami.Theme.Button
-    Kirigami.Theme.inherit: false
 
-    implicitWidth: Math.max(background ? background.implicitWidth : 0,
-                            contentItem.implicitWidth + leftPadding + rightPadding)
-    implicitHeight: Math.max(background ? background.implicitHeight : 0,
-                             contentItem.implicitHeight + topPadding + bottomPadding)
+    Kirigami.Theme.colorSet: !flat && (controlRoot.activeFocus || controlRoot.highlighted) ? Kirigami.Theme.Selection : Kirigami.Theme.Button
+    Kirigami.Theme.inherit: flat && !down && !checked
+
+    implicitWidth: Math.max(implicitBackgroundWidth + leftInset + rightInset,
+                            implicitContentWidth + leftPadding + rightPadding)
+    implicitHeight: Math.max(implicitBackgroundHeight + topInset + bottomInset,
+                             implicitContentHeight + topPadding + bottomPadding,
+                             implicitIndicatorHeight + topPadding + bottomPadding)
+
     baselineOffset: contentItem.y + contentItem.baselineOffset
-
-    hoverEnabled: !Kirigami.Settings.isMobile
 
     transform: Translate {
         x: controlRoot.down || controlRoot.checked ? 1 : 0
         y: controlRoot.down || controlRoot.checked ? 1 : 0
     }
-    contentItem: Item {
-        implicitWidth: mainLayout.implicitWidth
-        implicitHeight: mainLayout.implicitHeight
-        RowLayout {
-            id: mainLayout
-            anchors.centerIn: parent
-            Kirigami.Icon {
-                Layout.preferredWidth: Kirigami.Units.iconSizes.smallMedium
-                Layout.preferredHeight: Kirigami.Units.iconSizes.smallMedium
-                Layout.fillWidth: true
-                Layout.fillHeight: true
-                visible: source.length > 0
-                source: controlRoot.icon ? (controlRoot.icon.name || controlRoot.icon.source) : ""
+
+    icon.width: Kirigami.Units.iconSizes.smallMedium
+    icon.height: Kirigami.Units.iconSizes.smallMedium
+
+    padding: 6 // Matches the button margins of Breeze, Fusion, Oxygen and QCommonStyle
+    spacing: 4 // Matches the default/hardcoded icon+label spacing of Qt Widgets
+
+    contentItem: GridLayout {
+        rowSpacing: controlRoot.spacing
+        columnSpacing: controlRoot.spacing
+        flow: iconContent.visible && labelContent.visible && controlRoot.display == T.AbstractButton.TextUnderIcon ? GridLayout.TopToBottom : GridLayout.LeftToRight
+        Kirigami.Icon {
+            id: iconContent
+            Layout.alignment: {
+                if (iconContent.visible && labelContent.visible) {
+                    if (controlRoot.display == T.AbstractButton.TextBesideIcon) {
+                        return Qt.AlignRight | Qt.AlignVCenter
+                    } else if (controlRoot.display == T.AbstractButton.TextUnderIcon) {
+                        return Qt.AlignHCenter | Qt.AlignBottom
+                    }
+                } else {
+                    return Qt.AlignCenter
+                }
             }
-            Controls.Label {
-                text: controlRoot.text
-                visible: text.length > 0
+            color: controlRoot.icon.color // defaults to Qt::transparent
+            implicitWidth: controlRoot.icon.width
+            implicitHeight: controlRoot.icon.height
+            visible: source.length > 0 && controlRoot.display != T.AbstractButton.TextOnly
+            source: controlRoot.icon ? (controlRoot.icon.name || controlRoot.icon.source) : ""
+        }
+        Controls.Label {
+            id: labelContent
+            Layout.alignment: {
+                if (iconContent.visible && labelContent.visible) {
+                    if (controlRoot.display == T.AbstractButton.TextBesideIcon) {
+                        return Qt.AlignLeft | Qt.AlignVCenter
+                    } else if (controlRoot.display == T.AbstractButton.TextUnderIcon) {
+                        return Qt.AlignHCenter | Qt.AlignTop
+                    }
+                } else {
+                    return Qt.AlignCenter
+                }
             }
+            text: controlRoot.text
+            visible: text.length > 0 && controlRoot.display != T.AbstractButton.IconOnly
         }
     }
     background: Rectangle {
-        property color borderColor: Qt.tint(Kirigami.Theme.textColor, Qt.rgba(Kirigami.Theme.backgroundColor.r, Kirigami.Theme.backgroundColor.g, Kirigami.Theme.backgroundColor.b, 0.7))
+        property color borderColor: Qt.tint(controlRoot.palette.buttonText, Qt.rgba(color.r, color.g, color.b, 0.7))
 
-        implicitWidth: Kirigami.Units.gridUnit * 2
-        implicitHeight: Kirigami.Units.gridUnit * 2
+        visible: !controlRoot.flat || controlRoot.hovered || controlRoot.activeFocus || controlRoot.highlighted || controlRoot.checked || controlRoot.down
+
+        implicitWidth: Kirigami.Units.gridUnit + 6 + 6
+        implicitHeight: Kirigami.Units.gridUnit + 6 + 6
         radius: controlRoot.radius
-        color: (controlRoot.activeFocus && (controlRoot.hovered || controlRoot.highlighted)) || controlRoot.down || controlRoot.checked ? Qt.lighter(borderColor, 1.1) : Kirigami.Theme.backgroundColor
+        color: {
+            if (controlRoot.checked || controlRoot.down) {
+                return Qt.tint(Kirigami.Theme.textColor, Qt.rgba(Kirigami.Theme.backgroundColor.r, Kirigami.Theme.backgroundColor.g, Kirigami.Theme.backgroundColor.b, 0.8))
+            } else if (controlRoot.flat) {
+                return Qt.rgba(
+                    Kirigami.Theme.backgroundColor.r,
+                    Kirigami.Theme.backgroundColor.g,
+                    Kirigami.Theme.backgroundColor.b, 0)
+            } else {
+                return Kirigami.Theme.backgroundColor
+            }
+        }
 
-        border.color: (controlRoot.hovered || controlRoot.highlighted) ? Qt.lighter(Kirigami.Theme.highlightColor, 1.2) : borderColor
-        border.width: 1
+        border.color: controlRoot.flat ? Kirigami.Theme.highlightColor : borderColor
+        border.width: controlRoot.flat && !(controlRoot.hovered || controlRoot.activeFocus || controlRoot.highlighted) ? 0 : 1
 
         Rectangle {
+            id: gradientRect
             radius: controlRoot.radius
             anchors.fill: parent
             visible: !controlRoot.flat
@@ -71,6 +112,7 @@ T.RoundButton {
             }
         }
         Rectangle {
+            id: shadowRect
             z: -1
             radius: controlRoot.radius
             visible: !controlRoot.down && !controlRoot.checked && !controlRoot.flat
