@@ -37,8 +37,8 @@ T.RoundButton {
             id: mainLayout
             anchors.centerIn: parent
             Kirigami.Icon {
-                Layout.preferredWidth: Kirigami.Units.iconSizes.smallMedium
-                Layout.preferredHeight: Kirigami.Units.iconSizes.smallMedium
+                Layout.preferredWidth: controlRoot.icon.width ? controlRoot.icon.width : Kirigami.Units.iconSizes.smallMedium
+                Layout.preferredHeight: controlRoot.icon.height ? controlRoot.icon.height : Kirigami.Units.iconSizes.smallMedium
                 Layout.fillWidth: true
                 Layout.fillHeight: true
                 visible: source.length > 0
