@@ -31,7 +31,7 @@ T.Popup {
             from: 0
             to: 1
             easing.type: Easing.InOutQuad
-            duration: 250
+            duration: Kirigami.Units.longDuration
         }
     }
 
@@ -41,7 +41,7 @@ T.Popup {
             from: 1
             to: 0
             easing.type: Easing.InOutQuad
-            duration: 250
+            duration: Kirigami.Units.longDuration
         }
     }
 

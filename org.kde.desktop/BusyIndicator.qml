@@ -29,16 +29,20 @@ T.BusyIndicator {
 
         // appearing/fading opacity change
         Behavior on opacity {
-            OpacityAnimator { duration: 250 }
+            OpacityAnimator { duration: Kirigami.Units.longDuration }
         }
 
         // rotating loading icon
         RotationAnimator {
             target: controlRoot.contentItem
-            running: controlRoot.visible && controlRoot.running
+            // Don't want it to animate at all if the user has disabled animations
+            running: controlRoot.visible && controlRoot.running && Kirigami.Units.longDuration > 1
             from: 0
             to: 360
             loops: Animation.Infinite
+            // Not using a standard duration value because we don't want the
+            // animation to spin faster or slower based on the user's animation
+            // scaling preferences; it doesn't make sense in this context
             duration: 2000
         }
     }

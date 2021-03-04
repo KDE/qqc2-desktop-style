@@ -55,7 +55,7 @@ T.MenuBarItem {
             anchors.fill: parent
             color: Kirigami.Theme.highlightColor
             opacity: controlRoot.down || controlRoot.highlighted  ? 0.7 : 0
-            Behavior on opacity { NumberAnimation { duration: 150 } }
+            Behavior on opacity { NumberAnimation { duration: Kirigami.Units.shortDuration } }
         }
     }
 }
