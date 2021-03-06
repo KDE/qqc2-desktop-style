@@ -202,7 +202,8 @@ void KQuickStyleItem::initStyleOption()
         if (hasMenu) {
             opt->features |= QStyleOptionButton::HasMenu;
         }
-    } break;
+        break;
+    }
     case ItemRow: {
         if (!m_styleoption)
             m_styleoption = new QStyleOptionViewItem();
@@ -211,13 +212,15 @@ void KQuickStyleItem::initStyleOption()
         opt->features = {};
         if (activeControl() == QLatin1String("alternate"))
             opt->features |= QStyleOptionViewItem::Alternate;
-    } break;
+        break;
+    }
 
     case Splitter: {
         if (!m_styleoption) {
             m_styleoption = new QStyleOption;
         }
-    } break;
+        break;
+    }
 
     case Item: {
         if (!m_styleoption) {
@@ -251,7 +254,8 @@ void KQuickStyleItem::initStyleOption()
             m_styleoption->state |= QStyle::State_Sibling;
         if (m_on)
             m_styleoption->state |= QStyle::State_Open;
-    } break;
+        break;
+    }
     case Header: {
         if (!m_styleoption)
             m_styleoption = new QStyleOptionHeader();
@@ -274,7 +278,8 @@ void KQuickStyleItem::initStyleOption()
 
         const QFont font = qApp->font("QHeaderView");
         opt->fontMetrics = QFontMetrics(font);
-    } break;
+        break;
+    }
     case ToolButton: {
         if (!m_styleoption)
             m_styleoption = new QStyleOptionToolButton();
@@ -324,11 +329,13 @@ void KQuickStyleItem::initStyleOption()
         const QFont font = qApp->font("QToolButton");
         opt->font = font;
         opt->fontMetrics = QFontMetrics(font);
-    } break;
+        break;
+    }
     case ToolBar: {
         if (!m_styleoption)
             m_styleoption = new QStyleOptionToolBar();
-    } break;
+        break;
+    }
     case Tab: {
         if (!m_styleoption)
             m_styleoption = new QStyleOptionTab();
@@ -360,7 +367,8 @@ void KQuickStyleItem::initStyleOption()
         else
             opt->selectedPosition = QStyleOptionTab::NotAdjacent;
 
-    } break;
+        break;
+    }
 
     case Frame: {
         if (!m_styleoption)
@@ -370,13 +378,15 @@ void KQuickStyleItem::initStyleOption()
         opt->frameShape = QFrame::StyledPanel;
         opt->lineWidth = KQuickStyleItem::style()->pixelMetric(QStyle::PM_DefaultFrameWidth, m_styleoption, nullptr);
         opt->midLineWidth = KQuickStyleItem::style()->pixelMetric(QStyle::PM_DefaultFrameWidth, m_styleoption, nullptr);
-    } break;
+        break;
+    }
     case FocusRect: {
         if (!m_styleoption)
             m_styleoption = new QStyleOptionFocusRect();
         // Needed on windows
         m_styleoption->state |= QStyle::State_KeyboardFocusChange;
-    } break;
+        break;
+    }
     case TabFrame: {
         if (!m_styleoption)
             m_styleoption = new QStyleOptionTabWidgetFrame();
@@ -389,7 +399,8 @@ void KQuickStyleItem::initStyleOption()
         opt->tabBarSize = QSize(minimum(), height());
         // oxygen style needs this hack
         opt->leftCornerWidgetSize = QSize(value(), 0);
-    } break;
+        break;
+    }
     case MenuBar:
         if (!m_styleoption) {
             QStyleOptionMenuItem *menuOpt = new QStyleOptionMenuItem();
@@ -411,11 +422,13 @@ void KQuickStyleItem::initStyleOption()
         opt->font = font;
         opt->fontMetrics = QFontMetrics(font);
         m_font = opt->font;
-    } break;
+        break;
+    }
     case Menu: {
         if (!m_styleoption)
             m_styleoption = new QStyleOptionMenuItem();
-    } break;
+        break;
+    }
     case MenuItem:
     case ComboBoxItem: {
         if (!m_styleoption)
@@ -460,7 +473,8 @@ void KQuickStyleItem::initStyleOption()
             opt->fontMetrics = QFontMetrics(font);
             m_font = opt->font;
         }
-    } break;
+        break;
+    }
     case CheckBox:
     case RadioButton: {
         if (!m_styleoption)
@@ -486,14 +500,16 @@ void KQuickStyleItem::initStyleOption()
             }
         }
         opt->iconSize = iconSize;
-    } break;
+        break;
+    }
     case Edit: {
         if (!m_styleoption)
             m_styleoption = new QStyleOptionFrame();
 
         QStyleOptionFrame *opt = qstyleoption_cast<QStyleOptionFrame *>(m_styleoption);
         opt->lineWidth = qMax(1, KQuickStyleItem::style()->pixelMetric(QStyle::PM_DefaultFrameWidth, m_styleoption, nullptr)); // this must be non zero
-    } break;
+        break;
+    }
     case ComboBox: {
         if (!m_styleoption)
             m_styleoption = new QStyleOptionComboBox();
@@ -522,7 +538,8 @@ void KQuickStyleItem::initStyleOption()
             }
         }
         opt->iconSize = iconSize;
-    } break;
+        break;
+    }
     case SpinBox: {
         if (!m_styleoption)
             m_styleoption = new QStyleOptionSpinBox();
@@ -540,7 +557,8 @@ void KQuickStyleItem::initStyleOption()
             opt->stepEnabled |= QAbstractSpinBox::StepUpEnabled;
         if (value() & (1 << 3))
             opt->stepEnabled |= QAbstractSpinBox::StepDownEnabled;
-    } break;
+        break;
+    }
     case Slider:
     case Dial: {
         if (!m_styleoption)
@@ -577,7 +595,8 @@ void KQuickStyleItem::initStyleOption()
             opt->subControls |= QStyle::SC_SliderTickmarks;
 
         opt->activeSubControls = QStyle::SC_SliderHandle;
-    } break;
+        break;
+    }
     case ProgressBar: {
         if (!m_styleoption)
             m_styleoption = new QStyleOptionProgressBar();
@@ -587,7 +606,8 @@ void KQuickStyleItem::initStyleOption()
         opt->minimum = qMax(0, minimum());
         opt->maximum = qMax(0, maximum());
         opt->progress = value();
-    } break;
+        break;
+    }
     case GroupBox: {
         if (!m_styleoption)
             m_styleoption = new QStyleOptionGroupBox();
@@ -605,7 +625,8 @@ void KQuickStyleItem::initStyleOption()
         if (m_properties[QStringLiteral("checkable")].toBool())
             opt->subControls |= QStyle::SC_GroupBoxCheckBox;
 
-    } break;
+        break;
+    }
     case ScrollBar: {
         if (!m_styleoption)
             m_styleoption = new QStyleOptionSlider();
@@ -713,7 +734,8 @@ QIcon KQuickStyleItem::iconFromIconProperty() const
         } else {
             icon = m_theme->iconFromTheme(iconSource, m_properties[QStringLiteral("iconColor")].value<QColor>());
         }
-    } break;
+        break;
+    }
     default:
         break;
     }
@@ -857,7 +879,8 @@ QString KQuickStyleItem::hitTest(int px, int py)
             return QStringLiteral("up");
         else if (subcontrol == QStyle::SC_SpinBoxDown)
             return QStringLiteral("down");
-    } break;
+        break;
+    }
 
     case Slider: {
         subcontrol = KQuickStyleItem::style()->hitTestComplexControl(QStyle::CC_Slider,
@@ -866,7 +889,8 @@ QString KQuickStyleItem::hitTest(int px, int py)
                                                                      nullptr);
         if (subcontrol == QStyle::SC_SliderHandle)
             return QStringLiteral("handle");
-    } break;
+        break;
+    }
 
     case ScrollBar: {
         subcontrol = KQuickStyleItem::style()->hitTestComplexControl(QStyle::CC_ScrollBar,
@@ -892,7 +916,8 @@ QString KQuickStyleItem::hitTest(int px, int py)
         default:
             break;
         }
-    } break;
+        break;
+    }
 
     default:
         break;
@@ -952,7 +977,8 @@ QSize KQuickStyleItem::sizeFromContents(int width, int height)
         }
         btn->rect.setSize(QSize(w, h));
         size = KQuickStyleItem::style()->sizeFromContents(QStyle::CT_ToolButton, m_styleoption, QSize(w, h));
-    } break;
+        break;
+    }
     case Button: {
         QStyleOptionButton *btn = qstyleoption_cast<QStyleOptionButton *>(m_styleoption);
 
@@ -968,13 +994,15 @@ QSize KQuickStyleItem::sizeFromContents(int width, int height)
         int newWidth = qMax(width, contentWidth);
         int newHeight = qMax(height, contentHeight);
         size = KQuickStyleItem::style()->sizeFromContents(QStyle::CT_PushButton, m_styleoption, QSize(newWidth, newHeight));
-    } break;
+        break;
+    }
     case ComboBox: {
         QStyleOptionComboBox *btn = qstyleoption_cast<QStyleOptionComboBox *>(m_styleoption);
         int newWidth = qMax(width, btn->fontMetrics.boundingRect(btn->currentText).width());
         int newHeight = qMax(height, btn->fontMetrics.height());
         size = KQuickStyleItem::style()->sizeFromContents(QStyle::CT_ComboBox, m_styleoption, QSize(newWidth, newHeight));
-    } break;
+        break;
+    }
     case Tab: {
         QStyleOptionTab *tab = qstyleoption_cast<QStyleOptionTab *>(m_styleoption);
 
@@ -1021,7 +1049,8 @@ QSize KQuickStyleItem::sizeFromContents(int width, int height)
         if (m_itemType == SpinBox) {
             size.setWidth(KQuickStyleItem::style()->sizeFromContents(QStyle::CT_SpinBox, m_styleoption, QSize(width + 2, height)).width());
         }
-    } break;
+        break;
+    }
     case GroupBox: {
         QStyleOptionGroupBox *box = qstyleoption_cast<QStyleOptionGroupBox *>(m_styleoption);
         QFontMetrics metrics(box->fontMetrics);
@@ -1033,7 +1062,8 @@ QSize KQuickStyleItem::sizeFromContents(int width, int height)
             baseHeight = qMax(baseHeight, KQuickStyleItem::style()->pixelMetric(QStyle::PM_IndicatorHeight));
         }
         size = KQuickStyleItem::style()->sizeFromContents(QStyle::CT_GroupBox, m_styleoption, QSize(qMax(baseWidth, m_contentWidth), baseHeight));
-    } break;
+        break;
+    }
     case Header:
         size = KQuickStyleItem::style()->sizeFromContents(QStyle::CT_HeaderSection, m_styleoption, QSize(width, height));
         break;
@@ -1373,7 +1403,8 @@ QRectF KQuickStyleItem::subControlRect(const QString &subcontrolString)
         }
         return KQuickStyleItem::style()->subControlRect(control, qstyleoption_cast<QStyleOptionComplex *>(m_styleoption), subcontrol);
 
-    } break;
+        break;
+    }
     case Slider: {
         QStyle::ComplexControl control = QStyle::CC_Slider;
         if (subcontrolString == QLatin1String("handle"))
@@ -1382,7 +1413,8 @@ QRectF KQuickStyleItem::subControlRect(const QString &subcontrolString)
             subcontrol = QStyle::SC_SliderGroove;
         return KQuickStyleItem::style()->subControlRect(control, qstyleoption_cast<QStyleOptionComplex *>(m_styleoption), subcontrol);
 
-    } break;
+        break;
+    }
     case ScrollBar: {
         QStyle::ComplexControl control = QStyle::CC_ScrollBar;
         if (subcontrolString == QLatin1String("slider"))
@@ -1396,7 +1428,8 @@ QRectF KQuickStyleItem::subControlRect(const QString &subcontrolString)
         else if (subcontrolString == QLatin1String("sub"))
             subcontrol = QStyle::SC_ScrollBarSubPage;
         return KQuickStyleItem::style()->subControlRect(control, qstyleoption_cast<QStyleOptionComplex *>(m_styleoption), subcontrol);
-    } break;
+        break;
+    }
     case ItemBranchIndicator: {
         QStyleOption opt;
         opt.rect = QRect(0, 0, implicitWidth(), implicitHeight());
@@ -1475,7 +1508,8 @@ void KQuickStyleItem::paint(QPainter *painter)
             QPixmapCache::insert(pmKey, pixmap);
         }
         painter->drawPixmap(0, 0, pixmap);
-    } break;
+        break;
+    }
     case Item:
         KQuickStyleItem::style()->drawControl(QStyle::CE_ItemViewItem, m_styleoption, painter);
         break;
@@ -1493,7 +1527,8 @@ void KQuickStyleItem::paint(QPainter *painter)
             m_styleoption->state &= ~QStyle::State_HasFocus;
         }
         KQuickStyleItem::style()->drawControl(QStyle::CE_TabBarTab, m_styleoption, painter);
-    } break;
+        break;
+    }
     case Frame:
         m_styleoption->state |= QStyle::State_Sunken;
         m_styleoption->state &= ~QStyle::State_Raised;
@@ -1519,7 +1554,8 @@ void KQuickStyleItem::paint(QPainter *painter)
         QStyle::ControlElement menuElement =
             static_cast<QStyleOptionMenuItem *>(m_styleoption)->menuItemType == QStyleOptionMenuItem::Scroller ? QStyle::CE_MenuScroller : QStyle::CE_MenuItem;
         KQuickStyleItem::style()->drawControl(menuElement, m_styleoption, painter);
-    } break;
+        break;
+    }
     case CheckBox:
         KQuickStyleItem::style()->drawControl(QStyle::CE_CheckBox, m_styleoption, painter);
         break;
@@ -1551,7 +1587,8 @@ void KQuickStyleItem::paint(QPainter *painter)
         painter->setPen(m_styleoption->palette.text().color());
         KQuickStyleItem::style()->drawControl(QStyle::CE_ComboBoxLabel, m_styleoption, painter);
         painter->setPen(pen);
-    } break;
+        break;
+    }
     case SpinBox:
 #ifdef Q_OS_MAC
         // macstyle depends on the embedded qlineedit to fill the editfield background
@@ -1587,7 +1624,8 @@ void KQuickStyleItem::paint(QPainter *painter)
         painter->setPen(m_styleoption->palette.dark().color().darker(120));
         painter->drawLine(m_styleoption->rect.topLeft(), m_styleoption->rect.topRight());
         KQuickStyleItem::style()->drawPrimitive(QStyle::PE_PanelStatusBar, m_styleoption, painter);
-    } break;
+        break;
+    }
     case GroupBox:
         KQuickStyleItem::style()->drawComplexControl(QStyle::CC_GroupBox, qstyleoption_cast<QStyleOptionComplex *>(m_styleoption), painter);
         break;
@@ -1613,7 +1651,8 @@ void KQuickStyleItem::paint(QPainter *painter)
             frame.palette = m_styleoption->palette;
             KQuickStyleItem::style()->drawPrimitive(QStyle::PE_FrameMenu, &frame, painter);
         }
-    } break;
+        break;
+    }
     default:
         break;
     }
