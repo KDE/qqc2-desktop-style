@@ -28,23 +28,61 @@ class KQuickPadding : public QObject
     int m_bottom;
 
 public:
-    KQuickPadding(QObject *parent = nullptr) :
-        QObject(parent),
-        m_left(0),
-        m_top(0),
-        m_right(0),
-        m_bottom(0) {}
+    KQuickPadding(QObject *parent = nullptr)
+        : QObject(parent)
+        , m_left(0)
+        , m_top(0)
+        , m_right(0)
+        , m_bottom(0)
+    {
+    }
 
-    int left() const { return m_left; }
-    int top() const { return m_top; }
-    int right() const { return m_right; }
-    int bottom() const { return m_bottom; }
+    int left() const
+    {
+        return m_left;
+    }
+    int top() const
+    {
+        return m_top;
+    }
+    int right() const
+    {
+        return m_right;
+    }
+    int bottom() const
+    {
+        return m_bottom;
+    }
 
 public Q_SLOTS:
-    void setLeft(int arg) { if (m_left != arg) {m_left = arg; Q_EMIT leftChanged();}}
-    void setTop(int arg) { if (m_top != arg) {m_top = arg; Q_EMIT topChanged();}}
-    void setRight(int arg) { if (m_right != arg) {m_right = arg; Q_EMIT rightChanged();}}
-    void setBottom(int arg) {if (m_bottom != arg) {m_bottom = arg; Q_EMIT bottomChanged();}}
+    void setLeft(int arg)
+    {
+        if (m_left != arg) {
+            m_left = arg;
+            Q_EMIT leftChanged();
+        }
+    }
+    void setTop(int arg)
+    {
+        if (m_top != arg) {
+            m_top = arg;
+            Q_EMIT topChanged();
+        }
+    }
+    void setRight(int arg)
+    {
+        if (m_right != arg) {
+            m_right = arg;
+            Q_EMIT rightChanged();
+        }
+    }
+    void setBottom(int arg)
+    {
+        if (m_bottom != arg) {
+            m_bottom = arg;
+            Q_EMIT bottomChanged();
+        }
+    }
 
 Q_SIGNALS:
     void leftChanged();
@@ -52,6 +90,5 @@ Q_SIGNALS:
     void rightChanged();
     void bottomChanged();
 };
-
 
 #endif // QQUICKPADDING_H

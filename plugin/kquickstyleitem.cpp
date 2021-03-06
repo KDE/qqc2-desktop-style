@@ -10,18 +10,18 @@
 
 #include "kquickstyleitem_p.h"
 
-#include <QStringBuilder>
+#include <QApplication>
 #include <QPainter>
 #include <QPixmapCache>
+#include <QQuickWindow>
+#include <QStringBuilder>
 #include <QStyle>
 #include <QStyleFactory>
-#include <qstyleoption.h>
-#include <QApplication>
-#include <QQuickWindow>
 #include <QtQuick/qsgninepatchnode.h>
+#include <qstyleoption.h>
 
-#include <ksharedconfig.h>
 #include <KConfigGroup>
+#include <ksharedconfig.h>
 
 #include <Kirigami2/PlatformTheme>
 
@@ -34,29 +34,29 @@ QStyle *KQuickStyleItem::style()
 }
 
 KQuickStyleItem::KQuickStyleItem(QQuickItem *parent)
-    : QQuickItem(parent),
-    m_styleoption(nullptr),
-    m_itemType(Undefined),
-    m_sunken(false),
-    m_raised(false),
-    m_active(true),
-    m_selected(false),
-    m_focus(false),
-    m_hover(false),
-    m_on(false),
-    m_horizontal(true),
-    m_transient(false),
-    m_sharedWidget(false),
-    m_minimum(0),
-    m_maximum(100),
-    m_value(0),
-    m_step(0),
-    m_paintMargins(0),
-    m_contentWidth(0),
-    m_contentHeight(0),
-    m_textureWidth(0),
-    m_textureHeight(0),
-    m_lastFocusReason(Qt::NoFocusReason)
+    : QQuickItem(parent)
+    , m_styleoption(nullptr)
+    , m_itemType(Undefined)
+    , m_sunken(false)
+    , m_raised(false)
+    , m_active(true)
+    , m_selected(false)
+    , m_focus(false)
+    , m_hover(false)
+    , m_on(false)
+    , m_horizontal(true)
+    , m_transient(false)
+    , m_sharedWidget(false)
+    , m_minimum(0)
+    , m_maximum(100)
+    , m_value(0)
+    , m_step(0)
+    , m_paintMargins(0)
+    , m_contentWidth(0)
+    , m_contentHeight(0)
+    , m_textureWidth(0)
+    , m_textureHeight(0)
+    , m_lastFocusReason(Qt::NoFocusReason)
 {
     // There is no styleChanged signal and QApplication sends QEvent::StyleChange only to all QWidgets
     if (qApp->style()) {
@@ -114,35 +114,35 @@ KQuickStyleItem::KQuickStyleItem(QQuickItem *parent)
 
 KQuickStyleItem::~KQuickStyleItem()
 {
-    if (const QStyleOptionButton *aux = qstyleoption_cast<const QStyleOptionButton*>(m_styleoption))
+    if (const QStyleOptionButton *aux = qstyleoption_cast<const QStyleOptionButton *>(m_styleoption))
         delete aux;
-    else if (const QStyleOptionViewItem *aux = qstyleoption_cast<const QStyleOptionViewItem*>(m_styleoption))
+    else if (const QStyleOptionViewItem *aux = qstyleoption_cast<const QStyleOptionViewItem *>(m_styleoption))
         delete aux;
-    else if (const QStyleOptionHeader *aux = qstyleoption_cast<const QStyleOptionHeader*>(m_styleoption))
+    else if (const QStyleOptionHeader *aux = qstyleoption_cast<const QStyleOptionHeader *>(m_styleoption))
         delete aux;
-    else if (const QStyleOptionToolButton *aux = qstyleoption_cast<const QStyleOptionToolButton*>(m_styleoption))
+    else if (const QStyleOptionToolButton *aux = qstyleoption_cast<const QStyleOptionToolButton *>(m_styleoption))
         delete aux;
-    else if (const QStyleOptionToolBar *aux = qstyleoption_cast<const QStyleOptionToolBar*>(m_styleoption))
+    else if (const QStyleOptionToolBar *aux = qstyleoption_cast<const QStyleOptionToolBar *>(m_styleoption))
         delete aux;
-    else if (const QStyleOptionTab *aux = qstyleoption_cast<const QStyleOptionTab*>(m_styleoption))
+    else if (const QStyleOptionTab *aux = qstyleoption_cast<const QStyleOptionTab *>(m_styleoption))
         delete aux;
-    else if (const QStyleOptionFrame *aux = qstyleoption_cast<const QStyleOptionFrame*>(m_styleoption))
+    else if (const QStyleOptionFrame *aux = qstyleoption_cast<const QStyleOptionFrame *>(m_styleoption))
         delete aux;
-    else if (const QStyleOptionFocusRect *aux = qstyleoption_cast<const QStyleOptionFocusRect*>(m_styleoption))
+    else if (const QStyleOptionFocusRect *aux = qstyleoption_cast<const QStyleOptionFocusRect *>(m_styleoption))
         delete aux;
-    else if (const QStyleOptionTabWidgetFrame *aux = qstyleoption_cast<const QStyleOptionTabWidgetFrame*>(m_styleoption))
+    else if (const QStyleOptionTabWidgetFrame *aux = qstyleoption_cast<const QStyleOptionTabWidgetFrame *>(m_styleoption))
         delete aux;
-    else if (const QStyleOptionMenuItem *aux = qstyleoption_cast<const QStyleOptionMenuItem*>(m_styleoption))
+    else if (const QStyleOptionMenuItem *aux = qstyleoption_cast<const QStyleOptionMenuItem *>(m_styleoption))
         delete aux;
-    else if (const QStyleOptionComboBox *aux = qstyleoption_cast<const QStyleOptionComboBox*>(m_styleoption))
+    else if (const QStyleOptionComboBox *aux = qstyleoption_cast<const QStyleOptionComboBox *>(m_styleoption))
         delete aux;
-    else if (const QStyleOptionSpinBox *aux = qstyleoption_cast<const QStyleOptionSpinBox*>(m_styleoption))
+    else if (const QStyleOptionSpinBox *aux = qstyleoption_cast<const QStyleOptionSpinBox *>(m_styleoption))
         delete aux;
-    else if (const QStyleOptionSlider *aux = qstyleoption_cast<const QStyleOptionSlider*>(m_styleoption))
+    else if (const QStyleOptionSlider *aux = qstyleoption_cast<const QStyleOptionSlider *>(m_styleoption))
         delete aux;
-    else if (const QStyleOptionProgressBar *aux = qstyleoption_cast<const QStyleOptionProgressBar*>(m_styleoption))
+    else if (const QStyleOptionProgressBar *aux = qstyleoption_cast<const QStyleOptionProgressBar *>(m_styleoption))
         delete aux;
-    else if (const QStyleOptionGroupBox *aux = qstyleoption_cast<const QStyleOptionGroupBox*>(m_styleoption))
+    else if (const QStyleOptionGroupBox *aux = qstyleoption_cast<const QStyleOptionGroupBox *>(m_styleoption))
         delete aux;
     else
         delete m_styleoption;
@@ -157,7 +157,7 @@ void KQuickStyleItem::initStyleOption()
         Q_ASSERT(m_theme);
 
         connect(m_theme, &Kirigami::PlatformTheme::colorsChanged, this, [this]() {
-            //we need to reset the palette event if Qt::AA_SetPalette attribute has been set
+            // we need to reset the palette event if Qt::AA_SetPalette attribute has been set
             m_styleoption->palette = m_theme->palette();
             updateItem();
         });
@@ -176,7 +176,7 @@ void KQuickStyleItem::initStyleOption()
         if (!m_styleoption)
             m_styleoption = new QStyleOptionButton();
 
-        QStyleOptionButton *opt = qstyleoption_cast<QStyleOptionButton*>(m_styleoption);
+        QStyleOptionButton *opt = qstyleoption_cast<QStyleOptionButton *>(m_styleoption);
         opt->text = text();
 
         opt->icon = iconFromIconProperty();
@@ -192,9 +192,7 @@ void KQuickStyleItem::initStyleOption()
             }
         }
         opt->iconSize = iconSize;
-        opt->features = activeControl() == QLatin1String("default") ?
-                    QStyleOptionButton::DefaultButton :
-                    QStyleOptionButton::None;
+        opt->features = activeControl() == QLatin1String("default") ? QStyleOptionButton::DefaultButton : QStyleOptionButton::None;
         if (m_properties[QStringLiteral("flat")].toBool()) {
             opt->features |= QStyleOptionButton::Flat;
         }
@@ -204,31 +202,28 @@ void KQuickStyleItem::initStyleOption()
         if (hasMenu) {
             opt->features |= QStyleOptionButton::HasMenu;
         }
-    }
-        break;
+    } break;
     case ItemRow: {
         if (!m_styleoption)
             m_styleoption = new QStyleOptionViewItem();
 
-        QStyleOptionViewItem *opt = qstyleoption_cast<QStyleOptionViewItem*>(m_styleoption);
+        QStyleOptionViewItem *opt = qstyleoption_cast<QStyleOptionViewItem *>(m_styleoption);
         opt->features = {};
         if (activeControl() == QLatin1String("alternate"))
             opt->features |= QStyleOptionViewItem::Alternate;
-    }
-        break;
+    } break;
 
     case Splitter: {
         if (!m_styleoption) {
             m_styleoption = new QStyleOption;
         }
-    }
-        break;
+    } break;
 
     case Item: {
         if (!m_styleoption) {
             m_styleoption = new QStyleOptionViewItem();
         }
-        QStyleOptionViewItem *opt = qstyleoption_cast<QStyleOptionViewItem*>(m_styleoption);
+        QStyleOptionViewItem *opt = qstyleoption_cast<QStyleOptionViewItem *>(m_styleoption);
         opt->features = QStyleOptionViewItem::HasDisplay;
         opt->text = text();
         opt->textElideMode = Qt::ElideRight;
@@ -256,19 +251,17 @@ void KQuickStyleItem::initStyleOption()
             m_styleoption->state |= QStyle::State_Sibling;
         if (m_on)
             m_styleoption->state |= QStyle::State_Open;
-    }
-        break;
+    } break;
     case Header: {
         if (!m_styleoption)
             m_styleoption = new QStyleOptionHeader();
 
-        QStyleOptionHeader *opt = qstyleoption_cast<QStyleOptionHeader*>(m_styleoption);
+        QStyleOptionHeader *opt = qstyleoption_cast<QStyleOptionHeader *>(m_styleoption);
         opt->text = text();
         opt->textAlignment = static_cast<Qt::AlignmentFlag>(m_properties.value(QStringLiteral("textalignment")).toInt());
-        opt->sortIndicator = activeControl() == QLatin1String("down") ?
-                    QStyleOptionHeader::SortDown
-                  : activeControl() == QLatin1String("up") ?
-                        QStyleOptionHeader::SortUp : QStyleOptionHeader::None;
+        opt->sortIndicator = activeControl() == QLatin1String("down") ? QStyleOptionHeader::SortDown
+            : activeControl() == QLatin1String("up")                  ? QStyleOptionHeader::SortUp
+                                                                      : QStyleOptionHeader::None;
         QString headerpos = m_properties.value(QStringLiteral("headerpos")).toString();
         if (headerpos == QLatin1String("beginning"))
             opt->position = QStyleOptionHeader::Beginning;
@@ -281,14 +274,12 @@ void KQuickStyleItem::initStyleOption()
 
         const QFont font = qApp->font("QHeaderView");
         opt->fontMetrics = QFontMetrics(font);
-    }
-        break;
+    } break;
     case ToolButton: {
         if (!m_styleoption)
             m_styleoption = new QStyleOptionToolButton();
 
-        QStyleOptionToolButton *opt =
-                qstyleoption_cast<QStyleOptionToolButton*>(m_styleoption);
+        QStyleOptionToolButton *opt = qstyleoption_cast<QStyleOptionToolButton *>(m_styleoption);
         opt->subControls = QStyle::SC_ToolButton;
 
         if (!m_raised) {
@@ -333,18 +324,16 @@ void KQuickStyleItem::initStyleOption()
         const QFont font = qApp->font("QToolButton");
         opt->font = font;
         opt->fontMetrics = QFontMetrics(font);
-    }
-        break;
+    } break;
     case ToolBar: {
         if (!m_styleoption)
             m_styleoption = new QStyleOptionToolBar();
-    }
-        break;
+    } break;
     case Tab: {
         if (!m_styleoption)
             m_styleoption = new QStyleOptionTab();
 
-        QStyleOptionTab *opt = qstyleoption_cast<QStyleOptionTab*>(m_styleoption);
+        QStyleOptionTab *opt = qstyleoption_cast<QStyleOptionTab *>(m_styleoption);
         opt->text = text();
 
         if (m_properties.value(QStringLiteral("hasFrame")).toBool())
@@ -371,40 +360,36 @@ void KQuickStyleItem::initStyleOption()
         else
             opt->selectedPosition = QStyleOptionTab::NotAdjacent;
 
-
     } break;
 
     case Frame: {
         if (!m_styleoption)
             m_styleoption = new QStyleOptionFrame();
 
-        QStyleOptionFrame *opt = qstyleoption_cast<QStyleOptionFrame*>(m_styleoption);
+        QStyleOptionFrame *opt = qstyleoption_cast<QStyleOptionFrame *>(m_styleoption);
         opt->frameShape = QFrame::StyledPanel;
         opt->lineWidth = KQuickStyleItem::style()->pixelMetric(QStyle::PM_DefaultFrameWidth, m_styleoption, nullptr);
         opt->midLineWidth = KQuickStyleItem::style()->pixelMetric(QStyle::PM_DefaultFrameWidth, m_styleoption, nullptr);
-    }
-        break;
+    } break;
     case FocusRect: {
         if (!m_styleoption)
             m_styleoption = new QStyleOptionFocusRect();
         // Needed on windows
         m_styleoption->state |= QStyle::State_KeyboardFocusChange;
-    }
-        break;
+    } break;
     case TabFrame: {
         if (!m_styleoption)
             m_styleoption = new QStyleOptionTabWidgetFrame();
-        QStyleOptionTabWidgetFrame *opt = qstyleoption_cast<QStyleOptionTabWidgetFrame*>(m_styleoption);
+        QStyleOptionTabWidgetFrame *opt = qstyleoption_cast<QStyleOptionTabWidgetFrame *>(m_styleoption);
 
         opt->selectedTabRect = m_properties[QStringLiteral("selectedTabRect")].toRect();
         opt->shape = m_properties[QStringLiteral("orientation")] == Qt::BottomEdge ? QTabBar::RoundedSouth : QTabBar::RoundedNorth;
         if (minimum())
             opt->selectedTabRect = QRect(value(), 0, minimum(), height());
-        opt->tabBarSize = QSize(minimum() , height());
+        opt->tabBarSize = QSize(minimum(), height());
         // oxygen style needs this hack
         opt->leftCornerWidgetSize = QSize(value(), 0);
-    }
-        break;
+    } break;
     case MenuBar:
         if (!m_styleoption) {
             QStyleOptionMenuItem *menuOpt = new QStyleOptionMenuItem();
@@ -413,12 +398,11 @@ void KQuickStyleItem::initStyleOption()
         }
 
         break;
-    case MenuBarItem:
-    {
+    case MenuBarItem: {
         if (!m_styleoption)
             m_styleoption = new QStyleOptionMenuItem();
 
-        QStyleOptionMenuItem *opt = qstyleoption_cast<QStyleOptionMenuItem*>(m_styleoption);
+        QStyleOptionMenuItem *opt = qstyleoption_cast<QStyleOptionMenuItem *>(m_styleoption);
         opt->text = text();
         opt->menuItemType = QStyleOptionMenuItem::Normal;
         setProperty("_q_showUnderlined", m_hints[QStringLiteral("showUnderlined")].toBool());
@@ -427,30 +411,25 @@ void KQuickStyleItem::initStyleOption()
         opt->font = font;
         opt->fontMetrics = QFontMetrics(font);
         m_font = opt->font;
-    }
-        break;
+    } break;
     case Menu: {
         if (!m_styleoption)
             m_styleoption = new QStyleOptionMenuItem();
-    }
-        break;
+    } break;
     case MenuItem:
-    case ComboBoxItem:
-    {
+    case ComboBoxItem: {
         if (!m_styleoption)
             m_styleoption = new QStyleOptionMenuItem();
 
-        QStyleOptionMenuItem *opt = qstyleoption_cast<QStyleOptionMenuItem*>(m_styleoption);
+        QStyleOptionMenuItem *opt = qstyleoption_cast<QStyleOptionMenuItem *>(m_styleoption);
         // For GTK style. See below, in setElementType()
         setProperty("_q_isComboBoxPopupItem", m_itemType == ComboBoxItem);
 
-        KQuickStyleItem::MenuItemType type =
-                static_cast<KQuickStyleItem::MenuItemType>(m_properties[QStringLiteral("type")].toInt());
+        KQuickStyleItem::MenuItemType type = static_cast<KQuickStyleItem::MenuItemType>(m_properties[QStringLiteral("type")].toInt());
         if (type == KQuickStyleItem::ScrollIndicatorType) {
             int scrollerDirection = m_properties[QStringLiteral("scrollerDirection")].toInt();
             opt->menuItemType = QStyleOptionMenuItem::Scroller;
-            opt->state |= scrollerDirection == Qt::UpArrow ?
-                        QStyle::State_UpArrow : QStyle::State_DownArrow;
+            opt->state |= scrollerDirection == Qt::UpArrow ? QStyle::State_UpArrow : QStyle::State_DownArrow;
         } else if (type == KQuickStyleItem::SeparatorType) {
             opt->menuItemType = QStyleOptionMenuItem::Separator;
         } else {
@@ -470,27 +449,24 @@ void KQuickStyleItem::initStyleOption()
                 if (m_properties[QStringLiteral("checkable")].toBool()) {
                     opt->checked = on();
                     QVariant exclusive = m_properties[QStringLiteral("exclusive")];
-                    opt->checkType = exclusive.toBool() ? QStyleOptionMenuItem::Exclusive :
-                                                          QStyleOptionMenuItem::NonExclusive;
+                    opt->checkType = exclusive.toBool() ? QStyleOptionMenuItem::Exclusive : QStyleOptionMenuItem::NonExclusive;
                 }
             }
             opt->icon = iconFromIconProperty();
             setProperty("_q_showUnderlined", m_hints[QStringLiteral("showUnderlined")].toBool());
 
-            const QFont font = qApp->font(m_itemType == ComboBoxItem ?"QComboMenuItem" : "QMenu");
+            const QFont font = qApp->font(m_itemType == ComboBoxItem ? "QComboMenuItem" : "QMenu");
             opt->font = font;
             opt->fontMetrics = QFontMetrics(font);
             m_font = opt->font;
         }
-    }
-        break;
+    } break;
     case CheckBox:
-    case RadioButton:
-    {
+    case RadioButton: {
         if (!m_styleoption)
             m_styleoption = new QStyleOptionButton();
 
-        QStyleOptionButton *opt = qstyleoption_cast<QStyleOptionButton*>(m_styleoption);
+        QStyleOptionButton *opt = qstyleoption_cast<QStyleOptionButton *>(m_styleoption);
         if (!on())
             opt->state |= QStyle::State_Off;
         if (m_properties.value(QStringLiteral("partiallyChecked")).toBool())
@@ -510,23 +486,21 @@ void KQuickStyleItem::initStyleOption()
             }
         }
         opt->iconSize = iconSize;
-    }
-        break;
+    } break;
     case Edit: {
         if (!m_styleoption)
             m_styleoption = new QStyleOptionFrame();
 
-        QStyleOptionFrame *opt = qstyleoption_cast<QStyleOptionFrame*>(m_styleoption);
-        opt->lineWidth = qMax(1, KQuickStyleItem::style()->pixelMetric(QStyle::PM_DefaultFrameWidth, m_styleoption, nullptr)); //this must be non zero
-    }
-        break;
-    case ComboBox :{
+        QStyleOptionFrame *opt = qstyleoption_cast<QStyleOptionFrame *>(m_styleoption);
+        opt->lineWidth = qMax(1, KQuickStyleItem::style()->pixelMetric(QStyle::PM_DefaultFrameWidth, m_styleoption, nullptr)); // this must be non zero
+    } break;
+    case ComboBox: {
         if (!m_styleoption)
             m_styleoption = new QStyleOptionComboBox();
 
-        QStyleOptionComboBox *opt = qstyleoption_cast<QStyleOptionComboBox*>(m_styleoption);
+        QStyleOptionComboBox *opt = qstyleoption_cast<QStyleOptionComboBox *>(m_styleoption);
 
-        const QFont font = qApp->font("QPushButton"); //DAVE - QQC1 code does this, but if you look at QComboBox this doesn't make sense
+        const QFont font = qApp->font("QPushButton"); // DAVE - QQC1 code does this, but if you look at QComboBox this doesn't make sense
         opt->fontMetrics = QFontMetrics(font);
         opt->currentText = text();
         opt->editable = m_properties[QStringLiteral("editable")].toBool();
@@ -548,34 +522,31 @@ void KQuickStyleItem::initStyleOption()
             }
         }
         opt->iconSize = iconSize;
-    }
-        break;
+    } break;
     case SpinBox: {
         if (!m_styleoption)
             m_styleoption = new QStyleOptionSpinBox();
 
-        QStyleOptionSpinBox *opt = qstyleoption_cast<QStyleOptionSpinBox*>(m_styleoption);
+        QStyleOptionSpinBox *opt = qstyleoption_cast<QStyleOptionSpinBox *>(m_styleoption);
         opt->frame = true;
         opt->subControls = QStyle::SC_SpinBoxFrame | QStyle::SC_SpinBoxEditField;
         if (value() & 0x1)
             opt->activeSubControls = QStyle::SC_SpinBoxUp;
-        else if (value() & (1<<1))
+        else if (value() & (1 << 1))
             opt->activeSubControls = QStyle::SC_SpinBoxDown;
         opt->subControls = QStyle::SC_All;
         opt->stepEnabled = {};
-        if (value() & (1<<2))
+        if (value() & (1 << 2))
             opt->stepEnabled |= QAbstractSpinBox::StepUpEnabled;
-        if (value() & (1<<3))
+        if (value() & (1 << 3))
             opt->stepEnabled |= QAbstractSpinBox::StepDownEnabled;
-    }
-        break;
+    } break;
     case Slider:
-    case Dial:
-    {
+    case Dial: {
         if (!m_styleoption)
             m_styleoption = new QStyleOptionSlider();
 
-        QStyleOptionSlider *opt = qstyleoption_cast<QStyleOptionSlider*>(m_styleoption);
+        QStyleOptionSlider *opt = qstyleoption_cast<QStyleOptionSlider *>(m_styleoption);
         opt->orientation = horizontal() ? Qt::Horizontal : Qt::Vertical;
         opt->upsideDown = !horizontal();
 
@@ -601,30 +572,27 @@ void KQuickStyleItem::initStyleOption()
 
         opt->sliderValue = value();
         opt->subControls = QStyle::SC_SliderGroove | QStyle::SC_SliderHandle;
-        opt->tickPosition = activeControl() == QLatin1String("ticks") ?
-                    QSlider::TicksBelow : QSlider::NoTicks;
+        opt->tickPosition = activeControl() == QLatin1String("ticks") ? QSlider::TicksBelow : QSlider::NoTicks;
         if (opt->tickPosition != QSlider::NoTicks)
             opt->subControls |= QStyle::SC_SliderTickmarks;
 
         opt->activeSubControls = QStyle::SC_SliderHandle;
-    }
-        break;
+    } break;
     case ProgressBar: {
         if (!m_styleoption)
             m_styleoption = new QStyleOptionProgressBar();
 
-        QStyleOptionProgressBar *opt = qstyleoption_cast<QStyleOptionProgressBar*>(m_styleoption);
+        QStyleOptionProgressBar *opt = qstyleoption_cast<QStyleOptionProgressBar *>(m_styleoption);
         opt->orientation = horizontal() ? Qt::Horizontal : Qt::Vertical;
         opt->minimum = qMax(0, minimum());
         opt->maximum = qMax(0, maximum());
         opt->progress = value();
-    }
-        break;
+    } break;
     case GroupBox: {
         if (!m_styleoption)
             m_styleoption = new QStyleOptionGroupBox();
 
-        QStyleOptionGroupBox *opt = qstyleoption_cast<QStyleOptionGroupBox*>(m_styleoption);
+        QStyleOptionGroupBox *opt = qstyleoption_cast<QStyleOptionGroupBox *>(m_styleoption);
         opt->text = text();
         opt->lineWidth = KQuickStyleItem::style()->pixelMetric(QStyle::PM_DefaultFrameWidth, m_styleoption, nullptr);
         opt->subControls = QStyle::SC_GroupBoxLabel;
@@ -637,24 +605,23 @@ void KQuickStyleItem::initStyleOption()
         if (m_properties[QStringLiteral("checkable")].toBool())
             opt->subControls |= QStyle::SC_GroupBoxCheckBox;
 
-    }
-        break;
+    } break;
     case ScrollBar: {
         if (!m_styleoption)
             m_styleoption = new QStyleOptionSlider();
 
-        QStyleOptionSlider *opt = qstyleoption_cast<QStyleOptionSlider*>(m_styleoption);
+        QStyleOptionSlider *opt = qstyleoption_cast<QStyleOptionSlider *>(m_styleoption);
         opt->minimum = qMax(0, minimum());
         opt->maximum = qMax(0, maximum());
         opt->pageStep = qMax(0, int(horizontal() ? width() : height()));
         opt->orientation = horizontal() ? Qt::Horizontal : Qt::Vertical;
         opt->sliderPosition = value();
         opt->sliderValue = value();
-        opt->activeSubControls = (activeControl() == QLatin1String("up"))
-                ? QStyle::SC_ScrollBarSubLine : (activeControl() == QLatin1String("down")) ?
-                      QStyle::SC_ScrollBarAddLine :
-                  (activeControl() == QLatin1String("handle")) ?
-                      QStyle::SC_ScrollBarSlider : hover() ? QStyle::SC_ScrollBarGroove : QStyle::SC_None;
+        opt->activeSubControls = (activeControl() == QLatin1String("up")) ? QStyle::SC_ScrollBarSubLine
+            : (activeControl() == QLatin1String("down"))                  ? QStyle::SC_ScrollBarAddLine
+            : (activeControl() == QLatin1String("handle"))                ? QStyle::SC_ScrollBarSlider
+            : hover()                                                     ? QStyle::SC_ScrollBarGroove
+                                                                          : QStyle::SC_None;
         if (raised())
             opt->state |= QStyle::State_On;
 
@@ -680,7 +647,7 @@ void KQuickStyleItem::initStyleOption()
     int w = m_textureWidth > 0 ? m_textureWidth : width();
     int h = m_textureHeight > 0 ? m_textureHeight : height();
 
-    m_styleoption->rect = QRect(m_paintMargins, 0, w - 2* m_paintMargins, h);
+    m_styleoption->rect = QRect(m_paintMargins, 0, w - 2 * m_paintMargins, h);
 
     if (isEnabled()) {
         m_styleoption->state |= QStyle::State_Enabled;
@@ -713,9 +680,9 @@ void KQuickStyleItem::initStyleOption()
     // some styles don't draw a focus rectangle if
     // QStyle::State_KeyboardFocusChange is not set
     if (window()) {
-         if (m_lastFocusReason == Qt::TabFocusReason || m_lastFocusReason == Qt::BacktabFocusReason) {
-             m_styleoption->state |= QStyle::State_KeyboardFocusChange;
-         }
+        if (m_lastFocusReason == Qt::TabFocusReason || m_lastFocusReason == Qt::BacktabFocusReason) {
+            m_styleoption->state |= QStyle::State_KeyboardFocusChange;
+        }
     }
 
     if (sizeHint == QLatin1String("mini")) {
@@ -723,14 +690,13 @@ void KQuickStyleItem::initStyleOption()
     } else if (sizeHint == QLatin1String("small")) {
         m_styleoption->state |= QStyle::State_Small;
     }
-
 }
 
 QIcon KQuickStyleItem::iconFromIconProperty() const
 {
     QIcon icon;
     const QVariant iconProperty = m_properties[QStringLiteral("icon")];
-    switch(iconProperty.type()){
+    switch (iconProperty.type()) {
     case QVariant::Icon:
         icon = iconProperty.value<QIcon>();
         break;
@@ -747,17 +713,16 @@ QIcon KQuickStyleItem::iconFromIconProperty() const
         } else {
             icon = m_theme->iconFromTheme(iconSource, m_properties[QStringLiteral("iconColor")].value<QColor>());
         }
-    }
-        break;
+    } break;
     default:
         break;
     }
     return icon;
 }
 
-const char* KQuickStyleItem::classNameForItem() const
+const char *KQuickStyleItem::classNameForItem() const
 {
-    switch(m_itemType) {
+    switch (m_itemType) {
     case Button:
         return "QPushButton";
     case RadioButton:
@@ -883,30 +848,31 @@ QString KQuickStyleItem::hitTest(int px, int py)
 {
     QStyle::SubControl subcontrol = QStyle::SC_All;
     switch (m_itemType) {
-    case SpinBox :{
+    case SpinBox: {
         subcontrol = KQuickStyleItem::style()->hitTestComplexControl(QStyle::CC_SpinBox,
-                                                          qstyleoption_cast<QStyleOptionComplex*>(m_styleoption),
-                                                          QPoint(px,py), nullptr);
+                                                                     qstyleoption_cast<QStyleOptionComplex *>(m_styleoption),
+                                                                     QPoint(px, py),
+                                                                     nullptr);
         if (subcontrol == QStyle::SC_SpinBoxUp)
             return QStringLiteral("up");
         else if (subcontrol == QStyle::SC_SpinBoxDown)
             return QStringLiteral("down");
-    }
-        break;
+    } break;
 
     case Slider: {
         subcontrol = KQuickStyleItem::style()->hitTestComplexControl(QStyle::CC_Slider,
-                                                          qstyleoption_cast<QStyleOptionComplex*>(m_styleoption),
-                                                          QPoint(px,py), nullptr);
+                                                                     qstyleoption_cast<QStyleOptionComplex *>(m_styleoption),
+                                                                     QPoint(px, py),
+                                                                     nullptr);
         if (subcontrol == QStyle::SC_SliderHandle)
             return QStringLiteral("handle");
-    }
-        break;
+    } break;
 
     case ScrollBar: {
         subcontrol = KQuickStyleItem::style()->hitTestComplexControl(QStyle::CC_ScrollBar,
-                                                          qstyleoption_cast<QStyleOptionComplex*>(m_styleoption),
-                                                          QPoint(px,py), nullptr);
+                                                                     qstyleoption_cast<QStyleOptionComplex *>(m_styleoption),
+                                                                     QPoint(px, py),
+                                                                     nullptr);
         switch (subcontrol) {
         case QStyle::SC_ScrollBarSlider:
             return QStringLiteral("handle");
@@ -926,8 +892,7 @@ QString KQuickStyleItem::hitTest(int px, int py)
         default:
             break;
         }
-    }
-        break;
+    } break;
 
     default:
         break;
@@ -942,10 +907,10 @@ QSize KQuickStyleItem::sizeFromContents(int width, int height)
     QSize size;
     switch (m_itemType) {
     case RadioButton:
-        size =  KQuickStyleItem::style()->sizeFromContents(QStyle::CT_RadioButton, m_styleoption, QSize(width,height));
+        size = KQuickStyleItem::style()->sizeFromContents(QStyle::CT_RadioButton, m_styleoption, QSize(width, height));
         break;
     case CheckBox: {
-        QStyleOptionButton *btn = qstyleoption_cast<QStyleOptionButton*>(m_styleoption);
+        QStyleOptionButton *btn = qstyleoption_cast<QStyleOptionButton *>(m_styleoption);
         QSize contentSize = btn->fontMetrics.size(Qt::TextShowMnemonic, btn->text);
         QSize iconSize;
         if (!btn->icon.isNull()) {
@@ -959,7 +924,7 @@ QSize KQuickStyleItem::sizeFromContents(int width, int height)
         size = QSize(200, styleName().contains(QLatin1String("windows")) ? 30 : 42);
         break;
     case ToolButton: {
-        QStyleOptionToolButton *btn = qstyleoption_cast<QStyleOptionToolButton*>(m_styleoption);
+        QStyleOptionToolButton *btn = qstyleoption_cast<QStyleOptionToolButton *>(m_styleoption);
         int w = 0;
         int h = 0;
         if (btn->toolButtonStyle != Qt::ToolButtonTextOnly) {
@@ -971,7 +936,7 @@ QSize KQuickStyleItem::sizeFromContents(int width, int height)
         }
         if (btn->toolButtonStyle != Qt::ToolButtonIconOnly) {
             QSize textSize = btn->fontMetrics.size(Qt::TextShowMnemonic, btn->text);
-            textSize.setWidth(textSize.width() + btn->fontMetrics.horizontalAdvance(QLatin1Char(' '))*2);
+            textSize.setWidth(textSize.width() + btn->fontMetrics.horizontalAdvance(QLatin1Char(' ')) * 2);
             if (btn->toolButtonStyle == Qt::ToolButtonTextUnderIcon) {
                 h += 4 + textSize.height();
                 if (textSize.width() > w)
@@ -986,10 +951,10 @@ QSize KQuickStyleItem::sizeFromContents(int width, int height)
             }
         }
         btn->rect.setSize(QSize(w, h));
-        size = KQuickStyleItem::style()->sizeFromContents(QStyle::CT_ToolButton, m_styleoption, QSize(w, h)); }
-        break;
+        size = KQuickStyleItem::style()->sizeFromContents(QStyle::CT_ToolButton, m_styleoption, QSize(w, h));
+    } break;
     case Button: {
-        QStyleOptionButton *btn = qstyleoption_cast<QStyleOptionButton*>(m_styleoption);
+        QStyleOptionButton *btn = qstyleoption_cast<QStyleOptionButton *>(m_styleoption);
 
         int contentWidth = btn->fontMetrics.boundingRect(btn->text).width();
         int contentHeight = btn->fontMetrics.height();
@@ -1002,16 +967,16 @@ QSize KQuickStyleItem::sizeFromContents(int width, int height)
 
         int newWidth = qMax(width, contentWidth);
         int newHeight = qMax(height, contentHeight);
-        size = KQuickStyleItem::style()->sizeFromContents(QStyle::CT_PushButton, m_styleoption, QSize(newWidth, newHeight)); }
-        break;
+        size = KQuickStyleItem::style()->sizeFromContents(QStyle::CT_PushButton, m_styleoption, QSize(newWidth, newHeight));
+    } break;
     case ComboBox: {
-        QStyleOptionComboBox *btn = qstyleoption_cast<QStyleOptionComboBox*>(m_styleoption);
+        QStyleOptionComboBox *btn = qstyleoption_cast<QStyleOptionComboBox *>(m_styleoption);
         int newWidth = qMax(width, btn->fontMetrics.boundingRect(btn->currentText).width());
         int newHeight = qMax(height, btn->fontMetrics.height());
-        size = KQuickStyleItem::style()->sizeFromContents(QStyle::CT_ComboBox, m_styleoption, QSize(newWidth, newHeight)); }
-        break;
+        size = KQuickStyleItem::style()->sizeFromContents(QStyle::CT_ComboBox, m_styleoption, QSize(newWidth, newHeight));
+    } break;
     case Tab: {
-        QStyleOptionTab *tab = qstyleoption_cast<QStyleOptionTab*>(m_styleoption);
+        QStyleOptionTab *tab = qstyleoption_cast<QStyleOptionTab *>(m_styleoption);
 
         int contentWidth = tab->fontMetrics.boundingRect(tab->text).width();
         int contentHeight = tab->fontMetrics.height();
@@ -1033,67 +998,64 @@ QSize KQuickStyleItem::sizeFromContents(int width, int height)
         break;
     }
     case Slider:
-        size = KQuickStyleItem::style()->sizeFromContents(QStyle::CT_Slider, m_styleoption, QSize(width,height));
+        size = KQuickStyleItem::style()->sizeFromContents(QStyle::CT_Slider, m_styleoption, QSize(width, height));
         break;
     case ProgressBar:
-        size = KQuickStyleItem::style()->sizeFromContents(QStyle::CT_ProgressBar, m_styleoption, QSize(width,height));
+        size = KQuickStyleItem::style()->sizeFromContents(QStyle::CT_ProgressBar, m_styleoption, QSize(width, height));
         break;
     case SpinBox:
-    case Edit:
-        {
-            // We have to create a new style option since we might be calling with a QStyleOptionSpinBox
-            QStyleOptionFrame frame;
-            //+2 to be consistent with the hardcoded verticalmargin in QLineEdit
-            int contentHeight = frame.fontMetrics.height() + 2;
+    case Edit: {
+        // We have to create a new style option since we might be calling with a QStyleOptionSpinBox
+        QStyleOptionFrame frame;
+        //+2 to be consistent with the hardcoded verticalmargin in QLineEdit
+        int contentHeight = frame.fontMetrics.height() + 2;
 
-            frame.state = m_styleoption->state | QStyle::State_Sunken;
-            frame.lineWidth = KQuickStyleItem::style()->pixelMetric(QStyle::PM_DefaultFrameWidth, m_styleoption, nullptr);
-            frame.rect = m_styleoption->rect;
-            frame.styleObject = this;
+        frame.state = m_styleoption->state | QStyle::State_Sunken;
+        frame.lineWidth = KQuickStyleItem::style()->pixelMetric(QStyle::PM_DefaultFrameWidth, m_styleoption, nullptr);
+        frame.rect = m_styleoption->rect;
+        frame.styleObject = this;
 
-            size = KQuickStyleItem::style()->sizeFromContents(QStyle::CT_LineEdit, &frame, QSize(width, qMax(height, contentHeight)).expandedTo(QApplication::globalStrut()));
-            if (m_itemType == SpinBox) {
-                size.setWidth(KQuickStyleItem::style()->sizeFromContents(QStyle::CT_SpinBox,
-                                m_styleoption, QSize(width + 2, height)).width());
-            }
+        size = KQuickStyleItem::style()->sizeFromContents(QStyle::CT_LineEdit,
+                                                          &frame,
+                                                          QSize(width, qMax(height, contentHeight)).expandedTo(QApplication::globalStrut()));
+        if (m_itemType == SpinBox) {
+            size.setWidth(KQuickStyleItem::style()->sizeFromContents(QStyle::CT_SpinBox, m_styleoption, QSize(width + 2, height)).width());
         }
-        break;
+    } break;
     case GroupBox: {
-            QStyleOptionGroupBox *box = qstyleoption_cast<QStyleOptionGroupBox*>(m_styleoption);
-            QFontMetrics metrics(box->fontMetrics);
-            int baseWidth = metrics.boundingRect(box->text + QLatin1Char(' ')).width();
-            int baseHeight = metrics.height() + m_contentHeight;
-            if (box->subControls & QStyle::SC_GroupBoxCheckBox) {
-                baseWidth += KQuickStyleItem::style()->pixelMetric(QStyle::PM_IndicatorWidth);
-                baseWidth += KQuickStyleItem::style()->pixelMetric(QStyle::PM_CheckBoxLabelSpacing);
-                baseHeight = qMax(baseHeight, KQuickStyleItem::style()->pixelMetric(QStyle::PM_IndicatorHeight));
-            }
-            size = KQuickStyleItem::style()->sizeFromContents(QStyle::CT_GroupBox, m_styleoption, QSize(qMax(baseWidth, m_contentWidth), baseHeight));
+        QStyleOptionGroupBox *box = qstyleoption_cast<QStyleOptionGroupBox *>(m_styleoption);
+        QFontMetrics metrics(box->fontMetrics);
+        int baseWidth = metrics.boundingRect(box->text + QLatin1Char(' ')).width();
+        int baseHeight = metrics.height() + m_contentHeight;
+        if (box->subControls & QStyle::SC_GroupBoxCheckBox) {
+            baseWidth += KQuickStyleItem::style()->pixelMetric(QStyle::PM_IndicatorWidth);
+            baseWidth += KQuickStyleItem::style()->pixelMetric(QStyle::PM_CheckBoxLabelSpacing);
+            baseHeight = qMax(baseHeight, KQuickStyleItem::style()->pixelMetric(QStyle::PM_IndicatorHeight));
         }
-        break;
+        size = KQuickStyleItem::style()->sizeFromContents(QStyle::CT_GroupBox, m_styleoption, QSize(qMax(baseWidth, m_contentWidth), baseHeight));
+    } break;
     case Header:
-        size = KQuickStyleItem::style()->sizeFromContents(QStyle::CT_HeaderSection, m_styleoption, QSize(width,height));
+        size = KQuickStyleItem::style()->sizeFromContents(QStyle::CT_HeaderSection, m_styleoption, QSize(width, height));
         break;
     case ItemRow:
-    case Item: //fall through
-        size = KQuickStyleItem::style()->sizeFromContents(QStyle::CT_ItemViewItem, m_styleoption, QSize(width,height));
+    case Item: // fall through
+        size = KQuickStyleItem::style()->sizeFromContents(QStyle::CT_ItemViewItem, m_styleoption, QSize(width, height));
         break;
     case MenuBarItem:
-        size = KQuickStyleItem::style()->sizeFromContents(QStyle::CT_MenuBarItem, m_styleoption, QSize(width,height));
+        size = KQuickStyleItem::style()->sizeFromContents(QStyle::CT_MenuBarItem, m_styleoption, QSize(width, height));
         break;
     case MenuBar:
-        size = KQuickStyleItem::style()->sizeFromContents(QStyle::CT_MenuBar, m_styleoption, QSize(width,height));
+        size = KQuickStyleItem::style()->sizeFromContents(QStyle::CT_MenuBar, m_styleoption, QSize(width, height));
         break;
     case Menu:
-        size = KQuickStyleItem::style()->sizeFromContents(QStyle::CT_Menu, m_styleoption, QSize(width,height));
+        size = KQuickStyleItem::style()->sizeFromContents(QStyle::CT_Menu, m_styleoption, QSize(width, height));
         break;
     case MenuItem:
     case ComboBoxItem:
         if (static_cast<QStyleOptionMenuItem *>(m_styleoption)->menuItemType == QStyleOptionMenuItem::Scroller) {
-            size.setHeight(qMax(QApplication::globalStrut().height(),
-                                KQuickStyleItem::style()->pixelMetric(QStyle::PM_MenuScrollerHeight, nullptr, nullptr)));
+            size.setHeight(qMax(QApplication::globalStrut().height(), KQuickStyleItem::style()->pixelMetric(QStyle::PM_MenuScrollerHeight, nullptr, nullptr)));
         } else {
-            size = KQuickStyleItem::style()->sizeFromContents(QStyle::CT_MenuItem, m_styleoption, QSize(width,height));
+            size = KQuickStyleItem::style()->sizeFromContents(QStyle::CT_MenuItem, m_styleoption, QSize(width, height));
         }
         break;
     default:
@@ -1123,7 +1085,7 @@ qreal KQuickStyleItem::baselineOffset()
         if (const QStyleOptionComboBox *combo = qstyleoption_cast<const QStyleOptionComboBox *>(m_styleoption)) {
             r = KQuickStyleItem::style()->subControlRect(QStyle::CC_ComboBox, combo, QStyle::SC_ComboBoxEditField);
             if (styleName() != QLatin1String("mac"))
-                r.adjust(0,0,0,1);
+                r.adjust(0, 0, 0, 1);
         }
         break;
     case SpinBox:
@@ -1140,7 +1102,7 @@ qreal KQuickStyleItem::baselineOffset()
         int surplus = r.height() - fm.height();
         if ((surplus & 1) && ceilResult)
             surplus++;
-        int result = r.top() + surplus/2 + fm.ascent();
+        int result = r.top() + surplus / 2 + fm.ascent();
         return result;
     }
 
@@ -1257,7 +1219,7 @@ QVariant KQuickStyleItem::styleHint(const QString &metric)
         return m_styleoption->palette.highlightedText().color().name();
     } else if (metric == QLatin1String("textColor")) {
         QPalette pal = m_styleoption->palette;
-        pal.setCurrentColorGroup(active()? QPalette::Active : QPalette::Inactive);
+        pal.setCurrentColorGroup(active() ? QPalette::Active : QPalette::Inactive);
         return pal.text().color().name();
     } else if (metric == QLatin1String("focuswidget")) {
         return KQuickStyleItem::style()->styleHint(QStyle::SH_FocusFrame_AboveWidget);
@@ -1304,7 +1266,6 @@ void KQuickStyleItem::resetHints()
     m_hints.clear();
 }
 
-
 void KQuickStyleItem::setElementType(const QString &str)
 {
     if (m_type == str)
@@ -1337,7 +1298,7 @@ void KQuickStyleItem::setElementType(const QString &str)
         m_itemType = Tab;
     } else if (str == QLatin1String("tabframe")) {
         m_itemType = TabFrame;
-    } else if (str == QLatin1String("comboboxitem"))  {
+    } else if (str == QLatin1String("comboboxitem")) {
         // Gtk uses qobject cast, hence we need to separate this from menuitem
         // On mac, we temporarily use the menu item because it has more accurate
         // palette.
@@ -1401,37 +1362,28 @@ QRectF KQuickStyleItem::subControlRect(const QString &subcontrolString)
     QStyle::SubControl subcontrol = QStyle::SC_None;
     initStyleOption();
     switch (m_itemType) {
-    case SpinBox:
-    {
+    case SpinBox: {
         QStyle::ComplexControl control = QStyle::CC_SpinBox;
         if (subcontrolString == QLatin1String("down"))
             subcontrol = QStyle::SC_SpinBoxDown;
         else if (subcontrolString == QLatin1String("up"))
             subcontrol = QStyle::SC_SpinBoxUp;
-        else if (subcontrolString == QLatin1String("edit")){
+        else if (subcontrolString == QLatin1String("edit")) {
             subcontrol = QStyle::SC_SpinBoxEditField;
         }
-        return KQuickStyleItem::style()->subControlRect(control,
-                                             qstyleoption_cast<QStyleOptionComplex*>(m_styleoption),
-                                             subcontrol);
+        return KQuickStyleItem::style()->subControlRect(control, qstyleoption_cast<QStyleOptionComplex *>(m_styleoption), subcontrol);
 
-    }
-        break;
-    case Slider:
-    {
+    } break;
+    case Slider: {
         QStyle::ComplexControl control = QStyle::CC_Slider;
         if (subcontrolString == QLatin1String("handle"))
             subcontrol = QStyle::SC_SliderHandle;
         else if (subcontrolString == QLatin1String("groove"))
             subcontrol = QStyle::SC_SliderGroove;
-        return KQuickStyleItem::style()->subControlRect(control,
-                                             qstyleoption_cast<QStyleOptionComplex*>(m_styleoption),
-                                             subcontrol);
+        return KQuickStyleItem::style()->subControlRect(control, qstyleoption_cast<QStyleOptionComplex *>(m_styleoption), subcontrol);
 
-    }
-        break;
-    case ScrollBar:
-    {
+    } break;
+    case ScrollBar: {
         QStyle::ComplexControl control = QStyle::CC_ScrollBar;
         if (subcontrolString == QLatin1String("slider"))
             subcontrol = QStyle::SC_ScrollBarSlider;
@@ -1443,11 +1395,8 @@ QRectF KQuickStyleItem::subControlRect(const QString &subcontrolString)
             subcontrol = QStyle::SC_ScrollBarAddPage;
         else if (subcontrolString == QLatin1String("sub"))
             subcontrol = QStyle::SC_ScrollBarSubPage;
-        return KQuickStyleItem::style()->subControlRect(control,
-                                             qstyleoption_cast<QStyleOptionComplex*>(m_styleoption),
-                                             subcontrol);
-    }
-        break;
+        return KQuickStyleItem::style()->subControlRect(control, qstyleoption_cast<QStyleOptionComplex *>(m_styleoption), subcontrol);
+    } break;
     case ItemBranchIndicator: {
         QStyleOption opt;
         opt.rect = QRect(0, 0, implicitWidth(), implicitHeight());
@@ -1459,11 +1408,13 @@ QRectF KQuickStyleItem::subControlRect(const QString &subcontrolString)
     return QRectF();
 }
 
-namespace  {
-class QHighDpiPixmapsEnabler1 {
+namespace
+{
+class QHighDpiPixmapsEnabler1
+{
 public:
     QHighDpiPixmapsEnabler1()
-    :wasEnabled(false)
+        : wasEnabled(false)
     {
         if (!qApp->testAttribute(Qt::AA_UseHighDpiPixmaps)) {
             qApp->setAttribute(Qt::AA_UseHighDpiPixmaps);
@@ -1476,6 +1427,7 @@ public:
         if (wasEnabled)
             qApp->setAttribute(Qt::AA_UseHighDpiPixmaps, false);
     }
+
 private:
     bool wasEnabled;
 };
@@ -1484,7 +1436,7 @@ private:
 void KQuickStyleItem::paint(QPainter *painter)
 {
     initStyleOption();
-    if (QStyleOptionMenuItem *opt = qstyleoption_cast<QStyleOptionMenuItem*>(m_styleoption))
+    if (QStyleOptionMenuItem *opt = qstyleoption_cast<QStyleOptionMenuItem *>(m_styleoption))
         painter->setFont(opt->font);
     else {
         QFont font;
@@ -1505,10 +1457,10 @@ void KQuickStyleItem::paint(QPainter *painter)
     case Button:
         KQuickStyleItem::style()->drawControl(QStyle::CE_PushButton, m_styleoption, painter);
         break;
-    case ItemRow :{
+    case ItemRow: {
         QPixmap pixmap;
         // Only draw through style once
-        const QString pmKey = QLatin1String("itemrow") % QString::number(m_styleoption->state,16) % activeControl();
+        const QString pmKey = QLatin1String("itemrow") % QString::number(m_styleoption->state, 16) % activeControl();
         if (!QPixmapCache::find(pmKey, &pixmap) || pixmap.width() < width() || height() != pixmap.height()) {
             int newSize = width();
             pixmap = QPixmap(newSize, height());
@@ -1523,8 +1475,7 @@ void KQuickStyleItem::paint(QPainter *painter)
             QPixmapCache::insert(pmKey, pixmap);
         }
         painter->drawPixmap(0, 0, pixmap);
-    }
-        break;
+    } break;
     case Item:
         KQuickStyleItem::style()->drawControl(QStyle::CE_ItemViewItem, m_styleoption, painter);
         break;
@@ -1535,16 +1486,14 @@ void KQuickStyleItem::paint(QPainter *painter)
         KQuickStyleItem::style()->drawControl(QStyle::CE_Header, m_styleoption, painter);
         break;
     case ToolButton:
-        KQuickStyleItem::style()->drawComplexControl(QStyle::CC_ToolButton, qstyleoption_cast<QStyleOptionComplex*>(m_styleoption), painter);
+        KQuickStyleItem::style()->drawComplexControl(QStyle::CC_ToolButton, qstyleoption_cast<QStyleOptionComplex *>(m_styleoption), painter);
         break;
-    case Tab:
-        {
-            if (m_lastFocusReason != Qt::TabFocusReason && m_lastFocusReason != Qt::BacktabFocusReason) {
-                m_styleoption->state &= ~QStyle::State_HasFocus;
-            }
-            KQuickStyleItem::style()->drawControl(QStyle::CE_TabBarTab, m_styleoption, painter);
+    case Tab: {
+        if (m_lastFocusReason != Qt::TabFocusReason && m_lastFocusReason != Qt::BacktabFocusReason) {
+            m_styleoption->state &= ~QStyle::State_HasFocus;
         }
-        break;
+        KQuickStyleItem::style()->drawControl(QStyle::CE_TabBarTab, m_styleoption, painter);
+    } break;
     case Frame:
         m_styleoption->state |= QStyle::State_Sunken;
         m_styleoption->state &= ~QStyle::State_Raised;
@@ -1568,11 +1517,9 @@ void KQuickStyleItem::paint(QPainter *painter)
     case MenuItem:
     case ComboBoxItem: { // fall through
         QStyle::ControlElement menuElement =
-                static_cast<QStyleOptionMenuItem *>(m_styleoption)->menuItemType == QStyleOptionMenuItem::Scroller ?
-                    QStyle::CE_MenuScroller : QStyle::CE_MenuItem;
+            static_cast<QStyleOptionMenuItem *>(m_styleoption)->menuItemType == QStyleOptionMenuItem::Scroller ? QStyle::CE_MenuScroller : QStyle::CE_MenuItem;
         KQuickStyleItem::style()->drawControl(menuElement, m_styleoption, painter);
-        }
-        break;
+    } break;
     case CheckBox:
         KQuickStyleItem::style()->drawControl(QStyle::CE_CheckBox, m_styleoption, painter);
         break;
@@ -1583,7 +1530,7 @@ void KQuickStyleItem::paint(QPainter *painter)
         KQuickStyleItem::style()->drawPrimitive(QStyle::PE_PanelLineEdit, m_styleoption, painter);
         break;
     case MacHelpButton:
-        //Not managed as mac is not supported
+        // Not managed as mac is not supported
         break;
     case Widget:
         KQuickStyleItem::style()->drawPrimitive(QStyle::PE_Widget, m_styleoption, painter);
@@ -1597,40 +1544,31 @@ void KQuickStyleItem::paint(QPainter *painter)
         else
             KQuickStyleItem::style()->drawControl(QStyle::CE_Splitter, m_styleoption, painter);
         break;
-    case ComboBox:
-    {
-        KQuickStyleItem::style()->drawComplexControl(QStyle::CC_ComboBox,
-                                          qstyleoption_cast<QStyleOptionComplex*>(m_styleoption),
-                                          painter);
+    case ComboBox: {
+        KQuickStyleItem::style()->drawComplexControl(QStyle::CC_ComboBox, qstyleoption_cast<QStyleOptionComplex *>(m_styleoption), painter);
         // This is needed on mac as it will use the painter color and ignore the palette
         QPen pen = painter->pen();
         painter->setPen(m_styleoption->palette.text().color());
         KQuickStyleItem::style()->drawControl(QStyle::CE_ComboBoxLabel, m_styleoption, painter);
         painter->setPen(pen);
-    }    break;
+    } break;
     case SpinBox:
 #ifdef Q_OS_MAC
         // macstyle depends on the embedded qlineedit to fill the editfield background
         if (styleName() == QLatin1String("mac")) {
             QRect editRect = KQuickStyleItem::style()->subControlRect(QStyle::CC_SpinBox,
-                                                           qstyleoption_cast<QStyleOptionComplex*>(m_styleoption),
-                                                           QStyle::SC_SpinBoxEditField);
+                                                                      qstyleoption_cast<QStyleOptionComplex *>(m_styleoption),
+                                                                      QStyle::SC_SpinBoxEditField);
             painter->fillRect(editRect.adjusted(-1, -1, 1, 1), m_styleoption->palette.base());
         }
 #endif
-        KQuickStyleItem::style()->drawComplexControl(QStyle::CC_SpinBox,
-                                          qstyleoption_cast<QStyleOptionComplex*>(m_styleoption),
-                                          painter);
+        KQuickStyleItem::style()->drawComplexControl(QStyle::CC_SpinBox, qstyleoption_cast<QStyleOptionComplex *>(m_styleoption), painter);
         break;
     case Slider:
-        KQuickStyleItem::style()->drawComplexControl(QStyle::CC_Slider,
-                                          qstyleoption_cast<QStyleOptionComplex*>(m_styleoption),
-                                          painter);
+        KQuickStyleItem::style()->drawComplexControl(QStyle::CC_Slider, qstyleoption_cast<QStyleOptionComplex *>(m_styleoption), painter);
         break;
     case Dial:
-        KQuickStyleItem::style()->drawComplexControl(QStyle::CC_Dial,
-                                          qstyleoption_cast<QStyleOptionComplex*>(m_styleoption),
-                                          painter);
+        KQuickStyleItem::style()->drawComplexControl(QStyle::CC_Dial, qstyleoption_cast<QStyleOptionComplex *>(m_styleoption), painter);
         break;
     case ProgressBar:
         KQuickStyleItem::style()->drawControl(QStyle::CE_ProgressBar, m_styleoption, painter);
@@ -1639,21 +1577,19 @@ void KQuickStyleItem::paint(QPainter *painter)
         painter->fillRect(m_styleoption->rect, m_styleoption->palette.window().color());
         KQuickStyleItem::style()->drawControl(QStyle::CE_ToolBar, m_styleoption, painter);
         painter->save();
-        painter->setPen(styleName() != QLatin1String("fusion") ? m_styleoption->palette.dark().color().darker(120) :
-                                              m_styleoption->palette.window().color().lighter(107));
+        painter->setPen(styleName() != QLatin1String("fusion") ? m_styleoption->palette.dark().color().darker(120)
+                                                               : m_styleoption->palette.window().color().lighter(107));
         painter->drawLine(m_styleoption->rect.bottomLeft(), m_styleoption->rect.bottomRight());
         painter->restore();
         break;
-    case StatusBar:
-        {
-            painter->fillRect(m_styleoption->rect, m_styleoption->palette.window().color());
-            painter->setPen(m_styleoption->palette.dark().color().darker(120));
-            painter->drawLine(m_styleoption->rect.topLeft(), m_styleoption->rect.topRight());
-            KQuickStyleItem::style()->drawPrimitive(QStyle::PE_PanelStatusBar, m_styleoption, painter);
-        }
-        break;
+    case StatusBar: {
+        painter->fillRect(m_styleoption->rect, m_styleoption->palette.window().color());
+        painter->setPen(m_styleoption->palette.dark().color().darker(120));
+        painter->drawLine(m_styleoption->rect.topLeft(), m_styleoption->rect.topRight());
+        KQuickStyleItem::style()->drawPrimitive(QStyle::PE_PanelStatusBar, m_styleoption, painter);
+    } break;
     case GroupBox:
-        KQuickStyleItem::style()->drawComplexControl(QStyle::CC_GroupBox, qstyleoption_cast<QStyleOptionComplex*>(m_styleoption), painter);
+        KQuickStyleItem::style()->drawComplexControl(QStyle::CC_GroupBox, qstyleoption_cast<QStyleOptionComplex *>(m_styleoption), painter);
         break;
     case ScrollBar:
         KQuickStyleItem::style()->drawComplexControl(QStyle::CC_ScrollBar, qstyleoption_cast<QStyleOptionSlider *>(m_styleoption), painter);
@@ -1677,8 +1613,7 @@ void KQuickStyleItem::paint(QPainter *painter)
             frame.palette = m_styleoption->palette;
             KQuickStyleItem::style()->drawPrimitive(QStyle::PE_FrameMenu, &frame, painter);
         }
-    }
-        break;
+    } break;
     default:
         break;
     }
@@ -1693,8 +1628,7 @@ qreal KQuickStyleItem::textWidth(const QString &text)
 qreal KQuickStyleItem::textHeight(const QString &text)
 {
     QFontMetricsF fm = QFontMetricsF(m_styleoption->fontMetrics);
-    return text.isEmpty() ? fm.height() :
-                            fm.boundingRect(text).height();
+    return text.isEmpty() ? fm.height() : fm.boundingRect(text).height();
 }
 
 QString KQuickStyleItem::elidedText(const QString &text, int elideMode, int width)
@@ -1762,8 +1696,7 @@ void KQuickStyleItem::setControl(QQuickItem *control)
             m_window = m_control->window();
             m_window->installEventFilter(this);
         }
-        connect(m_control, &QQuickItem::windowChanged, this,
-                [this](QQuickWindow *window) {
+        connect(m_control, &QQuickItem::windowChanged, this, [this](QQuickWindow *window) {
             if (m_window) {
                 m_window->removeEventFilter(this);
             }
@@ -1789,11 +1722,7 @@ QSGNode *KQuickStyleItem::updatePaintNode(QSGNode *node, UpdatePaintNodeData *)
         styleNode = window()->createNinePatchNode();
 
 #ifdef QSG_RUNTIME_DESCRIPTION
-    qsgnode_set_description(styleNode,
-                            QString::fromLatin1("%1:%2, '%3'")
-                            .arg(styleName())
-                            .arg(elementType())
-                            .arg(text()));
+    qsgnode_set_description(styleNode, QString::fromLatin1("%1:%2, '%3'").arg(styleName()).arg(elementType()).arg(text()));
 #endif
 
     styleNode->setTexture(window()->createTextureFromImage(m_image, QQuickWindow::TextureCanUseAtlas));
@@ -1831,7 +1760,9 @@ bool KQuickStyleItem::eventFilter(QObject *watched, QEvent *event)
             QFocusEvent *fe = static_cast<QFocusEvent *>(event);
             m_lastFocusReason = fe->reason();
         }
-        // Page accepts mouse events without doing anything with them (for a workaround wrt dragging from empty areas of flickables) when the interaction is pure mouse, steal events from them, so a parent handler can initiate a window drag from empty areas, either Kirigami.ApplicationWindow or the breeze style from a QQwuickwidget
+        // Page accepts mouse events without doing anything with them (for a workaround wrt dragging from empty areas of flickables) when the interaction is
+        // pure mouse, steal events from them, so a parent handler can initiate a window drag from empty areas, either Kirigami.ApplicationWindow or the breeze
+        // style from a QQwuickwidget
         if (event->type() == QEvent::MouseButtonPress) {
             QMouseEvent *me = static_cast<QMouseEvent *>(event);
             if (me->source() == Qt::MouseEventNotSynthesized && watched->inherits("QQuickPage")) {
@@ -1845,7 +1776,6 @@ bool KQuickStyleItem::eventFilter(QObject *watched, QEvent *event)
             if (ke->key() == Qt::Key_Alt) {
                 updateItem();
             }
-
         }
     }
 
@@ -1868,7 +1798,7 @@ void KQuickStyleItem::styleChanged()
 
 QPixmap QQuickTableRowImageProvider1::requestPixmap(const QString &id, QSize *size, const QSize &requestedSize)
 {
-    Q_UNUSED (requestedSize);
+    Q_UNUSED(requestedSize);
     int width = 16;
     int height = 16;
     if (size)
@@ -1895,8 +1825,8 @@ QPixmap QQuickTableRowImageProvider1::requestPixmap(const QString &id, QSize *si
         opt.features |= QStyleOptionViewItem::Alternate;
 
     QPalette pal = QApplication::palette("QAbstractItemView");
-    if (opt.state & QStyle::State_Selected && (style.contains(QLatin1String("Mac")) ||
-                                               !KQuickStyleItem::style()->styleHint(QStyle::SH_ItemView_ShowDecorationSelected))) {
+    if (opt.state & QStyle::State_Selected
+        && (style.contains(QLatin1String("Mac")) || !KQuickStyleItem::style()->styleHint(QStyle::SH_ItemView_ShowDecorationSelected))) {
         pal.setCurrentColorGroup(opt.palette.currentColorGroup());
         pixmap.fill(pal.highlight().color());
     } else {
@@ -1907,5 +1837,5 @@ QPixmap QQuickTableRowImageProvider1::requestPixmap(const QString &id, QSize *si
     return pixmap;
 }
 
-#include "moc_kquickstyleitem_p.cpp"
 #include "moc_kquickpadding_p.cpp"
+#include "moc_kquickstyleitem_p.cpp"

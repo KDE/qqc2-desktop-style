@@ -17,7 +17,9 @@ QT_BEGIN_NAMESPACE
 class Q_QUICK_EXPORT QSGNinePatchNode : public QSGGeometryNode
 {
 public:
-    virtual ~QSGNinePatchNode() { }
+    virtual ~QSGNinePatchNode()
+    {
+    }
 
     virtual void setTexture(QSGTexture *texture) = 0;
     virtual void setBounds(const QRectF &bounds) = 0;
@@ -25,9 +27,7 @@ public:
     virtual void setPadding(qreal left, qreal top, qreal right, qreal bottom) = 0;
     virtual void update() = 0;
 
-    static void rebuildGeometry(QSGTexture *texture, QSGGeometry *geometry,
-                                const QVector4D &padding,
-                                const QRectF &bounds, qreal dpr);
+    static void rebuildGeometry(QSGTexture *texture, QSGGeometry *geometry, const QVector4D &padding, const QRectF &bounds, qreal dpr);
 };
 
 QT_END_NAMESPACE

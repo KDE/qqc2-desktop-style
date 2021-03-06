@@ -5,13 +5,12 @@
 */
 
 #include "qqc2desktopstyleplugin.h"
-#include "kquickstyleitem_p.h"
 #include "kpropertywriter_p.h"
+#include "kquickstyleitem_p.h"
 
-#include <QQmlEngine>
 #include <QQmlContext>
+#include <QQmlEngine>
 #include <QQuickItem>
-
 
 void QQc2DesktopStylePlugin::registerTypes(const char *uri)
 {
@@ -24,4 +23,3 @@ void QQc2DesktopStylePlugin::registerTypes(const char *uri)
 }
 
 #include "moc_qqc2desktopstyleplugin.cpp"
-

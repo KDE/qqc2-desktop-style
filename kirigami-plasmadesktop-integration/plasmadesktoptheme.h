@@ -8,11 +8,11 @@
 #define KIRIGAMIPLASMATHEME_H
 
 #include <Kirigami2/PlatformTheme>
-#include <QObject>
-#include <QQuickItem>
 #include <QColor>
-#include <QPointer>
 #include <QIcon>
+#include <QObject>
+#include <QPointer>
+#include <QQuickItem>
 
 class PlasmaDesktopTheme;
 class KIconLoader;

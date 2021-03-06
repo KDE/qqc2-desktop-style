@@ -25,6 +25,4 @@ public:
     Kirigami::PlatformTheme *createPlatformTheme(QObject *parent) override;
 };
 
-
-
 #endif // KIRIGAMIPLASMAFACTORY_H

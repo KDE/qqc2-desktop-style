@@ -10,7 +10,6 @@
 
 #include <QQmlExtensionPlugin>
 
-
 class QQc2DesktopStylePlugin : public QQmlExtensionPlugin
 {
     Q_OBJECT
@@ -21,4 +20,3 @@ public:
 };
 
 #endif
-

@@ -11,73 +11,79 @@
 #ifndef KQUICKSTYLEITEM_P_H
 #define KQUICKSTYLEITEM_P_H
 
-#include <QtGui/qimage.h>
-#include <QtQuick/qquickitem.h>
-#include <QtQuick/qquickimageprovider.h>
 #include "kquickpadding_p.h"
 #include <QPointer>
+#include <QtGui/qimage.h>
+#include <QtQuick/qquickimageprovider.h>
+#include <QtQuick/qquickitem.h>
 
 class QWidget;
 class QStyleOption;
 class QStyle;
 
-namespace Kirigami {
-    class PlatformTheme;
+namespace Kirigami
+{
+class PlatformTheme;
 }
 
 class QQuickTableRowImageProvider1 : public QQuickImageProvider
 {
 public:
     QQuickTableRowImageProvider1()
-        : QQuickImageProvider(QQuickImageProvider::Pixmap) {}
+        : QQuickImageProvider(QQuickImageProvider::Pixmap)
+    {
+    }
     QPixmap requestPixmap(const QString &id, QSize *size, const QSize &requestedSize) override;
 };
 
-class KQuickStyleItem: public QQuickItem
+class KQuickStyleItem : public QQuickItem
 {
     Q_OBJECT
 
-    Q_PROPERTY(KQuickPadding* border READ border CONSTANT)
+    Q_PROPERTY(KQuickPadding *border READ border CONSTANT)
 
-    Q_PROPERTY( bool sunken READ sunken WRITE setSunken NOTIFY sunkenChanged)
-    Q_PROPERTY( bool raised READ raised WRITE setRaised NOTIFY raisedChanged)
-    Q_PROPERTY( bool active READ active WRITE setActive NOTIFY activeChanged)
-    Q_PROPERTY( bool selected READ selected WRITE setSelected NOTIFY selectedChanged)
-    Q_PROPERTY( bool hasFocus READ hasFocus WRITE sethasFocus NOTIFY hasFocusChanged)
-    Q_PROPERTY( bool on READ on WRITE setOn NOTIFY onChanged)
-    Q_PROPERTY( bool hover READ hover WRITE setHover NOTIFY hoverChanged)
-    Q_PROPERTY( bool horizontal READ horizontal WRITE setHorizontal NOTIFY horizontalChanged)
-    Q_PROPERTY( bool isTransient READ isTransient WRITE setTransient NOTIFY transientChanged)
+    Q_PROPERTY(bool sunken READ sunken WRITE setSunken NOTIFY sunkenChanged)
+    Q_PROPERTY(bool raised READ raised WRITE setRaised NOTIFY raisedChanged)
+    Q_PROPERTY(bool active READ active WRITE setActive NOTIFY activeChanged)
+    Q_PROPERTY(bool selected READ selected WRITE setSelected NOTIFY selectedChanged)
+    Q_PROPERTY(bool hasFocus READ hasFocus WRITE sethasFocus NOTIFY hasFocusChanged)
+    Q_PROPERTY(bool on READ on WRITE setOn NOTIFY onChanged)
+    Q_PROPERTY(bool hover READ hover WRITE setHover NOTIFY hoverChanged)
+    Q_PROPERTY(bool horizontal READ horizontal WRITE setHorizontal NOTIFY horizontalChanged)
+    Q_PROPERTY(bool isTransient READ isTransient WRITE setTransient NOTIFY transientChanged)
 
-    Q_PROPERTY( QString elementType READ elementType WRITE setElementType NOTIFY elementTypeChanged)
-    Q_PROPERTY( QString text READ text WRITE setText NOTIFY textChanged)
-    Q_PROPERTY( QString activeControl READ activeControl WRITE setActiveControl NOTIFY activeControlChanged)
-    Q_PROPERTY( QString styleName READ styleName NOTIFY styleNameChanged)
-    Q_PROPERTY( QVariantMap hints READ hints WRITE setHints NOTIFY hintChanged RESET resetHints)
-    Q_PROPERTY( QVariantMap properties READ properties WRITE setProperties NOTIFY propertiesChanged)
-    Q_PROPERTY( QFont font READ font NOTIFY fontChanged)
+    Q_PROPERTY(QString elementType READ elementType WRITE setElementType NOTIFY elementTypeChanged)
+    Q_PROPERTY(QString text READ text WRITE setText NOTIFY textChanged)
+    Q_PROPERTY(QString activeControl READ activeControl WRITE setActiveControl NOTIFY activeControlChanged)
+    Q_PROPERTY(QString styleName READ styleName NOTIFY styleNameChanged)
+    Q_PROPERTY(QVariantMap hints READ hints WRITE setHints NOTIFY hintChanged RESET resetHints)
+    Q_PROPERTY(QVariantMap properties READ properties WRITE setProperties NOTIFY propertiesChanged)
+    Q_PROPERTY(QFont font READ font NOTIFY fontChanged)
 
     // For range controls
-    Q_PROPERTY( int minimum READ minimum WRITE setMinimum NOTIFY minimumChanged)
-    Q_PROPERTY( int maximum READ maximum WRITE setMaximum NOTIFY maximumChanged)
-    Q_PROPERTY( int value READ value WRITE setValue NOTIFY valueChanged)
-    Q_PROPERTY( int step READ step WRITE setStep NOTIFY stepChanged)
-    Q_PROPERTY( int paintMargins READ paintMargins WRITE setPaintMargins NOTIFY paintMarginsChanged)
+    Q_PROPERTY(int minimum READ minimum WRITE setMinimum NOTIFY minimumChanged)
+    Q_PROPERTY(int maximum READ maximum WRITE setMaximum NOTIFY maximumChanged)
+    Q_PROPERTY(int value READ value WRITE setValue NOTIFY valueChanged)
+    Q_PROPERTY(int step READ step WRITE setStep NOTIFY stepChanged)
+    Q_PROPERTY(int paintMargins READ paintMargins WRITE setPaintMargins NOTIFY paintMarginsChanged)
 
-    Q_PROPERTY( int contentWidth READ contentWidth WRITE setContentWidth NOTIFY contentWidthChanged)
-    Q_PROPERTY( int contentHeight READ contentHeight WRITE setContentHeight NOTIFY contentHeightChanged)
+    Q_PROPERTY(int contentWidth READ contentWidth WRITE setContentWidth NOTIFY contentWidthChanged)
+    Q_PROPERTY(int contentHeight READ contentHeight WRITE setContentHeight NOTIFY contentHeightChanged)
 
-    Q_PROPERTY( int textureWidth READ textureWidth WRITE setTextureWidth NOTIFY textureWidthChanged)
-    Q_PROPERTY( int textureHeight READ textureHeight WRITE setTextureHeight NOTIFY textureHeightChanged)
+    Q_PROPERTY(int textureWidth READ textureWidth WRITE setTextureWidth NOTIFY textureWidthChanged)
+    Q_PROPERTY(int textureHeight READ textureHeight WRITE setTextureHeight NOTIFY textureHeightChanged)
 
-    Q_PROPERTY( int leftPadding READ leftPadding NOTIFY leftPaddingChanged)
-    Q_PROPERTY( int topPadding READ topPadding NOTIFY topPaddingChanged)
-    Q_PROPERTY( int rightPadding READ rightPadding NOTIFY rightPaddingChanged)
-    Q_PROPERTY( int bottomPadding READ bottomPadding NOTIFY bottomPaddingChanged)
+    Q_PROPERTY(int leftPadding READ leftPadding NOTIFY leftPaddingChanged)
+    Q_PROPERTY(int topPadding READ topPadding NOTIFY topPaddingChanged)
+    Q_PROPERTY(int rightPadding READ rightPadding NOTIFY rightPaddingChanged)
+    Q_PROPERTY(int bottomPadding READ bottomPadding NOTIFY bottomPaddingChanged)
 
-    Q_PROPERTY( QQuickItem *control READ control WRITE setControl NOTIFY controlChanged)
+    Q_PROPERTY(QQuickItem *control READ control WRITE setControl NOTIFY controlChanged)
 
-    KQuickPadding* border() { return &m_border; }
+    KQuickPadding *border()
+    {
+        return &m_border;
+    }
 
 public:
     KQuickStyleItem(QQuickItem *parent = nullptr);
@@ -128,58 +134,226 @@ public:
 
     void paint(QPainter *);
 
-    bool sunken() const { return m_sunken; }
-    bool raised() const { return m_raised; }
-    bool active() const { return m_active; }
-    bool selected() const { return m_selected; }
-    bool hasFocus() const { return m_focus; }
-    bool on() const { return m_on; }
-    bool hover() const { return m_hover; }
-    bool horizontal() const { return m_horizontal; }
-    bool isTransient() const { return m_transient; }
+    bool sunken() const
+    {
+        return m_sunken;
+    }
+    bool raised() const
+    {
+        return m_raised;
+    }
+    bool active() const
+    {
+        return m_active;
+    }
+    bool selected() const
+    {
+        return m_selected;
+    }
+    bool hasFocus() const
+    {
+        return m_focus;
+    }
+    bool on() const
+    {
+        return m_on;
+    }
+    bool hover() const
+    {
+        return m_hover;
+    }
+    bool horizontal() const
+    {
+        return m_horizontal;
+    }
+    bool isTransient() const
+    {
+        return m_transient;
+    }
 
-    int minimum() const { return m_minimum; }
-    int maximum() const { return m_maximum; }
-    int step() const { return m_step; }
-    int value() const { return m_value; }
-    int paintMargins() const { return m_paintMargins; }
+    int minimum() const
+    {
+        return m_minimum;
+    }
+    int maximum() const
+    {
+        return m_maximum;
+    }
+    int step() const
+    {
+        return m_step;
+    }
+    int value() const
+    {
+        return m_value;
+    }
+    int paintMargins() const
+    {
+        return m_paintMargins;
+    }
 
-    QString elementType() const { return m_type; }
-    QString text() const { return m_text; }
-    QString activeControl() const { return m_activeControl; }
-    QVariantMap hints() const { return m_hints; }
-    QVariantMap properties() const { return m_properties; }
-    QFont font() const { return m_font;}
+    QString elementType() const
+    {
+        return m_type;
+    }
+    QString text() const
+    {
+        return m_text;
+    }
+    QString activeControl() const
+    {
+        return m_activeControl;
+    }
+    QVariantMap hints() const
+    {
+        return m_hints;
+    }
+    QVariantMap properties() const
+    {
+        return m_properties;
+    }
+    QFont font() const
+    {
+        return m_font;
+    }
     QString styleName() const;
 
-    void setSunken(bool sunken) { if (m_sunken != sunken) {m_sunken = sunken; Q_EMIT sunkenChanged();}}
-    void setRaised(bool raised) { if (m_raised!= raised) {m_raised = raised; Q_EMIT raisedChanged();}}
-    void setActive(bool active) { if (m_active!= active) {m_active = active; Q_EMIT activeChanged();}}
-    void setSelected(bool selected) { if (m_selected!= selected) {m_selected = selected; Q_EMIT selectedChanged();}}
-    void sethasFocus(bool focus) { if (m_focus != focus) {m_focus = focus; Q_EMIT hasFocusChanged();}}
-    void setOn(bool on) { if (m_on != on) {m_on = on ; Q_EMIT onChanged();}}
-    void setHover(bool hover) { if (m_hover != hover) {m_hover = hover ; Q_EMIT hoverChanged();}}
-    void setHorizontal(bool horizontal) { if (m_horizontal != horizontal) {m_horizontal = horizontal; Q_EMIT horizontalChanged();}}
-    void setTransient(bool transient) { if (m_transient != transient) {m_transient = transient; Q_EMIT transientChanged();}}
-    void setMinimum(int minimum) { if (m_minimum!= minimum) {m_minimum = minimum; Q_EMIT minimumChanged();}}
-    void setMaximum(int maximum) { if (m_maximum != maximum) {m_maximum = maximum; Q_EMIT maximumChanged();}}
-    void setValue(int value) { if (m_value!= value) {m_value = value; Q_EMIT valueChanged();}}
-    void setStep(int step) { if (m_step != step) { m_step = step; Q_EMIT stepChanged(); }}
-    void setPaintMargins(int value) { if (m_paintMargins!= value) {m_paintMargins = value; Q_EMIT paintMarginsChanged(); } }
+    void setSunken(bool sunken)
+    {
+        if (m_sunken != sunken) {
+            m_sunken = sunken;
+            Q_EMIT sunkenChanged();
+        }
+    }
+    void setRaised(bool raised)
+    {
+        if (m_raised != raised) {
+            m_raised = raised;
+            Q_EMIT raisedChanged();
+        }
+    }
+    void setActive(bool active)
+    {
+        if (m_active != active) {
+            m_active = active;
+            Q_EMIT activeChanged();
+        }
+    }
+    void setSelected(bool selected)
+    {
+        if (m_selected != selected) {
+            m_selected = selected;
+            Q_EMIT selectedChanged();
+        }
+    }
+    void sethasFocus(bool focus)
+    {
+        if (m_focus != focus) {
+            m_focus = focus;
+            Q_EMIT hasFocusChanged();
+        }
+    }
+    void setOn(bool on)
+    {
+        if (m_on != on) {
+            m_on = on;
+            Q_EMIT onChanged();
+        }
+    }
+    void setHover(bool hover)
+    {
+        if (m_hover != hover) {
+            m_hover = hover;
+            Q_EMIT hoverChanged();
+        }
+    }
+    void setHorizontal(bool horizontal)
+    {
+        if (m_horizontal != horizontal) {
+            m_horizontal = horizontal;
+            Q_EMIT horizontalChanged();
+        }
+    }
+    void setTransient(bool transient)
+    {
+        if (m_transient != transient) {
+            m_transient = transient;
+            Q_EMIT transientChanged();
+        }
+    }
+    void setMinimum(int minimum)
+    {
+        if (m_minimum != minimum) {
+            m_minimum = minimum;
+            Q_EMIT minimumChanged();
+        }
+    }
+    void setMaximum(int maximum)
+    {
+        if (m_maximum != maximum) {
+            m_maximum = maximum;
+            Q_EMIT maximumChanged();
+        }
+    }
+    void setValue(int value)
+    {
+        if (m_value != value) {
+            m_value = value;
+            Q_EMIT valueChanged();
+        }
+    }
+    void setStep(int step)
+    {
+        if (m_step != step) {
+            m_step = step;
+            Q_EMIT stepChanged();
+        }
+    }
+    void setPaintMargins(int value)
+    {
+        if (m_paintMargins != value) {
+            m_paintMargins = value;
+            Q_EMIT paintMarginsChanged();
+        }
+    }
     void setElementType(const QString &str);
-    void setText(const QString &str) { if (m_text != str) {m_text = str; Q_EMIT textChanged();}}
-    void setActiveControl(const QString &str) { if (m_activeControl != str) {m_activeControl = str; Q_EMIT activeControlChanged();}}
+    void setText(const QString &str)
+    {
+        if (m_text != str) {
+            m_text = str;
+            Q_EMIT textChanged();
+        }
+    }
+    void setActiveControl(const QString &str)
+    {
+        if (m_activeControl != str) {
+            m_activeControl = str;
+            Q_EMIT activeControlChanged();
+        }
+    }
     void setHints(const QVariantMap &str);
-    void setProperties(const QVariantMap &props) { if (m_properties != props) { m_properties = props; Q_EMIT propertiesChanged(); } }
+    void setProperties(const QVariantMap &props)
+    {
+        if (m_properties != props) {
+            m_properties = props;
+            Q_EMIT propertiesChanged();
+        }
+    }
     void resetHints();
 
-    int contentWidth() const { return m_contentWidth; }
+    int contentWidth() const
+    {
+        return m_contentWidth;
+    }
     void setContentWidth(int arg);
 
-    int contentHeight() const { return m_contentHeight; }
+    int contentHeight() const
+    {
+        return m_contentHeight;
+    }
     void setContentHeight(int arg);
 
-    virtual void initStyleOption ();
+    virtual void initStyleOption();
     void resolvePalette();
 
     int leftPadding() const;
@@ -190,10 +364,16 @@ public:
     Q_INVOKABLE qreal textWidth(const QString &);
     Q_INVOKABLE qreal textHeight(const QString &);
 
-    int textureWidth() const { return m_textureWidth; }
+    int textureWidth() const
+    {
+        return m_textureWidth;
+    }
     void setTextureWidth(int w);
 
-    int textureHeight() const { return m_textureHeight; }
+    int textureHeight() const
+    {
+        return m_textureHeight;
+    }
     void setTextureHeight(int h);
 
     QQuickItem *control() const;
@@ -202,12 +382,15 @@ public:
     static QStyle *style();
 
 public Q_SLOTS:
-    int pixelMetric(const QString&);
-    QVariant styleHint(const QString&);
+    int pixelMetric(const QString &);
+    QVariant styleHint(const QString &);
     void updateSizeHint();
     void updateRect();
     void updateBaselineOffset();
-    void updateItem(){polish();}
+    void updateItem()
+    {
+        polish();
+    }
     QString hitTest(int x, int y);
     QRectF subControlRect(const QString &subcontrolString);
     QString elidedText(const QString &text, int elideMode, int width);
@@ -257,7 +440,7 @@ protected:
 
 private:
     QIcon iconFromIconProperty() const;
-    const char* classNameForItem() const;
+    const char *classNameForItem() const;
     QSize sizeFromContents(int width, int height);
     qreal baselineOffset();
     void styleChanged();
@@ -306,6 +489,5 @@ protected:
 
     static QStyle *s_style;
 };
-
 
 #endif // QQUICKSTYLEITEM_P_H

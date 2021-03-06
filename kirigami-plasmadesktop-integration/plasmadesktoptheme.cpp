@@ -5,14 +5,14 @@
 */
 
 #include "plasmadesktoptheme.h"
-#include <QQmlEngine>
-#include <QQmlContext>
-#include <QGuiApplication>
-#include <QQuickRenderControl>
-#include <QPalette>
-#include <QDebug>
-#include <QQuickWindow>
 #include <KIconLoader>
+#include <QDebug>
+#include <QGuiApplication>
+#include <QPalette>
+#include <QQmlContext>
+#include <QQmlEngine>
+#include <QQuickRenderControl>
+#include <QQuickWindow>
 
 #include <KColorScheme>
 #include <KConfigGroup>
@@ -44,16 +44,17 @@ public:
         , buttonScheme(QPalette::Active, KColorScheme::ColorSet::Button)
         , viewScheme(QPalette::Active, KColorScheme::ColorSet::View)
     {
-        connect(qGuiApp, &QGuiApplication::paletteChanged,
-                this, &StyleSingleton::refresh);
+        connect(qGuiApp, &QGuiApplication::paletteChanged, this, &StyleSingleton::refresh);
 
         // Use DBus in order to listen for kdeglobals changes directly, as the
         // QApplication doesn't expose the font variants we're looking for,
         // namely smallFont.
-        QDBusConnection::sessionBus().connect( QString(),
-        QStringLiteral( "/KGlobalSettings" ),
-        QStringLiteral( "org.kde.KGlobalSettings" ),
-        QStringLiteral( "notifyChange" ), this, SLOT(notifyWatchersConfigurationChange()));
+        QDBusConnection::sessionBus().connect(QString(),
+                                              QStringLiteral("/KGlobalSettings"),
+                                              QStringLiteral("org.kde.KGlobalSettings"),
+                                              QStringLiteral("notifyChange"),
+                                              this,
+                                              SLOT(notifyWatchersConfigurationChange()));
 
         connect(qGuiApp, &QGuiApplication::fontDatabaseChanged, this, &StyleSingleton::notifyWatchersConfigurationChange);
 
@@ -61,8 +62,8 @@ public:
         // NativeTextRendering is still distorted sometimes with fractional scale factors,
         // despite https://bugreports.qt.io/browse/QTBUG-67007 being closed.
         qreal devicePixelRatio = qGuiApp->devicePixelRatio();
-        QQuickWindow::TextRenderType defaultTextRenderType = int(devicePixelRatio) == devicePixelRatio ?
-            QQuickWindow::NativeTextRendering : QQuickWindow::QtTextRendering;
+        QQuickWindow::TextRenderType defaultTextRenderType =
+            int(devicePixelRatio) == devicePixelRatio ? QQuickWindow::NativeTextRendering : QQuickWindow::QtTextRendering;
         QQuickWindow::setTextRenderType(defaultTextRenderType);
     }
 
@@ -113,7 +114,7 @@ public:
         Colors ret = {{}, KColorScheme(group, KColorScheme::ColorSet::Selection), KColorScheme(group, set)};
 
         QPalette pal;
-        for (auto state : { QPalette::Active, QPalette::Inactive, QPalette::Disabled }) {
+        for (auto state : {QPalette::Active, QPalette::Inactive, QPalette::Disabled}) {
             pal.setBrush(state, QPalette::WindowText, ret.scheme.foreground());
             pal.setBrush(state, QPalette::Window, ret.scheme.background());
             pal.setBrush(state, QPalette::Base, ret.scheme.background());
@@ -190,8 +191,7 @@ PlasmaDesktopTheme::~PlasmaDesktopTheme()
 void PlasmaDesktopTheme::syncWindow()
 {
     if (m_window) {
-        disconnect(m_window.data(), &QWindow::activeChanged,
-                this, &PlasmaDesktopTheme::syncColors);
+        disconnect(m_window.data(), &QWindow::activeChanged, this, &PlasmaDesktopTheme::syncColors);
     }
 
     QWindow *window = nullptr;
@@ -205,15 +205,13 @@ void PlasmaDesktopTheme::syncWindow()
             window = qw;
         }
         if (qw) {
-            connect(qw, &QQuickWindow::sceneGraphInitialized,
-                    this, &PlasmaDesktopTheme::syncWindow);
+            connect(qw, &QQuickWindow::sceneGraphInitialized, this, &PlasmaDesktopTheme::syncWindow);
         }
     }
     m_window = window;
 
     if (window) {
-        connect(m_window.data(), &QWindow::activeChanged,
-                this, &PlasmaDesktopTheme::syncColors);
+        connect(m_window.data(), &QWindow::activeChanged, this, &PlasmaDesktopTheme::syncColors);
         syncColors();
     }
 }
@@ -221,13 +219,13 @@ void PlasmaDesktopTheme::syncWindow()
 void PlasmaDesktopTheme::syncFont()
 {
     KSharedConfigPtr ptr = KSharedConfig::openConfig();
-    KConfigGroup general( ptr->group("general") );
+    KConfigGroup general(ptr->group("general"));
     setSmallFont(general.readEntry("smallestReadableFont", []() {
         auto smallFont = qApp->font();
         if (smallFont.pixelSize() != -1) {
-            smallFont.setPixelSize(smallFont.pixelSize()-2);
+            smallFont.setPixelSize(smallFont.pixelSize() - 2);
         } else {
-            smallFont.setPointSize(smallFont.pointSize()-2);
+            smallFont.setPointSize(smallFont.pointSize() - 2);
         }
         return smallFont;
     }()));
@@ -239,7 +237,7 @@ QIcon PlasmaDesktopTheme::iconFromTheme(const QString &name, const QColor &custo
 {
     QPalette pal = palette();
     if (customColor != Qt::transparent) {
-        for (auto state : { QPalette::Active, QPalette::Inactive, QPalette::Disabled }) {
+        for (auto state : {QPalette::Active, QPalette::Inactive, QPalette::Disabled}) {
             pal.setBrush(state, QPalette::WindowText, customColor);
         }
     }
@@ -252,14 +250,14 @@ QIcon PlasmaDesktopTheme::iconFromTheme(const QString &name, const QColor &custo
 void PlasmaDesktopTheme::syncColors()
 {
     QPalette::ColorGroup group = (QPalette::ColorGroup)colorGroup();
-    auto parentItem = qobject_cast<QQuickItem*>(parent());
+    auto parentItem = qobject_cast<QQuickItem *>(parent());
     if (parentItem) {
         if (!parentItem->isEnabled()) {
             group = QPalette::Disabled;
-        //Why also checking the window is exposed?
-        //in the case of QQuickWidget the window() will never be active
-        //and the widgets will always have the inactive palette.
-        // better to always show it active than always show it inactive
+            // Why also checking the window is exposed?
+            // in the case of QQuickWidget the window() will never be active
+            // and the widgets will always have the inactive palette.
+            // better to always show it active than always show it inactive
         } else if (m_window && !m_window->isActive() && m_window->isExposed()) {
             group = QPalette::Inactive;
         }
@@ -267,7 +265,7 @@ void PlasmaDesktopTheme::syncColors()
 
     const auto colors = (*s_style)->loadColors(colorSet(), group);
 
-    //foreground
+    // foreground
     setTextColor(colors.scheme.foreground(KColorScheme::NormalText).color());
     setDisabledTextColor(colors.scheme.foreground(KColorScheme::InactiveText).color());
     setHighlightedTextColor(colors.selectionScheme.foreground(KColorScheme::NormalText).color());
@@ -278,7 +276,7 @@ void PlasmaDesktopTheme::syncColors()
     setNeutralTextColor(colors.scheme.foreground(KColorScheme::NeutralText).color());
     setPositiveTextColor(colors.scheme.foreground(KColorScheme::PositiveText).color());
 
-    //background
+    // background
     setBackgroundColor(colors.scheme.background(KColorScheme::NormalBackground).color());
     setAlternateBackgroundColor(colors.scheme.background(KColorScheme::AlternateBackground).color());
     setHighlightColor(colors.selectionScheme.background(KColorScheme::NormalBackground).color());
@@ -289,12 +287,12 @@ void PlasmaDesktopTheme::syncColors()
     setNeutralBackgroundColor(colors.scheme.background(KColorScheme::NeutralBackground).color());
     setPositiveBackgroundColor(colors.scheme.background(KColorScheme::PositiveBackground).color());
 
-    //decoration
+    // decoration
     setHoverColor(colors.scheme.decoration(KColorScheme::HoverColor).color());
     setFocusColor(colors.scheme.decoration(KColorScheme::FocusColor).color());
 }
 
-bool PlasmaDesktopTheme::event(QEvent* event)
+bool PlasmaDesktopTheme::event(QEvent *event)
 {
     if (event->type() == Kirigami::PlatformThemeEvents::DataChangedEvent::type) {
         syncFont();

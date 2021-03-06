@@ -50,4 +50,3 @@ void QSGDefaultNinePatchNode::update()
 }
 
 QT_END_NAMESPACE
-

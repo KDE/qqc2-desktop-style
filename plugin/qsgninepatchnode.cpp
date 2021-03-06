@@ -37,14 +37,12 @@ QT_BEGIN_NAMESPACE
     \internal
  */
 
-
 /*!
     \fn void QSGNinePatchNode::update()
     \internal
  */
 
-void QSGNinePatchNode::rebuildGeometry(QSGTexture *texture, QSGGeometry *geometry, const QVector4D &padding,
-                                       const QRectF &bounds, qreal dpr)
+void QSGNinePatchNode::rebuildGeometry(QSGTexture *texture, QSGGeometry *geometry, const QVector4D &padding, const QRectF &bounds, qreal dpr)
 {
     if (padding.x() <= 0 && padding.y() <= 0 && padding.z() <= 0 && padding.w() <= 0) {
         geometry->allocate(4, 0);
@@ -60,17 +58,18 @@ void QSGNinePatchNode::rebuildGeometry(QSGTexture *texture, QSGGeometry *geometr
     qreal invtw = tc.width() / ts.width();
     qreal invth = tc.height() / ts.height();
 
-    struct Coord { qreal p; qreal t; };
-    Coord cx[4] = { { bounds.left(), tc.left() },
-                    { bounds.left() + padding.x(), tc.left() + padding.x() * invtw },
-                    { bounds.right() - padding.z(), tc.right() - padding.z() * invtw },
-                    { bounds.right(), tc.right() }
-                  };
-    Coord cy[4] = { { bounds.top(), tc.top() },
-                    { bounds.top() + padding.y(), tc.top() + padding.y() * invth },
-                    { bounds.bottom() - padding.w(), tc.bottom() - padding.w() * invth },
-                    { bounds.bottom(), tc.bottom() }
-                  };
+    struct Coord {
+        qreal p;
+        qreal t;
+    };
+    Coord cx[4] = {{bounds.left(), tc.left()},
+                   {bounds.left() + padding.x(), tc.left() + padding.x() * invtw},
+                   {bounds.right() - padding.z(), tc.right() - padding.z() * invtw},
+                   {bounds.right(), tc.right()}};
+    Coord cy[4] = {{bounds.top(), tc.top()},
+                   {bounds.top() + padding.y(), tc.top() + padding.y() * invth},
+                   {bounds.bottom() - padding.w(), tc.bottom() - padding.w() * invth},
+                   {bounds.bottom(), tc.bottom()}};
 
     geometry->allocate(16, 28);
     QSGGeometry::TexturedPoint2D *v = geometry->vertexDataAsTexturedPoint2D();
