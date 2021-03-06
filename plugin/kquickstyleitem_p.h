@@ -87,7 +87,7 @@ public:
         SeparatorType = 0,
         ItemType,
         MenuType,
-        ScrollIndicatorType
+        ScrollIndicatorType,
     };
 
     enum Type {
@@ -123,7 +123,7 @@ public:
         ScrollAreaCorner,
         MacHelpButton,
         MenuBar,
-        MenuBarItem
+        MenuBarItem,
     };
 
     void paint(QPainter *);
