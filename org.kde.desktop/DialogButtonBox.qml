@@ -14,15 +14,24 @@ T.DialogButtonBox {
     id: control
 
     palette: Kirigami.Theme.palette
-    implicitWidth: contentItem.implicitWidth + leftPadding + rightPadding
-    implicitHeight: contentItem.implicitHeight + topPadding + bottomPadding
+
+    implicitWidth: Math.max(implicitBackgroundWidth + leftInset + rightInset,
+                            contentWidth + leftPadding + rightPadding)
+    implicitHeight: Math.max(implicitBackgroundHeight + topInset + bottomInset,
+                             contentHeight + topPadding + bottomPadding)
 
     spacing: Kirigami.Units.smallSpacing
     padding: Kirigami.Units.smallSpacing
     alignment: Qt.AlignRight
 
     delegate: Button {
-        width: Math.min(implicitWidth, control.width / control.count - control.padding - control.spacing * control.count)
+        // Round because fractional width values are possible.
+        width: Math.round(Math.min(
+            implicitWidth,
+            // Divide availableWidth (width - leftPadding - rightPadding) by the number of buttons,
+            // then subtract the spacing between each button.
+            (control.availableWidth / control.count) - (control.spacing * (control.count-1))
+        ))
         Kirigami.MnemonicData.controlType: Kirigami.MnemonicData.DialogButton
     }
 
