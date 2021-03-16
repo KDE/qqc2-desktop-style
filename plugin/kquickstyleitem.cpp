@@ -298,7 +298,8 @@ void KQuickStyleItem::initStyleOption()
 
         auto iconSize = QSize(m_properties[QStringLiteral("iconWidth")].toInt(), m_properties[QStringLiteral("iconHeight")].toInt());
         if (iconSize.isEmpty()) {
-            int e = KQuickStyleItem::style()->pixelMetric(QStyle::PM_ToolBarIconSize, m_styleoption, nullptr);
+            const auto metric = m_raised ? QStyle::PM_ButtonIconSize : QStyle::PM_ToolBarIconSize;
+            int e = KQuickStyleItem::style()->pixelMetric(metric, m_styleoption, nullptr);
             if (iconSize.width() <= 0) {
                 iconSize.setWidth(e);
             }
