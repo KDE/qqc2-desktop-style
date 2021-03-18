@@ -41,7 +41,7 @@ T.Button {
         raised: !(controlRoot.down || (controlRoot.checkable && controlRoot.checked))
         hover: controlRoot.hovered
         text: controlRoot.Kirigami.MnemonicData.mnemonicLabel
-        hasFocus: controlRoot.activeFocus
+        hasFocus: controlRoot.activeFocus || controlRoot.highlighted
         activeControl: controlRoot.isDefault ? "default" : "f"
         properties: {
             "icon": controlRoot.icon && controlRoot.display !== T.AbstractButton.TextOnly ? (controlRoot.icon.name || controlRoot.icon.source) : "",

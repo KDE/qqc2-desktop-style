@@ -11,7 +11,7 @@ ApplicationWindow
     GridLayout {
         anchors.fill: parent
         anchors.margins: 10
-        rows: 6
+        rows: 7
         flow: GridLayout.TopToBottom
 
         Label {
@@ -51,6 +51,12 @@ ApplicationWindow
             display: ToolButton.TextUnderIcon
             flat: true
         }
+        ToolButton {
+            icon.name: "documentinfo"
+            text: "Tool Button highlighted"
+            flat: true
+            highlighted: true
+        }
 
         Label {
             text: "Non-Flat"
@@ -88,6 +94,12 @@ ApplicationWindow
             text: "Tool Button Text Below Icon"
             display: ToolButton.TextUnderIcon
             flat: false
+        }
+        ToolButton {
+            icon.name: "documentinfo"
+            text: "Tool Button highlighted"
+            flat: false
+            highlighted: true
         }
     }
 }
