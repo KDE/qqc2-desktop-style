@@ -938,7 +938,6 @@ QSize KQuickStyleItem::sizeFromContents(int width, int height)
     case CheckBox: {
         QStyleOptionButton *btn = qstyleoption_cast<QStyleOptionButton *>(m_styleoption);
         QSize contentSize = btn->fontMetrics.size(Qt::TextShowMnemonic, btn->text);
-        QSize iconSize;
         if (!btn->icon.isNull()) {
             contentSize.setWidth(contentSize.width() + btn->iconSize.width());
             contentSize.setHeight(std::max(contentSize.height(), btn->iconSize.height()));
@@ -1044,9 +1043,7 @@ QSize KQuickStyleItem::sizeFromContents(int width, int height)
         frame.rect = m_styleoption->rect;
         frame.styleObject = this;
 
-        size = KQuickStyleItem::style()->sizeFromContents(QStyle::CT_LineEdit,
-                                                          &frame,
-                                                          QSize(width, qMax(height, contentHeight)).expandedTo(QApplication::globalStrut()));
+        size = KQuickStyleItem::style()->sizeFromContents(QStyle::CT_LineEdit, &frame, QSize(width, qMax(height, contentHeight)));
         if (m_itemType == SpinBox) {
             size.setWidth(KQuickStyleItem::style()->sizeFromContents(QStyle::CT_SpinBox, m_styleoption, QSize(width + 2, height)).width());
         }
@@ -1084,7 +1081,7 @@ QSize KQuickStyleItem::sizeFromContents(int width, int height)
     case MenuItem:
     case ComboBoxItem:
         if (static_cast<QStyleOptionMenuItem *>(m_styleoption)->menuItemType == QStyleOptionMenuItem::Scroller) {
-            size.setHeight(qMax(QApplication::globalStrut().height(), KQuickStyleItem::style()->pixelMetric(QStyle::PM_MenuScrollerHeight, nullptr, nullptr)));
+            size.setHeight(KQuickStyleItem::style()->pixelMetric(QStyle::PM_MenuScrollerHeight, nullptr, nullptr));
         } else {
             size = KQuickStyleItem::style()->sizeFromContents(QStyle::CT_MenuItem, m_styleoption, QSize(width, height));
         }
