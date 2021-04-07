@@ -23,6 +23,8 @@ Menu {
 
     property var runOnMenuClose 
 
+    parent: Overlay.overlay
+
     function storeCursorAndSelection() {
         contextMenu.restoredCursorPosition = target.cursorPosition;
         contextMenu.restoredSelectionStart = target.selectionStart;
@@ -34,37 +36,42 @@ Menu {
         if (handlerPoint.pressedButtons === Qt.RightButton) { // only accept just right click
             if (contextMenu.visible) {
                 deselectWhenMenuClosed = false; // don't deselect text if menu closed by right click on textfield
-                close();
+                dismiss();
             } else {
-                // only change parent text field if the menu is opening
-                contextMenu.parent = newTarget;
-                contextMenu.z = newTarget.z + 1;
                 contextMenu.target = newTarget;
-
                 target.persistentSelection = true; // persist selection when menu is opened
                 storeCursorAndSelection();
-                popup(handlerPoint.position.x + 1, handlerPoint.position.y + 1); // slightly locate context menu away from mouse so no item is selected when menu is opened
+                popup(contextMenu.target);
+                // slightly locate context menu away from mouse so no item is selected when menu is opened
+                x += 1
+                y += 1
             }
         } else {
-            close();
+            dismiss();
         }
     }
 
     // context menu keyboard key
     function targetKeyPressed(event, newTarget) {
         if (event.modifiers === Qt.NoModifier && event.key === Qt.Key_Menu) {
-            // change parent text field
-            contextMenu.parent = newTarget;
-            contextMenu.z = newTarget.z + 1;
             contextMenu.target = newTarget;
-
             target.persistentSelection = true; // persist selection when menu is opened
             storeCursorAndSelection();
-            popup();
+            popup(contextMenu.target);
         }
     }
 
     readonly property bool targetIsPassword: target !== null && (target.echoMode === TextInput.PasswordEchoOnEdit || target.echoMode === TextInput.Password)
+
+    onAboutToShow: {
+        if (Overlay.overlay) {
+            let tempZ = 0
+            for (let i in Overlay.overlay.visibleChildren) {
+                tempZ = Math.max(tempZ, Overlay.overlay.visibleChildren[i].z)
+            }
+            z = tempZ + 1
+        }
+    }
 
     // deal with whether or not text should be deselected
     onClosed: {
