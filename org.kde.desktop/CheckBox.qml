@@ -9,20 +9,33 @@
 import QtQuick 2.6
 import QtQuick.Templates @QQC2_VERSION@ as T
 import QtQuick.Controls @QQC2_VERSION@
-import org.kde.qqc2desktopstyle.private 1.0 as StylePrivate
 import org.kde.kirigami 2.4 as Kirigami
+import "private"
 
 T.CheckBox {
     id: controlRoot
 
     palette: Kirigami.Theme.palette
-    implicitWidth: background.implicitWidth
-    implicitHeight: background.implicitHeight
+    implicitWidth: Math.max(background ? background.implicitWidth : 0,
+                            contentItem.implicitWidth + leftPadding + rightPadding)
+    implicitHeight: Math.max(background ? background.implicitHeight : 0,
+                             Math.max(contentItem.implicitHeight,
+                                      indicator ? indicator.implicitHeight : 0) + topPadding + bottomPadding)
+    baselineOffset: contentItem.y + contentItem.baselineOffset
+
+    spacing: indicator && typeof indicator.pixelMetric === "function" ? indicator.pixelMetric("checkboxlabelspacing") : Kirigami.Units.smallSpacing
 
     hoverEnabled: true
 
-    contentItem: Item {}
-    indicator: Item {}
+    indicator: CheckIndicator {
+        LayoutMirroring.enabled: controlRoot.mirrored
+        LayoutMirroring.childrenInherit: true
+        anchors {
+            left: parent.left
+            verticalCenter: parent.verticalCenter
+        }
+        control: controlRoot
+    }
 
     Kirigami.MnemonicData.enabled: controlRoot.enabled && controlRoot.visible
     Kirigami.MnemonicData.controlType: Kirigami.MnemonicData.ActionElement
@@ -34,23 +47,34 @@ T.CheckBox {
         onActivated: controlRoot.toggle();
     }
 
-    background: StylePrivate.StyleItem {
-        id: styleItem
-        anchors.fill: parent
-        control: controlRoot
-        elementType: "checkbox"
-        sunken: control.pressed
-        on: control.checked
-        hover: control.hovered
-        enabled: control.enabled
-        text: controlRoot.Kirigami.MnemonicData.mnemonicLabel
-        hasFocus: controlRoot.activeFocus
-        properties: {
-            "icon": controlRoot.icon && controlRoot.display !== T.AbstractButton.TextOnly ? (controlRoot.icon.name || controlRoot.icon.source) : "",
-            "iconColor": controlRoot.icon && controlRoot.icon.color.a > 0 ? controlRoot.icon.color : Kirigami.Theme.textColor,
-            "iconWidth": controlRoot.icon && controlRoot.icon.width ? controlRoot.icon.width : 0,
-            "iconHeight": controlRoot.icon && controlRoot.icon.height ? controlRoot.icon.height : 0,
-            "partiallyChecked": control.checkState === Qt.PartiallyChecked
+    contentItem: Label {
+        readonly property int indicatorEffectiveWidth: controlRoot.indicator && typeof controlRoot.indicator.pixelMetric === "function"
+            ? controlRoot.indicator.pixelMetric("indicatorwidth") : controlRoot.indicator.width
+
+        leftPadding: controlRoot.indicator && !controlRoot.mirrored ? indicatorEffectiveWidth + controlRoot.spacing : 0
+        rightPadding: controlRoot.indicator && controlRoot.mirrored ? indicatorEffectiveWidth + controlRoot.spacing : 0
+        opacity: controlRoot.enabled ? 1 : 0.6
+        text: controlRoot.Kirigami.MnemonicData.richTextLabel
+        font: controlRoot.font
+        elide: Text.ElideRight
+        visible: controlRoot.text
+        horizontalAlignment: Text.AlignLeft
+        verticalAlignment: Text.AlignVCenter
+
+        FocusRect {
+            control: controlRoot
+
+            anchors {
+                leftMargin: (controlRoot.mirrored ? parent.rightPadding : parent.leftPadding ) - Kirigami.Units.smallSpacing / 2
+                left: parent.left
+                top: parent.top
+                bottom: parent.bottom
+                topMargin: parent.topPadding - 1
+                bottomMargin: parent.bottomPadding - 1
+            }
+
+            width: parent.paintedWidth + Kirigami.Units.smallSpacing
+            visible: control.activeFocus
         }
     }
 }
