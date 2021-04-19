@@ -4,8 +4,9 @@ import QtQuick.Controls 2.3
 
 ApplicationWindow {
     height: layout.implicitHeight
-    width: layout.implicitWidth
+    width: 300
     ColumnLayout {
+        width: parent.width
         id: layout
 
         CheckBox {
@@ -55,6 +56,11 @@ ApplicationWindow {
             text: "disabled and icon"
             enabled: false
             icon.name: "checkmark"
+        }
+
+        CheckBox {
+            Layout.fillWidth: true
+            text: "This is a very long piece of text that really should be rewritten to be shorter, but sometimes life just isn't that simple."
         }
     }
 }
