@@ -23,7 +23,7 @@ T.RadioButton {
                                       indicator ? indicator.implicitHeight : 0) + topPadding + bottomPadding)
     baselineOffset: contentItem.y + contentItem.baselineOffset
 
-    spacing: indicator && typeof indicator.pixelMetric === "function" ? indicator.pixelMetric("ratiobuttonlabelspacing") : Kirigami.Units.smallSpacing
+    spacing: indicator && typeof indicator.pixelMetric === "function" ? indicator.pixelMetric("radiobuttonlabelspacing") : Kirigami.Units.smallSpacing
 
     hoverEnabled: true
 

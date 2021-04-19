@@ -1191,7 +1191,7 @@ int KQuickStyleItem::pixelMetric(const QString &metric)
         return KQuickStyleItem::style()->pixelMetric(QStyle::PM_ExclusiveIndicatorWidth, nullptr);
     else if (metric == QLatin1String("checkboxlabelspacing"))
         return KQuickStyleItem::style()->pixelMetric(QStyle::PM_CheckBoxLabelSpacing, nullptr);
-    else if (metric == QLatin1String("ratiobuttonlabelspacing"))
+    else if (metric == QLatin1String("radiobuttonlabelspacing"))
         return KQuickStyleItem::style()->pixelMetric(QStyle::PM_RadioButtonLabelSpacing, nullptr);
     else if (metric == QLatin1String("tabvspace"))
         return KQuickStyleItem::style()->pixelMetric(QStyle::PM_TabBarTabVSpace, nullptr);
