@@ -29,8 +29,11 @@ T.RadioDelegate {
     bottomPadding: padding
 
     contentItem: Label {
-        leftPadding: controlRoot.mirrored ? (controlRoot.indicator ? controlRoot.indicator.width : 0) + controlRoot.spacing : 0
-        rightPadding: !controlRoot.mirrored ? (controlRoot.indicator ? controlRoot.indicator.width : 0) + controlRoot.spacing : 0
+        readonly property int indicatorEffectiveWidth: controlRoot.indicator && typeof controlRoot.indicator.pixelMetric === "function" && controlRoot.icon.name == "" && controlRoot.icon.source == ""
+            ? controlRoot.indicator.pixelMetric("exclusiveindicatorwidth") + controlRoot.spacing : controlRoot.indicator.width
+
+        leftPadding: controlRoot.indicator && !controlRoot.mirrored ? indicatorEffectiveWidth : 0
+        rightPadding: controlRoot.indicator && controlRoot.mirrored ? indicatorEffectiveWidth : 0
 
         text: controlRoot.text
         font: controlRoot.font

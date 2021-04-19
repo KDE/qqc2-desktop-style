@@ -48,11 +48,11 @@ T.RadioButton {
     }
 
     contentItem: Label {
-        readonly property int indicatorEffectiveWidth: controlRoot.indicator && typeof controlRoot.indicator.pixelMetric === "function"
-            ? controlRoot.indicator.pixelMetric("exclusiveindicatorwidth") : controlRoot.indicator.width
+        readonly property int indicatorEffectiveWidth: controlRoot.indicator && typeof controlRoot.indicator.pixelMetric === "function" && controlRoot.icon.name == "" && controlRoot.icon.source == ""
+            ? controlRoot.indicator.pixelMetric("exclusiveindicatorwidth") + controlRoot.spacing : controlRoot.indicator.width
 
-        leftPadding: controlRoot.indicator && !controlRoot.mirrored ? indicatorEffectiveWidth + controlRoot.spacing : 0
-        rightPadding: controlRoot.indicator && controlRoot.mirrored ? indicatorEffectiveWidth + controlRoot.spacing : 0
+        leftPadding: controlRoot.indicator && !controlRoot.mirrored ? indicatorEffectiveWidth : 0
+        rightPadding: controlRoot.indicator && controlRoot.mirrored ? indicatorEffectiveWidth : 0
         opacity: controlRoot.enabled ? 1 : 0.6
         text: controlRoot.Kirigami.MnemonicData.richTextLabel
         font: controlRoot.font

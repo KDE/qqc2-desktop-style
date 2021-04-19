@@ -108,6 +108,8 @@ T.MenuItem {
         x: controlRoot.mirrored ? controlRoot.width - width - controlRoot.rightPadding : controlRoot.leftPadding
         y: controlRoot.topPadding + (controlRoot.availableHeight - height) / 2
 
+        drawIcon: false // We're drawing it ourselves in this control
+
         visible: controlRoot.checkable
         on: controlRoot.checked
         control: controlRoot
