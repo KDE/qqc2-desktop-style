@@ -26,8 +26,6 @@ T.MenuItem {
 
     Layout.fillWidth: true
     padding: Kirigami.Units.smallSpacing
-    leftPadding: Kirigami.Units.largeSpacing
-    rightPadding: Kirigami.Units.largeSpacing
     hoverEnabled: !Kirigami.Settings.isMobile
 
     Kirigami.MnemonicData.enabled: controlRoot.enabled && controlRoot.visible
@@ -121,7 +119,7 @@ T.MenuItem {
 
         Rectangle {
             anchors.fill: parent
-            color: Kirigami.Theme.highlightColor
+            color: Kirigami.Theme.focusColor
             opacity: (controlRoot.highlighted || controlRoot.hovered) ? 1 : 0
         }
     }

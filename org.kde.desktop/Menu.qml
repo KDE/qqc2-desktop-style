@@ -45,6 +45,18 @@ T.Menu {
         keyNavigationWraps: true
 
         ScrollBar.vertical: ScrollBar {}
+
+        // mimic qtwidgets behaviour in regards to menu highlighting
+        Connections {
+            target: control.contentItem.currentItem
+            function onHoveredChanged() {
+                let currentItem = control.contentItem.currentItem
+                if (currentItem instanceof T.MenuItem && currentItem.highlighted
+                    && !currentItem.subMenu && !currentItem.hovered) {
+                    control.currentIndex = -1
+                }
+            }
+        }
     }
 
     Connections {
@@ -84,7 +96,7 @@ T.Menu {
     }
 
     background: Kirigami.ShadowedRectangle {
-        radius: 2
+        radius: 3
         implicitWidth: Kirigami.Units.gridUnit * 8
         color: Kirigami.Theme.backgroundColor
 
