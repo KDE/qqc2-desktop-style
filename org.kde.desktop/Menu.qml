@@ -25,6 +25,24 @@ T.Menu {
 
     delegate: MenuItem { onImplicitWidthChanged: control.contentItem.contentItem.childrenChanged() }
 
+    // qquickmenu.cpp is dead-set on making implementing
+    // good menus painful as possible, so we work around
+    // it very hackily.
+    // in particlar, it screws with hover events and forces
+    // a current index even when no item is hovered
+    onCurrentIndexChanged: {
+        for (var i = 0; i < contentItem.count; ++i) {
+            let it = contentItem.itemAtIndex(i)
+            if (!it || it.hasOwnProperty("hovered")) {
+                continue
+            }
+            if (it.hovered) {
+                return
+            }
+        }
+        currentIndex = -1
+    }
+
     contentItem: ListView {
         implicitHeight: contentHeight
         property bool hasCheckables: false
@@ -84,7 +102,7 @@ T.Menu {
     }
 
     background: Kirigami.ShadowedRectangle {
-        radius: 2
+        radius: 3
         implicitWidth: Kirigami.Units.gridUnit * 8
         color: Kirigami.Theme.backgroundColor
 
