@@ -6,9 +6,10 @@
 
 #include "kirigamiplasmafactory.h"
 #include "plasmadesktoptheme.h"
+#include "plasmadesktopunits.h"
 
 KirigamiPlasmaFactory::KirigamiPlasmaFactory(QObject *parent)
-    : Kirigami::KirigamiPluginFactory(parent)
+    : Kirigami::KirigamiPluginFactoryV2(parent)
 {
 }
 
@@ -18,6 +19,12 @@ Kirigami::PlatformTheme *KirigamiPlasmaFactory::createPlatformTheme(QObject *par
 {
     Q_ASSERT(parent);
     return new PlasmaDesktopTheme(parent);
+}
+
+Kirigami::Units *KirigamiPlasmaFactory::createUnits(QObject *parent)
+{
+    Q_ASSERT(parent);
+    return new PlasmaDesktopUnits(parent);
 }
 
 #include "moc_kirigamiplasmafactory.cpp"

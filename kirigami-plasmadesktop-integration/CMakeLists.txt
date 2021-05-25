@@ -3,6 +3,7 @@
 set(org.kde.desktop_SRCS
     plasmadesktoptheme.cpp
     kirigamiplasmafactory.cpp
+    plasmadesktopunits.cpp
 )
 
 
