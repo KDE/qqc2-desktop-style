@@ -10,7 +10,7 @@
 #include <Kirigami2/KirigamiPluginFactory>
 #include <QObject>
 
-class KirigamiPlasmaFactory : public Kirigami::KirigamiPluginFactory
+class KirigamiPlasmaFactory : public Kirigami::KirigamiPluginFactoryV2
 {
     Q_OBJECT
 
@@ -23,6 +23,7 @@ public:
     ~KirigamiPlasmaFactory() override;
 
     Kirigami::PlatformTheme *createPlatformTheme(QObject *parent) override;
+    Kirigami::Units *createUnits(QObject *parent) override;
 };
 
 #endif // KIRIGAMIPLASMAFACTORY_H
