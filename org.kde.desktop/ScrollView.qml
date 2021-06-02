@@ -18,8 +18,8 @@ T.ScrollView {
     clip: true
 
     palette: Kirigami.Theme.palette
-    implicitWidth: Math.max(background ? background.implicitWidth : 0, contentWidth + leftPadding + rightPadding)
-    implicitHeight: Math.max(background ? background.implicitHeight : 0, contentHeight + topPadding + bottomPadding)
+    implicitWidth: Math.max(background ? background.implicitWidth : 0, contentWidth + leftPadding + rightPadding + (ScrollBar.vertical.visible ? ScrollBar.vertical.width : 0))
+    implicitHeight: Math.max(background ? background.implicitHeight : 0, contentHeight + topPadding + bottomPadding + (ScrollBar.horizontal.visible ? ScrollBar.horizontal.height : 0))
 
     Kirigami.Theme.colorSet: Kirigami.Theme.View
     Kirigami.Theme.inherit: !background || !background.visible
