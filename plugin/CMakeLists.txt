@@ -4,6 +4,7 @@ set(qqc2desktopstyle_SRCS
     qqc2desktopstyleplugin.cpp
     kquickstyleitem.cpp
     kpropertywriter.cpp
+    spellcheckhighlighter.cpp
     )
 
 if(Qt5_VERSION VERSION_LESS "5.8.0")
@@ -16,7 +17,7 @@ set(qqc2desktopstyle_SRCS
 endif()
 
 add_library(qqc2desktopstyleplugin SHARED ${qqc2desktopstyle_SRCS})
-target_link_libraries(qqc2desktopstyleplugin Qt5::Core Qt5::Qml Qt5::Quick Qt5::Gui Qt5::Widgets KF5::ConfigCore KF5::Kirigami2)
+target_link_libraries(qqc2desktopstyleplugin Qt5::Core Qt5::Qml Qt5::Quick Qt5::Gui Qt5::Widgets KF5::ConfigCore KF5::Kirigami2 KF5::SonnetCore)
 
 if(KF5ConfigWidgets_FOUND)
     target_link_libraries(qqc2desktopstyleplugin

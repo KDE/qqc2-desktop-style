@@ -35,7 +35,7 @@ include(KDEFrameworkCompilerSettings NO_POLICY_SCOPE)
 
 find_package(Qt5 ${REQUIRED_QT_VERSION} REQUIRED NO_MODULE COMPONENTS Core Quick Gui Widgets QuickControls2 DBus)
 
-find_package(KF5 ${KF_DEP_VERSION} REQUIRED COMPONENTS Config Kirigami2)
+find_package(KF5 ${KF_DEP_VERSION} REQUIRED COMPONENTS Config Kirigami2 Sonnet)
 
 # IconThemes and ConfigWidgets are optional
 find_package(KF5IconThemes ${KF_DEP_VERSION})
