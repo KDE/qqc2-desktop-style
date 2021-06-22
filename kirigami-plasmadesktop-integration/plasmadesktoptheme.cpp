@@ -222,11 +222,13 @@ void PlasmaDesktopTheme::syncFont()
     KConfigGroup general(ptr->group("general"));
     setSmallFont(general.readEntry("smallestReadableFont", []() {
         auto smallFont = qApp->font();
+#ifndef Q_OS_WIN
         if (smallFont.pixelSize() != -1) {
             smallFont.setPixelSize(smallFont.pixelSize() - 2);
         } else {
             smallFont.setPointSize(smallFont.pointSize() - 2);
         }
+#endif
         return smallFont;
     }()));
 
