@@ -27,4 +27,5 @@ T.Label {
 
     color: Kirigami.Theme.textColor
     linkColor: Kirigami.Theme.linkColor
+    font: Kirigami.Theme.defaultFont
 }
