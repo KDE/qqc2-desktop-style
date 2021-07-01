@@ -7,7 +7,6 @@
 #include "qqc2desktopstyleplugin.h"
 #include "kpropertywriter_p.h"
 #include "kquickstyleitem_p.h"
-#include "spellcheckhighlighter.h"
 
 #include <QQmlContext>
 #include <QQmlEngine>
@@ -18,7 +17,6 @@ void QQc2DesktopStylePlugin::registerTypes(const char *uri)
     Q_ASSERT(QLatin1String(uri) == QLatin1String("org.kde.qqc2desktopstyle.private"));
 
     qmlRegisterType<KQuickStyleItem>(uri, 1, 0, "StyleItem");
-    qmlRegisterType<SpellcheckHighlighter>(uri, 1, 0, "SpellcheckHighlighter");
     qmlRegisterType<KPropertyWriter>(uri, 1, 0, "PropertyWriter");
     qmlRegisterAnonymousType<KQuickPadding>(uri, 1);
     qmlProtectModule(uri, 2);

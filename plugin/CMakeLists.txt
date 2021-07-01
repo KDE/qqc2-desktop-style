@@ -4,7 +4,6 @@ set(qqc2desktopstyle_SRCS
     qqc2desktopstyleplugin.cpp
     kquickstyleitem.cpp
     kpropertywriter.cpp
-    spellcheckhighlighter.cpp
     )
 
 if(Qt5_VERSION VERSION_LESS "5.8.0")

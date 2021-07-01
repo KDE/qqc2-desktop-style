@@ -10,8 +10,9 @@
 import QtQuick 2.12
 import QtQuick.Window 2.1
 import QtQuick.Templates @QQC2_VERSION@ as T
-import org.kde.kirigami 2.4 as Kirigami
+import org.kde.kirigami 2.18 as Kirigami
 import org.kde.qqc2desktopstyle.private 1.0 as StylePrivate
+import org.kde.sonnet 1.0 as Sonnet
 import "private" as Private
 
 T.TextArea {
@@ -63,14 +64,16 @@ T.TextArea {
         onLongPressed: Private.TextFieldContextMenu.targetClick(point, controlRoot, spellcheckhighlighter, controlRoot.positionAt(point.position.x, point.position.y));
     }
 
-    StylePrivate.SpellcheckHighlighter {
+    Sonnet.SpellcheckHighlighter {
         id: spellcheckhighlighter
         document: controlRoot.textDocument
         cursorPosition: controlRoot.cursorPosition
         selectionStart: controlRoot.selectionStart
         selectionEnd: controlRoot.selectionEnd
+        misspelledColor: Kirigami.Theme.negativeTextColor
+        active: controlRoot.Kirigami.SpellChecking.enabled
+
         onChangeCursorPosition: {
-            console.log(start, end, wordUnderMouse);
             controlRoot.cursorPosition = start;
             controlRoot.moveCursorSelection(end, TextEdit.SelectCharacters);
         }
