@@ -47,4 +47,38 @@ T.DialogButtonBox {
     }
 
     background: Item {}
+    // Standard buttons are destroyed and then recreated every time
+    // the `standardButtons` property changes, so it is necessary to
+    // run this code every time standardButtonsChanged() is emitted.
+    // See QQuickDialogButtonBox::setStandardButtons()
+    onStandardButtonsChanged: {
+        // standardButton() returns a pointer to an existing standard button.
+        // If no such button exists, it returns nullptr.
+        // Icon names are copied from KStyle::standardIcon()
+        function setStandardIcon(buttonType, iconName) {
+            let button = standardButton(buttonType)
+            // For some reason, `== ""` works, but `=== ""` and `!name && !source` doesn't.
+            if (button && button.icon.name == "" && button.icon.source == "") { 
+                button.icon.name = iconName
+            }
+        }
+        setStandardIcon(T.Dialog.Ok, "dialog-ok")
+        setStandardIcon(T.Dialog.Save, "document-save")
+        setStandardIcon(T.Dialog.SaveAll, "document-save-all")
+        setStandardIcon(T.Dialog.Open, "document-open")
+        setStandardIcon(T.Dialog.Yes, "dialog-ok-apply")
+        setStandardIcon(T.Dialog.YesToAll, "dialog-ok")
+        setStandardIcon(T.Dialog.No, "dialog-cancel")
+        setStandardIcon(T.Dialog.NoToAll, "dialog-cancel")
+        setStandardIcon(T.Dialog.Abort, "dialog-cancel")
+        setStandardIcon(T.Dialog.Retry, "view-refresh")
+        setStandardIcon(T.Dialog.Ignore, "dialog-cancel")
+        setStandardIcon(T.Dialog.Close, "dialog-close")
+        setStandardIcon(T.Dialog.Cancel, "dialog-cancel")
+        setStandardIcon(T.Dialog.Discard, "edit-delete")
+        setStandardIcon(T.Dialog.Help, "help-contents")
+        setStandardIcon(T.Dialog.Apply, "dialog-ok-apply")
+        setStandardIcon(T.Dialog.Reset, "edit-undo")
+        setStandardIcon(T.Dialog.RestoreDefaults, "document-revert")
+    }
 }
