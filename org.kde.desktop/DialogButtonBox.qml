@@ -13,8 +13,6 @@ import org.kde.kirigami 2.4 as Kirigami
 T.DialogButtonBox {
     id: control
 
-    palette: Kirigami.Theme.palette
-
     implicitWidth: Math.max(implicitBackgroundWidth + leftInset + rightInset,
                             contentWidth + leftPadding + rightPadding)
     implicitHeight: Math.max(implicitBackgroundHeight + topInset + bottomInset,
@@ -46,7 +44,6 @@ T.DialogButtonBox {
         snapMode: ListView.SnapToItem
     }
 
-    background: Item {}
     // Standard buttons are destroyed and then recreated every time
     // the `standardButtons` property changes, so it is necessary to
     // run this code every time standardButtonsChanged() is emitted.
