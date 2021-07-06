@@ -13,20 +13,11 @@
 #include <QQmlEngine>
 #include <QQuickRenderControl>
 #include <QQuickWindow>
+#include <QScopeGuard>
 
 #include <KColorScheme>
 #include <KConfigGroup>
 #include <QDBusConnection>
-
-class IconLoaderSingleton
-{
-public:
-    IconLoaderSingleton() = default;
-
-    KIconLoader self;
-};
-
-Q_GLOBAL_STATIC(IconLoaderSingleton, privateIconLoaderSelf)
 
 class StyleSingleton : public QObject
 {
@@ -244,9 +235,19 @@ QIcon PlasmaDesktopTheme::iconFromTheme(const QString &name, const QColor &custo
         }
     }
 
-    privateIconLoaderSelf->self.setCustomPalette(pal);
+    bool hadPalette = KIconLoader::global()->hasCustomPalette();
+    QPalette olderPalette = KIconLoader::global()->customPalette();
 
-    return KDE::icon(name, &privateIconLoaderSelf->self);
+    auto cleanup = qScopeGuard([&] {
+        if (hadPalette) {
+            KIconLoader::global()->setCustomPalette(olderPalette);
+        } else {
+            KIconLoader::global()->resetPalette();
+        }
+    });
+
+    KIconLoader::global()->setCustomPalette(pal);
+    return KDE::icon(name, KIconLoader::global());
 }
 
 void PlasmaDesktopTheme::syncColors()
