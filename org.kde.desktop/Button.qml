@@ -37,8 +37,9 @@ T.Button {
         anchors.fill: parent
         control: controlRoot
         elementType: "button"
-        sunken: controlRoot.down || (controlRoot.checkable && controlRoot.checked)
-        raised: !(controlRoot.down || (controlRoot.checkable && controlRoot.checked))
+        sunken: controlRoot.down
+        on: controlRoot.checkable && controlRoot.checked
+        flat: controlRoot.flat
         hover: controlRoot.hovered
         text: controlRoot.Kirigami.MnemonicData.mnemonicLabel
         hasFocus: controlRoot.activeFocus || controlRoot.highlighted
@@ -48,7 +49,6 @@ T.Button {
             "iconColor": controlRoot.icon && controlRoot.icon.color.a > 0? controlRoot.icon.color : Kirigami.Theme.textColor,
             "iconWidth": controlRoot.icon && controlRoot.icon.width ? controlRoot.icon.width : 0,
             "iconHeight": controlRoot.icon && controlRoot.icon.height ? controlRoot.icon.height : 0,
-            "flat": controlRoot.flat
         }
     }
 }

@@ -43,12 +43,13 @@ T.ToolButton {
         anchors.fill:parent
         control: controlRoot
         elementType: "toolbutton"
-        on: controlRoot.pressed || (controlRoot.checkable && controlRoot.checked)
+        sunken: controlRoot.down
+        on: controlRoot.checkable && controlRoot.checked
         hover: controlRoot.hovered
         text: controlRoot.Kirigami.MnemonicData.mnemonicLabel
         hasFocus: controlRoot.visualFocus || (!controlRoot.flat && controlRoot.pressed) || controlRoot.highlighted
         activeControl: controlRoot.isDefault ? "default" : "f"
-        raised: !controlRoot.flat
+        flat: controlRoot.flat
 
         // Set this to true to have the style render a menu arrow for the
         // ToolButton.

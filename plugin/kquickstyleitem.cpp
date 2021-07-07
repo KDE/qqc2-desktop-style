@@ -38,7 +38,7 @@ KQuickStyleItem::KQuickStyleItem(QQuickItem *parent)
     , m_styleoption(nullptr)
     , m_itemType(Undefined)
     , m_sunken(false)
-    , m_raised(false)
+    , m_flat(false)
     , m_active(true)
     , m_selected(false)
     , m_focus(false)
@@ -86,7 +86,7 @@ KQuickStyleItem::KQuickStyleItem(QQuickItem *parent)
     connect(this, &KQuickStyleItem::textChanged, this, &KQuickStyleItem::updateSizeHint);
     connect(this, &KQuickStyleItem::textChanged, this, &KQuickStyleItem::updateItem);
     connect(this, &KQuickStyleItem::activeChanged, this, &KQuickStyleItem::updateItem);
-    connect(this, &KQuickStyleItem::raisedChanged, this, &KQuickStyleItem::updateItem);
+    connect(this, &KQuickStyleItem::flatChanged, this, &KQuickStyleItem::updateItem);
     connect(this, &KQuickStyleItem::sunkenChanged, this, &KQuickStyleItem::updateItem);
     connect(this, &KQuickStyleItem::hoverChanged, this, &KQuickStyleItem::updateItem);
     connect(this, &KQuickStyleItem::maximumChanged, this, &KQuickStyleItem::updateItem);
@@ -193,7 +193,7 @@ void KQuickStyleItem::initStyleOption()
         }
         opt->iconSize = iconSize;
         opt->features = activeControl() == QLatin1String("default") ? QStyleOptionButton::DefaultButton : QStyleOptionButton::None;
-        if (m_properties[QStringLiteral("flat")].toBool()) {
+        if (m_flat) {
             opt->features |= QStyleOptionButton::Flat;
         }
         const QFont font = qApp->font("QPushButton");
@@ -287,7 +287,7 @@ void KQuickStyleItem::initStyleOption()
         QStyleOptionToolButton *opt = qstyleoption_cast<QStyleOptionToolButton *>(m_styleoption);
         opt->subControls = QStyle::SC_ToolButton;
 
-        if (!m_raised) {
+        if (m_flat) {
             opt->state |= QStyle::State_AutoRaise;
         }
 
@@ -298,7 +298,7 @@ void KQuickStyleItem::initStyleOption()
 
         auto iconSize = QSize(m_properties[QStringLiteral("iconWidth")].toInt(), m_properties[QStringLiteral("iconHeight")].toInt());
         if (iconSize.isEmpty()) {
-            const auto metric = m_raised ? QStyle::PM_ButtonIconSize : QStyle::PM_ToolBarIconSize;
+            const auto metric = m_flat ? QStyle::PM_ToolBarIconSize : QStyle::PM_ButtonIconSize;
             int e = KQuickStyleItem::style()->pixelMetric(metric, m_styleoption, nullptr);
             if (iconSize.width() <= 0) {
                 iconSize.setWidth(e);
@@ -686,7 +686,7 @@ void KQuickStyleItem::initStyleOption()
 
     if (m_sunken)
         m_styleoption->state |= QStyle::State_Sunken;
-    if (m_raised)
+    if (!m_sunken || m_raised)
         m_styleoption->state |= QStyle::State_Raised;
     if (m_selected)
         m_styleoption->state |= QStyle::State_Selected;

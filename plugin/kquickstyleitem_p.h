@@ -44,6 +44,7 @@ class KQuickStyleItem : public QQuickItem
 
     Q_PROPERTY(bool sunken READ sunken WRITE setSunken NOTIFY sunkenChanged)
     Q_PROPERTY(bool raised READ raised WRITE setRaised NOTIFY raisedChanged)
+    Q_PROPERTY(bool flat READ flat WRITE setFlat NOTIFY flatChanged)
     Q_PROPERTY(bool active READ active WRITE setActive NOTIFY activeChanged)
     Q_PROPERTY(bool selected READ selected WRITE setSelected NOTIFY selectedChanged)
     Q_PROPERTY(bool hasFocus READ hasFocus WRITE sethasFocus NOTIFY hasFocusChanged)
@@ -142,6 +143,10 @@ public:
     {
         return m_raised;
     }
+    bool flat() const
+    {
+        return m_flat;
+    }
     bool active() const
     {
         return m_active;
@@ -230,6 +235,13 @@ public:
         if (m_raised != raised) {
             m_raised = raised;
             Q_EMIT raisedChanged();
+        }
+    }
+    void setFlat(bool flat)
+    {
+        if (m_flat != flat) {
+            m_flat = flat;
+            Q_EMIT flatChanged();
         }
     }
     void setActive(bool active)
@@ -401,6 +413,7 @@ Q_SIGNALS:
     void textChanged();
     void sunkenChanged();
     void raisedChanged();
+    void flatChanged();
     void activeChanged();
     void selectedChanged();
     void hasFocusChanged();
@@ -461,6 +474,7 @@ protected:
 
     bool m_sunken;
     bool m_raised;
+    bool m_flat;
     bool m_active;
     bool m_selected;
     bool m_focus;
