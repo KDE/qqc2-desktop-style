@@ -19,7 +19,6 @@ T.MenuBarItem {
     implicitHeight: contentItem.implicitHeight + topPadding + bottomPadding
     baselineOffset: contentItem.y + contentItem.baselineOffset
 
-    Layout.fillWidth: true
     leftPadding: Kirigami.Units.largeSpacing
     rightPadding: Kirigami.Units.largeSpacing
     topPadding: Kirigami.Units.smallSpacing
