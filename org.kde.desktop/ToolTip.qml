@@ -24,7 +24,7 @@ T.ToolTip {
     // Always show the tooltip on top of everything else
     z: 999
 
-    // Math.ceil() prevents blurry edges and prevents unecessary text wrapping
+    // Math.ceil() prevents blurry edges and prevents unnecessary text wrapping
     // (vs using floor or sometimes round).
     implicitWidth: Math.ceil(contentItem.implicitWidth) + leftPadding + rightPadding
     implicitHeight: Math.ceil(contentItem.implicitHeight) + topPadding + bottomPadding

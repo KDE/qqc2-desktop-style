@@ -24,7 +24,7 @@ T.ScrollView {
     Kirigami.Theme.colorSet: Kirigami.Theme.View
     Kirigami.Theme.inherit: !background || !background.visible
 
-    //size in pixel to accomodate the border drawn by qstyle
+    //size in pixel to accommodate the border drawn by qstyle
     leftPadding: (internal.backgroundVisible && background.hasOwnProperty("leftPadding") ? background.leftPadding : 0)
                     + (LayoutMirroring.enabled ? internal.verticalScrollBarWidth : 0)
     topPadding: internal.backgroundVisible && background.hasOwnProperty("topPadding") ? background.topPadding : 0
