@@ -927,6 +927,17 @@ QString KQuickStyleItem::hitTest(int px, int py)
     return QStringLiteral("none");
 }
 
+QRect KQuickStyleItem::computeBoundingRect(const QList<QRect> &rects)
+{
+    QRegion r;
+
+    for (const auto& rect : rects) {
+        r = r.united(rect);
+    }
+
+    return r.boundingRect();
+}
+
 QSize KQuickStyleItem::sizeFromContents(int width, int height)
 {
     initStyleOption();

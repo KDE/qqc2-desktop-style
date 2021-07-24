@@ -405,6 +405,8 @@ public Q_SLOTS:
     }
     QString hitTest(int x, int y);
     QRectF subControlRect(const QString &subcontrolString);
+    QSize sizeFromContents(int width, int height);
+    QRect computeBoundingRect(const QList<QRect>& rects);
     QString elidedText(const QString &text, int elideMode, int width);
     bool hasThemeIcon(const QString &) const;
 
@@ -454,7 +456,6 @@ protected:
 private:
     QIcon iconFromIconProperty() const;
     const char *classNameForItem() const;
-    QSize sizeFromContents(int width, int height);
     qreal baselineOffset();
     void styleChanged();
 

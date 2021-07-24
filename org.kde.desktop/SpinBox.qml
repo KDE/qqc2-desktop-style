@@ -18,12 +18,15 @@ T.SpinBox {
     Kirigami.Theme.colorSet: Kirigami.Theme.View
     Kirigami.Theme.inherit: false
 
-    implicitWidth: Math.max(48, contentItem.implicitWidth + 2 * padding +  up.indicator.implicitWidth)
-    implicitHeight: Math.max(background.implicitHeight, contentItem.implicitHeight + topPadding + bottomPadding)
+    implicitWidth: Math.max(styleitem.fullRect.width, 48, contentItem.implicitWidth + 2 * padding + up.indicator.implicitWidth + down.indicator.implicitWidth)
+    implicitHeight: Math.max(styleitem.fullRect.height, background.implicitHeight, contentItem.implicitHeight + topPadding + bottomPadding)
 
     padding: 6
-    leftPadding: padding + (controlRoot.mirrored ? (up.indicator ? up.indicator.width : 0) : 0)
-    rightPadding: padding + (controlRoot.mirrored ? 0 : (up.indicator ? up.indicator.width : 0))
+    leftPadding: controlRoot.mirrored ? ___rPadding : ___lPadding
+    rightPadding: controlRoot.mirrored ? ___lPadding : ___rPadding
+
+    readonly property int ___lPadding: styleitem.upRect.x === styleitem.downRect.x ? horizontalPadding : styleitem.upRect.width
+    readonly property int ___rPadding: styleitem.upRect.x === styleitem.downRect.x ? styleitem.upRect.width : styleitem.downRect.width
 
 
     hoverEnabled: true
@@ -97,16 +100,18 @@ T.SpinBox {
     }
 
     up.indicator: Item {
-        implicitWidth: parent.height/2
-        implicitHeight: implicitWidth
-        x: controlRoot.mirrored ? 0 : parent.width - width
+        implicitWidth: styleitem.upRect.width
+        implicitHeight: styleitem.upRect.height
+
+        x: styleitem.upRect.x
+        y: styleitem.upRect.y
     }
     down.indicator: Item {
-        implicitWidth: parent.height/2
-        implicitHeight: implicitWidth
+        implicitWidth: styleitem.downRect.width
+        implicitHeight: styleitem.downRect.height
 
-        x: controlRoot.mirrored ? 0 : parent.width - width
-        y: parent.height - height
+        x: styleitem.downRect.x
+        y: styleitem.downRect.y
     }
 
 
@@ -118,6 +123,23 @@ T.SpinBox {
         hover: controlRoot.hovered
         hasFocus: controlRoot.activeFocus
         enabled: controlRoot.enabled
+
+        property rect upRect: styleitem.subControlRect("up")
+        property rect downRect: styleitem.subControlRect("down")
+        property rect editRect: styleitem.subControlRect("edit")
+        property rect fullRect: styleitem.computeBoundingRect([upRect, downRect, editRect])
+        property size theSize: styleitem.sizeFromContents(editRect.width, editRect.height)
+
+        function recompute() {
+            upRect = styleitem.subControlRect("up")
+            downRect = styleitem.subControlRect("down")
+            editRect = styleitem.subControlRect("edit")
+            fullRect = styleitem.computeBoundingRect([upRect, downRect, editRect])
+            theSize = styleitem.sizeFromContents(editRect.width, editRect.height)
+        }
+
+        onWidthChanged: recompute()
+        onHeightChanged: recompute()
 
         value: (controlRoot.up.pressed ? 1 : 0) |
                    (controlRoot.down.pressed ? 1<<1 : 0) |
