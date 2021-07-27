@@ -161,7 +161,9 @@ Q_GLOBAL_STATIC_WITH_ARGS(QScopedPointer<StyleSingleton>, s_style, (new StyleSin
 PlasmaDesktopTheme::PlasmaDesktopTheme(QObject *parent)
     : PlatformTheme(parent)
 {
-    setSupportsIconColoring(true);
+    m_desktop = qgetenv("XDG_CURRENT_DESKTOP");
+
+    setSupportsIconColoring(m_desktop == "KDE");
 
     auto parentItem = qobject_cast<QQuickItem *>(parent);
     if (parentItem) {
@@ -230,13 +232,19 @@ void PlasmaDesktopTheme::syncFont()
 
 QIcon PlasmaDesktopTheme::iconFromTheme(const QString &name, const QColor &customColor)
 {
-    if (customColor != Qt::transparent) {
-        KIconColors colors;
-        colors.setText(customColor);
-        return KDE::icon(name, colors);
-    } else {
-        return KDE::icon(name);
+    // When using Plasma call KIconLoader directly so we can pass our palette
+    // When not then defer to QIcon::fromTheme to make sure the same icon loader as for all other icons is used
+    if (m_desktop == "KDE") {
+        if (customColor != Qt::transparent) {
+            KIconColors colors;
+            colors.setText(customColor);
+            return KDE::icon(name, colors);
+        } else {
+            return KDE::icon(name);
+        }
     }
+
+    return QIcon::fromTheme(name);
 }
 
 void PlasmaDesktopTheme::syncColors()

@@ -40,6 +40,7 @@ protected Q_SLOTS:
 private:
     friend class StyleSingleton;
     QPointer<QWindow> m_window;
+    QByteArray m_desktop;
 };
 
 #endif // KIRIGAMIPLASMATHEME_H
