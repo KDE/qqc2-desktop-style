@@ -24,6 +24,11 @@ T.ScrollBar {
     stepSize: 0.02
     interactive: !Kirigami.Settings.hasTransientTouchInput
 
+    topPadding: style.topScrollbarPadding
+    bottomPadding: style.bottomScrollbarPadding
+    leftPadding: style.leftScrollbarPadding
+    rightPadding: style.rightScrollbarPadding
+
     onPositionChanged: {
         disappearTimer.restart();
         handleGraphics.handleState = Math.min(1, handleGraphics.handleState + 0.1)
@@ -140,6 +145,19 @@ T.ScrollBar {
             id: style
 
             readonly property real length: (controlRoot.orientation == Qt.Vertical ? height : width)
+            property rect grooveRect: Qt.rect(0, 0, 0, 0)
+            readonly property real topScrollbarPadding: grooveRect.top
+            readonly property real bottomScrollbarPadding: style.height - grooveRect.bottom
+            readonly property real leftScrollbarPadding: grooveRect.left
+            readonly property real rightScrollbarPadding: style.width - grooveRect.right
+
+            Component.onCompleted: computeRects()
+            onWidthChanged: computeRects()
+            onHeightChanged: computeRects()
+
+            function computeRects() {
+                style.grooveRect = style.subControlRect("groove")
+            }
 
             control: controlRoot
             anchors.fill: parent
