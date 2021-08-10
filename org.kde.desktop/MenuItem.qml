@@ -26,6 +26,7 @@ T.MenuItem {
 
     Layout.fillWidth: true
     padding: Kirigami.Units.smallSpacing
+    verticalPadding: Math.floor(Kirigami.Units.smallSpacing * 1.5)
     hoverEnabled: !Kirigami.Settings.isMobile
 
     Kirigami.MnemonicData.enabled: controlRoot.enabled && controlRoot.visible
@@ -53,8 +54,6 @@ T.MenuItem {
             visible: (controlRoot.ListView.view && controlRoot.ListView.view.hasIcons) || (controlRoot.icon != undefined && (controlRoot.icon.name.length > 0 || controlRoot.icon.source.length > 0))
             source: controlRoot.icon ? (controlRoot.icon.name || controlRoot.icon.source) : ""
             color: controlRoot.icon ? controlRoot.icon.color : "transparent"
-            //hovered is for retrocompatibility
-            selected: (controlRoot.highlighted || controlRoot.hovered)
             Layout.preferredHeight: Math.max(Kirigami.Units.fontMetrics.roundedIconSize(label.height), Kirigami.Units.iconSizes.small)
             Layout.preferredWidth: Layout.preferredHeight
         }
@@ -65,7 +64,7 @@ T.MenuItem {
 
             text: controlRoot.Kirigami.MnemonicData.richTextLabel
             font: controlRoot.font
-            color: (controlRoot.highlighted || controlRoot.hovered) ? Kirigami.Theme.highlightedTextColor : Kirigami.Theme.textColor
+            color: Kirigami.Theme.textColor
             elide: Text.ElideRight
             visible: controlRoot.text
             horizontalAlignment: Text.AlignLeft
@@ -119,8 +118,12 @@ T.MenuItem {
 
         Rectangle {
             anchors.fill: parent
-            color: Kirigami.Theme.focusColor
+            anchors.margins: 2
             opacity: (controlRoot.highlighted || controlRoot.hovered) ? 1 : 0
+            color: Qt.rgba(Kirigami.Theme.focusColor.r, Kirigami.Theme.focusColor.g, Kirigami.Theme.focusColor.b, 0.3)
+            border.color: Kirigami.Theme.focusColor
+            border.width: 1
+            radius: 3
         }
     }
 }
