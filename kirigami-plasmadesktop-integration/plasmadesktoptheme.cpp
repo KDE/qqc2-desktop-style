@@ -71,8 +71,9 @@ public:
     {
         const auto key = qMakePair(cs, group);
         auto it = m_cache.constFind(key);
-        if (it != m_cache.constEnd())
+        if (it != m_cache.constEnd()) {
             return *it;
+        }
 
         using Kirigami::PlatformTheme;
 
