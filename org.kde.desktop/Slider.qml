@@ -22,7 +22,9 @@ T.Slider {
     hoverEnabled: true
     LayoutMirroring.enabled: Qt.application.layoutDirection === Qt.RightToLeft
 
-    handle: Item {}
+    handle: Item {
+        anchors.verticalCenter: controlRoot.verticalCenter
+    }
 
     snapMode: T.Slider.SnapOnRelease
 
@@ -33,6 +35,7 @@ T.Slider {
         implicitWidth: 200
         contentWidth: horizontal ? controlRoot.implicitWidth : 22
         contentHeight: horizontal ? 22 : controlRoot.implicitHeight
+        anchors.verticalCenter: controlRoot.verticalCenter
 
         maximum: controlRoot.to*100
         minimum: controlRoot.from*100
