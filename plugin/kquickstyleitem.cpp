@@ -167,8 +167,8 @@ void KQuickStyleItem::initStyleOption()
     Q_ASSERT(m_theme);
 
     if (m_styleoption) {
-        m_styleoption->state = {}
-    };
+        m_styleoption->state = {};
+    }
 
     QString sizeHint = m_hints.value(QStringLiteral("size")).toString();
 
