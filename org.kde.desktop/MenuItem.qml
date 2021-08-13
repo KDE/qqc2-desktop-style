@@ -54,7 +54,7 @@ T.MenuItem {
             visible: (controlRoot.ListView.view && controlRoot.ListView.view.hasIcons) || (controlRoot.icon != undefined && (controlRoot.icon.name.length > 0 || controlRoot.icon.source.length > 0))
             source: controlRoot.icon ? (controlRoot.icon.name || controlRoot.icon.source) : ""
             color: controlRoot.icon ? controlRoot.icon.color : "transparent"
-            Layout.preferredHeight: Math.max(Kirigami.Units.fontMetrics.roundedIconSize(label.height), Kirigami.Units.iconSizes.small)
+            Layout.preferredHeight: Math.max(Kirigami.Units.iconSizes.roundedIconSize(label.height), Kirigami.Units.iconSizes.small)
             Layout.preferredWidth: Layout.preferredHeight
         }
         Label {
@@ -96,7 +96,7 @@ T.MenuItem {
         y: controlRoot.topPadding + (controlRoot.availableHeight - height) / 2
         source: controlRoot.mirrored ? "go-next-symbolic-rtl" : "go-next-symbolic"
         selected: controlRoot.highlighted
-        width: Math.max(Kirigami.Units.fontMetrics.roundedIconSize(label.height), Kirigami.Units.iconSizes.small)
+        width: Math.max(Kirigami.Units.iconSizes.roundedIconSize(label.height), Kirigami.Units.iconSizes.small)
         height: width
         visible: controlRoot.subMenu
     }
