@@ -1,5 +1,6 @@
 /*
     SPDX-FileCopyrightText: 2020 Devin Lin <espidev@gmail.com>
+    SPDX-FileCopyrightText: 2021 Carl Schwan <carlschwan@kde.org>
 
     SPDX-License-Identifier: LGPL-2.0-or-later
 */ 
@@ -7,6 +8,7 @@
 pragma Singleton
 
 import QtQuick 2.6
+import QtQml 2.2
 import QtQuick.Controls @QQC2_VERSION@ 
 import org.kde.kirigami 2.5 as Kirigami
 
@@ -19,6 +21,8 @@ Menu {
     property int restoredSelectionStart
     property int restoredSelectionEnd
     property bool persistentSelectionSetting
+    property var spellcheckhighlighter: null
+    property var suggestions
     Component.onCompleted: persistentSelectionSetting = persistentSelectionSetting // break binding
 
     property var runOnMenuClose 
@@ -32,14 +36,16 @@ Menu {
     }
 
     // target is pressed with mouse
-    function targetClick(handlerPoint, newTarget) {
+    function targetClick(handlerPoint, newTarget, spellcheckhighlighter, mousePosition) {
         if (handlerPoint.pressedButtons === Qt.RightButton) { // only accept just right click
             if (contextMenu.visible) {
                 deselectWhenMenuClosed = false; // don't deselect text if menu closed by right click on textfield
                 dismiss();
             } else {
                 contextMenu.target = newTarget;
-                target.persistentSelection = true; // persist selection when menu is opened
+                contextMenu.target.persistentSelection = true; // persist selection when menu is opened
+                contextMenu.spellcheckhighlighter = spellcheckhighlighter
+                contextMenu.suggestions = spellcheckhighlighter.suggestions(mousePosition);
                 storeCursorAndSelection();
                 popup(contextMenu.target);
                 // slightly locate context menu away from mouse so no item is selected when menu is opened
@@ -94,6 +100,63 @@ Menu {
 
     onOpened: {
         runOnMenuClose = function() {};
+    }
+
+    Instantiator {
+        active: target !== null && !target.readOnly && spellcheckhighlighter !== null && spellcheckhighlighter.wordIsMisspelled
+        model: suggestions
+        delegate: MenuItem {
+            text: modelData
+            onClicked: {
+                deselectWhenMenuClosed = false;
+                runOnMenuClose = function() {
+                    spellcheckhighlighter.replaceWord(modelData);
+                };
+            }
+        }
+        onObjectAdded: {
+            console.log("object", object)
+            contextMenu.insertItem(0, object)
+        }
+        onObjectRemoved: contextMenu.removeItem(0)
+    }
+
+    MenuItem {
+        visible: target !== null && !target.readOnly && spellcheckhighlighter !== null && spellcheckhighlighter.wordIsMisspelled && suggestions.length === 0
+        action: Action {
+            text: i18nc("@action:inmenu", "No suggestions for %1", spellcheckhighlighter.wordUnderMouse)
+            enabled: false
+        }
+    }
+
+    MenuItem {
+        visible: target !== null && !target.readOnly && spellcheckhighlighter !== null && spellcheckhighlighter.wordIsMisspelled
+        action: Action {
+            text: i18n("Add to dictionary")
+            onTriggered: {
+                deselectWhenMenuClosed = false;
+                runOnMenuClose = function() {
+                    spellcheckhighlighter.addWordToDictionary(spellcheckhighlighter.wordUnderMouse)
+                };
+            }
+        }
+    }
+
+    MenuItem {
+        visible: target !== null && !target.readOnly && spellcheckhighlighter !== null && spellcheckhighlighter.wordIsMisspelled
+        action: Action {
+            text: i18n("Ignore")
+            onTriggered: {
+                deselectWhenMenuClosed = false;
+                runOnMenuClose = function() {
+                    spellcheckhighlighter.ignoreWord(spellcheckhighlighter.wordUnderMouse)
+                };
+            }
+        }
+    }
+
+    MenuSeparator {
+        visible: target !== null && !target.readOnly
     }
 
     MenuItem {
