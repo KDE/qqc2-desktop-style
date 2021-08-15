@@ -5,7 +5,7 @@ set(KF_DEP_VERSION "5.85.0") # handled by release scripts
 
 project(qqc2-desktop-style VERSION ${KF_VERSION})
 
-set(REQUIRED_QT_VERSION 5.15.0)
+set(REQUIRED_QT_VERSION 5.15.2)
 
 ################# Disallow in-source build #################
 
@@ -109,7 +109,7 @@ ecm_setup_version(PROJECT
     SOVERSION 5)
 
 #########################################################################
-add_definitions(-DQT_DISABLE_DEPRECATED_BEFORE=0x050f00)
+add_definitions(-DQT_DISABLE_DEPRECATED_BEFORE=0x050f02)
 add_definitions(-DKF_DISABLE_DEPRECATED_BEFORE_AND_AT=0x055100)
 add_subdirectory(plugin)
 
