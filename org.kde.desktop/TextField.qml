@@ -64,7 +64,7 @@ T.TextField {
         // unfortunately, taphandler's pressed event only triggers when the press is lifted
         // we need to use the longpress signal since it triggers when the button is first pressed
         longPressThreshold: 0
-        onLongPressed: Private.TextFieldContextMenu.targetClick(point, controlRoot);
+        onLongPressed: Private.TextFieldContextMenu.targetClick(point, controlRoot, null, null);
     }
     
     Keys.onPressed: {

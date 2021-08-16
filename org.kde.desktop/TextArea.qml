@@ -1,6 +1,7 @@
 /*
     SPDX-FileCopyrightText: 2017 Marco Martin <mart@kde.org>
     SPDX-FileCopyrightText: 2017 The Qt Company Ltd.
+    SPDX-FileCopyrightText: 2021 Carl Schwan <carlschwan@kde.org>
 
     SPDX-License-Identifier: LGPL-3.0-only OR GPL-2.0-or-later
 */
@@ -9,8 +10,9 @@
 import QtQuick 2.12
 import QtQuick.Window 2.1
 import QtQuick.Templates @QQC2_VERSION@ as T
-import org.kde.kirigami 2.4 as Kirigami
+import org.kde.kirigami 2.18 as Kirigami
 import org.kde.qqc2desktopstyle.private 1.0 as StylePrivate
+import org.kde.sonnet 1.0 as Sonnet
 import "private" as Private
 
 T.TextArea {
@@ -55,13 +57,31 @@ T.TextArea {
     TapHandler {
         acceptedDevices: PointerDevice.Mouse | PointerDevice.Stylus
         acceptedButtons: Qt.LeftButton | Qt.RightButton
-        
+
         // unfortunately, taphandler's pressed event only triggers when the press is lifted
         // we need to use the longpress signal since it triggers when the button is first pressed
         longPressThreshold: 0
-        onLongPressed: Private.TextFieldContextMenu.targetClick(point, controlRoot);
+        onLongPressed: Private.TextFieldContextMenu.targetClick(point, controlRoot, spellcheckhighlighter, controlRoot.positionAt(point.position.x, point.position.y));
     }
-    
+
+    Sonnet.SpellcheckHighlighter {
+        id: spellcheckhighlighter
+        document: controlRoot.textDocument
+        cursorPosition: controlRoot.cursorPosition
+        selectionStart: controlRoot.selectionStart
+        selectionEnd: controlRoot.selectionEnd
+        misspelledColor: Kirigami.Theme.negativeTextColor
+        active: activable && settings.checkerEnabledByDefault
+
+        property bool activable: controlRoot.Kirigami.SpellChecking.enabled
+        property Sonnet.Settings settings: Sonnet.Settings {}
+
+        onChangeCursorPosition: {
+            controlRoot.cursorPosition = start;
+            controlRoot.moveCursorSelection(end, TextEdit.SelectCharacters);
+        }
+    }
+
     Keys.onPressed: {
         // trigger if context menu button is pressed
         Private.TextFieldContextMenu.targetKeyPressed(event, controlRoot)

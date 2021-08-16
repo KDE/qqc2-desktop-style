@@ -5,6 +5,7 @@ Dependencies:
     'frameworks/kirigami' : '@same'
     'frameworks/kiconthemes' : '@same'
     'frameworks/kconfigwidgets' : '@same'
+    'frameworks/sonnet' : '@same'
 
 Options:
   test-before-installing: True

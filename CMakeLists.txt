@@ -28,6 +28,7 @@ set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} ${ECM_MODULE_PATH})
 
 include(ECMSetupVersion)
 include(ECMGenerateHeaders)
+include(ECMQMLModules)
 include(KDEInstallDirs)
 include(KDECMakeSettings)
 include(KDEGitCommitHooks)
@@ -94,6 +95,8 @@ configure_package_config_file(
   INSTALL_DESTINATION  ${CMAKECONFIG_INSTALL_DIR}
   PATH_VARS  CMAKE_INSTALL_PREFIX
 )
+
+ecm_find_qmlmodule(org.kde.sonnet 1.0)
 
 install(FILES
   "${CMAKE_CURRENT_BINARY_DIR}/KF5QQC2DeskopStyleConfig.cmake"
