@@ -167,6 +167,9 @@ T.ComboBox {
         Controls.Overlay.modal: Item { }
 
         contentItem: ScrollView {
+            LayoutMirroring.enabled: controlRoot.mirrored
+            LayoutMirroring.childrenInherit: true
+
             background: Rectangle {
                 color: Kirigami.Theme.backgroundColor
             }
