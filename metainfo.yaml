@@ -7,7 +7,7 @@ platforms:
     - name: Linux
     - name: FreeBSD
     - name: Windows
-    - name: MacOSX
+    - name: macOS
 public_lib: true
 deprecated: false
 release: true
