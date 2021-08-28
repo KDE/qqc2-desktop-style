@@ -135,14 +135,14 @@ public:
 
     void notifyWatchersPaletteChange()
     {
-        for (auto watcher : qAsConst(watchers)) {
+        for (auto watcher : std::as_const(watchers)) {
             watcher->syncColors();
         }
     }
 
     Q_SLOT void notifyWatchersConfigurationChange()
     {
-        for (auto watcher : qAsConst(watchers)) {
+        for (auto watcher : std::as_const(watchers)) {
             watcher->syncFont();
         }
     }
