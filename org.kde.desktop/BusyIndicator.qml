@@ -23,7 +23,7 @@ T.BusyIndicator {
     hoverEnabled: true
 
     contentItem: Kirigami.Icon {
-        source: "view-refresh"
+        source: "process-working-symbolic"
         opacity: controlRoot.running ? 1 : 0
         smooth: true
 
