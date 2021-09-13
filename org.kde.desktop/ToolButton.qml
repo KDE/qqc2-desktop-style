@@ -18,13 +18,15 @@ T.ToolButton {
     Kirigami.Theme.colorSet: flat ? Kirigami.Theme.Window : Kirigami.Theme.Button
     Kirigami.Theme.inherit: flat
 
-    implicitWidth: text.length > 0 ? background.implicitWidth : implicitHeight
-    implicitHeight: background.implicitHeight
+    implicitWidth: Math.max((text && display !== T.AbstractButton.IconOnly ?
+        implicitBackgroundWidth : implicitHeight) + leftInset + rightInset,
+        implicitContentWidth + leftPadding + rightPadding)
+    implicitHeight: Math.max(implicitBackgroundHeight + topInset + bottomInset,
+                             implicitContentHeight + topPadding + bottomPadding)
 
     hoverEnabled: Qt.styleHints.useHoverEffects
 
     flat: true
-    contentItem: Item {}
     Kirigami.MnemonicData.enabled: controlRoot.enabled && controlRoot.visible
     Kirigami.MnemonicData.controlType: Kirigami.MnemonicData.SecondaryControl
     Kirigami.MnemonicData.label: controlRoot.text
@@ -40,7 +42,6 @@ T.ToolButton {
     }
     background: StylePrivate.StyleItem {
         id: styleitem
-        anchors.fill:parent
         control: controlRoot
         elementType: "toolbutton"
         sunken: controlRoot.down
