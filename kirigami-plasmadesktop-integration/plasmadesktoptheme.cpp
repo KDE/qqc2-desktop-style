@@ -17,6 +17,7 @@
 
 #include <KColorScheme>
 #include <KConfigGroup>
+#include <KIconColors>
 #include <QDBusConnection>
 
 class StyleSingleton : public QObject
@@ -229,26 +230,13 @@ void PlasmaDesktopTheme::syncFont()
 
 QIcon PlasmaDesktopTheme::iconFromTheme(const QString &name, const QColor &customColor)
 {
-    QPalette pal = palette();
     if (customColor != Qt::transparent) {
-        for (auto state : {QPalette::Active, QPalette::Inactive, QPalette::Disabled}) {
-            pal.setBrush(state, QPalette::WindowText, customColor);
-        }
+        KIconColors colors;
+        colors.setText(customColor);
+        return KDE::icon(name, colors);
+    } else {
+        return KDE::icon(name);
     }
-
-    bool hadPalette = KIconLoader::global()->hasCustomPalette();
-    QPalette olderPalette = KIconLoader::global()->customPalette();
-
-    auto cleanup = qScopeGuard([&] {
-        if (hadPalette) {
-            KIconLoader::global()->setCustomPalette(olderPalette);
-        } else {
-            KIconLoader::global()->resetPalette();
-        }
-    });
-
-    KIconLoader::global()->setCustomPalette(pal);
-    return KDE::icon(name, KIconLoader::global());
 }
 
 void PlasmaDesktopTheme::syncColors()
