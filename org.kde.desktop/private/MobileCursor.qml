@@ -19,7 +19,7 @@ Item {
     visible: Kirigami.Settings.tabletMode && ((target.activeFocus && !selectionStartHandle) || target.selectedText.length > 0)
 
     Rectangle {
-        width: Math.round(Kirigami.Units.devicePixelRatio * 3)
+        width: 3
         anchors {
             horizontalCenter: parent.horizontalCenter
             top: parent.top
