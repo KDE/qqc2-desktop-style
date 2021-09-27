@@ -781,7 +781,7 @@ QIcon KQuickStyleItem::iconFromIconProperty() const
         if (iconSource.startsWith(QLatin1String("qrc:/"))) {
             iconSource = iconSource.mid(3);
         } else if (iconSource.startsWith(QLatin1String("file:/"))) {
-            iconSource = QUrl(iconSource).path();
+            iconSource = QUrl(iconSource).toLocalFile();
         }
         if (iconSource.contains(QLatin1String("/"))) {
             icon = QIcon(iconSource);
