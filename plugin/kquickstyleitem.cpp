@@ -183,7 +183,10 @@ void KQuickStyleItem::initStyleOption()
         QStyleOptionButton *opt = qstyleoption_cast<QStyleOptionButton *>(m_styleoption);
         opt->text = text();
 
-        opt->icon = iconFromIconProperty();
+        if (m_iconDirty || opt->icon.isNull()) {
+            opt->icon = iconFromIconProperty();
+            m_iconDirty = false;
+        }
 
         auto iconSize = QSize(m_properties[QStringLiteral("iconWidth")].toInt(), m_properties[QStringLiteral("iconHeight")].toInt());
         if (iconSize.isEmpty()) {

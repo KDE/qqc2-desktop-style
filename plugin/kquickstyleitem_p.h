@@ -348,6 +348,7 @@ public:
     {
         if (m_properties != props) {
             m_properties = props;
+            m_iconDirty = true;
             Q_EMIT propertiesChanged();
         }
     }
@@ -484,6 +485,7 @@ protected:
     bool m_horizontal;
     bool m_transient;
     bool m_sharedWidget;
+    bool m_iconDirty = true;
 
     int m_minimum;
     int m_maximum;
