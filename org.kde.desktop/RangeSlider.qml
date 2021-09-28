@@ -10,6 +10,7 @@ import QtQuick 2.6
 import QtQuick.Controls @QQC2_VERSION@
 import QtQuick.Templates @QQC2_VERSION@ as T
 import org.kde.kirigami 2.4 as Kirigami
+import "private" as P
 
 T.RangeSlider {
     id: control
@@ -23,46 +24,14 @@ T.RangeSlider {
 
     padding: 6
 
-    first.handle: Rectangle {
-        property bool horizontal: control.orientation === Qt.Horizontal
+    first.handle: P.RangeSliderHandle {
         x: control.leftPadding + (horizontal ? control.first.visualPosition * (control.availableWidth - width) : (control.availableWidth - width) / 2)
         y: control.topPadding + (horizontal ? (control.availableHeight - height) / 2 : control.first.visualPosition * (control.availableHeight - height))
-        implicitWidth: 18
-        implicitHeight: 18
-        radius: width / 2
-        property color borderColor: Kirigami.Theme.textColor
-        border.color: control.activeFocus ? Kirigami.Theme.highlightColor : Qt.rgba(borderColor.r, borderColor.g, borderColor.b, 0.3)
-        color: Kirigami.Theme.backgroundColor
-        Rectangle {
-            z: -1
-            x: 1
-            y: 1
-            width: parent.width
-            height: parent.height
-            radius: width / 2
-            color: Qt.rgba(0, 0, 0, 0.15)
-        }
     }
 
-    second.handle: Rectangle {
-        property bool horizontal: control.orientation === Qt.Horizontal
+    second.handle: P.RangeSliderHandle {
         x: control.leftPadding + (horizontal ? control.second.visualPosition * (control.availableWidth - width) : (control.availableWidth - width) / 2)
         y: control.topPadding + (horizontal ? (control.availableHeight - height) / 2 : control.second.visualPosition * (control.availableHeight - height))
-        implicitWidth: 18
-        implicitHeight: 18
-        radius: width / 2
-        property color borderColor: Kirigami.Theme.textColor
-        border.color: control.activeFocus ? Kirigami.Theme.highlightColor : Qt.rgba(borderColor.r, borderColor.g, borderColor.b, 0.3)
-        color: Kirigami.Theme.backgroundColor
-        Rectangle {
-            z: -1
-            x: 1
-            y: 1
-            width: parent.width
-            height: parent.height
-            radius: width / 2
-            color: Qt.rgba(0, 0, 0, 0.15)
-        }
     }
 
     background: Rectangle {
