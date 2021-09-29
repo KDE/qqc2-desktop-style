@@ -9,6 +9,7 @@ Item {
 
     required property Item target
     readonly property Item resolvedTarget: {
+        if ( !(target.activeFocus && [Qt.TabFocusReason, Qt.BacktabFocusReason, Qt.ShortcutFocusReason].includes(target.focusReason)) ) return null
         if ( !target.background instanceof StylePrivate.StyleItem ) return null
 
         if ( target instanceof QQC2.CheckBox
