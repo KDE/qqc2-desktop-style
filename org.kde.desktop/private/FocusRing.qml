@@ -27,6 +27,7 @@ Item {
           || target instanceof QQC2.ToolButton
           || target instanceof QQC2.ComboBox
           || target instanceof QQC2.SpinBox
+          || target instanceof RangeSliderHandle
            ) {
             return target
         }
@@ -35,6 +36,7 @@ Item {
 
     readonly property bool isCheck: target instanceof QQC2.CheckBox
     readonly property bool isRadio: target instanceof QQC2.RadioButton
+    readonly property bool becomeCircle: isRadio || target instanceof RangeSliderHandle
 
     function tryit(fn, def) {
         try {
@@ -83,7 +85,7 @@ Item {
         }
 
         radius: {
-            if (!control.isRadio) {
+            if (!control.becomeCircle) {
                 return tryit(() => control.resolvedTarget.radius, 6)
             }
             return width/2
@@ -100,7 +102,7 @@ Item {
                     color: "green"
                     anchors.fill: parent
                     anchors.margins: 3
-                    radius: control.isRadio ? width/2 : 3
+                    radius: control.becomeCircle ? width/2 : 3
                 }
             }
         }
