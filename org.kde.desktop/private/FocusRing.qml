@@ -18,8 +18,14 @@ Item {
             return target.indicator
         }
         if ( target instanceof QQC2.Slider
+          || target instanceof QQC2.Dial
            ) {
             return target.handle
+        }
+        if ( (target instanceof TextInput && target.parent instanceof QQC2.SpinBox)
+          || (target instanceof TextInput && target.parent instanceof QQC2.ComboBox)
+           ) {
+            return target.parent
         }
         if ( target instanceof QQC2.AbstractButton
           || target instanceof QQC2.TextField
