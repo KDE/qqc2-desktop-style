@@ -19,7 +19,6 @@ Item {
             return target.indicator
         }
         if ( target instanceof QQC2.Slider
-          || target instanceof QQC2.Dial
            ) {
             return target.handle
         }
@@ -34,16 +33,20 @@ Item {
           || target instanceof QQC2.ToolButton
           || target instanceof QQC2.ComboBox
           || target instanceof QQC2.SpinBox
+          || target instanceof QQC2.Dial
           || target instanceof RangeSliderHandle
            ) {
             return target
         }
         return null
     }
+    onResolvedTargetChanged: calculateHandle()
 
     readonly property bool isCheck: target instanceof QQC2.CheckBox
     readonly property bool isRadio: target instanceof QQC2.RadioButton
-    readonly property bool becomeCircle: isRadio || target instanceof RangeSliderHandle
+    readonly property bool isDial: target instanceof QQC2.Dial
+    readonly property bool becomeCircle: isRadio || isDial || target instanceof RangeSliderHandle
+    readonly property var style: target.background
 
     function tryit(fn, def) {
         try {
@@ -55,11 +58,51 @@ Item {
 
     visible: resolvedTarget !== null
 
-    x: tryit(() => resolvedTarget.Kirigami.ScenePosition.x, 0)
-    y: tryit(() => resolvedTarget.Kirigami.ScenePosition.y, 0)
+    property int handleX: -1
+    property int handleY: -1
+    property int handleWidth: -1
+    property int handleHeight: -1
+
+    Connections {
+        target: control.target
+        enabled: control.isDial
+        function onValueChanged() {
+            control.calculateHandle()
+        }
+    }
+
+    function calculateHandle() {
+        handleX = Qt.binding(() => style.subControlRect("handle").x + resolvedTarget.Kirigami.ScenePosition.x)
+        handleY = Qt.binding(() => style.subControlRect("handle").y + resolvedTarget.Kirigami.ScenePosition.y)
+        handleWidth = style.subControlRect("handle").width
+        handleHeight = style.subControlRect("handle").height
+    }
+
+    x: {
+        if (isDial) {
+            return handleX
+        }
+        return tryit(() => resolvedTarget.Kirigami.ScenePosition.x, 0)
+    }
+    y: {
+        if (isDial) {
+            return handleY
+        }
+        return tryit(() => resolvedTarget.Kirigami.ScenePosition.y, 0)
+    }
     z: tryit(() => resolvedTarget.z + 2, 0)
-    width: tryit(() => resolvedTarget.width, 0)
-    height: tryit(() => resolvedTarget.height, 0)
+    width: {
+        if (isDial) {
+            return handleWidth
+        }
+        return tryit(() => resolvedTarget.width, 0)
+    }
+    height: {
+        if (isDial) {
+            return handleHeight
+        }
+        return tryit(() => resolvedTarget.height, 0)
+    }
 
     Rectangle {
         id: decoration

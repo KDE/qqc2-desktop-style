@@ -1525,6 +1525,9 @@ QRectF KQuickStyleItem::subControlRect(const QString &subcontrolString)
         opt.rect = QRect(0, 0, implicitWidth(), implicitHeight());
         return KQuickStyleItem::style()->subElementRect(QStyle::SE_TreeViewDisclosureItem, &opt, nullptr);
     }
+    case Dial: {
+        return KQuickStyleItem::style()->subControlRect(QStyle::CC_Dial, qstyleoption_cast<QStyleOptionComplex *>(m_styleoption), QStyle::SC_DialHandle);
+    }
     default:
         break;
     }
