@@ -25,7 +25,7 @@ Menu {
     property var suggestions: []
     Component.onCompleted: persistentSelectionSetting = persistentSelectionSetting // break binding
 
-    property var runOnMenuClose
+    property var runOnMenuClose: () => {}
 
     parent: Overlay.overlay
 
@@ -99,7 +99,7 @@ Menu {
     }
 
     onOpened: {
-        runOnMenuClose = function() {};
+        runOnMenuClose = () => {};
     }
 
     Instantiator {
@@ -109,9 +109,7 @@ Menu {
             text: modelData
             onClicked: {
                 deselectWhenMenuClosed = false;
-                runOnMenuClose = function() {
-                    spellcheckhighlighter.replaceWord(modelData);
-                };
+                runOnMenuClose = () => spellcheckhighlighter.replaceWord(modelData);
             }
         }
         onObjectAdded: {
@@ -134,9 +132,7 @@ Menu {
             text: qsTr("Add \"%1\" to dictionary").arg(spellcheckhighlighter.wordUnderMouse)
             onTriggered: {
                 deselectWhenMenuClosed = false;
-                runOnMenuClose = function() {
-                    spellcheckhighlighter.addWordToDictionary(spellcheckhighlighter.wordUnderMouse)
-                };
+                runOnMenuClose = () => spellcheckhighlighter.addWordToDictionary(spellcheckhighlighter.wordUnderMouse);
             }
         }
     }
@@ -147,9 +143,7 @@ Menu {
             text: qsTr("Ignore")
             onTriggered: {
                 deselectWhenMenuClosed = false;
-                runOnMenuClose = function() {
-                    spellcheckhighlighter.ignoreWord(spellcheckhighlighter.wordUnderMouse)
-                };
+                runOnMenuClose = () => spellcheckhighlighter.ignoreWord(spellcheckhighlighter.wordUnderMouse);
             }
         }
     }
@@ -176,7 +170,7 @@ Menu {
         enabled: target !== null && target.canUndo
         onTriggered: {
             deselectWhenMenuClosed = false;
-            runOnMenuClose = function() {target.undo()};
+            runOnMenuClose = () => target.undo();
         }
     }
     MenuItem {
@@ -189,7 +183,7 @@ Menu {
         enabled: target !== null && target.canRedo
         onTriggered: {
             deselectWhenMenuClosed = false;
-            runOnMenuClose = function() {target.redo()};
+            runOnMenuClose = () => target.redo();
         }
     }
     MenuSeparator {
@@ -205,7 +199,7 @@ Menu {
         enabled: target !== null && target.selectedText
         onTriggered: {
             deselectWhenMenuClosed = false;
-            runOnMenuClose = function() {target.cut()}
+            runOnMenuClose = () => target.cut();
         }
     }
     MenuItem {
@@ -218,7 +212,7 @@ Menu {
         visible: !targetIsPassword
         onTriggered: {
             deselectWhenMenuClosed = false;
-            runOnMenuClose = function() {target.copy()}
+            runOnMenuClose = () => target.copy();
         }
     }
     MenuItem {
@@ -231,7 +225,7 @@ Menu {
         enabled: target !== null && target.canPaste
         onTriggered: {
             deselectWhenMenuClosed = false;
-            runOnMenuClose = function() {target.paste()};
+            runOnMenuClose = () => target.paste();
         }
     }
     MenuItem {
@@ -244,7 +238,7 @@ Menu {
         enabled: target !== null && target.selectedText
         onTriggered: {
             deselectWhenMenuClosed = false;
-            runOnMenuClose = function() {target.remove(target.selectionStart, target.selectionEnd)};
+            runOnMenuClose = () => target.remove(target.selectionStart, target.selectionEnd);
         }
     }
     MenuSeparator {
@@ -259,7 +253,7 @@ Menu {
         visible: !targetIsPassword
         onTriggered: {
             deselectWhenMenuClosed = false;
-            runOnMenuClose = function() {target.selectAll()};
+            runOnMenuClose = () => target.selectAll();
         }
     }
 }
