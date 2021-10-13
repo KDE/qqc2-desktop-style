@@ -130,7 +130,7 @@ Menu {
     MenuItem {
         visible: target !== null && !target.readOnly && spellcheckhighlighter !== null && spellcheckhighlighter.active && spellcheckhighlighter.wordIsMisspelled
         action: Action {
-            text: qsTr("Add \"%1\" to dictionary").arg(spellcheckhighlighter.wordUnderMouse)
+            text: spellcheckhighlighter ? qsTr("Add \"%1\" to dictionary").arg(spellcheckhighlighter.wordUnderMouse) : ''
             onTriggered: {
                 deselectWhenMenuClosed = false;
                 runOnMenuClose = () => spellcheckhighlighter.addWordToDictionary(spellcheckhighlighter.wordUnderMouse);
@@ -152,7 +152,7 @@ Menu {
     MenuItem {
         visible: target !== null && !target.readOnly && spellcheckhighlighter !== null && spellcheckhighlighter.activable
         checkable: true
-        checked: spellcheckhighlighter.active
+        checked: spellcheckhighlighter ? spellcheckhighlighter.active : false
         text: spellcheckhighlighter ? qsTr("Enable Spellchecker") : ''
         onCheckedChanged: spellcheckhighlighter.active = checked
     }
