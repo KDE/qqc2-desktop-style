@@ -94,8 +94,9 @@ Menu {
         target.cursorPosition = restoredCursorPosition;
         target.select(restoredSelectionStart, restoredSelectionEnd);
 
-        // run action
+        // run action, and free memory
         runOnMenuClose();
+        runOnMenuClose = () => {};
     }
 
     onOpened: {
