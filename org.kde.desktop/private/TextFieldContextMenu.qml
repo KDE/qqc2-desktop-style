@@ -3,13 +3,13 @@
     SPDX-FileCopyrightText: 2021 Carl Schwan <carlschwan@kde.org>
 
     SPDX-License-Identifier: LGPL-2.0-or-later
-*/ 
+*/
 
 pragma Singleton
 
 import QtQuick 2.6
 import QtQml 2.2
-import QtQuick.Controls @QQC2_VERSION@ 
+import QtQuick.Controls @QQC2_VERSION@
 import org.kde.kirigami 2.5 as Kirigami
 
 Menu {
@@ -25,7 +25,7 @@ Menu {
     property var suggestions: []
     Component.onCompleted: persistentSelectionSetting = persistentSelectionSetting // break binding
 
-    property var runOnMenuClose 
+    property var runOnMenuClose
 
     parent: Overlay.overlay
 
