@@ -17,7 +17,6 @@ import "private" as Private
 
 T.ComboBox {
     id: controlRoot
-    palette: Kirigami.Theme.palette
     //NOTE: typeof necessary to not have warnings on Qt 5.7
     Kirigami.Theme.colorSet: typeof(editable) != "undefined" && editable ? Kirigami.Theme.View : Kirigami.Theme.Button
     Kirigami.Theme.inherit: false

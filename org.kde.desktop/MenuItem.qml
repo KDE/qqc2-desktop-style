@@ -14,7 +14,6 @@ import org.kde.kirigami 2.4 as Kirigami
 T.MenuItem {
     id: controlRoot
 
-    palette: Kirigami.Theme.palette
     implicitWidth: Math.max(background ? background.implicitWidth : 0,
                             contentItem.implicitWidth + leftPadding + rightPadding + (arrow ? arrow.implicitWidth : 0))
     implicitHeight: visible ? Math.max(background ? background.implicitHeight : 0,

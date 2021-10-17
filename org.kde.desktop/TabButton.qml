@@ -17,7 +17,6 @@ import org.kde.kirigami 2.4 as Kirigami
 T.TabButton {
     id: controlRoot
 
-    palette: Kirigami.Theme.palette
     //Some qstyles like fusion don't have correct pixel metrics here and just return 0
     implicitWidth: Math.max(styleitem.implicitWidth, textMetrics.width + Kirigami.Units.gridUnit * 2)
     implicitHeight: styleitem.implicitHeight || Kirigami.Units.gridUnit * 2

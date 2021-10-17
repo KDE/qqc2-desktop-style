@@ -14,7 +14,6 @@ import org.kde.kirigami 2.4 as Kirigami
 T.Frame {
     id: control
 
-    palette: Kirigami.Theme.palette
     implicitWidth: contentWidth + leftPadding + rightPadding
     implicitHeight: contentHeight + topPadding + bottomPadding
 

@@ -16,7 +16,6 @@ import "private" as Private
 
 T.TextField {
     id: controlRoot
-    palette: Kirigami.Theme.palette
     Kirigami.Theme.colorSet: Kirigami.Theme.View
     Kirigami.Theme.inherit: false
 

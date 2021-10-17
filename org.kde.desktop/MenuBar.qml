@@ -13,7 +13,6 @@ import org.kde.kirigami 2.4 as Kirigami
 T.MenuBar {
     id: controlRoot
 
-    palette: Kirigami.Theme.palette
     implicitWidth: Math.max(implicitBackgroundWidth + leftInset + rightInset,
                             contentWidth + leftPadding + rightPadding)
     implicitHeight: Math.max(implicitBackgroundHeight + topInset + bottomInset,

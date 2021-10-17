@@ -13,7 +13,6 @@ import org.kde.kirigami 2.12 as Kirigami
 T.Dialog {
     id: control
 
-    palette: Kirigami.Theme.palette
     implicitWidth: Math.max(background ? background.implicitWidth : 0,
                             contentWidth > 0 ? contentWidth + leftPadding + rightPadding : 0)
     implicitHeight: Math.max(background ? background.implicitHeight : 0,

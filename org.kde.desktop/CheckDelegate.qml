@@ -14,7 +14,6 @@ import "private"
 T.CheckDelegate {
     id: controlRoot
 
-    palette: Kirigami.Theme.palette
     implicitWidth: contentItem.implicitWidth + leftPadding + rightPadding
     implicitHeight: Math.max(contentItem.implicitHeight,
                                       indicator ? indicator.implicitHeight : 0) + topPadding + bottomPadding

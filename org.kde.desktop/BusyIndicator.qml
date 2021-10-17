@@ -13,7 +13,6 @@ import QtQuick.Templates @QQC2_VERSION@ as T
 T.BusyIndicator {
     id: controlRoot
 
-    palette: Kirigami.Theme.palette
     implicitWidth: contentItem.implicitWidth + leftPadding + rightPadding
     implicitHeight: contentItem.implicitHeight + topPadding + bottomPadding
 

@@ -14,7 +14,6 @@ import org.kde.kirigami 2.4 as Kirigami
 T.ProgressBar {
     id: controlRoot
 
-    palette: Kirigami.Theme.palette
     implicitWidth: 250
     implicitHeight: 22
 

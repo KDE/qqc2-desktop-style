@@ -11,6 +11,10 @@ ApplicationWindow {
 
         CheckBox {
         }
+        CheckBox {
+            checked: true
+            enabled: false
+        }
 
         CheckBox {
             text: "text"
