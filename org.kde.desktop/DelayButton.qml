@@ -29,7 +29,6 @@ T.DelayButton {
 
     contentItem: Item {}
     background: StylePrivate.StyleItem {
-        id: styleitem
         control: controlRoot
         elementType: "button"
         sunken: controlRoot.down || controlRoot.checked

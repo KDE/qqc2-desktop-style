@@ -19,7 +19,6 @@ T.Dial {
     implicitHeight: 128
 
     background: StylePrivate.StyleItem {
-        id: style
         control: controlRoot
         visible: true
         elementType: "dial"
