@@ -74,11 +74,6 @@ T.TextArea {
 
         property bool activable: controlRoot.Kirigami.SpellChecking.enabled
         property Sonnet.Settings settings: Sonnet.Settings {}
-
-        onChangeCursorPosition: {
-            controlRoot.cursorPosition = start;
-            controlRoot.moveCursorSelection(end, TextEdit.SelectCharacters);
-        }
     }
 
     Keys.onPressed: {
