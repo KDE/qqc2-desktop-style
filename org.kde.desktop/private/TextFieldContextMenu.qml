@@ -22,6 +22,7 @@ Menu {
     property int restoredSelectionEnd
     property bool persistentSelectionSetting
     property var spellcheckhighlighter: null
+    property var spellcheckhighlighterLoader: null
     property var suggestions: []
     Component.onCompleted: persistentSelectionSetting = persistentSelectionSetting // break binding
 
@@ -44,8 +45,14 @@ Menu {
             } else {
                 contextMenu.target = newTarget;
                 contextMenu.target.persistentSelection = true; // persist selection when menu is opened
-                contextMenu.spellcheckhighlighter = spellcheckhighlighter
-                contextMenu.suggestions = mousePosition ? spellcheckhighlighter.suggestions(mousePosition) : [];
+                contextMenu.spellcheckhighlighterLoader = spellcheckhighlighter;
+                if (spellcheckhighlighter.active) {
+                    contextMenu.spellcheckhighlighter = spellcheckhighlighter.item;
+                    contextMenu.suggestions = mousePosition ? spellcheckhighlighter.item.suggestions(mousePosition) : [];
+                } else {
+                    contextMenu.spellcheckhighlighter = null;
+                    contextMenu.suggestions = [];
+                }
                 storeCursorAndSelection();
                 popup(contextMenu.target);
                 // slightly locate context menu away from mouse so no item is selected when menu is opened
@@ -150,11 +157,14 @@ Menu {
     }
 
     MenuItem {
-        visible: target !== null && !target.readOnly && spellcheckhighlighter !== null && spellcheckhighlighter.activable
+        visible: target !== null && !target.readOnly && spellcheckhighlighterLoader && spellcheckhighlighterLoader.activable
         checkable: true
         checked: spellcheckhighlighter ? spellcheckhighlighter.active : false
-        text: spellcheckhighlighter ? qsTr("Enable Spellchecker") : ''
-        onCheckedChanged: spellcheckhighlighter.active = checked
+        text: qsTr("Enable Spellchecker")
+        onCheckedChanged: {
+            spellcheckhighlighterLoader.active = checked;
+            spellcheckhighlighter = spellcheckhighlighterLoader.item;
+        }
     }
 
     MenuSeparator {

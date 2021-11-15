@@ -60,24 +60,30 @@ T.TextArea {
         // unfortunately, taphandler's pressed event only triggers when the press is lifted
         // we need to use the longpress signal since it triggers when the button is first pressed
         longPressThreshold: 0
-        onLongPressed: Private.TextFieldContextMenu.targetClick(point, controlRoot, spellcheckhighlighter, controlRoot.positionAt(point.position.x, point.position.y));
+        onLongPressed: Private.TextFieldContextMenu.targetClick(point, controlRoot, spellcheckhighlighterLoader, controlRoot.positionAt(point.position.x, point.position.y));
     }
 
-    Sonnet.SpellcheckHighlighter {
-        id: spellcheckhighlighter
-        document: controlRoot.textDocument
-        cursorPosition: controlRoot.cursorPosition
-        selectionStart: controlRoot.selectionStart
-        selectionEnd: controlRoot.selectionEnd
-        misspelledColor: Kirigami.Theme.negativeTextColor
-        active: activable && settings.checkerEnabledByDefault
-
+    Loader {
+        id: spellcheckhighlighterLoader
         property bool activable: controlRoot.Kirigami.SpellChecking.enabled
         property Sonnet.Settings settings: Sonnet.Settings {}
+        active: activable && settings.checkerEnabledByDefault
+        onActiveChanged: if (active) {
+            item.active = true;
+        }
+        sourceComponent: Sonnet.SpellcheckHighlighter {
+            id: spellcheckhighlighter
+            document: controlRoot.textDocument
+            cursorPosition: controlRoot.cursorPosition
+            selectionStart: controlRoot.selectionStart
+            selectionEnd: controlRoot.selectionEnd
+            misspelledColor: Kirigami.Theme.negativeTextColor
+            active: activable && settings.checkerEnabledByDefault
 
-        onChangeCursorPosition: {
-            controlRoot.cursorPosition = start;
-            controlRoot.moveCursorSelection(end, TextEdit.SelectCharacters);
+            onChangeCursorPosition: {
+                controlRoot.cursorPosition = start;
+                controlRoot.moveCursorSelection(end, TextEdit.SelectCharacters);
+            }
         }
     }
 
@@ -85,7 +91,7 @@ T.TextArea {
         // trigger if context menu button is pressed
         Private.TextFieldContextMenu.targetKeyPressed(event, controlRoot)
     }
-    
+
     onPressAndHold: {
         if (!Kirigami.Settings.tabletMode) {
             return;
