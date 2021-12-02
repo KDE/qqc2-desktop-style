@@ -19,7 +19,7 @@ T.ScrollBar {
 
     hoverEnabled: true
 
-    visible: controlRoot.size < 1.0 && controlRoot.policy !== T.ScrollBar.AlwaysOff
+    visible: controlRoot.policy !== T.ScrollBar.AlwaysOff
     stepSize: 0.02
     interactive: !Kirigami.Settings.hasTransientTouchInput
 
@@ -84,7 +84,7 @@ T.ScrollBar {
     background: MouseArea {
         id: mouseArea
         anchors.fill: parent
-        visible: controlRoot.size < 1.0 && interactive
+        visible: interactive
         hoverEnabled: true
         state: "inactive"
         acceptedButtons: Qt.LeftButton | Qt.MiddleButton
