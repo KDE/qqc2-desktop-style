@@ -17,15 +17,15 @@ T.SpinBox {
     Kirigami.Theme.colorSet: Kirigami.Theme.View
     Kirigami.Theme.inherit: false
 
-    implicitWidth: Math.max(styleitem.fullRect.width, 48, contentItem.implicitWidth + 2 * padding + up.indicator.implicitWidth + down.indicator.implicitWidth)
-    implicitHeight: Math.max(styleitem.fullRect.height, background.implicitHeight, contentItem.implicitHeight + topPadding + bottomPadding)
+    implicitWidth: Math.max(styleitem.fullRectSizeHint.width, 48, contentItem.implicitWidth + 2 * padding + up.indicator.implicitWidth + down.indicator.implicitWidth)
+    implicitHeight: Math.max(styleitem.fullRectSizeHint.height, background.implicitHeight, contentItem.implicitHeight + topPadding + bottomPadding)
 
     padding: 6
     leftPadding: controlRoot.mirrored ? ___rPadding : ___lPadding
     rightPadding: controlRoot.mirrored ? ___lPadding : ___rPadding
 
-    readonly property int ___lPadding: styleitem.upRect.x === styleitem.downRect.x ? horizontalPadding : styleitem.upRect.width
-    readonly property int ___rPadding: styleitem.upRect.x === styleitem.downRect.x ? styleitem.upRect.width : styleitem.downRect.width
+    readonly property int ___lPadding: styleitem.upRectSizeHint.x === styleitem.downRectSizeHint.x ? horizontalPadding : styleitem.upRectSizeHint.width
+    readonly property int ___rPadding: styleitem.upRectSizeHint.x === styleitem.downRectSizeHint.x ? styleitem.upRectSizeHint.width : styleitem.downRectSizeHint.width
 
 
     hoverEnabled: true
@@ -123,18 +123,19 @@ T.SpinBox {
         hasFocus: controlRoot.activeFocus
         enabled: controlRoot.enabled
 
-        property rect upRect: styleitem.subControlRect("up")
-        property rect downRect: styleitem.subControlRect("down")
-        property rect editRect: styleitem.subControlRect("edit")
-        property rect fullRect: styleitem.computeBoundingRect([upRect, downRect, editRect])
-        property size theSize: styleitem.sizeFromContents(editRect.width, editRect.height)
+        // static hints calculated once for minimum sizes
+        property rect upRectSizeHint: styleitem.subControlRect("up")
+        property rect downRectSizeHint: styleitem.subControlRect("down")
+        property rect editRectSizeHint: styleitem.subControlRect("edit")
+        property rect fullRectSizeHint: styleitem.computeBoundingRect([upRectSizeHint, downRectSizeHint, editRectSizeHint])
+
+        // dynamic hints calculated every resize to keep the buttons in place
+        property rect upRect: upRectSizeHint
+        property rect downRect: downRectSizeHint
 
         function recompute() {
             upRect = styleitem.subControlRect("up")
             downRect = styleitem.subControlRect("down")
-            editRect = styleitem.subControlRect("edit")
-            fullRect = styleitem.computeBoundingRect([upRect, downRect, editRect])
-            theSize = styleitem.sizeFromContents(editRect.width, editRect.height)
         }
 
         onWidthChanged: recompute()
