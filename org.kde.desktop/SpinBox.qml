@@ -18,7 +18,7 @@ T.SpinBox {
     Kirigami.Theme.inherit: false
 
     implicitWidth: Math.max(styleitem.fullRect.width, 48, contentItem.implicitWidth + 2 * padding + up.indicator.implicitWidth + down.indicator.implicitWidth)
-    implicitHeight: Math.max(styleitem.fullRect.height, background.implicitHeight, contentItem.implicitHeight + topPadding + bottomPadding)
+    implicitHeight: Math.max(background.implicitHeight, contentItem.implicitHeight + topPadding + bottomPadding)
 
     padding: 6
     leftPadding: controlRoot.mirrored ? ___rPadding : ___lPadding
