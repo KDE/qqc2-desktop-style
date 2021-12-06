@@ -17,8 +17,8 @@ T.SpinBox {
     Kirigami.Theme.colorSet: Kirigami.Theme.View
     Kirigami.Theme.inherit: false
 
-    implicitWidth: Math.max(styleitem.fullRect.width, 48, contentItem.implicitWidth + 2 * padding + up.indicator.implicitWidth + down.indicator.implicitWidth)
-    implicitHeight: Math.max(styleitem.fullRect.height, background.implicitHeight, contentItem.implicitHeight + topPadding + bottomPadding)
+    implicitWidth: Math.max(48, contentItem.implicitWidth + 2 * padding + up.indicator.implicitWidth + down.indicator.implicitWidth)
+    implicitHeight: Math.max(contentItem.implicitHeight + topPadding + bottomPadding)
 
     padding: 6
     leftPadding: controlRoot.mirrored ? ___rPadding : ___lPadding
@@ -125,16 +125,10 @@ T.SpinBox {
 
         property rect upRect: styleitem.subControlRect("up")
         property rect downRect: styleitem.subControlRect("down")
-        property rect editRect: styleitem.subControlRect("edit")
-        property rect fullRect: styleitem.computeBoundingRect([upRect, downRect, editRect])
-        property size theSize: styleitem.sizeFromContents(editRect.width, editRect.height)
 
         function recompute() {
             upRect = styleitem.subControlRect("up")
             downRect = styleitem.subControlRect("down")
-            editRect = styleitem.subControlRect("edit")
-            fullRect = styleitem.computeBoundingRect([upRect, downRect, editRect])
-            theSize = styleitem.sizeFromContents(editRect.width, editRect.height)
         }
 
         onWidthChanged: recompute()
