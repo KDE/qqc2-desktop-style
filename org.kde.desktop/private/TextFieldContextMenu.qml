@@ -46,7 +46,7 @@ Menu {
                 contextMenu.target = newTarget;
                 contextMenu.target.persistentSelection = true; // persist selection when menu is opened
                 contextMenu.spellcheckhighlighterLoader = spellcheckhighlighter;
-                if (spellcheckhighlighter.active) {
+                if (spellcheckhighlighter && spellcheckhighlighter.active) {
                     contextMenu.spellcheckhighlighter = spellcheckhighlighter.item;
                     contextMenu.suggestions = mousePosition ? spellcheckhighlighter.item.suggestions(mousePosition) : [];
                 } else {
