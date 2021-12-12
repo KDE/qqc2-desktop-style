@@ -21,7 +21,7 @@ T.ComboBox {
     Kirigami.Theme.colorSet: typeof(editable) != "undefined" && editable ? Kirigami.Theme.View : Kirigami.Theme.Button
     Kirigami.Theme.inherit: false
 
-    implicitWidth: Math.max(200, background.implicitWidth + leftPadding + rightPadding)
+    implicitWidth: background.implicitWidth
     implicitHeight: background.implicitHeight
     baselineOffset: contentItem.y + contentItem.baselineOffset
 
@@ -42,6 +42,20 @@ T.ComboBox {
     }
 
     indicator: Item {}
+
+    /* ensure that the combobox and its popup have enough width for all of its items
+     * TODO remove for KF6 because it is fixed by Qt6 */
+    onCountChanged: {
+        let maxWidth = 75
+        for (let i = 0; i < count; ++i) {
+            maxWidth = Math.max(maxWidth, fontMetrics.boundingRect(controlRoot.textAt(i)).width)
+        }
+        styleitem.contentWidth = maxWidth
+    }
+
+    FontMetrics {
+        id: fontMetrics
+    }
 
     contentItem: T.TextField {
         padding: 0
@@ -123,7 +137,7 @@ T.ComboBox {
 
     popup: T.Popup {
         y: controlRoot.height
-        width: Math.max(controlRoot.width, 150)
+        width: controlRoot.width
         implicitHeight: contentItem.implicitHeight
         topMargin: 6
         bottomMargin: 6
