@@ -7,6 +7,8 @@
 
 
 import QtQuick 2.6
+import QtQuick.Layouts 1.6
+import QtQuick.Window 2.2
 import QtQuick.Controls @QQC2_VERSION@ as Controls
 import QtQuick.Templates @QQC2_VERSION@ as T
 import org.kde.kirigami 2.12 as Kirigami
@@ -38,12 +40,19 @@ T.ToolTip {
 
     closePolicy: T.Popup.CloseOnEscape | T.Popup.CloseOnPressOutsideParent | T.Popup.CloseOnReleaseOutsideParent
 
-    contentItem: Controls.Label {
-        text: controlRoot.text
-        wrapMode: Text.WordWrap
-        font: controlRoot.font
-        Kirigami.Theme.colorSet: Kirigami.Theme.Tooltip
-        color: Kirigami.Theme.textColor
+    contentItem: RowLayout {
+        Controls.Label {
+            text: controlRoot.text
+            wrapMode: Text.WordWrap
+            font: controlRoot.font
+            color: Kirigami.Theme.textColor
+
+            Kirigami.Theme.colorSet: Kirigami.Theme.Tooltip
+            Layout.fillWidth: true
+            // 180pt | 2.5in | 63.5mm
+            // This value is basically arbitrary. It just looks nice.
+            Layout.maximumWidth: Screen.pixelDensity * 63.5 * Screen.devicePixelRatio
+        }
     }
 
     // TODO: Consider replacing this with a StyleItem
