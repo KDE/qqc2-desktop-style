@@ -25,7 +25,7 @@ T.MenuItem {
 
     Layout.fillWidth: true
     padding: Kirigami.Units.smallSpacing
-    verticalPadding: Math.floor(Kirigami.Units.smallSpacing * 1.5)
+    verticalPadding: 4 // Hardcoded to the Breeze theme value
     hoverEnabled: !Kirigami.Settings.isMobile
 
     Kirigami.MnemonicData.enabled: controlRoot.enabled && controlRoot.visible
@@ -53,7 +53,7 @@ T.MenuItem {
             visible: (controlRoot.ListView.view && controlRoot.ListView.view.hasIcons) || (controlRoot.icon != undefined && (controlRoot.icon.name.length > 0 || controlRoot.icon.source.length > 0))
             source: controlRoot.icon ? (controlRoot.icon.name || controlRoot.icon.source) : ""
             color: controlRoot.icon ? controlRoot.icon.color : "transparent"
-            Layout.preferredHeight: Math.max(Kirigami.Units.iconSizes.roundedIconSize(label.height), Kirigami.Units.iconSizes.small)
+            Layout.preferredHeight: Kirigami.Units.iconSizes.small
             Layout.preferredWidth: Layout.preferredHeight
         }
         Label {
@@ -94,7 +94,7 @@ T.MenuItem {
         x: controlRoot.mirrored ? controlRoot.padding : controlRoot.width - width - controlRoot.padding
         y: controlRoot.topPadding + (controlRoot.availableHeight - height) / 2
         source: controlRoot.mirrored ? "go-next-symbolic-rtl" : "go-next-symbolic"
-        width: Math.max(Kirigami.Units.iconSizes.roundedIconSize(label.height), Kirigami.Units.iconSizes.small)
+        width: Kirigami.Units.iconSizes.small
         height: width
         visible: controlRoot.subMenu
     }

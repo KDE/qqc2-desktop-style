@@ -37,6 +37,9 @@ T.Menu {
             }
             return maxWidth;
         }
+
+        spacing: 0 // Hardcoded to the Breeze theme value
+
         interactive: ApplicationWindow.window ? contentHeight > ApplicationWindow.window.height : false
         clip: true
         currentIndex: control.currentIndex || 0
