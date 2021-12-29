@@ -175,7 +175,7 @@ public:
     KColorScheme viewScheme;
     QFont smallFont;
 
-    QVector<QPointer<PlasmaDesktopTheme>> watchers;
+    QVector<PlasmaDesktopTheme *> watchers;
 
 private:
     QHash<QPair<Kirigami::PlatformTheme::ColorSet, QPalette::ColorGroup>, Colors> m_cache;
