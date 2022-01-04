@@ -486,7 +486,11 @@ void KQuickStyleItem::initStyleOption()
                 QString shortcut = m_properties[QStringLiteral("shortcut")].toString();
                 if (!shortcut.isEmpty()) {
                     opt->text += QLatin1Char('\t') + shortcut;
+#if QT_VERSION < QT_VERSION_CHECK(6, 0, 0)
                     opt->tabWidth = qMax(opt->tabWidth, qRound(textWidth(shortcut)));
+#else
+                    opt->reservedShortcutWidth = qMax(opt->reservedShortcutWidth, qRound(textWidth(shortcut)));
+#endif
                 }
 
                 if (m_properties[QStringLiteral("checkable")].toBool()) {
@@ -646,7 +650,9 @@ void KQuickStyleItem::initStyleOption()
         }
 
         QStyleOptionProgressBar *opt = qstyleoption_cast<QStyleOptionProgressBar *>(m_styleoption);
-        opt->orientation = horizontal() ? Qt::Horizontal : Qt::Vertical;
+        if (horizontal()) {
+            opt->state |= QStyle::State_Horizontal;
+        }
         opt->minimum = qMax(0, minimum());
         opt->maximum = qMax(0, maximum());
         opt->progress = value();

@@ -16,7 +16,7 @@ set(qqc2desktopstyle_SRCS
 endif()
 
 add_library(qqc2desktopstyleplugin SHARED ${qqc2desktopstyle_SRCS})
-target_link_libraries(qqc2desktopstyleplugin Qt5::Core Qt5::Qml Qt5::Quick Qt5::Gui Qt5::Widgets KF5::ConfigCore KF5::Kirigami2)
+target_link_libraries(qqc2desktopstyleplugin Qt${QT_MAJOR_VERSION}::Core Qt${QT_MAJOR_VERSION}::Qml Qt${QT_MAJOR_VERSION}::Quick Qt${QT_MAJOR_VERSION}::Gui Qt${QT_MAJOR_VERSION}::Widgets KF5::ConfigCore KF5::Kirigami2)
 
 if(KF5ConfigWidgets_FOUND)
     target_link_libraries(qqc2desktopstyleplugin

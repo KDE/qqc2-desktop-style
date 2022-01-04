@@ -11,12 +11,12 @@ add_library(org.kde.desktop MODULE ${org.kde.desktop_SRCS})
 
 target_link_libraries(org.kde.desktop
     PUBLIC
-        Qt5::Core
+        Qt${QT_MAJOR_VERSION}::Core
         KF5::Kirigami2
     PRIVATE
-        Qt5::DBus
-        Qt5::Qml
-        Qt5::Quick
+        Qt${QT_MAJOR_VERSION}::DBus
+        Qt${QT_MAJOR_VERSION}::Qml
+        Qt${QT_MAJOR_VERSION}::Quick
         KF5::ConfigWidgets
         KF5::IconThemes
 )

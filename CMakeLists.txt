@@ -34,7 +34,7 @@ include(KDECMakeSettings)
 include(KDEGitCommitHooks)
 include(KDEFrameworkCompilerSettings NO_POLICY_SCOPE)
 
-find_package(Qt5 ${REQUIRED_QT_VERSION} REQUIRED NO_MODULE COMPONENTS Core Quick Gui Widgets QuickControls2 DBus)
+find_package(Qt${QT_MAJOR_VERSION} ${REQUIRED_QT_VERSION} REQUIRED NO_MODULE COMPONENTS Core Quick Gui Widgets QuickControls2 DBus)
 
 find_package(KF5 ${KF_DEP_VERSION} REQUIRED COMPONENTS Config Kirigami2)
 
@@ -50,7 +50,11 @@ endif()
 # to the linker, in that case, it requires to have the proper variables
 # to exists.
 if(X11_FOUND)
-    find_package(Qt5X11Extras ${REQUIRED_QT_VERSION} NO_MODULE QUIET)
+    if (QT_MAJOR_VERSION STREQUAL "5")
+        find_package(Qt5X11Extras ${REQUIRED_QT_VERSION} NO_MODULE)
+    elseif (QT_MAJOR_VERSION STREQUAL "6")
+        find_package(Qt6 ${REQUIRED_QT_VERSION} CONFIG REQUIRED Gui)
+    endif()
 endif()
 
 set_package_properties(IconThemes PROPERTIES DESCRIPTION "KF5 IconThemes framework"
