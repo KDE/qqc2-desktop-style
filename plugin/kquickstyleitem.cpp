@@ -652,6 +652,8 @@ void KQuickStyleItem::initStyleOption()
         QStyleOptionProgressBar *opt = qstyleoption_cast<QStyleOptionProgressBar *>(m_styleoption);
         if (horizontal()) {
             opt->state |= QStyle::State_Horizontal;
+        } else {
+            opt->state &= ~QStyle::State_Horizontal;
         }
         opt->minimum = qMax(0, minimum());
         opt->maximum = qMax(0, maximum());
