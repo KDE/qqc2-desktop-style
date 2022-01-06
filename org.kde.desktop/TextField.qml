@@ -6,7 +6,7 @@
 */
 
 
-import QtQuick 2.12
+import QtQuick 2.15
 import QtQuick.Window 2.1
 import QtQuick.Controls @QQC2_VERSION@ as Controls
 import QtQuick.Templates @QQC2_VERSION@ as T
@@ -116,5 +116,13 @@ T.TextField {
         sunken: true
         hasFocus: controlRoot.activeFocus
         hover: controlRoot.hovered
+    }
+
+    // Workaround I-beam cursor not being used when
+    // readOnly == true && selectByMouse == true.
+    // https://bugreports.qt.io/browse/QTBUG-99604
+    // Shouldn't interfere with TextField::hovered.
+    HoverHandler {
+        cursorShape: control.selectByMouse ? Qt.IBeamCursor : undefined
     }
 }

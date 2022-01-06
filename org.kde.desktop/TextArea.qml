@@ -7,7 +7,7 @@
 */
 
 
-import QtQuick 2.12
+import QtQuick 2.15
 import QtQuick.Window 2.1
 import QtQuick.Templates @QQC2_VERSION@ as T
 import org.kde.kirigami 2.18 as Kirigami
@@ -141,5 +141,13 @@ T.TextArea {
         sunken: true
         hasFocus: controlRoot.activeFocus
         hover: controlRoot.hovered
+    }
+
+    // Workaround I-beam cursor not being used when
+    // readOnly == true && selectByMouse == true.
+    // https://bugreports.qt.io/browse/QTBUG-99604
+    // Shouldn't interfere with TextArea::hovered.
+    HoverHandler {
+        cursorShape: control.selectByMouse ? Qt.IBeamCursor : undefined
     }
 }
