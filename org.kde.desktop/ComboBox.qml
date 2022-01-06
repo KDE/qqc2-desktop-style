@@ -26,6 +26,8 @@ T.ComboBox {
     baselineOffset: contentItem.y + contentItem.baselineOffset
 
     hoverEnabled: true
+    wheelEnabled: true
+
     padding: 5
     leftPadding: controlRoot.editable && controlRoot.mirrored ? 24 : padding
     rightPadding: controlRoot.editable && !controlRoot.mirrored ? 24 : padding
@@ -116,33 +118,6 @@ T.ComboBox {
         text: controlRoot.displayText
         properties: {
             "editable" : control.editable
-        }
-
-        MouseArea {
-            property int wheelDelta: 0
-
-            anchors {
-                fill: parent
-                leftMargin: controlRoot.leftPadding
-                rightMargin: controlRoot.rightPadding
-            }
-
-            acceptedButtons: Qt.NoButton
-
-            onWheel: {
-                var delta = wheel.angleDelta.y || wheel.angleDelta.x
-                wheelDelta += delta;
-                // magic number 120 for common "one click"
-                // See: https://doc.qt.io/qt-5/qml-qtquick-wheelevent.html#angleDelta-prop
-                while (wheelDelta >= 120) {
-                    wheelDelta -= 120;
-                    controlRoot.decrementCurrentIndex();
-                }
-                while (wheelDelta <= -120) {
-                    wheelDelta += 120;
-                    controlRoot.incrementCurrentIndex();
-                }
-            }
         }
     }
 

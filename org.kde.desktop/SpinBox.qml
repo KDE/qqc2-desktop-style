@@ -29,6 +29,7 @@ T.SpinBox {
 
 
     hoverEnabled: true
+    wheelEnabled: true
     editable: true
 
     validator: IntValidator {
@@ -68,34 +69,6 @@ T.SpinBox {
         // Work around Qt bug where NativeRendering breaks for non-integer scale factors
         // https://bugreports.qt.io/browse/QTBUG-67007
         renderType: Screen.devicePixelRatio % 1 !== 0 ? Text.QtRendering : Text.NativeRendering
-
-        MouseArea {
-            anchors.fill: parent
-            onPressed: mouse.accepted = false;
-
-            property int wheelDelta: 0
-
-            onExited: wheelDelta = 0
-            onWheel: {
-                wheelDelta += wheel.angleDelta.y;
-                // magic number 120 for common "one click"
-                // See: http://qt-project.org/doc/qt-5/qml-qtquick-wheelevent.html#angleDelta-prop
-                while (wheelDelta >= 120) {
-                    wheelDelta -= 120;
-                    controlRoot.increase();
-                    controlRoot.valueModified();
-                }
-                while (wheelDelta <= -120) {
-                    wheelDelta += 120;
-                    controlRoot.decrease();
-                    controlRoot.valueModified();
-                }
-            }
-
-            // Normally the TextInput does this automatically, but the MouseArea on
-            // top of it blocks that behavior, so we need to explicitly do it here
-            cursorShape: Qt.IBeamCursor
-        }
     }
 
     up.indicator: Item {
