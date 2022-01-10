@@ -52,8 +52,6 @@ endif()
 if(X11_FOUND)
     if (QT_MAJOR_VERSION STREQUAL "5")
         find_package(Qt5X11Extras ${REQUIRED_QT_VERSION} NO_MODULE)
-    elseif (QT_MAJOR_VERSION STREQUAL "6")
-        find_package(Qt6 ${REQUIRED_QT_VERSION} CONFIG REQUIRED Gui)
     endif()
 endif()
 
