@@ -8,6 +8,7 @@
 
 import QtQuick 2.6
 import QtQuick.Window 2.2
+import QtQuick.Layouts 1.4
 import QtQuick.Templates @QQC2_VERSION@ as T
 import QtQuick.Controls @QQC2_VERSION@ as Controls
 import org.kde.qqc2desktopstyle.private 1.0 as StylePrivate
@@ -33,7 +34,7 @@ T.ComboBox {
     rightPadding: controlRoot.editable && !controlRoot.mirrored ? 24 : padding
 
     delegate: ItemDelegate {
-        width: listView.width
+        Layout.fillWidth: true
         text: controlRoot.textRole ? (Array.isArray(controlRoot.model) ? modelData[controlRoot.textRole] : model[controlRoot.textRole]) : modelData
         highlighted: controlRoot.highlightedIndex == index
         property bool separatorVisible: false
@@ -123,8 +124,8 @@ T.ComboBox {
 
     popup: T.Popup {
         y: controlRoot.height
-        width: Math.max(controlRoot.width, 150)
-        implicitHeight: contentItem.implicitHeight
+        implicitWidth: Math.max(controlRoot.width, actionsLayout.implicitWidth + (contentItem.ScrollBar.vertical && contentItem.ScrollBar.vertical.visible ? contentItem.ScrollBar.vertical.width : 0))
+        implicitHeight: actionsLayout.implicitHeight
         topMargin: 6
         bottomMargin: 6
         Kirigami.Theme.colorSet: Kirigami.Theme.View
@@ -147,21 +148,36 @@ T.ComboBox {
                 color: Kirigami.Theme.backgroundColor
             }
             ScrollBar.horizontal.policy: ScrollBar.AlwaysOff
-            ListView {
-                id: listView
-
-                // this causes us to load at least one delegate
-                // this is essential in guessing the contentHeight
-                // which is needed to initially resize the popup
-                cacheBuffer: 1
-
-                implicitHeight: contentHeight
-                model: controlRoot.delegateModel
-                delegate: controlRoot.delegate
-                currentIndex: controlRoot.highlightedIndex
-                highlightRangeMode: ListView.ApplyRange
-                highlightMoveDuration: 0
+            Flickable {
+                id: flickable
+                contentWidth: width
+                contentHeight: actionsLayout.height
                 boundsBehavior: Flickable.StopAtBounds
+                readonly property int currentIndex: controlRoot.highlightedIndex
+                onCurrentIndexChanged: {
+                    if (currentIndex < 0 || currentIndex >= actionsLayout.children.length) {
+                        return;
+                    }
+                    let currentChild = actionsLayout.children[currentIndex];
+                    if (currentChild.y < flickable.contentY) {
+                        flickable.contentY = currentChild.y;
+                    } else if (currentChild.y + currentChild.height > flickable.contentY + flickable.height) {
+                        flickable.contentY = currentChild.y + currentChild.height - flickable.height;
+                    }
+                }
+                ColumnLayout {
+                    id: actionsLayout
+                    width: parent.width
+                    spacing: 0
+                    Repeater {
+                        id: repeater
+
+                        model: controlRoot.delegateModel
+                        delegate: controlRoot.delegate
+
+                        //highlightRangeMode: repeater.ApplyRange
+                    }
+                }
             }
         }
         background: Kirigami.ShadowedRectangle {
