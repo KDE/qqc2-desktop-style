@@ -7,7 +7,8 @@
 #ifndef KIRIGAMIPLASMAFACTORY_H
 #define KIRIGAMIPLASMAFACTORY_H
 
-#include <Kirigami2/KirigamiPluginFactory>
+#include <Kirigami/KirigamiPluginFactory>
+
 #include <QObject>
 
 class KirigamiPlasmaFactory : public Kirigami::KirigamiPluginFactoryV2

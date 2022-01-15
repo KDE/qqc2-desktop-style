@@ -9,7 +9,7 @@
 
 #include <QObject>
 
-#include <Units>
+#include <Kirigami/Units>
 
 #include <KConfigWatcher>
 

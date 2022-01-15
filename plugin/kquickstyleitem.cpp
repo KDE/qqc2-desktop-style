@@ -23,7 +23,7 @@
 #include <KConfigGroup>
 #include <ksharedconfig.h>
 
-#include <Kirigami2/PlatformTheme>
+#include <Kirigami/PlatformTheme>
 
 QStyle *KQuickStyleItem::s_style = nullptr;
 

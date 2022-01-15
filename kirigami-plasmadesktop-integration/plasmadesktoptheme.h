@@ -7,7 +7,8 @@
 #ifndef KIRIGAMIPLASMATHEME_H
 #define KIRIGAMIPLASMATHEME_H
 
-#include <Kirigami2/PlatformTheme>
+#include <Kirigami/PlatformTheme>
+
 #include <QColor>
 #include <QIcon>
 #include <QObject>
