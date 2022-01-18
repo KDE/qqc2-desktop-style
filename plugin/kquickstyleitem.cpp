@@ -1079,9 +1079,9 @@ QSize KQuickStyleItem::sizeFromContents(int width, int height)
         break;
     }
     case ComboBox: {
-        QStyleOptionComboBox *btn = qstyleoption_cast<QStyleOptionComboBox *>(m_styleoption);
-        int newWidth = qMax(width, btn->fontMetrics.boundingRect(btn->currentText).width());
-        int newHeight = qMax(height, btn->fontMetrics.height());
+        QStyleOptionComboBox *opt = qstyleoption_cast<QStyleOptionComboBox *>(m_styleoption);
+        int newWidth = qMax(width, m_contentWidth) + (opt->currentIcon.isNull() ? 0 : opt->iconSize.width());
+        int newHeight = qMax(height, opt->fontMetrics.height());
         size = KQuickStyleItem::style()->sizeFromContents(QStyle::CT_ComboBox, m_styleoption, QSize(newWidth, newHeight));
         break;
     }
