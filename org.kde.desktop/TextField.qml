@@ -28,6 +28,7 @@ T.TextField {
 
     padding: 6
 
+    placeholderTextColor: Kirigami.Theme.disabledTextColor
     color: controlRoot.enabled ? Kirigami.Theme.textColor : Kirigami.Theme.disabledTextColor
     selectionColor: Kirigami.Theme.highlightColor
     selectedTextColor: Kirigami.Theme.highlightedTextColor
@@ -100,7 +101,7 @@ T.TextField {
 
         text: controlRoot.placeholderText
         font: controlRoot.font
-        color: Kirigami.Theme.disabledTextColor
+        color: controlRoot.placeholderTextColor
         horizontalAlignment: controlRoot.horizontalAlignment
         verticalAlignment: controlRoot.verticalAlignment
         visible: !controlRoot.length && !controlRoot.preeditText && (!controlRoot.activeFocus || controlRoot.horizontalAlignment !== Qt.AlignHCenter)
