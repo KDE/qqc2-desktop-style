@@ -21,5 +21,5 @@ target_link_libraries(org.kde.desktop
         KF5::IconThemes
 )
 
-install(TARGETS org.kde.desktop DESTINATION ${KDE_INSTALL_PLUGINDIR}/kf5/kirigami)
+install(TARGETS org.kde.desktop DESTINATION ${KDE_INSTALL_PLUGINDIR}/kf${QT_MAJOR_VERSION}/kirigami)
 
