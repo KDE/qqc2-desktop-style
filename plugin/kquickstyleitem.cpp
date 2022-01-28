@@ -1928,6 +1928,7 @@ void KQuickStyleItem::styleChanged()
 
     updateSizeHint();
     updateItem();
+    Q_EMIT styleNameChanged();
 }
 
 QPixmap QQuickTableRowImageProvider1::requestPixmap(const QString &id, QSize *size, const QSize &requestedSize)
