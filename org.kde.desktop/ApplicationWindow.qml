@@ -6,6 +6,7 @@ T.ApplicationWindow {
 
 	P.FocusRing {
 		target: control.activeFocusItem
+		parent: this.T.Overlay.overlay
 	}
 }
 

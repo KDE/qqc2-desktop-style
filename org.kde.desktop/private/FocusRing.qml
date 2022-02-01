@@ -9,6 +9,9 @@ Item {
 
     required property Item target
     readonly property Item resolvedTarget: {
+        if ( !target )
+            return null
+
         if ( !(target.activeFocus && [Qt.TabFocusReason, Qt.BacktabFocusReason, Qt.ShortcutFocusReason].includes(target.focusReason)) ) return null
         if ( !target.background instanceof StylePrivate.StyleItem ) return null
 
@@ -44,7 +47,8 @@ Item {
     readonly property bool isDial: target instanceof QQC2.Dial
     readonly property bool isSlider: target instanceof QQC2.Slider
     readonly property bool becomeCircle: isRadio || isDial || isSlider || target instanceof RangeSliderHandle
-    readonly property var style: target.background
+    // TODO(Qt6): target?.background
+    readonly property var style: target ? target.background : null
 
     function tryit(fn, def) {
         try {
@@ -61,19 +65,23 @@ Item {
     property int handleWidth: -1
     property int handleHeight: -1
 
-    Connections {
-        target: control.target
-        enabled: control.isDial || control.isSlider
-        function onValueChanged() {
-            control.calculateHandle()
+    Loader {
+        active: control.isDial || control.isSlider
+        sourceComponent: Connections {
+            target: control.target
+            function onValueChanged() {
+                control.calculateHandle()
+            }
         }
     }
 
     function calculateHandle() {
-        handleX = Qt.binding(() => style.subControlRect("handle").x + resolvedTarget.Kirigami.ScenePosition.x)
-        handleY = Qt.binding(() => style.subControlRect("handle").y + resolvedTarget.Kirigami.ScenePosition.y)
-        handleWidth = style.subControlRect("handle").width
-        handleHeight = style.subControlRect("handle").height
+        // TODO(Qt6): style?.subControlRect("handle").x ?? 0
+        // TODO(Qt6): resolvedTarget?.Kirigami.ScenePosition.x ?? 0
+        handleX = Qt.binding(() => (style ? style.subControlRect("handle").x : 0) + (resolvedTarget ? resolvedTarget.Kirigami.ScenePosition.x : 0))
+        handleY = Qt.binding(() => (style ? style.subControlRect("handle").y : 0) + (resolvedTarget ? resolvedTarget.Kirigami.ScenePosition.y : 0))
+        handleWidth = style ? style.subControlRect("handle").width : 0
+        handleHeight = style ? style.subControlRect("handle").height : 0
     }
 
     x: {
