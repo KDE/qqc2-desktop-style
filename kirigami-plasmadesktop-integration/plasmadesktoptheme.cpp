@@ -49,6 +49,7 @@ public:
                                               SLOT(notifyWatchersConfigurationChange()));
 
         connect(qGuiApp, &QGuiApplication::fontDatabaseChanged, this, &StyleSingleton::notifyWatchersConfigurationChange);
+        connect(qGuiApp, &QGuiApplication::fontChanged, this, &StyleSingleton::notifyWatchersConfigurationChange);
 
         // Use NativeTextRendering as the default text rendering type when the scale factor is an integer.
         // NativeTextRendering is still distorted sometimes with fractional scale factors,
@@ -57,6 +58,26 @@ public:
         QQuickWindow::TextRenderType defaultTextRenderType =
             int(devicePixelRatio) == devicePixelRatio ? QQuickWindow::NativeTextRendering : QQuickWindow::QtTextRendering;
         QQuickWindow::setTextRenderType(defaultTextRenderType);
+
+        smallFont = loadSmallFont();
+    }
+
+    QFont loadSmallFont() const
+    {
+        KSharedConfigPtr ptr = KSharedConfig::openConfig();
+        KConfigGroup general(ptr->group("general"));
+
+        return general.readEntry("smallestReadableFont", []() {
+            auto smallFont = qApp->font();
+#ifndef Q_OS_WIN
+            if (smallFont.pixelSize() != -1) {
+                smallFont.setPixelSize(smallFont.pixelSize() - 2);
+            } else {
+                smallFont.setPointSize(smallFont.pointSize() - 2);
+            }
+#endif
+            return smallFont;
+        }());
     }
 
     void refresh()
@@ -143,13 +164,16 @@ public:
 
     Q_SLOT void notifyWatchersConfigurationChange()
     {
+        smallFont = loadSmallFont();
         for (auto watcher : std::as_const(watchers)) {
-            watcher->syncFont();
+            watcher->setSmallFont(smallFont);
+            watcher->setDefaultFont(qApp->font());
         }
     }
 
     KColorScheme buttonScheme;
     KColorScheme viewScheme;
+    QFont smallFont;
 
     QVector<QPointer<PlasmaDesktopTheme>> watchers;
 
@@ -171,7 +195,9 @@ PlasmaDesktopTheme::PlasmaDesktopTheme(QObject *parent)
 
     (*s_style)->watchers.append(this);
 
-    syncFont();
+    setDefaultFont(qGuiApp->font());
+    setSmallFont((*s_style)->smallFont);
+
     syncWindow();
     syncColors();
 }
@@ -207,25 +233,6 @@ void PlasmaDesktopTheme::syncWindow()
         connect(m_window.data(), &QWindow::activeChanged, this, &PlasmaDesktopTheme::syncColors);
         syncColors();
     }
-}
-
-void PlasmaDesktopTheme::syncFont()
-{
-    KSharedConfigPtr ptr = KSharedConfig::openConfig();
-    KConfigGroup general(ptr->group("general"));
-    setSmallFont(general.readEntry("smallestReadableFont", []() {
-        auto smallFont = qApp->font();
-#ifndef Q_OS_WIN
-        if (smallFont.pixelSize() != -1) {
-            smallFont.setPixelSize(smallFont.pixelSize() - 2);
-        } else {
-            smallFont.setPointSize(smallFont.pointSize() - 2);
-        }
-#endif
-        return smallFont;
-    }()));
-
-    setDefaultFont(qGuiApp->font());
 }
 
 QIcon PlasmaDesktopTheme::iconFromTheme(const QString &name, const QColor &customColor)
@@ -287,7 +294,6 @@ void PlasmaDesktopTheme::syncColors()
 bool PlasmaDesktopTheme::event(QEvent *event)
 {
     if (event->type() == Kirigami::PlatformThemeEvents::DataChangedEvent::type) {
-        syncFont();
         syncColors();
     }
 
