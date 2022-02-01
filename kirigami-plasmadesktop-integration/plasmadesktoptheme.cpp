@@ -38,13 +38,13 @@ public:
     {
         connect(qGuiApp, &QGuiApplication::paletteChanged, this, &StyleSingleton::refresh);
 
-        // Use DBus in order to listen for kdeglobals changes directly, as the
+        // Use DBus in order to listen for settings changes directly, as the
         // QApplication doesn't expose the font variants we're looking for,
         // namely smallFont.
         QDBusConnection::sessionBus().connect(QString(),
-                                              QStringLiteral("/KGlobalSettings"),
-                                              QStringLiteral("org.kde.KGlobalSettings"),
-                                              QStringLiteral("notifyChange"),
+                                              QStringLiteral("/KDEPlatformTheme"),
+                                              QStringLiteral("org.kde.KDEPlatformTheme"),
+                                              QStringLiteral("refreshFonts"),
                                               this,
                                               SLOT(notifyWatchersConfigurationChange()));
 
