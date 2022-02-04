@@ -1870,11 +1870,13 @@ QSGNode *KQuickStyleItem::updatePaintNode(QSGNode *node, UpdatePaintNodeData *)
 
 void KQuickStyleItem::updatePolish()
 {
-    if (width() >= 1 && height() >= 1) { // Note these are reals so 1 pixel is minimum
-        float devicePixelRatio = window() ? window()->devicePixelRatio() : qApp->devicePixelRatio();
-        int w = m_textureWidth > 0 ? m_textureWidth : width();
-        int h = m_textureHeight > 0 ? m_textureHeight : height();
-        m_image = QImage(w * devicePixelRatio, h * devicePixelRatio, QImage::Format_ARGB32_Premultiplied);
+    if (isVisible() && width() >= 1 && height() >= 1) { // Note these are reals so 1 pixel is minimum
+        const qreal devicePixelRatio = window() ? window()->devicePixelRatio() : qApp->devicePixelRatio();
+        const QSize size = QSize(m_textureWidth > 0 ? m_textureWidth : width(), m_textureHeight > 0 ? m_textureHeight : height()) * devicePixelRatio;
+
+        if (m_image.size() != size) {
+            m_image = QImage(size, QImage::Format_ARGB32_Premultiplied);
+        }
         m_image.setDevicePixelRatio(devicePixelRatio);
         m_image.fill(Qt::transparent);
         QPainter painter(&m_image);
