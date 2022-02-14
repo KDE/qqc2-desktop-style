@@ -24,5 +24,9 @@ if(KF5ConfigWidgets_FOUND)
     )
 endif()
 
+if(WIN32 AND BUILD_SHARED_LIBS)
+    set_target_properties(qqc2desktopstyleplugin PROPERTIES PREFIX "")
+endif()
+
 install(TARGETS qqc2desktopstyleplugin DESTINATION ${KDE_INSTALL_QMLDIR}/org/kde/qqc2desktopstyle/private)
 install(FILES qmldir DESTINATION ${KDE_INSTALL_QMLDIR}/org/kde/qqc2desktopstyle/private)
