@@ -10,6 +10,7 @@ import QtQuick 2.7
 import QtQuick.Layouts 1.2
 import QtQuick.Controls @QQC2_VERSION@
 import QtQuick.Templates @QQC2_VERSION@ as T
+import org.kde.qqc2desktopstyle.private 1.0 as StylePrivate
 import org.kde.kirigami 2.12 as Kirigami
 
 T.Menu {
@@ -21,6 +22,12 @@ T.Menu {
                              contentItem ? contentItem.implicitHeight : 0) + topPadding + bottomPadding
 
     margins: 0
+    horizontalPadding: style.pixelMetric("menuhmargin")
+    verticalPadding: style.pixelMetric("menuhmargin")
+    StylePrivate.StyleItem {
+        id: style
+        visible: false
+    }
 
     delegate: MenuItem { onImplicitWidthChanged: control.contentItem.contentItem.childrenChanged() }
 
