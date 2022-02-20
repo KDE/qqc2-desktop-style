@@ -25,12 +25,6 @@ class StyleSingleton : public QObject
     Q_OBJECT
 
 public:
-    struct Colors {
-        QPalette palette;
-        KColorScheme selectionScheme;
-        KColorScheme scheme;
-    };
-
     explicit StyleSingleton()
         : QObject()
         , buttonScheme(QPalette::Active, KColorScheme::ColorSet::Button)
@@ -263,6 +257,10 @@ void PlasmaDesktopTheme::syncColors()
     }
 
     const auto colors = (*s_style)->loadColors(colorSet(), group);
+    if (m_lastColors.has_value() && m_lastColors.value() == colors) {
+        return;
+    }
+    m_lastColors = colors;
 
     // foreground
     setTextColor(colors.scheme.foreground(KColorScheme::NormalText).color());
