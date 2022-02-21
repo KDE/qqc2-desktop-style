@@ -184,6 +184,7 @@ PlasmaDesktopTheme::PlasmaDesktopTheme(QObject *parent)
     auto parentItem = qobject_cast<QQuickItem *>(parent);
     if (parentItem) {
         connect(parentItem, &QQuickItem::enabledChanged, this, &PlasmaDesktopTheme::syncColors);
+        connect(parentItem, &QQuickItem::visibleChanged, this, &PlasmaDesktopTheme::syncColors);
         connect(parentItem, &QQuickItem::windowChanged, this, &PlasmaDesktopTheme::syncWindow);
     }
 
@@ -244,6 +245,9 @@ void PlasmaDesktopTheme::syncColors()
     QPalette::ColorGroup group = (QPalette::ColorGroup)colorGroup();
     auto parentItem = qobject_cast<QQuickItem *>(parent());
     if (parentItem) {
+        if (!parentItem->isVisible()) {
+            return;
+        }
         if (!parentItem->isEnabled()) {
             group = QPalette::Disabled;
             // Why also checking the window is exposed?
