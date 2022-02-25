@@ -9,28 +9,15 @@
 
 #include <Kirigami/PlatformTheme>
 
-#include <KColorScheme>
 #include <QColor>
 #include <QIcon>
 #include <QObject>
 #include <QPointer>
 #include <QQuickItem>
-#include <optional>
 
 class PlasmaDesktopTheme;
 class KIconLoader;
 class StyleSingleton;
-
-struct Colors {
-    QPalette palette;
-    KColorScheme selectionScheme;
-    KColorScheme scheme;
-
-    bool operator==(const Colors &other) const
-    {
-        return this == &other || (palette == other.palette && selectionScheme == other.selectionScheme && scheme == other.scheme);
-    }
-};
 
 class PlasmaDesktopTheme : public Kirigami::PlatformTheme
 {
@@ -51,8 +38,6 @@ protected:
 private:
     friend class StyleSingleton;
     QPointer<QWindow> m_window;
-
-    std::optional<Colors> m_lastColors;
 };
 
 #endif // KIRIGAMIPLASMATHEME_H
