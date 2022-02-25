@@ -28,7 +28,7 @@ struct Colors {
 
     bool operator==(const Colors &other) const
     {
-        return this == &other || (palette == other.palette && selectionScheme == other.selectionScheme & scheme == other.scheme);
+        return this == &other || (palette == other.palette && selectionScheme == other.selectionScheme && scheme == other.scheme);
     }
 };
 
