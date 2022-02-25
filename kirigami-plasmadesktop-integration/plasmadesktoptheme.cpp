@@ -200,6 +200,9 @@ PlasmaDesktopTheme::PlasmaDesktopTheme(QObject *parent)
     setSmallFont((*s_style)->smallFont);
 
     syncWindow();
+    if (!m_window) {
+        syncColors();
+    }
 }
 
 PlasmaDesktopTheme::~PlasmaDesktopTheme()
