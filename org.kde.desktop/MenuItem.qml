@@ -25,7 +25,7 @@ T.MenuItem {
 
     Layout.fillWidth: true
     padding: Kirigami.Units.smallSpacing
-    verticalPadding: Kirigami.Settings.tabletMode ? 8 : 4 // Hardcoded to the Breeze theme value
+    verticalPadding: Kirigami.Settings.hasTransientTouchInput ? 8 : 4 // Hardcoded to the Breeze theme value
     hoverEnabled: !Kirigami.Settings.isMobile
 
     Kirigami.MnemonicData.enabled: controlRoot.enabled && controlRoot.visible
@@ -53,7 +53,7 @@ T.MenuItem {
             visible: (controlRoot.ListView.view && controlRoot.ListView.view.hasIcons) || (controlRoot.icon != undefined && (controlRoot.icon.name.length > 0 || controlRoot.icon.source.length > 0))
             source: controlRoot.icon ? (controlRoot.icon.name || controlRoot.icon.source) : ""
             color: controlRoot.icon ? controlRoot.icon.color : "transparent"
-            Layout.preferredHeight: Kirigami.Settings.tabletMode ? Kirigami.Units.iconSizes.smallMedium : Kirigami.Units.iconSizes.small
+            Layout.preferredHeight: Kirigami.Settings.hasTransientTouchInput ? Kirigami.Units.iconSizes.smallMedium : Kirigami.Units.iconSizes.small
             Layout.preferredWidth: Layout.preferredHeight
         }
         Label {
