@@ -721,7 +721,8 @@ void KQuickStyleItem::initStyleOption()
     }
 
     m_styleoption->styleObject = this;
-    m_styleoption->direction = qApp->layoutDirection();
+    const auto mirror = m_control == nullptr ? qApp->layoutDirection() == Qt::RightToLeft : m_control->property("mirrored").toBool();
+    m_styleoption->direction = mirror ? Qt::RightToLeft : Qt::LeftToRight;
 
     int w = m_textureWidth > 0 ? m_textureWidth : width();
     int h = m_textureHeight > 0 ? m_textureHeight : height();
