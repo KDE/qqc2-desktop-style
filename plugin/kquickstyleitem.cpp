@@ -580,7 +580,10 @@ void KQuickStyleItem::initStyleOption()
 
         QStyleOptionSlider *opt = qstyleoption_cast<QStyleOptionSlider *>(m_styleoption);
         opt->orientation = horizontal() ? Qt::Horizontal : Qt::Vertical;
-        opt->upsideDown = !horizontal();
+        // logic copied from QSlider
+        opt->upsideDown = horizontal() ?
+            opt->direction == Qt::RightToLeft :
+            true;
 
         int min = minimum();
         int max = std::max(min, maximum());
