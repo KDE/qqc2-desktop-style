@@ -15,8 +15,8 @@ T.MenuSeparator {
     id: controlRoot
     implicitWidth: Math.max(implicitBackgroundWidth + leftInset + rightInset,
                             implicitContentWidth + leftPadding + rightPadding)
-    implicitHeight: Math.max(implicitBackgroundHeight + topInset + bottomInset,
-                             implicitContentHeight + topPadding + bottomPadding)
+    implicitHeight: visible ? Math.max(implicitBackgroundHeight + topInset + bottomInset,
+                             implicitContentHeight + topPadding + bottomPadding) : 0
     verticalPadding: Math.round(Kirigami.Units.smallSpacing/2)
     hoverEnabled: false
     focusPolicy: Qt.NoFocus
