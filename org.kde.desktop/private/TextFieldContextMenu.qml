@@ -168,7 +168,7 @@ Menu {
     }
 
     MenuSeparator {
-        visible: target !== null && !target.readOnly
+        visible: target !== null && !target.readOnly && ((spellcheckhighlighter !== null && spellcheckhighlighter.active && spellcheckhighlighter.wordIsMisspelled) || (spellcheckhighlighterLoader && spellcheckhighlighterLoader.activable))
     }
 
     MenuItem {
