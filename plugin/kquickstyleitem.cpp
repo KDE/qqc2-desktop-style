@@ -77,40 +77,6 @@ KQuickStyleItem::KQuickStyleItem(QQuickItem *parent)
     setFlag(QQuickItem::ItemHasContents, true);
     setSmooth(false);
 
-    connect(this, &KQuickStyleItem::visibleChanged, this, &KQuickStyleItem::updateItem);
-    connect(this, &KQuickStyleItem::widthChanged, this, &KQuickStyleItem::updateItem);
-    connect(this, &KQuickStyleItem::heightChanged, this, &KQuickStyleItem::updateItem);
-    connect(this, &KQuickStyleItem::enabledChanged, this, &KQuickStyleItem::updateItem);
-    connect(this, &KQuickStyleItem::infoChanged, this, &KQuickStyleItem::updateItem);
-    connect(this, &KQuickStyleItem::onChanged, this, &KQuickStyleItem::updateItem);
-    connect(this, &KQuickStyleItem::selectedChanged, this, &KQuickStyleItem::updateItem);
-    connect(this, &KQuickStyleItem::activeChanged, this, &KQuickStyleItem::updateItem);
-    connect(this, &KQuickStyleItem::textChanged, this, &KQuickStyleItem::updateSizeHint);
-    connect(this, &KQuickStyleItem::textChanged, this, &KQuickStyleItem::updateItem);
-    connect(this, &KQuickStyleItem::activeChanged, this, &KQuickStyleItem::updateItem);
-    connect(this, &KQuickStyleItem::flatChanged, this, &KQuickStyleItem::updateItem);
-    connect(this, &KQuickStyleItem::sunkenChanged, this, &KQuickStyleItem::updateItem);
-    connect(this, &KQuickStyleItem::hoverChanged, this, &KQuickStyleItem::updateItem);
-    connect(this, &KQuickStyleItem::maximumChanged, this, &KQuickStyleItem::updateItem);
-    connect(this, &KQuickStyleItem::minimumChanged, this, &KQuickStyleItem::updateItem);
-    connect(this, &KQuickStyleItem::valueChanged, this, &KQuickStyleItem::updateItem);
-    connect(this, &KQuickStyleItem::horizontalChanged, this, &KQuickStyleItem::updateItem);
-    connect(this, &KQuickStyleItem::transientChanged, this, &KQuickStyleItem::updateItem);
-    connect(this, &KQuickStyleItem::activeControlChanged, this, &KQuickStyleItem::updateItem);
-    connect(this, &KQuickStyleItem::hasFocusChanged, this, &KQuickStyleItem::updateItem);
-    connect(this, &KQuickStyleItem::activeControlChanged, this, &KQuickStyleItem::updateItem);
-    connect(this, &KQuickStyleItem::hintChanged, this, &KQuickStyleItem::updateItem);
-    connect(this, &KQuickStyleItem::propertiesChanged, this, &KQuickStyleItem::updateSizeHint);
-    connect(this, &KQuickStyleItem::propertiesChanged, this, &KQuickStyleItem::updateItem);
-    connect(this, &KQuickStyleItem::elementTypeChanged, this, &KQuickStyleItem::updateItem);
-    connect(this, &KQuickStyleItem::contentWidthChanged, this, &KQuickStyleItem::updateSizeHint);
-    connect(this, &KQuickStyleItem::contentHeightChanged, this, &KQuickStyleItem::updateSizeHint);
-    connect(this, &KQuickStyleItem::widthChanged, this, &KQuickStyleItem::updateRect);
-    connect(this, &KQuickStyleItem::heightChanged, this, &KQuickStyleItem::updateRect);
-
-    connect(this, &KQuickStyleItem::heightChanged, this, &KQuickStyleItem::updateBaselineOffset);
-    connect(this, &KQuickStyleItem::contentHeightChanged, this, &KQuickStyleItem::updateBaselineOffset);
-
     connect(qApp, &QApplication::fontChanged, this, &KQuickStyleItem::updateSizeHint, Qt::QueuedConnection);
 
     Kirigami::TabletModeWatcher::self()->addWatcher(this);
@@ -1239,6 +1205,7 @@ void KQuickStyleItem::setContentWidth(int arg)
 {
     if (m_contentWidth != arg) {
         m_contentWidth = arg;
+        updateSizeHint();
         Q_EMIT contentWidthChanged(arg);
     }
 }
@@ -1247,6 +1214,8 @@ void KQuickStyleItem::setContentHeight(int arg)
 {
     if (m_contentHeight != arg) {
         m_contentHeight = arg;
+        updateSizeHint();
+        updateBaselineOffset();
         Q_EMIT contentHeightChanged(arg);
     }
 }
@@ -1371,6 +1340,7 @@ void KQuickStyleItem::setHints(const QVariantMap &str)
         m_hints = str;
         initStyleOption();
         updateSizeHint();
+        polish();
         if (m_styleoption->state & QStyle::State_Mini) {
             m_font.setPointSize(9.);
             Q_EMIT fontChanged();
@@ -1478,6 +1448,7 @@ void KQuickStyleItem::setElementType(const QString &str)
     Q_EMIT topPaddingChanged();
     Q_EMIT bottomPaddingChanged();
     updateSizeHint();
+    polish();
 }
 
 QRectF KQuickStyleItem::subControlRect(const QString &subcontrolString)
@@ -1931,6 +1902,35 @@ bool KQuickStyleItem::eventFilter(QObject *watched, QEvent *event)
     }
 
     return QQuickItem::eventFilter(watched, event);
+}
+
+void KQuickStyleItem::itemChange(QQuickItem::ItemChange change, const QQuickItem::ItemChangeData &value)
+{
+    if (change == QQuickItem::ItemVisibleHasChanged || change == QQuickItem::ItemEnabledHasChanged) {
+        polish();
+    }
+
+    QQuickItem::itemChange(change, value);
+}
+
+#if QT_VERSION < QT_VERSION_CHECK(6, 0, 0)
+void KQuickStyleItem::geometryChanged(const QRectF &newGeometry, const QRectF &oldGeometry)
+{
+    QQuickItem::geometryChanged(newGeometry, oldGeometry);
+#else
+void KQuickStyleItem::geometryChange(const QRectF &newGeometry, const QRectF &oldGeometry)
+{
+    QQuickItem::geometryChange(newGeometry, oldGeometry);
+#endif
+
+    if (!newGeometry.isEmpty() && newGeometry != oldGeometry) {
+        polish();
+        updateRect();
+
+        if (newGeometry.height() != oldGeometry.height()) {
+            updateBaselineOffset();
+        }
+    }
 }
 
 void KQuickStyleItem::styleChanged()

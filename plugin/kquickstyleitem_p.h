@@ -227,6 +227,7 @@ public:
     {
         if (m_sunken != sunken) {
             m_sunken = sunken;
+            polish();
             Q_EMIT sunkenChanged();
         }
     }
@@ -234,6 +235,7 @@ public:
     {
         if (m_raised != raised) {
             m_raised = raised;
+            polish();
             Q_EMIT raisedChanged();
         }
     }
@@ -241,6 +243,7 @@ public:
     {
         if (m_flat != flat) {
             m_flat = flat;
+            polish();
             Q_EMIT flatChanged();
         }
     }
@@ -248,6 +251,7 @@ public:
     {
         if (m_active != active) {
             m_active = active;
+            polish();
             Q_EMIT activeChanged();
         }
     }
@@ -255,6 +259,7 @@ public:
     {
         if (m_selected != selected) {
             m_selected = selected;
+            polish();
             Q_EMIT selectedChanged();
         }
     }
@@ -262,6 +267,7 @@ public:
     {
         if (m_focus != focus) {
             m_focus = focus;
+            polish();
             Q_EMIT hasFocusChanged();
         }
     }
@@ -269,6 +275,7 @@ public:
     {
         if (m_on != on) {
             m_on = on;
+            polish();
             Q_EMIT onChanged();
         }
     }
@@ -276,6 +283,7 @@ public:
     {
         if (m_hover != hover) {
             m_hover = hover;
+            polish();
             Q_EMIT hoverChanged();
         }
     }
@@ -283,6 +291,7 @@ public:
     {
         if (m_horizontal != horizontal) {
             m_horizontal = horizontal;
+            polish();
             Q_EMIT horizontalChanged();
         }
     }
@@ -290,6 +299,7 @@ public:
     {
         if (m_transient != transient) {
             m_transient = transient;
+            polish();
             Q_EMIT transientChanged();
         }
     }
@@ -297,6 +307,7 @@ public:
     {
         if (m_minimum != minimum) {
             m_minimum = minimum;
+            polish();
             Q_EMIT minimumChanged();
         }
     }
@@ -304,6 +315,7 @@ public:
     {
         if (m_maximum != maximum) {
             m_maximum = maximum;
+            polish();
             Q_EMIT maximumChanged();
         }
     }
@@ -311,6 +323,7 @@ public:
     {
         if (m_value != value) {
             m_value = value;
+            polish();
             Q_EMIT valueChanged();
         }
     }
@@ -318,6 +331,7 @@ public:
     {
         if (m_step != step) {
             m_step = step;
+            polish();
             Q_EMIT stepChanged();
         }
     }
@@ -325,6 +339,7 @@ public:
     {
         if (m_paintMargins != value) {
             m_paintMargins = value;
+            polish();
             Q_EMIT paintMarginsChanged();
         }
     }
@@ -333,6 +348,8 @@ public:
     {
         if (m_text != str) {
             m_text = str;
+            updateSizeHint();
+            polish();
             Q_EMIT textChanged();
         }
     }
@@ -340,6 +357,7 @@ public:
     {
         if (m_activeControl != str) {
             m_activeControl = str;
+            polish();
             Q_EMIT activeControlChanged();
         }
     }
@@ -349,6 +367,8 @@ public:
         if (m_properties != props) {
             m_properties = props;
             m_iconDirty = true;
+            updateSizeHint();
+            polish();
             Q_EMIT propertiesChanged();
         }
     }
@@ -453,6 +473,13 @@ protected:
     QSGNode *updatePaintNode(QSGNode *, UpdatePaintNodeData *) override;
     void updatePolish() override;
     bool eventFilter(QObject *watched, QEvent *event) override;
+    void itemChange(QQuickItem::ItemChange change, const QQuickItem::ItemChangeData &value) override;
+
+#if QT_VERSION < QT_VERSION_CHECK(6, 0, 0)
+    void geometryChanged(const QRectF &newGeometry, const QRectF &oldGeometry) override;
+#else
+    void geometryChange(const QRectF &newGeometry, const QRectF &oldGeometry) override;
+#endif
 
 private:
     QIcon iconFromIconProperty() const;
