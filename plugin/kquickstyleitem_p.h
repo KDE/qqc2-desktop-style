@@ -449,7 +449,6 @@ Q_SIGNALS:
     void stepChanged();
     void valueChanged();
     void activeControlChanged();
-    void infoChanged();
     void styleNameChanged();
     void paintMarginsChanged();
     void hintChanged();
