@@ -86,7 +86,7 @@ T.ComboBox {
 
         onFocusChanged: {
             if (focus) {
-                Private.MobileTextActionsToolBar.controlRoot = textField;
+                Private.MobileTextActionsToolBar.controlRoot = this;
             }
         }
 
