@@ -72,8 +72,13 @@ T.Menu {
         target: control.contentItem.contentItem
 
         function onChildrenChanged() {
+            control.contentItem.hasCheckables = false;
+            control.contentItem.hasIcons = false;
             for (var i in control.contentItem.contentItem.children) {
-                var child = control.contentItem.contentItem.children[i];
+                const child = control.contentItem.contentItem.children[i];
+                if (!child.visible) {
+                    continue;
+                }
                 if (child.checkable) {
                     control.contentItem.hasCheckables = true;
                 }
