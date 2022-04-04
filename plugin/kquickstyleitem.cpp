@@ -24,6 +24,7 @@
 #include <ksharedconfig.h>
 
 #include <Kirigami/PlatformTheme>
+#include <Kirigami/TabletModeWatcher>
 
 QStyle *KQuickStyleItem::s_style = nullptr;
 
@@ -111,6 +112,8 @@ KQuickStyleItem::KQuickStyleItem(QQuickItem *parent)
     connect(this, &KQuickStyleItem::contentHeightChanged, this, &KQuickStyleItem::updateBaselineOffset);
 
     connect(qApp, &QApplication::fontChanged, this, &KQuickStyleItem::updateSizeHint, Qt::QueuedConnection);
+
+    Kirigami::TabletModeWatcher::self()->addWatcher(this);
 }
 
 KQuickStyleItem::~KQuickStyleItem()
@@ -150,6 +153,7 @@ KQuickStyleItem::~KQuickStyleItem()
     }
 
     m_styleoption = nullptr;
+    Kirigami::TabletModeWatcher::self()->removeWatcher(this);
 }
 
 void KQuickStyleItem::initStyleOption()
@@ -777,6 +781,7 @@ void KQuickStyleItem::initStyleOption()
     } else if (sizeHint == QLatin1String("small")) {
         m_styleoption->state |= QStyle::State_Small;
     }
+
 }
 
 QIcon KQuickStyleItem::iconFromIconProperty() const
@@ -1781,7 +1786,16 @@ bool KQuickStyleItem::event(QEvent *ev)
             polish();
         }
         return true;
+    } else if (ev->type() == Kirigami::TabletModeChangedEvent::type) {
+        Q_EMIT leftPaddingChanged();
+        Q_EMIT rightPaddingChanged();
+        Q_EMIT topPaddingChanged();
+        Q_EMIT bottomPaddingChanged();
+        updateSizeHint();
+        polish();
+        return true;
     }
+
     return QQuickItem::event(ev);
 }
 

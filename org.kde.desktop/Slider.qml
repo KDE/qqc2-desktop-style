@@ -32,8 +32,8 @@ T.Slider {
         elementType: "slider"
         sunken: controlRoot.pressed
         implicitWidth: 200
-        contentWidth: horizontal ? controlRoot.implicitWidth : 22
-        contentHeight: horizontal ? 22 : controlRoot.implicitHeight
+        contentWidth: horizontal ? controlRoot.implicitWidth : (Kirigami.Settings.tabletMode ? 24 : 22)
+        contentHeight: horizontal ? (Kirigami.Settings.tabletMode ? 24 : 22) : controlRoot.implicitHeight
         anchors.verticalCenter: controlRoot.verticalCenter
 
         maximum: controlRoot.to*100
