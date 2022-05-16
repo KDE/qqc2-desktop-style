@@ -6,15 +6,6 @@ set(qqc2desktopstyle_SRCS
     kpropertywriter.cpp
     )
 
-if(Qt5_VERSION VERSION_LESS "5.8.0")
-set(qqc2desktopstyle_SRCS
-    ${qqc2desktopstyle_SRCS}
-    #FIXME: remove when we can depend from Qt 5.8+
-    qsgninepatchnode.cpp
-    qsgdefaultninepatchnode.cpp
-    )
-endif()
-
 add_library(qqc2desktopstyleplugin SHARED ${qqc2desktopstyle_SRCS})
 target_link_libraries(qqc2desktopstyleplugin Qt${QT_MAJOR_VERSION}::Core Qt${QT_MAJOR_VERSION}::Qml Qt${QT_MAJOR_VERSION}::Quick Qt${QT_MAJOR_VERSION}::Gui Qt${QT_MAJOR_VERSION}::Widgets KF5::ConfigCore KF5::Kirigami2)
 
