@@ -78,14 +78,15 @@ T.ScrollView {
             id: internal
 
             readonly property bool backgroundVisible: controlRoot.background && controlRoot.background.visible
-            readonly property real verticalScrollBarWidth: controlRoot.ScrollBar.vertical.visible && !Kirigami.Settings.tabletMode ? controlRoot.ScrollBar.vertical.width : 0
-            readonly property real horizontalScrollBarHeight: controlRoot.ScrollBar.horizontal.visible && !Kirigami.Settings.tabletMode ? controlRoot.ScrollBar.horizontal.height : 0
+            readonly property real verticalScrollBarWidth: controlRoot.ScrollBar.vertical.visible && !controlRoot.ScrollBar.vertical.interactive ? controlRoot.ScrollBar.vertical.width : 0
+            readonly property real horizontalScrollBarHeight: controlRoot.ScrollBar.horizontal.visible && !controlRoot.ScrollBar.vertical.interactive ? controlRoot.ScrollBar.horizontal.height : 0
         }
     ]
     ScrollBar.vertical: ScrollBar {
         id: verticalScrollBar
         parent: controlRoot
         enabled: controlRoot.contentItem.enabled
+        z: 1
 
         x: controlRoot.mirrored
             ? (internal.backgroundVisible && controlRoot.background.hasOwnProperty("leftPadding") ? controlRoot.background.leftPadding : 0)
@@ -98,6 +99,7 @@ T.ScrollView {
     ScrollBar.horizontal: ScrollBar {
         parent: controlRoot
         enabled: controlRoot.contentItem.enabled
+        z: 1
         x: controlRoot.leftPadding
         y: controlRoot.height - height - (internal.backgroundVisible && controlRoot.background.hasOwnProperty("bottomPadding") ? controlRoot.background.bottomPadding : 0)
         width: controlRoot.availableWidth
