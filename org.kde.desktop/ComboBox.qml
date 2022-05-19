@@ -17,8 +17,8 @@ import "private" as Private
 
 T.ComboBox {
     id: controlRoot
-    //NOTE: typeof necessary to not have warnings on Qt 5.7
-    Kirigami.Theme.colorSet: typeof(editable) != "undefined" && editable ? Kirigami.Theme.View : Kirigami.Theme.Button
+
+    Kirigami.Theme.colorSet: editable ? Kirigami.Theme.View : Kirigami.Theme.Button
     Kirigami.Theme.inherit: false
 
     implicitWidth: background.implicitWidth
@@ -29,8 +29,8 @@ T.ComboBox {
     wheelEnabled: true
 
     padding: 5
-    leftPadding: controlRoot.editable && controlRoot.mirrored ? 24 : padding
-    rightPadding: controlRoot.editable && !controlRoot.mirrored ? 24 : padding
+    leftPadding: editable && mirrored ? 24 : padding
+    rightPadding: editable && !mirrored ? 24 : padding
 
     delegate: ItemDelegate {
         width: listView.width
@@ -65,7 +65,7 @@ T.ComboBox {
         autoScroll: controlRoot.editable
         readOnly: controlRoot.down
 
-        visible: typeof(controlRoot.editable) != "undefined" && controlRoot.editable
+        visible: controlRoot.editable
         inputMethodHints: controlRoot.inputMethodHints
         validator: controlRoot.validator
 
@@ -131,7 +131,7 @@ T.ComboBox {
         contentHeight: Math.max(Math.ceil(textHeight("")), 14) + 2
         text: controlRoot.displayText
         properties: {
-            "editable" : control.editable
+            "editable": control.editable
         }
     }
 
