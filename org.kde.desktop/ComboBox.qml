@@ -113,7 +113,7 @@ T.ComboBox {
     Private.MobileCursor {
         target: controlRoot.contentItem
         selectionStartHandle: true
-        property var rect: target.positionToRectangle(target.selectionStart)
+        readonly property rect rect: target.positionToRectangle(target.selectionStart)
         x: rect.x + 5
         y: rect.y + 6
     }
