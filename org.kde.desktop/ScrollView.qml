@@ -78,8 +78,8 @@ T.ScrollView {
             id: internal
 
             readonly property bool backgroundVisible: controlRoot.background && controlRoot.background.visible
-            readonly property real verticalScrollBarWidth: controlRoot.ScrollBar.vertical.visible && !controlRoot.ScrollBar.vertical.interactive ? 0 : controlRoot.ScrollBar.vertical.width
-            readonly property real horizontalScrollBarHeight: controlRoot.ScrollBar.horizontal.visible && !controlRoot.ScrollBar.vertical.interactive ? 0 : controlRoot.ScrollBar.horizontal.height
+            readonly property real verticalScrollBarWidth: controlRoot.ScrollBar.vertical.visible && controlRoot.ScrollBar.vertical.interactive ? controlRoot.ScrollBar.vertical.width : 0
+            readonly property real horizontalScrollBarHeight: controlRoot.ScrollBar.horizontal.visible && controlRoot.ScrollBar.vertical.interactive ? controlRoot.ScrollBar.horizontal.height : 0
         }
     ]
     ScrollBar.vertical: ScrollBar {
