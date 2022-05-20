@@ -33,7 +33,7 @@ T.ComboBox {
     rightPadding: editable && !mirrored ? 24 : padding
 
     delegate: ItemDelegate {
-        width: listView.width
+        width: ListView.view.width
         text: controlRoot.textRole ? (Array.isArray(controlRoot.model) ? modelData[controlRoot.textRole] : model[controlRoot.textRole]) : modelData
         highlighted: controlRoot.highlightedIndex == index
         property bool separatorVisible: false
