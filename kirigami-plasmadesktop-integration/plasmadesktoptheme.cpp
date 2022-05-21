@@ -180,7 +180,8 @@ public:
 private:
     QHash<QPair<Kirigami::PlatformTheme::ColorSet, QPalette::ColorGroup>, Colors> m_cache;
 };
-Q_GLOBAL_STATIC_WITH_ARGS(QScopedPointer<StyleSingleton>, s_style, (new StyleSingleton))
+
+Q_GLOBAL_STATIC(StyleSingleton, s_style);
 
 PlasmaDesktopTheme::PlasmaDesktopTheme(QObject *parent)
     : PlatformTheme(parent)
@@ -194,10 +195,10 @@ PlasmaDesktopTheme::PlasmaDesktopTheme(QObject *parent)
         connect(parentItem, &QQuickItem::windowChanged, this, &PlasmaDesktopTheme::syncWindow);
     }
 
-    (*s_style)->watchers.append(this);
+    s_style->watchers.append(this);
 
     setDefaultFont(qGuiApp->font());
-    setSmallFont((*s_style)->smallFont);
+    setSmallFont(s_style->smallFont);
 
     syncWindow();
     if (!m_window) {
@@ -207,7 +208,7 @@ PlasmaDesktopTheme::PlasmaDesktopTheme(QObject *parent)
 
 PlasmaDesktopTheme::~PlasmaDesktopTheme()
 {
-    (*s_style)->watchers.removeOne(this);
+    s_style->watchers.removeOne(this);
 }
 
 void PlasmaDesktopTheme::syncWindow()
@@ -268,7 +269,7 @@ void PlasmaDesktopTheme::syncColors()
         }
     }
 
-    const auto colors = (*s_style)->loadColors(colorSet(), group);
+    const auto colors = s_style->loadColors(colorSet(), group);
 
     // foreground
     setTextColor(colors.scheme.foreground(KColorScheme::NormalText).color());
