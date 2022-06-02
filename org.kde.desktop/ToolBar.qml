@@ -18,12 +18,12 @@ T.ToolBar {
 
     padding: Kirigami.Units.smallSpacing
     contentItem: Item {}
-    position: controlRoot.parent.footer == controlRoot ? ToolBar.Footer : ToolBar.Header
+    position: controlRoot.parent.footer === controlRoot ? ToolBar.Footer : ToolBar.Header
 
     // Use Header colors if it's a header and Header colors are available
     // (if not, this will fall back to window colors)
     // Window colors
-    Kirigami.Theme.colorSet: position == T.ToolBar.Footer || (parent.footer && parent.footer == controlRoot) ? Kirigami.Theme.Window : Kirigami.Theme.Header
+    Kirigami.Theme.colorSet: position === T.ToolBar.Footer || (parent.footer && parent.footer === controlRoot) ? Kirigami.Theme.Window : Kirigami.Theme.Header
     Kirigami.Theme.inherit: false
 
     background: Rectangle {
@@ -33,8 +33,8 @@ T.ToolBar {
             anchors {
                 left: parent.left
                 right: parent.right
-                top: controlRoot.position == T.ToolBar.Footer || (controlRoot.parent.footer && controlRoot.parent.footer == controlRoot) ? parent.top : undefined
-                bottom: controlRoot.position == T.ToolBar.Footer || (controlRoot.parent.footer && controlRoot.parent.footer == controlRoot) ? undefined : parent.bottom
+                top: controlRoot.position === T.ToolBar.Footer || (controlRoot.parent.footer && controlRoot.parent.footer === controlRoot) ? parent.top : undefined
+                bottom: controlRoot.position === T.ToolBar.Footer || (controlRoot.parent.footer && controlRoot.parent.footer === controlRoot) ? undefined : parent.bottom
             }
         }
     }

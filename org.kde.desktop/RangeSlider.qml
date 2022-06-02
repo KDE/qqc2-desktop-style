@@ -71,7 +71,7 @@ T.RangeSlider {
         implicitHeight: horizontal ? 6 : 200
         width: horizontal ? control.availableWidth : implicitWidth
         height: horizontal ? implicitHeight : control.availableHeight
-        radius: Math.round(Math.min(width/2, height/2))
+        radius: Math.round(Math.min(width / 2, height / 2))
         property color bgColor: Kirigami.Theme.textColor
         color: Qt.rgba(bgColor.r, bgColor.g, bgColor.b, 0.3)
         anchors.centerIn: parent

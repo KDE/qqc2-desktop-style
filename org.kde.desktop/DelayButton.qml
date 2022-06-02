@@ -40,9 +40,9 @@ T.DelayButton {
 
         StylePrivate.StyleItem {
             anchors {
-                bottom: parent.bottom
                 left: parent.left
                 right: parent.right
+                bottom: parent.bottom
                 margins: 3
             }
             elementType: "progressbar"

@@ -40,14 +40,14 @@ T.RoundButton {
     contentItem: GridLayout {
         rowSpacing: controlRoot.spacing
         columnSpacing: controlRoot.spacing
-        flow: iconContent.visible && labelContent.visible && controlRoot.display == T.AbstractButton.TextUnderIcon ? GridLayout.TopToBottom : GridLayout.LeftToRight
+        flow: iconContent.visible && labelContent.visible && controlRoot.display === T.AbstractButton.TextUnderIcon ? GridLayout.TopToBottom : GridLayout.LeftToRight
         Kirigami.Icon {
             id: iconContent
             Layout.alignment: {
                 if (iconContent.visible && labelContent.visible) {
-                    if (controlRoot.display == T.AbstractButton.TextBesideIcon) {
+                    if (controlRoot.display === T.AbstractButton.TextBesideIcon) {
                         return Qt.AlignRight | Qt.AlignVCenter
-                    } else if (controlRoot.display == T.AbstractButton.TextUnderIcon) {
+                    } else if (controlRoot.display === T.AbstractButton.TextUnderIcon) {
                         return Qt.AlignHCenter | Qt.AlignBottom
                     }
                 }
@@ -56,23 +56,23 @@ T.RoundButton {
             color: controlRoot.icon.color // defaults to Qt::transparent
             implicitWidth: controlRoot.icon.width
             implicitHeight: controlRoot.icon.height
-            visible: source.length > 0 && controlRoot.display != T.AbstractButton.TextOnly
+            visible: source.length > 0 && controlRoot.display !== T.AbstractButton.TextOnly
             source: controlRoot.icon ? (controlRoot.icon.name || controlRoot.icon.source) : ""
         }
         Controls.Label {
             id: labelContent
             Layout.alignment: {
                 if (iconContent.visible && labelContent.visible) {
-                    if (controlRoot.display == T.AbstractButton.TextBesideIcon) {
+                    if (controlRoot.display === T.AbstractButton.TextBesideIcon) {
                         return Qt.AlignLeft | Qt.AlignVCenter
-                    } else if (controlRoot.display == T.AbstractButton.TextUnderIcon) {
+                    } else if (controlRoot.display === T.AbstractButton.TextUnderIcon) {
                         return Qt.AlignHCenter | Qt.AlignTop
                     }
                 }
                 return Qt.AlignCenter
             }
             text: controlRoot.text
-            visible: text.length > 0 && controlRoot.display != T.AbstractButton.IconOnly
+            visible: text.length > 0 && controlRoot.display !== T.AbstractButton.IconOnly
         }
     }
     background: Rectangle {

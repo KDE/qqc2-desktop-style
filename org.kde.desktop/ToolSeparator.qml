@@ -19,7 +19,7 @@ T.ToolSeparator {
 
     contentItem: Kirigami.Separator {
         // implicitHeight is the same as ToolBar implicitHeight minus ToolBar padding if not horizontal
-        implicitHeight: horizontal ? 1 : 40 - (Kirigami.Units.smallSpacing * 2)
         implicitWidth: !horizontal ? 1 : 40 - (Kirigami.Units.smallSpacing * 2)
+        implicitHeight: horizontal ? 1 : 40 - (Kirigami.Units.smallSpacing * 2)
     }
 }

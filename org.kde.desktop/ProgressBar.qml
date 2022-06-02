@@ -24,9 +24,9 @@ T.ProgressBar {
     background: StylePrivate.StyleItem {
         elementType: "progressbar"
         control: controlRoot
-        maximum: indeterminate ? 0 : controlRoot.to*100
-        minimum: indeterminate ? 0 : controlRoot.from*100
-        value: indeterminate ? 0 : ((Qt.application.layoutDirection === Qt.LeftToRight ? controlRoot.visualPosition : 1 - controlRoot.visualPosition) * (controlRoot.to - controlRoot.from) + controlRoot.from) * 100
+        maximum: indeterminate ? 0 : 100 * controlRoot.to
+        minimum: indeterminate ? 0 : 100 * controlRoot.from
+        value: indeterminate ? 0 : 100 * ((Qt.application.layoutDirection === Qt.LeftToRight ? controlRoot.visualPosition : 1 - controlRoot.visualPosition) * (controlRoot.to - controlRoot.from) + controlRoot.from)
         horizontal: true
         enabled: controlRoot.enabled
 

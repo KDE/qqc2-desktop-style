@@ -32,9 +32,9 @@ T.Drawer {
         Rectangle {
             readonly property bool horizontal: control.edge === Qt.LeftEdge || control.edge === Qt.RightEdge
             anchors {
+               top: control.edge !== Qt.TopEdge ? parent.top : undefined
                left: control.edge !== Qt.LeftEdge ? parent.left : undefined
                right: control.edge !== Qt.RightEdge ? parent.right : undefined
-               top: control.edge !== Qt.TopEdge ? parent.top : undefined
                bottom: control.edge !== Qt.BottomEdge ? parent.bottom : undefined
             }
             color: Kirigami.Theme.textColor

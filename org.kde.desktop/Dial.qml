@@ -24,10 +24,10 @@ T.Dial {
         elementType: "dial"
         horizontal: false
 
-        maximum: controlRoot.to*100
-        minimum: controlRoot.from*100
-        step: controlRoot.stepSize*100
-        value: controlRoot.value*100
+        maximum: controlRoot.to * 100
+        minimum: controlRoot.from * 100
+        step: controlRoot.stepSize * 100
+        value: controlRoot.value * 100
 
         hasFocus: controlRoot.activeFocus
         hover: controlRoot.hovered

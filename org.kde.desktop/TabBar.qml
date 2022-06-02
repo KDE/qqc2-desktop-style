@@ -31,7 +31,7 @@ T.TabBar {
         model: controlRoot.contentModel
         currentIndex: controlRoot.currentIndex
 
-        spacing: -styleItem.pixelMetric("tabOverlap")-1
+        spacing: -styleItem.pixelMetric("tabOverlap") - 1
         orientation: ListView.Horizontal
         boundsBehavior: Flickable.StopAtBounds
         flickableDirection: Flickable.AutoFlickIfNeeded
@@ -49,7 +49,7 @@ T.TabBar {
         visible: false
         elementType: "tabframe"
         properties: {
-            "orientation" : controlRoot.position == T.TabBar.Header ? "Top" : "Bottom"
+            "orientation": controlRoot.position === T.TabBar.Header ? "Top" : "Bottom"
         }
     }
 
@@ -57,7 +57,7 @@ T.TabBar {
         acceptedButtons: Qt.NoButton
         onWheel: {
             if (wheel.pixelDelta.y < 0 || wheel.angleDelta.y < 0) {
-                controlRoot.currentIndex = Math.min(controlRoot.currentIndex + 1, controlRoot.contentModel.count -1);
+                controlRoot.currentIndex = Math.min(controlRoot.currentIndex + 1, controlRoot.contentModel.count - 1);
             } else {
                 controlRoot.currentIndex = Math.max(controlRoot.currentIndex - 1, 0);
             }

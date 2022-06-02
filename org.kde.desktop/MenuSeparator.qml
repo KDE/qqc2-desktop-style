@@ -13,13 +13,16 @@ import org.kde.kirigami 2.15 as Kirigami
 
 T.MenuSeparator {
     id: controlRoot
+
     implicitWidth: Math.max(implicitBackgroundWidth + leftInset + rightInset,
                             implicitContentWidth + leftPadding + rightPadding)
     implicitHeight: visible ? Math.max(implicitBackgroundHeight + topInset + bottomInset,
                              implicitContentHeight + topPadding + bottomPadding) : 0
-    verticalPadding: Math.round(Kirigami.Units.smallSpacing/2)
+
+    verticalPadding: Math.round(Kirigami.Units.smallSpacing / 2)
     hoverEnabled: false
     focusPolicy: Qt.NoFocus
+
     contentItem: Kirigami.Separator {
         // same as MenuItem background
         implicitWidth: Kirigami.Units.gridUnit * 8

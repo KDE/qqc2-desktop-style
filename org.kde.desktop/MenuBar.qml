@@ -18,8 +18,7 @@ T.MenuBar {
     implicitHeight: Math.max(implicitBackgroundHeight + topInset + bottomInset,
                              contentHeight + topPadding + bottomPadding)
 
-    delegate: MenuBarItem {
-    }
+    delegate: MenuBarItem {}
 
     contentItem: Row {
         spacing: controlRoot.spacing

@@ -27,7 +27,6 @@ T.SpinBox {
     readonly property int ___lPadding: styleitem.upRectSizeHint.x === styleitem.downRectSizeHint.x ? horizontalPadding : styleitem.upRectSizeHint.width
     readonly property int ___rPadding: styleitem.upRectSizeHint.x === styleitem.downRectSizeHint.x ? styleitem.upRectSizeHint.width : styleitem.downRectSizeHint.width
 
-
     hoverEnabled: true
     wheelEnabled: true
     editable: true
@@ -86,7 +85,6 @@ T.SpinBox {
         y: styleitem.downRect.y
     }
 
-
     background: StylePrivate.StyleItem {
         id: styleitem
         control: controlRoot
@@ -115,10 +113,10 @@ T.SpinBox {
         onHeightChanged: recompute()
 
         value: (controlRoot.up.pressed ? 1 : 0) |
-                   (controlRoot.down.pressed ? 1<<1 : 0) |
-                   ( controlRoot.value != controlRoot.to ? (1<<2) : 0) |
-                   (controlRoot.value != controlRoot.from ? (1<<3) : 0) |
-                   (controlRoot.up.hovered ? 0x1 : 0) |
-                   (controlRoot.down.hovered ? (1<<1) : 0)
+                   (controlRoot.down.pressed ? 1 << 1 : 0) |
+                   (controlRoot.value !== controlRoot.to ? (1 << 2) : 0) |
+                   (controlRoot.value !== controlRoot.from ? (1 << 3) : 0) |
+                   (controlRoot.up.hovered ? 1 : 0) |
+                   (controlRoot.down.hovered ? (1 << 1) : 0)
     }
 }

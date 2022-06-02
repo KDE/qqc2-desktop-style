@@ -16,15 +16,14 @@ T.RadioDelegate {
 
     implicitWidth: contentItem.implicitWidth + leftPadding + rightPadding
     implicitHeight: Math.max(contentItem.implicitHeight,
-                                      indicator ? indicator.implicitHeight : 0) + topPadding + bottomPadding
+                             indicator ? indicator.implicitHeight : 0) + topPadding + bottomPadding
     hoverEnabled: true
 
     padding: Kirigami.Settings.tabletMode ? Kirigami.Units.largeSpacing : Kirigami.Units.smallSpacing
 
-    leftPadding: padding*2
     topPadding: padding
-
-    rightPadding: padding*2
+    leftPadding: padding * 2
+    rightPadding: padding * 2
     bottomPadding: padding
 
     contentItem: Label {

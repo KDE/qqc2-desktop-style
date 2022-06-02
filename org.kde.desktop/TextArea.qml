@@ -78,7 +78,7 @@ T.TextArea {
             selectionStart: controlRoot.selectionStart
             selectionEnd: controlRoot.selectionEnd
             misspelledColor: Kirigami.Theme.negativeTextColor
-            active: activable && settings.checkerEnabledByDefault
+            active: spellcheckhighlighterLoader.activable && settings.checkerEnabledByDefault
 
             onChangeCursorPosition: {
                 controlRoot.cursorPosition = start;
@@ -104,7 +104,7 @@ T.TextArea {
     Private.MobileCursor {
         target: controlRoot
         selectionStartHandle: true
-        property var rect: target.positionToRectangle(target.selectionStart)
+        readonly property rect rect: target.positionToRectangle(target.selectionStart)
         x: rect.x
         y: rect.y
     }

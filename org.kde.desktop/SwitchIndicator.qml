@@ -13,7 +13,7 @@ Item {
     property alias control: slider.control
 
     implicitWidth: 32
-    implicitHeight : 22
+    implicitHeight: 22
 
     StylePrivate.StyleItem {
         id: slider
@@ -27,4 +27,3 @@ Item {
         enabled: control.enabled
     }
 }
-

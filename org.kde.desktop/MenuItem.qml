@@ -73,12 +73,12 @@ T.MenuItem {
             id: shortcut
             Layout.alignment: Qt.AlignVCenter
             visible: controlRoot.action && controlRoot.action.hasOwnProperty("shortcut") && controlRoot.action.shortcut !== undefined
-            
+
             Shortcut {
                 id: itemShortcut
                 sequence: (shortcut.visible && controlRoot.action !== null) ? controlRoot.action.shortcut : ""
             }
-            
+
             text: visible ? itemShortcut.nativeText : ""
             font: controlRoot.font
             color: label.color

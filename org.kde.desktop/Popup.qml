@@ -44,7 +44,7 @@ T.Popup {
         }
     }
 
-    contentItem: Item { }
+    contentItem: Item {}
 
     background: Kirigami.ShadowedRectangle {
         radius: 2

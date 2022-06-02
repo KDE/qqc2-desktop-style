@@ -36,10 +36,10 @@ T.Slider {
         contentHeight: horizontal ? (Kirigami.Settings.tabletMode ? 24 : 22) : controlRoot.implicitHeight
         anchors.verticalCenter: controlRoot.verticalCenter
 
-        maximum: controlRoot.to*100
-        minimum: controlRoot.from*100
-        step: controlRoot.stepSize*100
-        value: controlRoot.value*100
+        maximum: 100 * controlRoot.to
+        minimum: 100 * controlRoot.from
+        step: 100 * controlRoot.stepSize
+        value: 100 * controlRoot.value
         horizontal: controlRoot.orientation === Qt.Horizontal
         enabled: controlRoot.enabled
         hasFocus: controlRoot.activeFocus

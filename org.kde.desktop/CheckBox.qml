@@ -64,9 +64,9 @@ T.CheckBox {
             control: controlRoot
 
             anchors {
-                leftMargin: (controlRoot.mirrored ? parent.rightPadding : parent.leftPadding ) - Kirigami.Units.smallSpacing / 2
-                left: parent.left
+                leftMargin: (controlRoot.mirrored ? parent.rightPadding : parent.leftPadding) - Kirigami.Units.smallSpacing / 2
                 top: parent.top
+                left: parent.left
                 bottom: parent.bottom
                 topMargin: parent.topPadding - 1
                 bottomMargin: parent.bottomPadding - 1

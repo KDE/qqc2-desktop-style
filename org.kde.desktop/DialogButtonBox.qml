@@ -28,7 +28,7 @@ T.DialogButtonBox {
             implicitWidth,
             // Divide availableWidth (width - leftPadding - rightPadding) by the number of buttons,
             // then subtract the spacing between each button.
-            (control.availableWidth / control.count) - (control.spacing * (control.count-1))
+            (control.availableWidth / control.count) - (control.spacing * (control.count - 1))
         ))
         Kirigami.MnemonicData.controlType: Kirigami.MnemonicData.DialogButton
     }
@@ -55,7 +55,7 @@ T.DialogButtonBox {
         function setStandardIcon(buttonType, iconName) {
             let button = standardButton(buttonType)
             // For some reason, `== ""` works, but `=== ""` and `!name && !source` doesn't.
-            if (button && button.icon.name == "" && button.icon.source == "") { 
+            if (button && button.icon.name == "" && button.icon.source == "") {
                 button.icon.name = iconName
             }
         }

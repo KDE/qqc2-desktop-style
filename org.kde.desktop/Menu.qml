@@ -38,8 +38,8 @@ T.Menu {
         model: control.contentModel
 
         implicitWidth: {
-            var maxWidth = 0;
-            for (var i = 0; i < contentItem.children.length; ++i) {
+            let maxWidth = 0;
+            for (let i = 0; i < contentItem.children.length; ++i) {
                 maxWidth = Math.max(maxWidth, contentItem.children[i].implicitWidth);
             }
             return maxWidth;
@@ -59,9 +59,9 @@ T.Menu {
         Connections {
             target: control.contentItem.currentItem
             function onHoveredChanged() {
-                let currentItem = control.contentItem.currentItem
-                if (currentItem instanceof T.MenuItem && currentItem.highlighted
-                    && !currentItem.subMenu && !currentItem.hovered) {
+                const item = control.contentItem.currentItem;
+                if (item instanceof T.MenuItem && item.highlighted
+                    && !item.subMenu && !item.hovered) {
                     control.currentIndex = -1
                 }
             }
@@ -72,8 +72,8 @@ T.Menu {
         target: control.contentItem.contentItem
 
         function onChildrenChanged() {
-            for (var i in control.contentItem.contentItem.children) {
-                var child = control.contentItem.contentItem.children[i];
+            for (let i in control.contentItem.contentItem.children) {
+                const child = control.contentItem.contentItem.children[i];
                 if (child.checkable && child.visible) {
                     control.contentItem.hasCheckables = true;
                 }
