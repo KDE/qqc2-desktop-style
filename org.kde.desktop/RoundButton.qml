@@ -50,9 +50,8 @@ T.RoundButton {
                     } else if (controlRoot.display == T.AbstractButton.TextUnderIcon) {
                         return Qt.AlignHCenter | Qt.AlignBottom
                     }
-                } else {
-                    return Qt.AlignCenter
                 }
+                return Qt.AlignCenter
             }
             color: controlRoot.icon.color // defaults to Qt::transparent
             implicitWidth: controlRoot.icon.width
@@ -69,9 +68,8 @@ T.RoundButton {
                     } else if (controlRoot.display == T.AbstractButton.TextUnderIcon) {
                         return Qt.AlignHCenter | Qt.AlignTop
                     }
-                } else {
-                    return Qt.AlignCenter
                 }
+                return Qt.AlignCenter
             }
             text: controlRoot.text
             visible: text.length > 0 && controlRoot.display != T.AbstractButton.IconOnly
