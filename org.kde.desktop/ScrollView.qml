@@ -85,7 +85,6 @@ T.ScrollView {
 
     ScrollBar.vertical: ScrollBar {
         parent: controlRoot
-        enabled: controlRoot.contentItem.enabled
         z: 1
         x: controlRoot.mirrored
             ? (internal.backgroundVisible && controlRoot.background.hasOwnProperty("leftPadding") ? controlRoot.background.leftPadding : 0)
@@ -97,7 +96,6 @@ T.ScrollView {
 
     ScrollBar.horizontal: ScrollBar {
         parent: controlRoot
-        enabled: controlRoot.contentItem.enabled
         z: 1
         x: controlRoot.leftPadding
         y: controlRoot.height - height - (internal.backgroundVisible && controlRoot.background.hasOwnProperty("bottomPadding") ? controlRoot.background.bottomPadding : 0)
