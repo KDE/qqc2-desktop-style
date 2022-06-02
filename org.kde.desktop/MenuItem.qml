@@ -72,7 +72,7 @@ T.MenuItem {
         Label {
             id: shortcut
             Layout.alignment: Qt.AlignVCenter
-            visible: controlRoot.action && controlRoot.action.hasOwnProperty("shortcut") && controlRoot.action.shortcut !== undefined
+            visible: controlRoot.action && controlRoot.action.shortcut !== undefined
 
             Shortcut {
                 id: itemShortcut
