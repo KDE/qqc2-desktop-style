@@ -82,15 +82,15 @@ T.ScrollView {
             readonly property real horizontalScrollBarHeight: controlRoot.ScrollBar.horizontal.visible && controlRoot.ScrollBar.vertical.interactive ? controlRoot.ScrollBar.horizontal.height : 0
         }
     ]
+
     ScrollBar.vertical: ScrollBar {
         id: verticalScrollBar
         parent: controlRoot
         enabled: controlRoot.contentItem.enabled
         z: 1
-
         x: controlRoot.mirrored
             ? (internal.backgroundVisible && controlRoot.background.hasOwnProperty("leftPadding") ? controlRoot.background.leftPadding : 0)
-            : controlRoot.width - width - (internal.backgroundVisible && controlRoot.background.hasOwnProperty("rightPadding") ? controlRoot.background.rightPadding: 0)
+            : controlRoot.width - width - (internal.backgroundVisible && controlRoot.background.hasOwnProperty("rightPadding") ? controlRoot.background.rightPadding : 0)
         y: controlRoot.topPadding
         height: controlRoot.availableHeight
         active: controlRoot.ScrollBar.horizontal || controlRoot.ScrollBar.horizontal.active
