@@ -29,11 +29,16 @@ T.ProgressBar {
         value: indeterminate ? 0 : ((Qt.application.layoutDirection === Qt.LeftToRight ? controlRoot.visualPosition : 1 - controlRoot.visualPosition)*controlRoot.to*100)
         horizontal: true
         enabled: controlRoot.enabled
-        Timer {
-            interval: 50
+
+        // ScriptAction refuses to run on its own. So we add a NumberAnimation
+        // with non-zero duration to make it tied to a monitor refresh rate.
+        // See git history for more (e.g. why not PauseAnimation)
+        SequentialAnimation {
             running: controlRoot.indeterminate
-            repeat: true
-            onTriggered: parent.updateItem();
+            loops: Animation.Infinite
+
+            NumberAnimation { duration: 1 }
+            ScriptAction { script: controlRoot.background.updateItem() }
         }
     }
 }
