@@ -43,11 +43,11 @@ T.ScrollView {
         Kirigami.WheelHandler {
             target: controlRoot.contentItem
         },
-        /*create a background only after Component.onCompleted because:
-        * implementations can set their own background in a declarative way
-        * ScrollView {background.visible: true} must *not* work, because all upstream styles don't have a background so applications using this would break with other styles
-        * This is child of scrollHelper as it would break native scrollview finding of the flickable if it was a direct child
-        */
+        // create a background only after Component.onCompleted because:
+        // implementations can set their own background in a declarative way.
+        // ScrollView {background.visible: true} must *not* work, because all
+        // upstream styles don't have a background so applications using this
+        // would break with other styles.
         Component {
             id: backgroundComponent
             StylePrivate.StyleItem {
