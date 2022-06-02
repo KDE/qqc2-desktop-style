@@ -48,7 +48,6 @@ T.ToolButton {
         hover: controlRoot.hovered
         text: controlRoot.Kirigami.MnemonicData.mnemonicLabel
         hasFocus: controlRoot.visualFocus || (!controlRoot.flat && controlRoot.pressed) || controlRoot.highlighted
-        activeControl: controlRoot.isDefault ? "default" : "f"
         flat: controlRoot.flat
 
         // Set this to true to have the style render a menu arrow for the

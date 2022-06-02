@@ -36,7 +36,7 @@ T.DelayButton {
         hover: controlRoot.hovered
         text: controlRoot.text
         hasFocus: controlRoot.activeFocus
-        activeControl: controlRoot.isDefault ? "default" : "f"
+        activeControl: controlRoot.Accessible.defaultButton ? "default" : ""
 
         StylePrivate.StyleItem {
             anchors {
