@@ -84,7 +84,6 @@ T.ScrollView {
     ]
 
     ScrollBar.vertical: ScrollBar {
-        id: verticalScrollBar
         parent: controlRoot
         enabled: controlRoot.contentItem.enabled
         z: 1
