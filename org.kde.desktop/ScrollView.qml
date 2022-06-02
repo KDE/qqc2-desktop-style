@@ -92,7 +92,7 @@ T.ScrollView {
             : controlRoot.width - width - (internal.backgroundVisible && controlRoot.background.hasOwnProperty("rightPadding") ? controlRoot.background.rightPadding : 0)
         y: controlRoot.topPadding
         height: controlRoot.availableHeight
-        active: controlRoot.ScrollBar.horizontal || controlRoot.ScrollBar.horizontal.active
+        active: controlRoot.ScrollBar.horizontal.active
     }
 
     ScrollBar.horizontal: ScrollBar {
@@ -102,6 +102,6 @@ T.ScrollView {
         x: controlRoot.leftPadding
         y: controlRoot.height - height - (internal.backgroundVisible && controlRoot.background.hasOwnProperty("bottomPadding") ? controlRoot.background.bottomPadding : 0)
         width: controlRoot.availableWidth
-        active: controlRoot.ScrollBar.vertical || controlRoot.ScrollBar.vertical.active
+        active: controlRoot.ScrollBar.vertical.active
     }
 }
