@@ -26,7 +26,7 @@ T.ProgressBar {
         control: controlRoot
         maximum: indeterminate ? 0 : controlRoot.to*100
         minimum: indeterminate ? 0 : controlRoot.from*100
-        value: indeterminate ? 0 : ((Qt.application.layoutDirection === Qt.LeftToRight ? controlRoot.visualPosition : 1 - controlRoot.visualPosition)*controlRoot.to*100)
+        value: indeterminate ? 0 : ((Qt.application.layoutDirection === Qt.LeftToRight ? controlRoot.visualPosition : 1 - controlRoot.visualPosition) * (controlRoot.to - controlRoot.from) + controlRoot.from) * 100
         horizontal: true
         enabled: controlRoot.enabled
 
