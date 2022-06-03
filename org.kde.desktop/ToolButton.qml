@@ -58,19 +58,23 @@ T.ToolButton {
         // QtQuick styles!
         property bool showMenuArrow: false
 
+        readonly property int toolButtonStyle: {
+            switch (controlRoot.display) {
+            case T.ToolButton.IconOnly: return Qt.ToolButtonIconOnly;
+            case T.ToolButton.TextOnly: return Qt.ToolButtonTextOnly;
+            case T.ToolButton.TextBesideIcon: return Qt.ToolButtonTextBesideIcon;
+            case T.ToolButton.TextUnderIcon: return Qt.ToolButtonTextUnderIcon;
+            default: return Qt.ToolButtonFollowStyle;
+            }
+        }
+
         properties: {
             "icon": controlRoot.icon ? (controlRoot.icon.name || controlRoot.icon.source) : "",
             "iconColor": controlRoot.icon && controlRoot.icon.color.a > 0 ? controlRoot.icon.color : Kirigami.Theme.textColor,
             "iconWidth": controlRoot.icon ? controlRoot.icon.width : 0,
             "iconHeight": controlRoot.icon ? controlRoot.icon.height : 0,
             "menu": showMenuArrow,
-            "toolButtonStyle": switch (controlRoot.display) {
-                case T.ToolButton.IconOnly: return Qt.ToolButtonIconOnly;
-                case T.ToolButton.TextOnly: return Qt.ToolButtonTextOnly;
-                case T.ToolButton.TextBesideIcon: return Qt.ToolButtonTextBesideIcon;
-                case T.ToolButton.TextUnderIcon: return Qt.ToolButtonTextUnderIcon;
-                default: return Qt.ToolButtonFollowStyle;
-            }
+            "toolButtonStyle": toolButtonStyle,
         }
     }
 }
