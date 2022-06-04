@@ -76,7 +76,7 @@ T.RoundButton {
         }
     }
     background: Rectangle {
-        property color borderColor: Qt.tint(controlRoot.palette.buttonText, Qt.rgba(color.r, color.g, color.b, 0.7))
+        readonly property color borderColor: Kirigami.ColorUtils.tintWithAlpha(controlRoot.palette.buttonText, color, 0.7)
 
         visible: !controlRoot.flat || controlRoot.hovered || controlRoot.activeFocus || controlRoot.highlighted || controlRoot.checked || controlRoot.down
 
@@ -85,12 +85,9 @@ T.RoundButton {
         radius: controlRoot.radius
         color: {
             if (controlRoot.checked || controlRoot.down) {
-                return Qt.tint(Kirigami.Theme.textColor, Qt.rgba(Kirigami.Theme.backgroundColor.r, Kirigami.Theme.backgroundColor.g, Kirigami.Theme.backgroundColor.b, 0.8))
+                return Kirigami.ColorUtils.tintWithAlpha(Kirigami.Theme.textColor, Kirigami.Theme.backgroundColor, 0.8)
             } else if (controlRoot.flat) {
-                return Qt.rgba(
-                    Kirigami.Theme.backgroundColor.r,
-                    Kirigami.Theme.backgroundColor.g,
-                    Kirigami.Theme.backgroundColor.b, 0)
+                return Kirigami.ColorUtils.adjustColor(Kirigami.Theme.backgroundColor, {alpha: 0})
             } else {
                 return Kirigami.Theme.backgroundColor
             }

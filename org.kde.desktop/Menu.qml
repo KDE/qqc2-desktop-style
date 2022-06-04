@@ -109,8 +109,7 @@ T.Menu {
         implicitWidth: Kirigami.Units.gridUnit * 8
         color: Kirigami.Theme.backgroundColor
 
-        property color borderColor: Kirigami.Theme.textColor
-        border.color: Qt.rgba(borderColor.r, borderColor.g, borderColor.b, 0.3)
+        border.color: Kirigami.ColorUtils.adjustColor(Kirigami.Theme.textColor, {alpha: 77})
         border.width: 1
 
         shadow.xOffset: 0
