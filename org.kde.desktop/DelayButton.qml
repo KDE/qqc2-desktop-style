@@ -23,7 +23,7 @@ T.DelayButton {
 
     transition: Transition {
         NumberAnimation {
-            duration: control.delay * (control.pressed ? 1.0 - control.progress : 0.3 * control.progress)
+            duration: controlRoot.delay * (controlRoot.pressed ? 1.0 - controlRoot.progress : 0.3 * controlRoot.progress)
         }
     }
 
