@@ -30,7 +30,10 @@ QStyle *KQuickStyleItem::s_style = nullptr;
 
 QStyle *KQuickStyleItem::style()
 {
-    auto style = qApp->style();
+    if (!qobject_cast<QApplication *>(QCoreApplication::instance())) {
+        return s_style;
+    }
+    QStyle *style = qApp->style();
     return style ? style : s_style;
 }
 
@@ -60,10 +63,37 @@ KQuickStyleItem::KQuickStyleItem(QQuickItem *parent)
     , m_textureHeight(0)
     , m_lastFocusReason(Qt::NoFocusReason)
 {
-    // There is no styleChanged signal and QApplication sends QEvent::StyleChange only to all QWidgets
-    if (qApp->style()) {
-        connect(qApp->style(), &QObject::destroyed, this, &KQuickStyleItem::styleChanged);
+    // Check that we really are a QApplication before attempting to access the
+    // application style.
+    //
+    // Functions used in this file which are safe to access through qApp are:
+    //
+    //   qApp->font() and qApp->fontChanged() - provided by QGuiApplication
+    //   qApp->font("classname") - provided by QApplication but safe
+    //   qApp->layoutDirection() - provided by QGuiApplication
+    //   qApp->wheelScrollLines() - uses styleHints() provided by QGuiApplication
+    //   qApp->testAttribute() and qApp->setAttribute() - provided by QCoreApplication
+    //   qApp->devicePixelRatio() - provided by QGuiApplication
+    //   qApp->palette("classname") - provided by QApplication but safe
+    //
+    // but any use of qApp->style(), even if only trying to test that it exists,
+    // will assert.  Use KQuickStyleItem::style() as above.
+    //
+    // Any use of any other function provided by QApplication must either be checked
+    // to ensure that it is safe to use if not a QApplication, or guarded.
+
+    if (qobject_cast<QApplication *>(QCoreApplication::instance())) {
+        // We are a QApplication.  Unfortunately there is no styleChanged signal
+        // available, and it only sends QEvent::StyleChange events to all QWidgets.
+        // So watch for the existing application style being destroyed, which means
+        // that a new one is being applied.  See QApplication::setStyle().
+        QStyle *style = qApp->style();
+        if (style) {
+            connect(style, &QObject::destroyed, this, &KQuickStyleItem::styleChanged);
+        }
     } else {
+        // We are not a QApplication.  Create an internal copy of the configured
+        // desktop style, to be used for metrics, options and painting.
         KSharedConfig::Ptr kdeglobals = KSharedConfig::openConfig();
         KConfigGroup cg(kdeglobals, "KDE");
         auto style = s_style;
@@ -1935,13 +1965,17 @@ void KQuickStyleItem::geometryChange(const QRectF &newGeometry, const QRectF &ol
 
 void KQuickStyleItem::styleChanged()
 {
-    if (!qApp->style() || QApplication::closingDown()) {
+    // It should be safe to use qApp->style() unguarded here, because the signal
+    // will only have been connected if qApp is a QApplication.
+    Q_ASSERT(qobject_cast<QApplication *>(QCoreApplication::instance()));
+    auto *style = qApp->style();
+    if (!style || QCoreApplication::closingDown()) {
         return;
     }
 
-    Q_ASSERT(qApp->style() != sender());
+    Q_ASSERT(style != sender());
 
-    connect(qApp->style(), &QObject::destroyed, this, &KQuickStyleItem::styleChanged);
+    connect(style, &QObject::destroyed, this, &KQuickStyleItem::styleChanged);
 
     updateSizeHint();
     updateItem();
