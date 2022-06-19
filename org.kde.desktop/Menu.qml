@@ -71,13 +71,13 @@ T.Menu {
     Connections {
         target: control.contentItem.contentItem
 
-        function onChildrenChanged() {
-            for (let i in control.contentItem.contentItem.children) {
-                const child = control.contentItem.contentItem.children[i];
-                if (child.checkable && child.visible) {
+        function onVisibleChildrenChanged() {
+            for (let i in control.contentItem.contentItem.visibleChildren) {
+                const child = control.contentItem.contentItem.visibleChildren[i];
+                if (child.checkable) {
                     control.contentItem.hasCheckables = true;
                 }
-                if (child.icon && child.visible && child.icon.hasOwnProperty("name") && (child.icon.name.length > 0 || child.icon.source.length > 0)) {
+                if (child.icon && child.icon.hasOwnProperty("name") && (child.icon.name.length > 0 || child.icon.source.length > 0)) {
                     control.contentItem.hasIcons = true;
                 }
             }
