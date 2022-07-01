@@ -23,7 +23,7 @@ T.Menu {
 
     margins: 0
     horizontalPadding: style.pixelMetric("menuhmargin")
-    verticalPadding: style.pixelMetric("menuhmargin")
+    verticalPadding: style.pixelMetric("menuvmargin")
     StylePrivate.StyleItem {
         id: style
         visible: false
