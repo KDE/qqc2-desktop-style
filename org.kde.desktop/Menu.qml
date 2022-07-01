@@ -80,7 +80,7 @@ T.Menu {
                     control.contentItem.hasCheckables = true;
                 }
                 if (child.icon && child.icon.hasOwnProperty("name")
-                        && (child.icon.name.length > 0 || child.icon.source.length > 0)) {
+                        && (child.icon.name.length > 0 || child.icon.source.toString().length > 0)) {
                     control.contentItem.hasIcons = true;
                 }
             }

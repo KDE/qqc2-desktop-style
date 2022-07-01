@@ -31,7 +31,7 @@ T.ItemDelegate {
         spacing: Kirigami.Units.smallSpacing
         Kirigami.Icon {
             Layout.alignment: Qt.AlignVCenter
-            visible: controlRoot.icon !== undefined && (controlRoot.icon.name.length > 0 || controlRoot.icon.source.length > 0)
+            visible: controlRoot.icon !== undefined && (controlRoot.icon.name.length > 0 || controlRoot.icon.source.toString().length > 0)
             source: controlRoot.icon ? (controlRoot.icon.name || controlRoot.icon.source) : ""
             Layout.preferredHeight: Kirigami.Units.iconSizes.small
             Layout.preferredWidth: Layout.preferredHeight

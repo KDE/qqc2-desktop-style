@@ -56,7 +56,7 @@ T.RoundButton {
             color: controlRoot.icon.color // defaults to Qt::transparent
             implicitWidth: controlRoot.icon.width
             implicitHeight: controlRoot.icon.height
-            visible: source.length > 0 && controlRoot.display !== T.AbstractButton.TextOnly
+            visible: source.toString().length > 0 && controlRoot.display !== T.AbstractButton.TextOnly
             source: controlRoot.icon ? (controlRoot.icon.name || controlRoot.icon.source) : ""
         }
         Controls.Label {

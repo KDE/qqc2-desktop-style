@@ -51,7 +51,7 @@ T.MenuItem {
         Kirigami.Icon {
             Layout.alignment: Qt.AlignVCenter
             visible: (controlRoot.ListView.view && controlRoot.ListView.view.hasIcons)
-                || (controlRoot.icon !== undefined && (controlRoot.icon.name.length > 0 || controlRoot.icon.source.length > 0))
+                || (controlRoot.icon !== undefined && (controlRoot.icon.name.length > 0 || controlRoot.icon.source.toString().length > 0))
             source: controlRoot.icon ? (controlRoot.icon.name || controlRoot.icon.source) : ""
             color: controlRoot.icon ? controlRoot.icon.color : "transparent"
             Layout.preferredHeight: Kirigami.Settings.hasTransientTouchInput ? Kirigami.Units.iconSizes.smallMedium : Kirigami.Units.iconSizes.small
