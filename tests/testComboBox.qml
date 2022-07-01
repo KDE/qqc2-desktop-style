@@ -1,6 +1,13 @@
-import QtQuick 2.3
-import QtQuick.Layouts 1.3
-import QtQuick.Controls 2.3
+/*
+    SPDX-FileCopyrightText: 2019 Aleix Pol <aleixpol@kde.org>
+    SPDX-FileCopyrightText: 2020 Chris Holland <zrenfire@gmail.com>
+
+    SPDX-License-Identifier: LGPL-3.0-only OR GPL-2.0-or-later
+*/
+
+import QtQuick 2.15
+import QtQuick.Layouts 1.15
+import QtQuick.Controls 2.15
 
 ApplicationWindow
 {

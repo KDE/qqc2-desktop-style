@@ -4,18 +4,18 @@
    SPDX-License-Identifier: LGPL-2.0-or-later
 */
 
-import org.kde.kirigami 2.7 as Kirigami
+import org.kde.kirigami 2.20 as Kirigami
+
 Kirigami.ActionTextField {
-    id: __searchField
+    id: root
+
     focus: true
-    rightActions: [
-        Kirigami.Action {
-            iconName: "edit-clear"
-            visible: __searchField.text !== ""
-            onTriggered: {
-                __searchField.text = ""
-                __searchField.accepted()
-            }
+    rightActions: Kirigami.Action {
+        iconName: "edit-clear"
+        visible: root.text !== ""
+        onTriggered: {
+            root.text = ""
+            root.accepted()
         }
-    ]
+    }
 }

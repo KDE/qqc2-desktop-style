@@ -4,17 +4,21 @@
     SPDX-License-Identifier: LGPL-3.0-only OR GPL-2.0-or-later
 */
 
-import QtQuick 2.6
-import QtQuick.Layouts 1.2
-import QtQuick.Controls 2.3 as Controls
-import org.kde.kirigami 2.2 as Kirigami
+import QtQuick 2.15
+import QtQuick.Layouts 1.15
+import QtQuick.Controls 2.15 as Controls
+
+import org.kde.kirigami 2.20 as Kirigami
 
 Kirigami.ApplicationWindow {
     id: root
+
     width: 600
     height: 600
+
     Kirigami.Theme.inherit: false
     Kirigami.Theme.colorSet: Kirigami.Theme.Complementary
+
     header: Controls.MenuBar {
         Controls.Menu {
             title: "&File"
@@ -37,6 +41,7 @@ Kirigami.ApplicationWindow {
             }
             Controls.Menu {
                 title: "Submenu"
+
                 Controls.MenuItem {
                     checkable: true
                     text: "Item1"
@@ -65,17 +70,20 @@ Kirigami.ApplicationWindow {
             }
         }
     }
+
     Rectangle {
         id: background
+
         anchors.centerIn: parent
+        width: childrenRect.width
+        height: childrenRect.height
+
+        color: Kirigami.Theme.backgroundColor
         Kirigami.Theme.inherit: false
         Kirigami.Theme.colorSet: Kirigami.Theme.Complementary
 
-        width: childrenRect.width
-        height: childrenRect.height
-        color: Kirigami.Theme.backgroundColor
-
         ColumnLayout {
+            spacing: Kirigami.Units.smallSpacing
 
             Controls.ComboBox {
                 Kirigami.Theme.inherit: true
@@ -84,7 +92,6 @@ Kirigami.ApplicationWindow {
                 onCurrentTextChanged: background.Kirigami.Theme.colorSet = currentText
             }
             Controls.Button {
-
                 Kirigami.Theme.inherit: true
                 text: "text"
                 icon.name: "go-previous"
@@ -95,10 +102,12 @@ Kirigami.ApplicationWindow {
                 icon.name: "go-previous"
             }
             RowLayout {
+                spacing: Kirigami.Units.smallSpacing
+
                 Controls.Label {
                     text: "RGB color for icon:"
                 }
-                Controls.SpinBox{
+                Controls.SpinBox {
                     id: red
                     editable: true
                     from: 0
@@ -107,7 +116,7 @@ Kirigami.ApplicationWindow {
                         coloredIconButton.icon.color = Qt.rgba(red.value/255, green.value/255, blue.value/255, 1);
                     }
                 }
-                Controls.SpinBox{
+                Controls.SpinBox {
                     id: green
                     Kirigami.Theme.inherit: true
                     editable: true
@@ -117,7 +126,7 @@ Kirigami.ApplicationWindow {
                         coloredIconButton.icon.color = Qt.rgba(red.value/255, green.value/255, blue.value/255, 1);
                     }
                 }
-                Controls.SpinBox{
+                Controls.SpinBox {
                     id: blue
                     editable: true
                     from: 0

@@ -1,9 +1,15 @@
-import QtQuick 2.3
-import QtQuick.Layouts 1.3
-import QtQuick.Controls 2.3
+/*
+    SPDX-FileCopyrightText: 2020 Arjen Hiemstra <ahiemstra@heimr.nl>
+    SPDX-FileCopyrightText: 2021 Nate Graham <nate@kde.org>
 
-ApplicationWindow
-{
+    SPDX-License-Identifier: LGPL-3.0-only OR GPL-2.0-or-later
+*/
+
+import QtQuick 2.15
+import QtQuick.Layouts 1.15
+import QtQuick.Controls 2.15
+
+ApplicationWindow {
     visible: true
     width: 800
     height: 600
@@ -51,6 +57,7 @@ ApplicationWindow
             display: ToolButton.TextUnderIcon
             flat: true
         }
+
         ToolButton {
             icon.name: "documentinfo"
             text: "Tool Button highlighted"

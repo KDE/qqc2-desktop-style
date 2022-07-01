@@ -1,6 +1,13 @@
-import QtQuick 2.5
-import QtQuick.Controls 2.3
-import QtQuick.Layouts 1.12
+/*
+    SPDX-FileCopyrightText: 2019 David Edmundson <kde@davidedmundson.co.uk>
+    SPDX-FileCopyrightText: 2021 Nate Graham <nate@kde.org>
+
+    SPDX-License-Identifier: LGPL-3.0-only OR GPL-2.0-or-later
+*/
+
+import QtQuick 2.15
+import QtQuick.Controls 2.15
+import QtQuick.Layouts 1.15
 
 Item {
     width: 400
