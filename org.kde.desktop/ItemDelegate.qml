@@ -31,7 +31,7 @@ T.ItemDelegate {
         spacing: Kirigami.Units.smallSpacing
         Kirigami.Icon {
             Layout.alignment: Qt.AlignVCenter
-            visible: controlRoot.icon != undefined && (controlRoot.icon.name.length > 0 || controlRoot.icon.source.length > 0)
+            visible: controlRoot.icon !== undefined && (controlRoot.icon.name.length > 0 || controlRoot.icon.source.length > 0)
             source: controlRoot.icon ? (controlRoot.icon.name || controlRoot.icon.source) : ""
             Layout.preferredHeight: Kirigami.Units.iconSizes.small
             Layout.preferredWidth: Layout.preferredHeight
@@ -42,7 +42,9 @@ T.ItemDelegate {
 
             text: controlRoot.text
             font: controlRoot.font
-            color: controlRoot.highlighted || controlRoot.checked || (controlRoot.pressed && !controlRoot.checked && !controlRoot.sectionDelegate) ? Kirigami.Theme.highlightedTextColor : (controlRoot.enabled ? Kirigami.Theme.textColor : Kirigami.Theme.disabledTextColor)
+            color: controlRoot.highlighted || controlRoot.checked || (controlRoot.pressed && !controlRoot.checked && !controlRoot.sectionDelegate)
+                ? Kirigami.Theme.highlightedTextColor :
+                (controlRoot.enabled ? Kirigami.Theme.textColor : Kirigami.Theme.disabledTextColor)
             elide: Text.ElideRight
             visible: controlRoot.text
             horizontalAlignment: Text.AlignLeft

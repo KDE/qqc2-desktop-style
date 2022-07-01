@@ -46,11 +46,12 @@ T.MenuItem {
 
     contentItem: RowLayout {
         Item {
-           Layout.preferredWidth: (controlRoot.ListView.view && controlRoot.ListView.view.hasCheckables) || controlRoot.checkable ? controlRoot.indicator.width : Kirigami.Units.smallSpacing
+            Layout.preferredWidth: (controlRoot.ListView.view && controlRoot.ListView.view.hasCheckables) || controlRoot.checkable ? controlRoot.indicator.width : Kirigami.Units.smallSpacing
         }
         Kirigami.Icon {
             Layout.alignment: Qt.AlignVCenter
-            visible: (controlRoot.ListView.view && controlRoot.ListView.view.hasIcons) || (controlRoot.icon != undefined && (controlRoot.icon.name.length > 0 || controlRoot.icon.source.length > 0))
+            visible: (controlRoot.ListView.view && controlRoot.ListView.view.hasIcons)
+                || (controlRoot.icon !== undefined && (controlRoot.icon.name.length > 0 || controlRoot.icon.source.length > 0))
             source: controlRoot.icon ? (controlRoot.icon.name || controlRoot.icon.source) : ""
             color: controlRoot.icon ? controlRoot.icon.color : "transparent"
             Layout.preferredHeight: Kirigami.Settings.hasTransientTouchInput ? Kirigami.Units.iconSizes.smallMedium : Kirigami.Units.iconSizes.small
@@ -86,7 +87,7 @@ T.MenuItem {
             verticalAlignment: Text.AlignVCenter
         }
         Item {
-           Layout.preferredWidth: Kirigami.Units.smallSpacing
+            Layout.preferredWidth: Kirigami.Units.smallSpacing
         }
     }
 

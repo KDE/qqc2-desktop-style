@@ -58,10 +58,11 @@ T.Menu {
         // mimic qtwidgets behaviour in regards to menu highlighting
         Connections {
             target: control.contentItem.currentItem
+
             function onHoveredChanged() {
                 const item = control.contentItem.currentItem;
                 if (item instanceof T.MenuItem && item.highlighted
-                    && !item.subMenu && !item.hovered) {
+                        && !item.subMenu && !item.hovered) {
                     control.currentIndex = -1
                 }
             }
@@ -72,12 +73,14 @@ T.Menu {
         target: control.contentItem.contentItem
 
         function onVisibleChildrenChanged() {
-            for (let i in control.contentItem.contentItem.visibleChildren) {
-                const child = control.contentItem.contentItem.visibleChildren[i];
+            const children = control.contentItem.contentItem.visibleChildren;
+            for (let i in children) {
+                const child = children[i];
                 if (child.checkable) {
                     control.contentItem.hasCheckables = true;
                 }
-                if (child.icon && child.icon.hasOwnProperty("name") && (child.icon.name.length > 0 || child.icon.source.length > 0)) {
+                if (child.icon && child.icon.hasOwnProperty("name")
+                        && (child.icon.name.length > 0 || child.icon.source.length > 0)) {
                     control.contentItem.hasIcons = true;
                 }
             }
