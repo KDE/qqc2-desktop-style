@@ -9,7 +9,7 @@
 
 import QtQuick 2.12
 import QtQuick.Window 2.1
-import QtQuick.Templates @QQC2_VERSION@ as T
+import QtQuick.Templates 2.15 as T
 import org.kde.kirigami 2.18 as Kirigami
 import org.kde.qqc2desktopstyle.private 1.0 as StylePrivate
 import org.kde.sonnet 1.0 as Sonnet

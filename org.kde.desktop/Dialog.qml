@@ -7,7 +7,7 @@
 
 
 import QtQuick 2.6
-import QtQuick.Templates @QQC2_VERSION@ as T
+import QtQuick.Templates 2.15 as T
 import org.kde.kirigami 2.12 as Kirigami
 
 T.Dialog {

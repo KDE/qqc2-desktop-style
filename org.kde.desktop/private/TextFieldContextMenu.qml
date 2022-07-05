@@ -9,7 +9,7 @@ pragma Singleton
 
 import QtQuick 2.6
 import QtQml 2.2
-import QtQuick.Controls @QQC2_VERSION@
+import QtQuick.Controls 2.15
 import org.kde.kirigami 2.5 as Kirigami
 
 Menu {

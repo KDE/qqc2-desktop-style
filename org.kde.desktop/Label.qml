@@ -8,7 +8,7 @@
 
 import QtQuick 2.15
 import QtQuick.Window 2.2
-import QtQuick.Templates @QQC2_VERSION@ as T
+import QtQuick.Templates 2.15 as T
 import org.kde.qqc2desktopstyle.private 1.0 as StylePrivate
 import org.kde.kirigami 2.4 as Kirigami
 
