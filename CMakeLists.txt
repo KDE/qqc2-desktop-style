@@ -150,6 +150,16 @@ FOREACH(infileName ${inFiles})
     )
 ENDFOREACH(infileName)
 
+# Generate qmldir file (needed by Qt6 for the style to load)
+if (QT_MAJOR_VERSION EQUAL "6")
+    file(WRITE ${CMAKE_CURRENT_BINARY_DIR}/org.kde.desktop/qmldir "module org.kde.desktop\n")
+    file(GLOB qmlFiles RELATIVE "${CMAKE_CURRENT_SOURCE_DIR}/org.kde.desktop" "${CMAKE_CURRENT_SOURCE_DIR}/org.kde.desktop/*.qml")
+    foreach(qmlFile ${qmlFiles})
+        get_filename_component(_baseNameWE ${qmlFile} NAME_WE)
+        file(APPEND ${CMAKE_CURRENT_BINARY_DIR}/org.kde.desktop/qmldir "${_baseNameWE} 1.0 ${qmlFile}\n")
+    endforeach()
+endif()
+
 install(DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/org.kde.desktop DESTINATION ${KDE_INSTALL_QMLDIR}/QtQuick/Controls.2)
 
 feature_summary(WHAT ALL INCLUDE_QUIET_PACKAGES FATAL_ON_MISSING_REQUIRED_PACKAGES)
