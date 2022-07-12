@@ -1575,6 +1575,8 @@ void KQuickStyleItem::paint(QPainter *painter)
             font = qApp->font("QMiniFont");
         } else if (m_styleoption->state & QStyle::State_Small) {
             font = qApp->font("QSmallFont");
+        } else {
+            font = QApplication::font(classNameForItem());
         }
         painter->setFont(font);
     }
