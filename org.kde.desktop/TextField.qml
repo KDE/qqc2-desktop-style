@@ -70,6 +70,12 @@ T.TextField {
     Keys.onPressed: {
         // trigger if context menu button is pressed
         Private.TextFieldContextMenu.targetKeyPressed(event, controlRoot)
+
+        // Disable undo action for security reasons
+        // See QTBUG-103934
+        if (event.matches(StandardKey.Undo)) {
+            event.accepted = true
+        }
     }
 
     onPressAndHold: {

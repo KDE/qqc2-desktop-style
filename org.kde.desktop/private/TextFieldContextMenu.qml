@@ -172,7 +172,7 @@ Menu {
     }
 
     MenuItem {
-        visible: target !== null && !target.readOnly
+        visible: target !== null && !target.readOnly && !targetIsPassword
         action: Action {
             icon.name: "edit-undo-symbolic"
             text: qsTr("Undo")
@@ -185,7 +185,7 @@ Menu {
         }
     }
     MenuItem {
-        visible: target !== null && !target.readOnly
+        visible: target !== null && !target.readOnly && !targetIsPassword
         action: Action {
             icon.name: "edit-redo-symbolic"
             text: qsTr("Redo")
@@ -198,7 +198,7 @@ Menu {
         }
     }
     MenuSeparator {
-        visible: target !== null && !target.readOnly
+        visible: target !== null && !target.readOnly && !targetIsPassword
     }
     MenuItem {
         visible: target !== null && !target.readOnly && !targetIsPassword
