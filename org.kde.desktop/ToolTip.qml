@@ -9,6 +9,7 @@
 import QtQuick 2.6
 import QtQuick.Controls 2.15 as Controls
 import QtQuick.Templates 2.15 as T
+import QtQuick.Layouts 1.15
 import org.kde.kirigami 2.12 as Kirigami
 
 T.ToolTip {
@@ -38,12 +39,18 @@ T.ToolTip {
 
     closePolicy: T.Popup.CloseOnEscape | T.Popup.CloseOnPressOutsideParent | T.Popup.CloseOnReleaseOutsideParent
 
-    contentItem: Controls.Label {
-        text: controlRoot.text
-        wrapMode: Text.WordWrap
-        font: controlRoot.font
-        Kirigami.Theme.colorSet: Kirigami.Theme.Tooltip
-        color: Kirigami.Theme.textColor
+    contentItem: RowLayout {
+        Controls.Label {
+            text: controlRoot.text
+            wrapMode: Text.WordWrap
+            font: controlRoot.font
+            color: Kirigami.Theme.textColor
+
+            Kirigami.Theme.colorSet: Kirigami.Theme.Tooltip
+            Layout.fillWidth: true
+            // This value is basically arbitrary. It just looks nice.
+            Layout.maximumWidth: Kirigami.Units.gridUnit * 14
+        }
     }
 
     // TODO: Consider replacing this with a StyleItem
