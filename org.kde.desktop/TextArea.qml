@@ -132,7 +132,6 @@ T.TextArea {
     }
 
     background: StylePrivate.StyleItem {
-        id: style
         control: controlRoot
         elementType: "edit"
         implicitWidth: 200
