@@ -59,6 +59,7 @@ T.CheckBox {
         visible: controlRoot.text
         horizontalAlignment: Text.AlignLeft
         verticalAlignment: Text.AlignVCenter
+        wrapMode: Text.Wrap
 
         FocusRect {
             control: controlRoot
