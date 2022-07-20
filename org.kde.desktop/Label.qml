@@ -26,7 +26,7 @@ T.Label {
     renderType: Screen.devicePixelRatio % 1 !== 0 ? Text.QtRendering : Text.NativeRendering
 
     HoverHandler {
-        cursorShape: parent.hoveredLink ? Qt.PointingHandCursor : Qt.ArrowCursor
+        cursorShape: parent.hoveredLink ? Qt.PointingHandCursor : undefined
     }
 
     color: Kirigami.Theme.textColor
