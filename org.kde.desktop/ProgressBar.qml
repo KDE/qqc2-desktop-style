@@ -22,11 +22,15 @@ T.ProgressBar {
     contentItem: Item {}
 
     background: StylePrivate.StyleItem {
+        // Rescale for extra precision. Adapts to the range of `from` & `to` to avoid integer overflow.
+        property int factor: (Math.abs(controlRoot.from) < 100000 && Math.abs(controlRoot.to) < 100000)
+            ? 10000 : 1
+
         elementType: "progressbar"
         control: controlRoot
-        maximum: indeterminate ? 0 : 10000 * controlRoot.to
-        minimum: indeterminate ? 0 : 10000 * controlRoot.from
-        value: indeterminate ? 0 : 10000 * controlRoot.value
+        maximum: indeterminate ? 0 : factor * controlRoot.to
+        minimum: indeterminate ? 0 : factor * controlRoot.from
+        value: indeterminate ? 0 : factor * controlRoot.value
         horizontal: true
         enabled: controlRoot.enabled
 

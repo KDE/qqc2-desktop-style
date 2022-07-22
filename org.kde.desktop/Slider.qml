@@ -28,6 +28,10 @@ T.Slider {
     snapMode: T.Slider.SnapOnRelease
 
     background: StylePrivate.StyleItem {
+        // Rescale for extra precision. Adapts to the range of `from` & `to` to avoid integer overflow.
+        property int factor: (Math.abs(controlRoot.from) < 100000 && Math.abs(controlRoot.to) < 100000)
+            ? 10000 : 1
+
         control: controlRoot
         elementType: "slider"
         sunken: controlRoot.pressed
@@ -36,10 +40,10 @@ T.Slider {
         contentHeight: horizontal ? (Kirigami.Settings.tabletMode ? 24 : 22) : controlRoot.implicitHeight
         anchors.verticalCenter: controlRoot.verticalCenter
 
-        maximum: 10000 * controlRoot.to
-        minimum: 10000 * controlRoot.from
-        step: 10000 * controlRoot.stepSize
-        value: 10000 * controlRoot.value
+        maximum: factor * controlRoot.to
+        minimum: factor * controlRoot.from
+        step: factor * controlRoot.stepSize
+        value: factor * controlRoot.value
         horizontal: controlRoot.orientation === Qt.Horizontal
         enabled: controlRoot.enabled
         hasFocus: controlRoot.activeFocus

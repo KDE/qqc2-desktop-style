@@ -94,9 +94,6 @@ Kirigami.ApplicationWindow {
         }
 
         ProgressBar {
-            id: progress
-            from: 0
-            to: 1
             LoopAnimation on value {}
             Layout.fillWidth: true
         }
@@ -127,7 +124,6 @@ Kirigami.ApplicationWindow {
         }
 
         Slider {
-            id: slider
             stepSize: 0.1
             LoopAnimation on value {}
             Layout.fillWidth: true
@@ -143,8 +139,11 @@ Kirigami.ApplicationWindow {
             Layout.alignment: Qt.AlignRight | Qt.AlignVCenter
         }
 
+        // Test for BUG-455339
         Slider {
-            stepSize: 0.1
+            to:       300000
+            stepSize: 30000
+            value:    90000
             Layout.fillWidth: true
         }
     }
