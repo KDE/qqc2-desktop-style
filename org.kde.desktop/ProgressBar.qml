@@ -33,16 +33,5 @@ T.ProgressBar {
         value: indeterminate ? 0 : factor * controlRoot.value
         horizontal: true
         enabled: controlRoot.enabled
-
-        // ScriptAction refuses to run on its own. So we add a NumberAnimation
-        // with non-zero duration to make it tied to a monitor refresh rate.
-        // See git history for more (e.g. why not PauseAnimation)
-        SequentialAnimation {
-            running: controlRoot.indeterminate
-            loops: Animation.Infinite
-
-            NumberAnimation { duration: 1 }
-            ScriptAction { script: controlRoot.background.updateItem() }
-        }
     }
 }
