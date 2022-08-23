@@ -39,6 +39,8 @@ T.ToolTip {
 
     closePolicy: T.Popup.CloseOnEscape | T.Popup.CloseOnPressOutsideParent | T.Popup.CloseOnReleaseOutsideParent
 
+    // FIXME: use a top-level Item here so that ToolTip instances with child
+    // items can safely use anchors
     contentItem: RowLayout {
         Controls.Label {
             // Strip out ampersands right before non-whitespace characters, i.e.
