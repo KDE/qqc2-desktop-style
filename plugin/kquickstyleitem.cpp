@@ -867,50 +867,38 @@ void KQuickStyleItem::resolvePalette()
 
 int KQuickStyleItem::leftPadding() const
 {
-    switch (m_elementType) {
-    case Frame: {
+    if (m_styleoption && m_elementType == Frame) {
         const QRect cr = KQuickStyleItem::style()->subElementRect(QStyle::SE_ShapedFrameContents, m_styleoption);
         return cr.left() - m_styleoption->rect.left();
     }
-    default:
-        return 0;
-    }
+    return 0;
 }
 
 int KQuickStyleItem::topPadding() const
 {
-    switch (m_elementType) {
-    case Frame: {
+    if (m_styleoption && m_elementType == Frame) {
         const QRect cr = KQuickStyleItem::style()->subElementRect(QStyle::SE_ShapedFrameContents, m_styleoption);
         return cr.top() - m_styleoption->rect.top();
     }
-    default:
-        return 0;
-    }
+    return 0;
 }
 
 int KQuickStyleItem::rightPadding() const
 {
-    switch (m_elementType) {
-    case Frame: {
+    if (m_styleoption && m_elementType == Frame) {
         const QRect cr = KQuickStyleItem::style()->subElementRect(QStyle::SE_ShapedFrameContents, m_styleoption);
-        return m_styleoption->rect.right() - cr.right();
+        return cr.right() - m_styleoption->rect.right();
     }
-    default:
-        return 0;
-    }
+    return 0;
 }
 
 int KQuickStyleItem::bottomPadding() const
 {
-    switch (m_elementType) {
-    case Frame: {
+    if (m_styleoption && m_elementType == Frame) {
         const QRect cr = KQuickStyleItem::style()->subElementRect(QStyle::SE_ShapedFrameContents, m_styleoption);
-        return m_styleoption->rect.bottom() - cr.bottom();
+        return cr.bottom() - m_styleoption->rect.bottom();
     }
-    default:
-        return 0;
-    }
+    return 0;
 }
 
 /*
