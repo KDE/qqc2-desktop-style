@@ -53,7 +53,7 @@ class KQuickStyleItem : public QQuickItem
     Q_PROPERTY(bool horizontal READ horizontal WRITE setHorizontal NOTIFY horizontalChanged)
     Q_PROPERTY(bool isTransient READ isTransient WRITE setTransient NOTIFY transientChanged)
 
-    Q_PROPERTY(QString elementType READ elementType WRITE setElementType NOTIFY elementTypeChanged)
+    Q_PROPERTY(ElementType elementType READ elementType WRITE setElementType NOTIFY elementTypeChanged)
     Q_PROPERTY(QString text READ text WRITE setText NOTIFY textChanged)
     Q_PROPERTY(QString activeControl READ activeControl WRITE setActiveControl NOTIFY activeControlChanged)
     Q_PROPERTY(QString styleName READ styleName NOTIFY styleNameChanged)
@@ -97,7 +97,7 @@ public:
         ScrollIndicatorType,
     };
 
-    enum Type {
+    enum ElementType {
         Undefined,
         Button,
         RadioButton,
@@ -132,6 +132,7 @@ public:
         MenuBar,
         MenuBarItem,
     };
+    Q_ENUM(ElementType)
 
     void paint(QPainter *);
 
@@ -197,9 +198,9 @@ public:
         return m_paintMargins;
     }
 
-    QString elementType() const
+    ElementType elementType() const
     {
-        return m_type;
+        return m_elementType;
     }
     QString text() const
     {
@@ -343,7 +344,7 @@ public:
             Q_EMIT paintMarginsChanged();
         }
     }
-    void setElementType(const QString &str);
+    void setElementType(ElementType type);
     void setText(const QString &str)
     {
         if (m_text != str) {
@@ -491,9 +492,8 @@ protected:
     QStyleOption *m_styleoption;
     QPointer<QQuickItem> m_control;
     QPointer<QWindow> m_window;
-    Type m_itemType;
+    ElementType m_elementType;
 
-    QString m_type;
     QString m_text;
     QString m_activeControl;
     QVariantMap m_hints;

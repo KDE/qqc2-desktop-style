@@ -30,7 +30,7 @@ T.DelayButton {
     contentItem: Item {}
     background: StylePrivate.StyleItem {
         control: controlRoot
-        elementType: "button"
+        elementType: StylePrivate.StyleItem.Button
         sunken: controlRoot.down || controlRoot.checked
         raised: !(controlRoot.down || controlRoot.checked)
         hover: controlRoot.hovered
@@ -45,7 +45,7 @@ T.DelayButton {
                 bottom: parent.bottom
                 margins: 3
             }
-            elementType: "progressbar"
+            elementType: StylePrivate.StyleItem.ProgressBar
 
             control: controlRoot
             maximum: 100

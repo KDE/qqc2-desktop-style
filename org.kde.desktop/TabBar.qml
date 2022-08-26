@@ -47,7 +47,7 @@ T.TabBar {
         id: styleItem
         control: controlRoot
         visible: false
-        elementType: "tabframe"
+        elementType: StylePrivate.StyleItem.TabFrame
         properties: {
             "orientation": controlRoot.position === T.TabBar.Header ? "Top" : "Bottom"
         }
