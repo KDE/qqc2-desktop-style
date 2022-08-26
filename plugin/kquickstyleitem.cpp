@@ -1,9 +1,8 @@
 /*
+    SPDX-FileCopyrightText: 2016 The Qt Company Ltd. <https://www.qt.io/licensing/>
     SPDX-FileCopyrightText: 2017 Marco Martin <mart@kde.org>
     SPDX-FileCopyrightText: 2017 David Edmundson <davidedmundson@kde.org>
-    SPDX-FileCopyrightText: 2016 The Qt Company Ltd. <https://www.qt.io/licensing/>
-
-    This file is part of the Qt Quick Controls module of the Qt Toolkit.
+    SPDX-FileCopyrightText: 2019 David Redondo <david@david-redondo.de>
 
     SPDX-License-Identifier: LGPL-3.0-only OR GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KFQF-Accepted-GPL OR LicenseRef-Qt-Commercial
 */
@@ -296,6 +295,7 @@ void KQuickStyleItem::initStyleOption()
         opt->fontMetrics = QFontMetrics(font);
         break;
     }
+    case DelayButton:
     case ToolButton: {
         if (!m_styleoption) {
             m_styleoption = new QStyleOptionToolButton();
@@ -824,6 +824,7 @@ const char *KQuickStyleItem::classNameForItem() const
         return "QComboMenuItem";
     case ToolBar:
         return "";
+    case DelayButton:
     case ToolButton:
         return "QToolButton";
     case Tab:
@@ -1018,6 +1019,7 @@ QSize KQuickStyleItem::sizeFromContents(int width, int height)
     case ToolBar:
         size = QSize(200, styleName().contains(QLatin1String("windows")) ? 30 : 42);
         break;
+    case DelayButton:
     case ToolButton: {
         QStyleOptionToolButton *btn = qstyleoption_cast<QStyleOptionToolButton *>(m_styleoption);
         int w = 0;
@@ -1669,6 +1671,30 @@ void KQuickStyleItem::paint(QPainter *painter)
             frame.palette = m_styleoption->palette;
             KQuickStyleItem::style()->drawPrimitive(QStyle::PE_FrameMenu, &frame, painter);
         }
+        break;
+    }
+    case DelayButton: { // Adapted from Spectacle's ProgressButton made by David Redondo.
+        // Draw Button without text and icon, note the missing text and icon in options
+        QStyleOption baseStyleOptions = *m_styleoption;
+        baseStyleOptions.state.setFlag(QStyle::State_Enabled, !baseStyleOptions.state.testFlag(QStyle::State_Sunken));
+        KQuickStyleItem::style()->drawPrimitive(QStyle::PE_PanelButtonTool, &baseStyleOptions, painter);
+        qreal progress = qreal(value()) / qreal(maximum());
+        if (!qFuzzyIsNull(progress)) {
+            // Draw overlay
+            QStyleOption overlayOption;
+            overlayOption.palette = m_styleoption->palette;
+            overlayOption.palette.setBrush(QPalette::Button, m_styleoption->palette.highlight());
+            overlayOption.rect = m_styleoption->direction == Qt::LeftToRight ?
+                QRect(0, 0, m_styleoption->rect.width() * progress, m_styleoption->rect.height())
+                : QRect(QPoint(m_styleoption->rect.width() * (1 - progress), 0), m_styleoption->rect.size());
+            overlayOption.state.setFlag(QStyle::State_Sunken, m_styleoption->state.testFlag(QStyle::State_Sunken));
+            painter->setCompositionMode(QPainter::CompositionMode_SourceAtop);
+            painter->setOpacity(0.5);
+            KQuickStyleItem::style()->drawPrimitive(QStyle::PE_PanelButtonTool, &overlayOption, painter);
+        }
+        // Finally draw text and icon and outline
+        painter->setOpacity(1);
+        KQuickStyleItem::style()->drawControl(QStyle::CE_ToolButtonLabel, m_styleoption, painter);
         break;
     }
     default:

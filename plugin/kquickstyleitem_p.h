@@ -131,6 +131,7 @@ public:
         MacHelpButton,
         MenuBar,
         MenuBarItem,
+        DelayButton,
     };
     Q_ENUM(ElementType)
 
