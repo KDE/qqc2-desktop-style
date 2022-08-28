@@ -33,7 +33,7 @@ T.Slider {
             ? 10000 : 1
 
         control: controlRoot
-        elementType: StylePrivate.StyleItem.Slider
+        elementType: "slider"
         sunken: controlRoot.pressed
         implicitWidth: 200
         contentWidth: horizontal ? controlRoot.implicitWidth : (Kirigami.Settings.tabletMode ? 24 : 22)

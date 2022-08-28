@@ -88,7 +88,7 @@ T.SpinBox {
     background: StylePrivate.StyleItem {
         id: styleitem
         control: controlRoot
-        elementType: StylePrivate.StyleItem.SpinBox
+        elementType: "spinbox"
         anchors.fill: parent
         hover: controlRoot.hovered
         hasFocus: controlRoot.activeFocus

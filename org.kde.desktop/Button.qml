@@ -35,7 +35,7 @@ T.Button {
     }
     background: StylePrivate.StyleItem {
         control: controlRoot
-        elementType: StylePrivate.StyleItem.Button
+        elementType: "button"
         sunken: controlRoot.down
         on: controlRoot.checkable && controlRoot.checked
         flat: controlRoot.flat

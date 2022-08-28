@@ -39,7 +39,7 @@ QStyle *KQuickStyleItem::style()
 KQuickStyleItem::KQuickStyleItem(QQuickItem *parent)
     : QQuickItem(parent)
     , m_styleoption(nullptr)
-    , m_elementType(Undefined)
+    , m_itemType(Undefined)
     , m_sunken(false)
     , m_raised(false)
     , m_flat(false)
@@ -173,7 +173,7 @@ void KQuickStyleItem::initStyleOption()
 
     bool needsResolvePalette = true;
 
-    switch (m_elementType) {
+    switch (m_itemType) {
     case Button: {
         if (!m_styleoption) {
             m_styleoption = new QStyleOptionButton();
@@ -466,7 +466,7 @@ void KQuickStyleItem::initStyleOption()
 
         QStyleOptionMenuItem *opt = qstyleoption_cast<QStyleOptionMenuItem *>(m_styleoption);
         // For GTK style. See below, in setElementType()
-        setProperty("_q_isComboBoxPopupItem", m_elementType == ComboBoxItem);
+        setProperty("_q_isComboBoxPopupItem", m_itemType == ComboBoxItem);
 
         KQuickStyleItem::MenuItemType type = static_cast<KQuickStyleItem::MenuItemType>(m_properties[QStringLiteral("type")].toInt());
         if (type == KQuickStyleItem::ScrollIndicatorType) {
@@ -502,7 +502,7 @@ void KQuickStyleItem::initStyleOption()
             opt->icon = iconFromIconProperty();
             setProperty("_q_showUnderlined", m_hints[QStringLiteral("showUnderlined")].toBool());
 
-            const QFont font = qApp->font(m_elementType == ComboBoxItem ? "QComboMenuItem" : "QMenu");
+            const QFont font = qApp->font(m_itemType == ComboBoxItem ? "QComboMenuItem" : "QMenu");
             opt->font = font;
             opt->fontMetrics = QFontMetrics(font);
             m_font = opt->font;
@@ -811,7 +811,7 @@ QIcon KQuickStyleItem::iconFromIconProperty() const
 
 const char *KQuickStyleItem::classNameForItem() const
 {
-    switch (m_elementType) {
+    switch (m_itemType) {
     case Button:
         return "QPushButton";
     case RadioButton:
@@ -868,7 +868,7 @@ void KQuickStyleItem::resolvePalette()
 
 int KQuickStyleItem::leftPadding() const
 {
-    switch (m_elementType) {
+    switch (m_itemType) {
     case Frame: {
         const QRect cr = KQuickStyleItem::style()->subElementRect(QStyle::SE_ShapedFrameContents, m_styleoption);
         return cr.left() - m_styleoption->rect.left();
@@ -880,7 +880,7 @@ int KQuickStyleItem::leftPadding() const
 
 int KQuickStyleItem::topPadding() const
 {
-    switch (m_elementType) {
+    switch (m_itemType) {
     case Frame: {
         const QRect cr = KQuickStyleItem::style()->subElementRect(QStyle::SE_ShapedFrameContents, m_styleoption);
         return cr.top() - m_styleoption->rect.top();
@@ -892,7 +892,7 @@ int KQuickStyleItem::topPadding() const
 
 int KQuickStyleItem::rightPadding() const
 {
-    switch (m_elementType) {
+    switch (m_itemType) {
     case Frame: {
         const QRect cr = KQuickStyleItem::style()->subElementRect(QStyle::SE_ShapedFrameContents, m_styleoption);
         return m_styleoption->rect.right() - cr.right();
@@ -904,7 +904,7 @@ int KQuickStyleItem::rightPadding() const
 
 int KQuickStyleItem::bottomPadding() const
 {
-    switch (m_elementType) {
+    switch (m_itemType) {
     case Frame: {
         const QRect cr = KQuickStyleItem::style()->subElementRect(QStyle::SE_ShapedFrameContents, m_styleoption);
         return m_styleoption->rect.bottom() - cr.bottom();
@@ -940,7 +940,7 @@ QString KQuickStyleItem::styleName() const
 QString KQuickStyleItem::hitTest(int px, int py)
 {
     QStyle::SubControl subcontrol = QStyle::SC_All;
-    switch (m_elementType) {
+    switch (m_itemType) {
     case SpinBox: {
         subcontrol = KQuickStyleItem::style()->hitTestComplexControl(QStyle::CC_SpinBox,
                                                                      qstyleoption_cast<QStyleOptionComplex *>(m_styleoption),
@@ -1014,7 +1014,7 @@ QSize KQuickStyleItem::sizeFromContents(int width, int height)
     initStyleOption();
 
     QSize size;
-    switch (m_elementType) {
+    switch (m_itemType) {
     case RadioButton:
         size = KQuickStyleItem::style()->sizeFromContents(QStyle::CT_RadioButton, m_styleoption, QSize(width, height));
         break;
@@ -1130,7 +1130,7 @@ QSize KQuickStyleItem::sizeFromContents(int width, int height)
         frame.styleObject = this;
 
         size = KQuickStyleItem::style()->sizeFromContents(QStyle::CT_LineEdit, &frame, QSize(width, qMax(height, contentHeight)));
-        if (m_elementType == SpinBox) {
+        if (m_itemType == SpinBox) {
             size.setWidth(KQuickStyleItem::style()->sizeFromContents(QStyle::CT_SpinBox, m_styleoption, QSize(width + 2, height)).width());
         }
         break;
@@ -1182,7 +1182,7 @@ qreal KQuickStyleItem::baselineOffset()
 {
     QRect r;
     bool ceilResult = true; // By default baseline offset rounding is done upwards
-    switch (m_elementType) {
+    switch (m_itemType) {
     case RadioButton:
         r = KQuickStyleItem::style()->subElementRect(QStyle::SE_RadioButtonContents, m_styleoption);
         break;
@@ -1390,13 +1390,13 @@ void KQuickStyleItem::resetHints()
     m_hints.clear();
 }
 
-void KQuickStyleItem::setElementType(ElementType type)
+void KQuickStyleItem::setElementType(const QString &str)
 {
-    if (m_elementType == type) {
+    if (m_type == str) {
         return;
     }
 
-    m_elementType = type;
+    m_type = str;
 
     Q_EMIT elementTypeChanged();
     if (m_styleoption) {
@@ -1404,6 +1404,79 @@ void KQuickStyleItem::setElementType(ElementType type)
         m_styleoption = nullptr;
     }
 
+    // Only enable visible if the widget can animate
+    if (str == QLatin1String("menu")) {
+        m_itemType = Menu;
+    } else if (str == QLatin1String("menuitem")) {
+        m_itemType = MenuItem;
+    } else if (str == QLatin1String("item") || str == QLatin1String("itemrow") || str == QLatin1String("header")) {
+        if (str == QLatin1String("header")) {
+            m_itemType = Header;
+        } else {
+            m_itemType = str == QLatin1String("item") ? Item : ItemRow;
+        }
+    } else if (str == QLatin1String("itembranchindicator")) {
+        m_itemType = ItemBranchIndicator;
+    } else if (str == QLatin1String("groupbox")) {
+        m_itemType = GroupBox;
+    } else if (str == QLatin1String("tab")) {
+        m_itemType = Tab;
+    } else if (str == QLatin1String("tabframe")) {
+        m_itemType = TabFrame;
+    } else if (str == QLatin1String("comboboxitem")) {
+        // Gtk uses qobject cast, hence we need to separate this from menuitem
+        // On mac, we temporarily use the menu item because it has more accurate
+        // palette.
+        m_itemType = ComboBoxItem;
+    } else if (str == QLatin1String("toolbar")) {
+        m_itemType = ToolBar;
+    } else if (str == QLatin1String("toolbutton")) {
+        m_itemType = ToolButton;
+    } else if (str == QLatin1String("slider")) {
+        m_itemType = Slider;
+    } else if (str == QLatin1String("frame")) {
+        m_itemType = Frame;
+    } else if (str == QLatin1String("combobox")) {
+        m_itemType = ComboBox;
+    } else if (str == QLatin1String("splitter")) {
+        m_itemType = Splitter;
+    } else if (str == QLatin1String("progressbar")) {
+        m_itemType = ProgressBar;
+    } else if (str == QLatin1String("button")) {
+        m_itemType = Button;
+    } else if (str == QLatin1String("checkbox")) {
+        m_itemType = CheckBox;
+    } else if (str == QLatin1String("radiobutton")) {
+        m_itemType = RadioButton;
+    } else if (str == QLatin1String("edit")) {
+        m_itemType = Edit;
+    } else if (str == QLatin1String("spinbox")) {
+        m_itemType = SpinBox;
+    } else if (str == QLatin1String("scrollbar")) {
+        m_itemType = ScrollBar;
+    } else if (str == QLatin1String("widget")) {
+        m_itemType = Widget;
+    } else if (str == QLatin1String("focusframe")) {
+        m_itemType = FocusFrame;
+    } else if (str == QLatin1String("focusrect")) {
+        m_itemType = FocusRect;
+    } else if (str == QLatin1String("dial")) {
+        m_itemType = Dial;
+    } else if (str == QLatin1String("statusbar")) {
+        m_itemType = StatusBar;
+    } else if (str == QLatin1String("machelpbutton")) {
+        m_itemType = MacHelpButton;
+    } else if (str == QLatin1String("scrollareacorner")) {
+        m_itemType = ScrollAreaCorner;
+    } else if (str == QLatin1String("menubar")) {
+        m_itemType = MenuBar;
+    } else if (str == QLatin1String("menubaritem")) {
+        m_itemType = MenuBarItem;
+    } else if (str == QLatin1String("delaybutton")) {
+        m_itemType = DelayButton;
+    } else {
+        m_itemType = Undefined;
+    }
     Q_EMIT leftPaddingChanged();
     Q_EMIT rightPaddingChanged();
     Q_EMIT topPaddingChanged();
@@ -1416,7 +1489,7 @@ QRectF KQuickStyleItem::subControlRect(const QString &subcontrolString)
 {
     QStyle::SubControl subcontrol = QStyle::SC_None;
     initStyleOption();
-    switch (m_elementType) {
+    switch (m_itemType) {
     case SpinBox: {
         QStyle::ComplexControl control = QStyle::CC_SpinBox;
         if (subcontrolString == QLatin1String("down")) {
@@ -1517,7 +1590,7 @@ void KQuickStyleItem::paint(QPainter *painter)
     // set it unconditionally.
     QHighDpiPixmapsEnabler1 enabler;
 
-    switch (m_elementType) {
+    switch (m_itemType) {
     case Button:
         KQuickStyleItem::style()->drawControl(QStyle::CE_PushButton, m_styleoption, painter);
         break;

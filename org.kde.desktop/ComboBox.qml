@@ -121,7 +121,7 @@ T.ComboBox {
     background: StylePrivate.StyleItem {
         id: styleitem
         control: controlRoot
-        elementType: StylePrivate.StyleItem.ComboBox
+        elementType: "combobox"
         anchors.fill: parent
         hover: controlRoot.hovered || controlRoot.pressed
         on: controlRoot.pressed

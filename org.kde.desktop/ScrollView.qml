@@ -53,7 +53,7 @@ T.ScrollView {
             StylePrivate.StyleItem {
                 id: styled
                 control: controlRoot.contentItem
-                elementType: StylePrivate.StyleItem.Frame
+                elementType: "frame"
                 visible: false
                 sunken: true
                 raised: false

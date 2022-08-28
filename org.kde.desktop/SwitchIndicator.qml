@@ -18,7 +18,7 @@ Item {
     StylePrivate.StyleItem {
         id: slider
         anchors.fill: parent
-        elementType: StylePrivate.StyleItem.Slider
+        elementType: "slider"
         sunken: control.pressed
         value: control.checked || control.pressed ? 1 : 0
         minimum: 0

@@ -42,7 +42,7 @@ T.DelayButton {
 
     background: StylePrivate.StyleItem {
         control: controlRoot
-        elementType: StylePrivate.StyleItem.DelayButton
+        elementType: "delaybutton"
         sunken: controlRoot.down
         on: controlRoot.checkable && controlRoot.checked
         hover: controlRoot.hovered

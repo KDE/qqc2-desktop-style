@@ -59,7 +59,7 @@ T.TabButton {
 
         control: controlRoot
         anchors.fill: parent
-        elementType: StylePrivate.StyleItem.Tab
+        elementType: "tab"
         paintMargins: 0
         property Item tabBar: controlRoot.parent.parent.parent
 

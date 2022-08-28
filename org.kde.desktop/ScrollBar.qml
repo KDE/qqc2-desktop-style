@@ -159,7 +159,7 @@ T.ScrollBar {
 
             control: controlRoot
             anchors.fill: parent
-            elementType: StylePrivate.StyleItem.ScrollBar
+            elementType: "scrollbar"
             hover: activeControl !== "none"
             activeControl: "none"
             sunken: controlRoot.pressed
@@ -193,7 +193,7 @@ T.ScrollBar {
             id: inactiveStyle
             anchors.fill: parent
             control: controlRoot
-            elementType: StylePrivate.StyleItem.ScrollBar
+            elementType: "scrollbar"
             activeControl: "none"
             sunken: false
             minimum: 0

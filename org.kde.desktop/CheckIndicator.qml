@@ -16,8 +16,7 @@ StylePrivate.StyleItem {
 
     property bool drawIcon: true
 
-    elementType: control.autoExclusive ?
-        StylePrivate.StyleItem.RadioButton : StylePrivate.StyleItem.CheckBox
+    elementType: control.autoExclusive ? "radiobutton" : "checkbox"
     sunken: control.pressed
     on: control.checked
     hover: control.hovered

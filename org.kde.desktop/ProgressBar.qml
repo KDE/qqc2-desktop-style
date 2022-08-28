@@ -26,7 +26,7 @@ T.ProgressBar {
         property int factor: (Math.abs(controlRoot.from) < 100000 && Math.abs(controlRoot.to) < 100000)
             ? 10000 : 1
 
-        elementType: StylePrivate.StyleItem.ProgressBar
+        elementType: "progressbar"
         control: controlRoot
         maximum: indeterminate ? 0 : factor * controlRoot.to
         minimum: indeterminate ? 0 : factor * controlRoot.from

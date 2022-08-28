@@ -116,7 +116,7 @@ T.TextField {
 
     background: StylePrivate.StyleItem {
         control: controlRoot
-        elementType: StylePrivate.StyleItem.Edit
+        elementType: "edit"
 
         sunken: true
         hasFocus: controlRoot.activeFocus

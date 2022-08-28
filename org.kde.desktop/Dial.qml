@@ -21,7 +21,7 @@ T.Dial {
     background: StylePrivate.StyleItem {
         control: controlRoot
         visible: true
-        elementType: StylePrivate.StyleItem.Dial
+        elementType: "dial"
         horizontal: false
 
         maximum: controlRoot.to * 100

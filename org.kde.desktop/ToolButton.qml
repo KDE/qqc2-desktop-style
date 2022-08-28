@@ -42,7 +42,7 @@ T.ToolButton {
     background: StylePrivate.StyleItem {
         id: styleitem
         control: controlRoot
-        elementType: StylePrivate.StyleItem.ToolButton
+        elementType: "toolbutton"
         sunken: controlRoot.down
         on: controlRoot.checkable && controlRoot.checked
         hover: controlRoot.hovered
