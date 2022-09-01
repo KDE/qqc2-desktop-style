@@ -6,7 +6,8 @@
 */
 
 
-import QtQuick 2.6
+import QtQuick 2.15
+import QtQml 2.15
 import org.kde.qqc2desktopstyle.private 1.0 as StylePrivate
 import QtQuick.Templates 2.15 as T
 import org.kde.kirigami 2.11 as Kirigami
@@ -19,10 +20,15 @@ T.ScrollBar {
 
     hoverEnabled: true
 
-    visible: controlRoot.size < 1.0 && controlRoot.policy !== T.ScrollBar.AlwaysOff
     stepSize: 0.02
     interactive: !Kirigami.Settings.hasTransientTouchInput
 
+    // Workaround for https://bugreports.qt.io/browse/QTBUG-106118
+    Binding on visible {
+        delayed: true
+        restoreMode: Binding.RestoreBindingOrValue
+        value: controlRoot.size < 1.0 && controlRoot.policy !== T.ScrollBar.AlwaysOff && controlRoot.parent !== null
+    }
     topPadding: style.topScrollbarPadding
     leftPadding: style.leftScrollbarPadding
     rightPadding: style.rightScrollbarPadding
