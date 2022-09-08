@@ -17,8 +17,11 @@ T.SpinBox {
     Kirigami.Theme.colorSet: Kirigami.Theme.View
     Kirigami.Theme.inherit: false
 
-    implicitWidth: Math.max(styleitem.fullRectSizeHint.width, 48, contentItem.implicitWidth + 2 * padding + up.indicator.implicitWidth + down.indicator.implicitWidth)
-    implicitHeight: Math.max(styleitem.fullRectSizeHint.height, background.implicitHeight, contentItem.implicitHeight + topPadding + bottomPadding)
+    implicitWidth: Math.max(styleitem.fullRectSizeHint.width,
+                            implicitBackgroundWidth + leftInset + rightInset,
+                            implicitContentWidth + leftPadding + rightPadding)
+    implicitHeight: Math.max(styleitem.fullRectSizeHint.height,
+                             implicitBackgroundHeight + topInset + bottomInset, implicitContentHeight + topPadding + bottomPadding)
 
     padding: 6
     leftPadding: controlRoot.mirrored ? ___rPadding : ___lPadding
@@ -37,22 +40,30 @@ T.SpinBox {
         top: Math.max(controlRoot.from, controlRoot.to)
     }
 
-    contentItem: TextInput {
-        z: 2
-        text: controlRoot.textFromValue(controlRoot.value, controlRoot.locale)
-        opacity: controlRoot.enabled ? 1 : 0.3
+    inputMethodHints: Qt.ImhFormattedNumbersOnly
 
+    contentItem: T.TextField {
+        readonly property TextMetrics _textMetrics: TextMetrics {
+            text: controlRoot.textFromValue(controlRoot.to, controlRoot.locale)
+            font: controlRoot.font
+        }
+        // Sometimes textMetrics.width isn't as wide as the actual text; add 2
+        implicitWidth: Math.max(_textMetrics.width + 2, Math.round(contentWidth))
+            + leftPadding + rightPadding
+        implicitHeight: Math.round(contentHeight) + topPadding + bottomPadding
+        z: 2
         font: controlRoot.font
+        palette: controlRoot.palette
+        text: controlRoot.textFromValue(controlRoot.value, controlRoot.locale)
         color: Kirigami.Theme.textColor
         selectionColor: Kirigami.Theme.highlightColor
         selectedTextColor: Kirigami.Theme.highlightedTextColor
         selectByMouse: true
         horizontalAlignment: Qt.AlignHCenter
         verticalAlignment: Qt.AlignVCenter
-
         readOnly: !controlRoot.editable
         validator: controlRoot.validator
-        inputMethodHints: Qt.ImhFormattedNumbersOnly
+        inputMethodHints: controlRoot.inputMethodHints
 
         // Work around Qt bug where NativeRendering breaks for non-integer scale factors
         // https://bugreports.qt.io/browse/QTBUG-67007
