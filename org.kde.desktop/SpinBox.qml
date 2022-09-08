@@ -59,7 +59,7 @@ T.SpinBox {
         selectionColor: Kirigami.Theme.highlightColor
         selectedTextColor: Kirigami.Theme.highlightedTextColor
         selectByMouse: true
-        horizontalAlignment: Qt.AlignHCenter
+        horizontalAlignment: Qt.AlignLeft
         verticalAlignment: Qt.AlignVCenter
         readOnly: !controlRoot.editable
         validator: controlRoot.validator
