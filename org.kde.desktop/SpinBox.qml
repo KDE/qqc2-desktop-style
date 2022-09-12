@@ -28,8 +28,8 @@ T.SpinBox {
     leftPadding: controlRoot.mirrored ? ___rPadding : ___lPadding
     rightPadding: controlRoot.mirrored ? ___lPadding : ___rPadding
 
-    readonly property int ___lPadding: styleitem.upRectSizeHint.x === styleitem.downRectSizeHint.x ? horizontalPadding : styleitem.upRectSizeHint.width
-    readonly property int ___rPadding: styleitem.upRectSizeHint.x === styleitem.downRectSizeHint.x ? styleitem.upRectSizeHint.width : styleitem.downRectSizeHint.width
+    readonly property int ___lPadding: styleitem.upRectSizeHint.x === styleitem.downRectSizeHint.x ? horizontalPadding : styleitem.downRectSizeHint.width
+    readonly property int ___rPadding: styleitem.upRectSizeHint.x === styleitem.downRectSizeHint.x ? styleitem.downRectSizeHint.width : styleitem.upRectSizeHint.width
 
     hoverEnabled: true
     wheelEnabled: true
