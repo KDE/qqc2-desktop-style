@@ -61,7 +61,6 @@ T.SpinBox {
         selectedTextColor: Kirigami.Theme.highlightedTextColor
         selectByMouse: true
         hoverEnabled: false // let hover events propagate to SpinBox
-        horizontalAlignment: Qt.AlignLeft
         verticalAlignment: Qt.AlignVCenter
         readOnly: !controlRoot.editable
         validator: controlRoot.validator
