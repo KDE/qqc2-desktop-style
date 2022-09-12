@@ -586,7 +586,6 @@ void KQuickStyleItem::initStyleOption()
 
         QStyleOptionSpinBox *opt = qstyleoption_cast<QStyleOptionSpinBox *>(m_styleoption);
         opt->frame = true;
-        opt->subControls = QStyle::SC_SpinBoxFrame | QStyle::SC_SpinBoxEditField;
         if (value() & 0x1) {
             opt->activeSubControls = QStyle::SC_SpinBoxUp;
         } else if (value() & (1 << 1)) {
