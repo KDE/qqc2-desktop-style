@@ -21,7 +21,8 @@ T.SpinBox {
                             implicitBackgroundWidth + leftInset + rightInset,
                             implicitContentWidth + leftPadding + rightPadding)
     implicitHeight: Math.max(styleitem.fullRectSizeHint.height,
-                             implicitBackgroundHeight + topInset + bottomInset, implicitContentHeight + topPadding + bottomPadding)
+                             implicitBackgroundHeight + topInset + bottomInset,
+                             implicitContentHeight + topPadding + bottomPadding)
 
     padding: 6
     leftPadding: controlRoot.mirrored ? ___rPadding : ___lPadding
@@ -118,11 +119,21 @@ T.SpinBox {
         onWidthChanged: recompute()
         onHeightChanged: recompute()
 
-        value: (controlRoot.up.pressed ? 1 : 0) |
-                   (controlRoot.down.pressed ? 1 << 1 : 0) |
-                   (controlRoot.value !== controlRoot.to ? (1 << 2) : 0) |
-                   (controlRoot.value !== controlRoot.from ? (1 << 3) : 0) |
-                   (controlRoot.up.hovered ? 1 : 0) |
-                   (controlRoot.down.hovered ? (1 << 1) : 0)
+        value: {
+            var value = 0;
+            if (controlRoot.up.hovered || controlRoot.up.pressed) {
+                value |= 1 << 0;
+            }
+            if (controlRoot.down.hovered || controlRoot.down.pressed) {
+                value |= 1 << 1;
+            }
+            if (controlRoot.value !== controlRoot.to) {
+                value |= 1 << 2;
+            }
+            if (controlRoot.value !== controlRoot.from) {
+                value |= 1 << 3;
+            }
+            return value;
+        }
     }
 }
