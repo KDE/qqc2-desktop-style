@@ -591,6 +591,8 @@ void KQuickStyleItem::initStyleOption()
             opt->activeSubControls = QStyle::SC_SpinBoxUp;
         } else if (value() & (1 << 1)) {
             opt->activeSubControls = QStyle::SC_SpinBoxDown;
+        } else {
+            opt->activeSubControls = QStyle::SC_None;
         }
         opt->subControls = QStyle::SC_All;
         opt->stepEnabled = {};
