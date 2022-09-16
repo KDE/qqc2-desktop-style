@@ -39,6 +39,26 @@ T.ToolTip {
 
     closePolicy: T.Popup.CloseOnEscape | T.Popup.CloseOnPressOutsideParent | T.Popup.CloseOnReleaseOutsideParent
 
+    enter: Transition {
+        NumberAnimation {
+            property: "opacity"
+            from: 0.0
+            to: 1.0
+            duration: Kirigami.Units.longDuration
+            easing.type: Easing.OutCubic
+        }
+    }
+
+    exit: Transition {
+        NumberAnimation {
+            property: "opacity"
+            from: 1.0
+            to: 0.0
+            duration: Kirigami.Units.longDuration
+            easing.type: Easing.OutCubic
+        }
+    }
+
     // FIXME: use a top-level Item here so that ToolTip instances with child
     // items can safely use anchors
     contentItem: RowLayout {
