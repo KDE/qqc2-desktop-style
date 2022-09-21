@@ -108,5 +108,19 @@ ApplicationWindow {
             flat: false
             highlighted: true
         }
+
+        ToolButton {
+            text: "Without setting display"
+        }
+
+        ToolButton {
+            text: "With Menu decoration"
+
+            Component.onCompleted: {
+                if (background.hasOwnProperty("showMenuArrow")) {
+                    background.showMenuArrow = true
+                }
+            }
+        }
     }
 }

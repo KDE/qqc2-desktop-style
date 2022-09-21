@@ -56,13 +56,14 @@ T.ToolButton {
         // has this property at all, otherwise things will break with different
         // QtQuick styles!
         property bool showMenuArrow: false
+        readonly property bool hasIcon: controlRoot.icon.name.length > 0 || controlRoot.icon.source.length > 0
 
         readonly property int toolButtonStyle: {
             switch (controlRoot.display) {
             case T.ToolButton.IconOnly: return Qt.ToolButtonIconOnly;
             case T.ToolButton.TextOnly: return Qt.ToolButtonTextOnly;
-            case T.ToolButton.TextBesideIcon: return Qt.ToolButtonTextBesideIcon;
-            case T.ToolButton.TextUnderIcon: return Qt.ToolButtonTextUnderIcon;
+            case T.ToolButton.TextBesideIcon: return hasIcon ? Qt.ToolButtonTextBesideIcon : Qt.ToolButtonTextOnly;
+            case T.ToolButton.TextUnderIcon: return hasIcon ? Qt.ToolButtonTextUnderIcon : Qt.ToolButtonTextOnly;
             default: return Qt.ToolButtonFollowStyle;
             }
         }
