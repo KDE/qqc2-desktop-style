@@ -27,7 +27,7 @@ T.ScrollBar {
     Binding on visible {
         delayed: true
         restoreMode: Binding.RestoreBindingOrValue
-        value: controlRoot.size < 1.0 && controlRoot.policy !== T.ScrollBar.AlwaysOff && controlRoot.parent !== null
+        value: controlRoot.size < 1.0 && controlRoot.size > 0 && controlRoot.policy !== T.ScrollBar.AlwaysOff && controlRoot.parent !== null
     }
     topPadding: style.topScrollbarPadding
     leftPadding: style.leftScrollbarPadding
