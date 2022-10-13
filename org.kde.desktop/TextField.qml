@@ -98,8 +98,8 @@ T.TextField {
         id: placeholder
         x: controlRoot.leftPadding
         y: controlRoot.topPadding
-        width: controlRoot.width - (controlRoot.leftPadding + controlRoot.rightPadding)
-        height: controlRoot.height - (controlRoot.topPadding + controlRoot.bottomPadding)
+        width: controlRoot.width - controlRoot.leftPadding - controlRoot.rightPadding
+        height: controlRoot.height - controlRoot.topPadding - controlRoot.bottomPadding
 
         // Work around Qt bug where NativeRendering breaks for non-integer scale factors
         // https://bugreports.qt.io/browse/QTBUG-67007
@@ -108,7 +108,8 @@ T.TextField {
         text: controlRoot.placeholderText
         font: controlRoot.font
         color: controlRoot.placeholderTextColor
-        horizontalAlignment: controlRoot.horizontalAlignment
+        LayoutMirroring.enabled: false
+        horizontalAlignment: controlRoot.effectiveHorizontalAlignment
         verticalAlignment: controlRoot.verticalAlignment
         visible: !controlRoot.length && !controlRoot.preeditText && (!controlRoot.activeFocus || controlRoot.horizontalAlignment !== Qt.AlignHCenter)
         elide: Text.ElideRight
