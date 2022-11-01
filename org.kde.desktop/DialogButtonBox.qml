@@ -53,9 +53,8 @@ T.DialogButtonBox {
         // If no such button exists, it returns nullptr.
         // Icon names are copied from KStyle::standardIcon()
         function setStandardIcon(buttonType, iconName) {
-            let button = standardButton(buttonType)
-            // For some reason, `== ""` works, but `=== ""` and `!name && !source` doesn't.
-            if (button && button.icon.name == "" && button.icon.source == "") {
+            const button = standardButton(buttonType)
+            if (button && button.icon.name === "" && button.icon.source.toString() === "") {
                 button.icon.name = iconName
             }
         }
