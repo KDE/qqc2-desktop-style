@@ -34,8 +34,8 @@ T.ToolTip {
 
     visible: parent && (Kirigami.Settings.tabletMode ? parent.pressed : (parent.hasOwnProperty("hovered") ? parent.hovered : parent.hasOwnProperty("containsMouse") && parent.containsMouse))
     delay: Kirigami.Settings.tabletMode ? Qt.styleHints.mousePressAndHoldInterval : Kirigami.Units.toolTipDelay
-    // Timeout based on text length, from QTipLabel::restartExpireTimer
-    timeout: 10000 + 40 * Math.max(0, text.length - 100)
+    // Never time out while being hovered; it's annoying
+    timeout: -1
 
     closePolicy: T.Popup.CloseOnEscape | T.Popup.CloseOnPressOutsideParent | T.Popup.CloseOnReleaseOutsideParent
 
