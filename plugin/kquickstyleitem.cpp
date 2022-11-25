@@ -1908,7 +1908,8 @@ QSGNode *KQuickStyleItem::updatePaintNode(QSGNode *node, UpdatePaintNodeData *)
 
     styleNode->setTexture(window()->createTextureFromImage(m_image, QQuickWindow::TextureCanUseAtlas));
     styleNode->setBounds(boundingRect());
-    styleNode->setDevicePixelRatio(window()->devicePixelRatio());
+    styleNode->setDevicePixelRatio(window()->effectiveDevicePixelRatio());
+
     styleNode->setPadding(m_border.left(), m_border.top(), m_border.right(), m_border.bottom());
     styleNode->update();
 
@@ -1918,7 +1919,7 @@ QSGNode *KQuickStyleItem::updatePaintNode(QSGNode *node, UpdatePaintNodeData *)
 void KQuickStyleItem::updatePolish()
 {
     if (isVisible() && width() >= 1 && height() >= 1) { // Note these are reals so 1 pixel is minimum
-        const qreal devicePixelRatio = window() ? window()->devicePixelRatio() : qApp->devicePixelRatio();
+        const qreal devicePixelRatio = window() ? window()->effectiveDevicePixelRatio() : qApp->devicePixelRatio();
         const QSize size = QSize(m_textureWidth > 0 ? m_textureWidth : width(), m_textureHeight > 0 ? m_textureHeight : height()) * devicePixelRatio;
 
         if (m_image.size() != size) {
