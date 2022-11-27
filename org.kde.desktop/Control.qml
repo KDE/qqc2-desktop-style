@@ -18,13 +18,4 @@ T.Control {
                             (contentItem ? contentItem.implicitWidth : 0) + leftPadding + rightPadding)
     implicitHeight: Math.max(background ? background.implicitHeight : 0,
                              (contentItem ? contentItem.implicitHeight : 0) + topPadding + bottomPadding)
-
-    topPadding: styleItem.pixelMetric("layouttopmargin")
-    leftPadding: styleItem.pixelMetric("layoutleftmargin")
-    rightPadding: styleItem.pixelMetric("layoutrightmargin")
-    bottomPadding: styleItem.pixelMetric("layoutbottommargin")
-
-    property Item __style: StylePrivate.StyleItem {
-        id: styleItem
-    }
 }
