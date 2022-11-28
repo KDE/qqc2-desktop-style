@@ -12,7 +12,7 @@ Item {
     id: indicator
     implicitWidth: implicitHeight * 2
     implicitHeight: Kirigami.Units.gridUnit
-    layer.enabled: true
+    layer.enabled: control.opacity < 1.0
 
     property Item control
     property alias handle: handle
@@ -23,11 +23,16 @@ Item {
     QtObject { // colors collected in one place so that main code remains clean and these properties are not exposed
         id: colorFactory
 
-        readonly property color switchColor: control.checked ? Kirigami.Theme.highlightColor : Kirigami.Theme.backgroundColor
-        // blending of background color with text color for producing a border color. The usual ratios are 70:30, 80:20 and 75:25. The more the background color, the more the contrast.
-        readonly property color switchBorderColor: Qt.tint(Kirigami.Theme.textColor, Qt.rgba(switchColor.r, switchColor.g, switchColor.b, 0.7))
+        readonly property color switchColor: control.checked ? Qt.rgba(Kirigami.Theme.highlightColor.r, Kirigami.Theme.highlightColor.g, Kirigami.Theme.highlightColor.b, 0.5) : blendBackgroundWithTextColorWithRatio(0.9)
+        readonly property color switchBorderColor: control.checked ? Kirigami.Theme.highlightColor : handleBorderColor
+
         readonly property color handleColor: Kirigami.Theme.backgroundColor
-        readonly property color handleBorderColor: (control.hovered || control.visualFocus) ? Kirigami.Theme.hoverColor : Qt.tint(Kirigami.Theme.textColor, Qt.rgba(handleColor.r, handleColor.g, handleColor.b, 0.7))
+        readonly property color handleBorderColor: (control.hovered || control.visualFocus) ? Kirigami.Theme.hoverColor : blendBackgroundWithTextColorWithRatio(0.7)
+
+        function blendBackgroundWithTextColorWithRatio(factor) {
+            // blending of background color with text color for producing a border color. The usual ratios are 70:30, 80:20 and 75:25. The more the background color, the more the contrast.
+            return Qt.tint(Kirigami.Theme.textColor, Qt.rgba(Kirigami.Theme.backgroundColor.r, Kirigami.Theme.backgroundColor.g, Kirigami.Theme.backgroundColor.b, factor))
+        }
     }
 
     Rectangle {
