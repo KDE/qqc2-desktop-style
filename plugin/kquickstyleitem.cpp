@@ -25,15 +25,15 @@
 #include <Kirigami/PlatformTheme>
 #include <Kirigami/TabletModeWatcher>
 
-QStyle *KQuickStyleItem::s_style = nullptr;
+std::unique_ptr<QStyle> KQuickStyleItem::s_style = nullptr;
 
 QStyle *KQuickStyleItem::style()
 {
-    if (!qobject_cast<QApplication *>(QCoreApplication::instance())) {
-        return s_style;
+    if (s_style) {
+        return s_style.get();
+    } else {
+        return qApp->style();
     }
-    QStyle *style = qApp->style();
-    return style ? style : s_style;
 }
 
 KQuickStyleItem::KQuickStyleItem(QQuickItem *parent)
@@ -90,16 +90,12 @@ KQuickStyleItem::KQuickStyleItem(QQuickItem *parent)
         if (style) {
             connect(style, &QObject::destroyed, this, &KQuickStyleItem::styleChanged);
         }
-    } else {
+    } else if (!s_style) {
         // We are not a QApplication.  Create an internal copy of the configured
         // desktop style, to be used for metrics, options and painting.
         KSharedConfig::Ptr kdeglobals = KSharedConfig::openConfig();
         KConfigGroup cg(kdeglobals, "KDE");
-        auto style = s_style;
-        s_style = QStyleFactory::create(cg.readEntry("widgetStyle", QStringLiteral("Fusion")));
-        if (style) {
-            delete style;
-        }
+        s_style.reset(QStyleFactory::create(cg.readEntry("widgetStyle", QStringLiteral("Fusion"))));
     }
 
     m_font = qApp->font();

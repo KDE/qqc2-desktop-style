@@ -17,6 +17,8 @@
 #include <QtQuick/qquickimageprovider.h>
 #include <QtQuick/qquickitem.h>
 
+#include <memory>
+
 class QWidget;
 class QStyleOption;
 class QStyle;
@@ -531,7 +533,7 @@ protected:
     QImage m_image;
     KQuickPadding m_border;
 
-    static QStyle *s_style;
+    static std::unique_ptr<QStyle> s_style;
 };
 
 #endif // QQUICKSTYLEITEM_P_H
