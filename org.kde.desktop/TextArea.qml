@@ -33,16 +33,16 @@ T.TextArea {
     selectionColor: Kirigami.Theme.highlightColor
     selectedTextColor: Kirigami.Theme.highlightedTextColor
     wrapMode: Text.WordWrap
-    hoverEnabled: !Kirigami.Settings.tabletMode
+    hoverEnabled: !Kirigami.Settings.tabletMode || !Kirigami.Settings.hasTransientTouchInput
     verticalAlignment: TextEdit.AlignTop
 
     // Work around Qt bug where NativeRendering breaks for non-integer scale factors
     // https://bugreports.qt.io/browse/QTBUG-67007
     renderType: Screen.devicePixelRatio % 1 !== 0 ? Text.QtRendering : Text.NativeRendering
 
-    selectByMouse: !Kirigami.Settings.tabletMode
+    selectByMouse: hoverEnabled
 
-    cursorDelegate: Kirigami.Settings.tabletMode ? mobileCursor : null
+    cursorDelegate: !hoverEnabled ? mobileCursor : null
     Component {
         id: mobileCursor
         Private.MobileCursor {
@@ -93,7 +93,7 @@ T.TextArea {
     }
 
     onPressAndHold: {
-        if (!Kirigami.Settings.tabletMode) {
+        if (hoverEnabled) {
             return;
         }
         forceActiveFocus();
