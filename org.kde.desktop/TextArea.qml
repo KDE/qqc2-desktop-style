@@ -38,7 +38,7 @@ T.TextArea {
 
     // Work around Qt bug where NativeRendering breaks for non-integer scale factors
     // https://bugreports.qt.io/browse/QTBUG-67007
-    renderType: Screen.devicePixelRatio % 1 !== 0 ? Text.QtRendering : Text.NativeRendering
+    renderType: StylePrivate.TextRenderer.renderType
 
     selectByMouse: !Kirigami.Settings.tabletMode
 

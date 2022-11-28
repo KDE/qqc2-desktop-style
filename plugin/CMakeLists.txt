@@ -4,6 +4,7 @@ set(qqc2desktopstyle_SRCS
     qqc2desktopstyleplugin.cpp
     kquickstyleitem.cpp
     kpropertywriter.cpp
+    textrenderer.cpp
     )
 
 add_library(qqc2desktopstyleplugin SHARED ${qqc2desktopstyle_SRCS})

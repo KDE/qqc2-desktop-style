@@ -21,9 +21,7 @@ T.Label {
     horizontalAlignment: Text.AlignLeft
     verticalAlignment: lineCount > 1 ? Text.AlignTop : Text.AlignVCenter
 
-    // Work around Qt bug where NativeRendering breaks for non-integer scale factors
-    // https://bugreports.qt.io/browse/QTBUG-67007
-    renderType: Screen.devicePixelRatio % 1 !== 0 ? Text.QtRendering : Text.NativeRendering
+    renderType: StylePrivate.TextRenderer.renderType
 
     HoverHandler {
         cursorShape: parent.hoveredLink ? Qt.PointingHandCursor : undefined

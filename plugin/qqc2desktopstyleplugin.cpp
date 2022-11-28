@@ -7,6 +7,7 @@
 #include "qqc2desktopstyleplugin.h"
 #include "kpropertywriter_p.h"
 #include "kquickstyleitem_p.h"
+#include "textrenderer_p.h"
 
 #include <QQmlContext>
 #include <QQmlEngine>
@@ -19,6 +20,7 @@ void QQc2DesktopStylePlugin::registerTypes(const char *uri)
     qmlRegisterType<KQuickStyleItem>(uri, 1, 0, "StyleItem");
     qmlRegisterType<KPropertyWriter>(uri, 1, 0, "PropertyWriter");
     qmlRegisterAnonymousType<KQuickPadding>(uri, 1);
+    qmlRegisterUncreatableType<TextRenderer>(uri, 1, 0, "TextRenderer", QStringLiteral("Use Attached"));
     qmlProtectModule(uri, 2);
 }
 
