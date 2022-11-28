@@ -9,7 +9,6 @@
 import QtQuick
 import QtQuick.Templates as T
 import org.kde.kirigami as Kirigami
-import org.kde.qqc2desktopstyle.private as StylePrivate
 
 T.Control {
     id: control
@@ -18,4 +17,5 @@ T.Control {
                             (contentItem ? contentItem.implicitWidth : 0) + leftPadding + rightPadding)
     implicitHeight: Math.max(background ? background.implicitHeight : 0,
                              (contentItem ? contentItem.implicitHeight : 0) + topPadding + bottomPadding)
+    padding: Kirigami.Units.mediumSpacing
 }
