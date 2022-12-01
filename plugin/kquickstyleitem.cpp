@@ -1964,7 +1964,7 @@ bool KQuickStyleItem::eventFilter(QObject *watched, QEvent *event)
 
 void KQuickStyleItem::itemChange(QQuickItem::ItemChange change, const QQuickItem::ItemChangeData &value)
 {
-    if (change == QQuickItem::ItemVisibleHasChanged || change == QQuickItem::ItemEnabledHasChanged) {
+    if (change == QQuickItem::ItemVisibleHasChanged || change == QQuickItem::ItemEnabledHasChanged || change == QQuickItem::ItemDevicePixelRatioHasChanged) {
         polish();
     }
 
