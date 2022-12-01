@@ -1,5 +1,7 @@
 /*
     SPDX-FileCopyrightText: 2022 by David Edmundson <davidedmundson@kde.org>
+
+    SPDX-License-Identifier: LGPL-2.0-or-later
 */
 
 #include <QQuickItem>

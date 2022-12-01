@@ -1,5 +1,7 @@
 /*
     SPDX-FileCopyrightText: 2022 by David Edmundson <davidedmundson@kde.org>
+
+    SPDX-License-Identifier: LGPL-2.0-or-later
 */
 
 #include "textrenderer_p.h"
@@ -19,10 +21,7 @@ TextRenderAttached::TextRenderAttached(QObject *attachee)
 
 void TextRenderAttached::itemChange(ItemChange change, const ItemChangeData &value)
 {
-    if (change == QQuickItem::ItemDevicePixelRatioHasChanged) {
-        update();
-    }
-    if (change == QQuickItem::ItemSceneChange) {
+    if (change == QQuickItem::ItemDevicePixelRatioHasChanged || change == QQuickItem::ItemSceneChange) {
         update();
     }
 }
@@ -34,7 +33,8 @@ void TextRenderAttached::update()
     }
 
     QQuickWindow::TextRenderType renderType = QQuickWindow::NativeTextRendering;
-    if (fmod(window()->effectiveDevicePixelRatio(), 1.0) != 0) {
+
+    if (!qFuzzyIsNull(fmod(window()->effectiveDevicePixelRatio(), 1.0))) {
         renderType = QQuickWindow::QtTextRendering;
     }
     if (renderType != m_renderType) {
