@@ -62,6 +62,7 @@ T.Slider {
                 rightMargin: controlRoot.rightPadding
             }
 
+            enabled: controlRoot.wheelEnabled
             acceptedButtons: Qt.NoButton
 
             onWheel: {
