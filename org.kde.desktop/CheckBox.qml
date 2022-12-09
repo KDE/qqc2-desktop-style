@@ -27,10 +27,11 @@ T.CheckBox {
     hoverEnabled: true
 
     indicator: CheckIndicator {
-        LayoutMirroring.enabled: controlRoot.mirrored
-        LayoutMirroring.childrenInherit: true
-        anchors {
-            left: parent.left
+        x: if (control.contentItem !== null && control.contentItem.width > 0) {
+            return control.mirrored ?
+                control.width - width - control.rightPadding : control.leftPadding
+        } else {
+            return control.leftPadding + (control.availableWidth - width) / 2
         }
         y: if (control.contentItem !== null
             && (control.contentItem instanceof Text || control.contentItem instanceof TextEdit)
