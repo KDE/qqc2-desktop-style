@@ -1899,7 +1899,7 @@ QSGNode *KQuickStyleItem::updatePaintNode(QSGNode *node, UpdatePaintNodeData *)
     }
 
 #ifdef QSG_RUNTIME_DESCRIPTION
-    qsgnode_set_description(styleNode, QString::fromLatin1("%1:%2, '%3'").arg(styleName()).arg(elementType()).arg(text()));
+    qsgnode_set_description(styleNode, QString::fromLatin1("%1:%2, '%3'").arg(styleName(), elementType(), text()));
 #endif
 
     styleNode->setTexture(window()->createTextureFromImage(m_image, QQuickWindow::TextureCanUseAtlas));
