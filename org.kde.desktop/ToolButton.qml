@@ -50,12 +50,13 @@ T.ToolButton {
         hasFocus: controlRoot.visualFocus || (!controlRoot.flat && controlRoot.pressed) || controlRoot.highlighted
         flat: controlRoot.flat
 
-        // Set this to true to have the style render a menu arrow for the
-        // ToolButton.
-        // Note: If you use this, ensure you check whether your background item
+        // Set this to true or set `Accessible.role: Accessible.ButtonMenu`
+        // to have the style render a menu arrow for the ToolButton.
+        // Note: If you use this directly, ensure you check whether your background item
         // has this property at all, otherwise things will break with different
         // QtQuick styles!
-        property bool showMenuArrow: false
+        // TODO KF6: remove
+        property bool showMenuArrow: controlRoot.Accessible.role === Accessible.ButtonMenu
         readonly property bool hasIcon: controlRoot.icon.name.length > 0 || controlRoot.icon.source.length > 0
 
         readonly property int toolButtonStyle: {

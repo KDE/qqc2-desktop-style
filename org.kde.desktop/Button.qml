@@ -48,6 +48,7 @@ T.Button {
             "iconColor": controlRoot.icon && controlRoot.icon.color.a > 0? controlRoot.icon.color : Kirigami.Theme.textColor,
             "iconWidth": controlRoot.icon && controlRoot.icon.width ? controlRoot.icon.width : 0,
             "iconHeight": controlRoot.icon && controlRoot.icon.height ? controlRoot.icon.height : 0,
+            "menu": controlRoot.Accessible.role === Accessible.ButtonMenu
         }
     }
 }
