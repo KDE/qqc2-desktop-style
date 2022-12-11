@@ -15,11 +15,12 @@ import "private"
 T.CheckBox {
     id: controlRoot
 
-    implicitWidth: Math.max(background ? background.implicitWidth : 0,
-                            contentItem.implicitWidth + leftPadding + rightPadding)
-    implicitHeight: Math.max(background ? background.implicitHeight : 0,
-                             Math.max(contentItem.implicitHeight,
-                                      indicator ? indicator.implicitHeight : 0) + topPadding + bottomPadding)
+    implicitWidth: Math.max(implicitBackgroundWidth + leftInset + rightInset,
+                            implicitContentWidth + leftPadding + rightPadding,
+                            implicitIndicatorWidth + leftPadding + rightPadding)
+    implicitHeight: Math.max(implicitBackgroundHeight + topInset + bottomInset,
+                             implicitContentHeight + topPadding + bottomPadding,
+                             implicitIndicatorHeight + topPadding + bottomPadding)
     baselineOffset: contentItem.y + contentItem.baselineOffset
 
     spacing: indicator && typeof indicator.pixelMetric === "function" ? indicator.pixelMetric("checkboxlabelspacing") : Kirigami.Units.smallSpacing
