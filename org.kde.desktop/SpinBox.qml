@@ -7,7 +7,6 @@
 
 
 import QtQuick 2.15
-import QtQuick.Window 2.15
 import QtQuick.Templates 2.15 as T
 import org.kde.kirigami 2.20 as Kirigami
 import org.kde.qqc2desktopstyle.private 1.0 as StylePrivate
@@ -66,9 +65,6 @@ T.SpinBox {
         validator: controlRoot.validator
         inputMethodHints: controlRoot.inputMethodHints
 
-        // Work around Qt bug where NativeRendering breaks for non-integer scale factors
-        // https://bugreports.qt.io/browse/QTBUG-67007
-        renderType: Screen.devicePixelRatio % 1 !== 0 ? Text.QtRendering : Text.NativeRendering
 
         // SpinBox does not update its value during editing, see QTBUG-91281
         onTextEdited: if (controlRoot.contentItem.text.length > 0 && acceptableInput) {

@@ -8,7 +8,6 @@
 
 
 import QtQuick 2.12
-import QtQuick.Window 2.1
 import QtQuick.Templates 2.15 as T
 import org.kde.kirigami 2.18 as Kirigami
 import org.kde.qqc2desktopstyle.private 1.0 as StylePrivate
@@ -36,9 +35,6 @@ T.TextArea {
     hoverEnabled: !Kirigami.Settings.tabletMode || !Kirigami.Settings.hasTransientTouchInput
     verticalAlignment: TextEdit.AlignTop
 
-    // Work around Qt bug where NativeRendering breaks for non-integer scale factors
-    // https://bugreports.qt.io/browse/QTBUG-67007
-    renderType: Screen.devicePixelRatio % 1 !== 0 ? Text.QtRendering : Text.NativeRendering
 
     selectByMouse: hoverEnabled
 

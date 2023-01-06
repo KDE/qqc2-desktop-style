@@ -7,7 +7,6 @@
 
 
 import QtQuick 2.12
-import QtQuick.Window 2.1
 import QtQuick.Controls 2.15 as Controls
 import QtQuick.Templates 2.15 as T
 import org.kde.kirigami 2.4 as Kirigami
@@ -35,9 +34,6 @@ T.TextField {
     verticalAlignment: TextInput.AlignVCenter
     hoverEnabled: !Kirigami.Settings.tabletMode
 
-    // Work around Qt bug where NativeRendering breaks for non-integer scale factors
-    // https://bugreports.qt.io/browse/QTBUG-67007
-    renderType: Screen.devicePixelRatio % 1 !== 0 ? Text.QtRendering : Text.NativeRendering
     selectByMouse: !Kirigami.Settings.tabletMode
 
     cursorDelegate: Kirigami.Settings.tabletMode ? mobileCursor : null
@@ -101,9 +97,6 @@ T.TextField {
         width: controlRoot.width - controlRoot.leftPadding - controlRoot.rightPadding
         height: controlRoot.height - controlRoot.topPadding - controlRoot.bottomPadding
 
-        // Work around Qt bug where NativeRendering breaks for non-integer scale factors
-        // https://bugreports.qt.io/browse/QTBUG-67007
-        renderType: Screen.devicePixelRatio % 1 !== 0 ? Text.QtRendering : Text.NativeRendering
 
         text: controlRoot.placeholderText
         font: controlRoot.font

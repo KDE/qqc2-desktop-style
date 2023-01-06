@@ -7,7 +7,6 @@
 
 
 import QtQuick 2.6
-import QtQuick.Window 2.2
 import QtQuick.Templates 2.15 as T
 import QtQuick.Controls 2.15 as Controls
 import org.kde.qqc2desktopstyle.private 1.0 as StylePrivate
@@ -69,9 +68,6 @@ T.ComboBox {
         inputMethodHints: controlRoot.inputMethodHints
         validator: controlRoot.validator
 
-        // Work around Qt bug where NativeRendering breaks for non-integer scale factors
-        // https://bugreports.qt.io/browse/QTBUG-67007
-        renderType: Screen.devicePixelRatio % 1 !== 0 ? Text.QtRendering : Text.NativeRendering
         color: controlRoot.enabled ? Kirigami.Theme.textColor : Kirigami.Theme.disabledTextColor
         selectionColor: Kirigami.Theme.highlightColor
         selectedTextColor: Kirigami.Theme.highlightedTextColor
