@@ -62,12 +62,31 @@ T.TabButton {
         anchors.fill: parent
         elementType: "tab"
         paintMargins: 0
-        property Item tabBar: controlRoot.parent.parent.parent
 
-        property string orientation: tabBar.position == TabBar.Header ? "Top" : "Bottom"
-        property string selectedpos: tabBar.currentIndex == controlRoot.ObjectModel.index + 1 ? "next" :
-                                    tabBar.currentIndex == controlRoot.ObjectModel.index - 1 ? "previous" : ""
-        property string tabpos: tabBar.count === 1 ? "only" : controlRoot.ObjectModel.index === 0 ? "beginning" : controlRoot.ObjectModel.index === tabBar.count - 1 ? "end" : "middle"
+        readonly property TabBar tabBar: controlRoot.TabBar.tabBar
+
+        property string orientation: controlRoot.TabBar.position === TabBar.Header ? "Top" : "Bottom"
+        property string selectedpos: {
+            if (tabBar) {
+                switch (tabBar.currentIndex) {
+                case (controlRoot.TabBar.index + 1): return "next";
+                case (controlRoot.TabBar.index - 1): return "previous";
+                }
+            }
+            return "";
+        }
+        property string tabpos: {
+            if (tabBar) {
+                if (tabBar.count === 1) {
+                    return "only";
+                }
+                switch (controlRoot.TabBar.index) {
+                case 0: return "beginning";
+                case (tabBar.count - 1): return "end";
+                }
+            }
+            return "middle";
+        }
 
         properties: {
             "icon": controlRoot.display !== T.AbstractButton.TextOnly
