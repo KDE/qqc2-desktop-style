@@ -25,7 +25,7 @@ StylePrivate.StyleItem {
     properties: {
         "icon": styleitem.drawIcon && control.display !== T.AbstractButton.TextOnly
             ? (control.icon.name !== "" ? control.icon.name : control.icon.source) : null,
-        "iconColor": control.icon.color.a > 0 ? control.icon.color : Kirigami.Theme.textColor,
+        "iconColor": Qt.colorEqual(control.icon.color, "transparent") ? Kirigami.Theme.textColor : control.icon.color,
         "iconWidth": control.icon.width,
         "iconHeight": control.icon.height,
 

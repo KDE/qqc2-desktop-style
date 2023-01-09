@@ -82,7 +82,7 @@ T.ToolButton {
 
         properties: {
             "icon": controlRoot.icon.name !== "" ? controlRoot.icon.name : controlRoot.icon.source,
-            "iconColor": controlRoot.icon.color.a > 0 ? controlRoot.icon.color : Kirigami.Theme.textColor,
+            "iconColor": Qt.colorEqual(controlRoot.icon.color, "transparent") ? Kirigami.Theme.textColor : controlRoot.icon.color,
             "iconWidth": controlRoot.icon.width,
             "iconHeight": controlRoot.icon.height,
 
