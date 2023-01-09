@@ -368,6 +368,18 @@ void KQuickStyleItem::initStyleOption()
             m_iconDirty = false;
         }
 
+        auto iconSize = QSize(m_properties[QStringLiteral("iconWidth")].toInt(), m_properties[QStringLiteral("iconHeight")].toInt());
+        if (iconSize.isEmpty()) {
+            int e = KQuickStyleItem::style()->pixelMetric(QStyle::PM_TabBarIconSize, m_styleoption, nullptr);
+            if (iconSize.width() <= 0) {
+                iconSize.setWidth(e);
+            }
+            if (iconSize.height() <= 0) {
+                iconSize.setHeight(e);
+            }
+        }
+        opt->iconSize = iconSize;
+
         if (m_properties.value(QStringLiteral("hasFrame")).toBool()) {
             opt->features |= QStyleOptionTab::HasFrame;
         }
