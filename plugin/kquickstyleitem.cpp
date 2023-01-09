@@ -1042,16 +1042,15 @@ QSize KQuickStyleItem::sizeFromContents(int width, int height)
     QSize size;
     switch (m_itemType) {
     case RadioButton:
-        size = KQuickStyleItem::style()->sizeFromContents(QStyle::CT_RadioButton, m_styleoption, QSize(width, height));
-        break;
     case CheckBox: {
+        auto contentType = (m_itemType == RadioButton) ? QStyle::CT_RadioButton : QStyle::CT_CheckBox;
         QStyleOptionButton *btn = qstyleoption_cast<QStyleOptionButton *>(m_styleoption);
         QSize contentSize = btn->fontMetrics.size(Qt::TextShowMnemonic, btn->text);
         if (!btn->icon.isNull()) {
             contentSize.setWidth(contentSize.width() + btn->iconSize.width());
             contentSize.setHeight(std::max(contentSize.height(), btn->iconSize.height()));
         }
-        size = KQuickStyleItem::style()->sizeFromContents(QStyle::CT_CheckBox, m_styleoption, contentSize);
+        size = KQuickStyleItem::style()->sizeFromContents(contentType, m_styleoption, contentSize);
         break;
     }
     case ToolBar:
