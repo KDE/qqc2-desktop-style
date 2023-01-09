@@ -1,6 +1,7 @@
 /*
     SPDX-FileCopyrightText: 2017 Marco Martin <mart@kde.org>
     SPDX-FileCopyrightText: 2017 The Qt Company Ltd.
+    SPDX-FileCopyrightText: 2023 ivan tkachenko <me@ratijas.tk>
 
     SPDX-License-Identifier: LGPL-3.0-only OR GPL-2.0-or-later
 */
@@ -44,10 +45,12 @@ T.Button {
         hasFocus: controlRoot.activeFocus || controlRoot.highlighted
         activeControl: controlRoot.Accessible.defaultButton ? "default" : ""
         properties: {
-            "icon": controlRoot.icon && controlRoot.display !== T.AbstractButton.TextOnly ? (controlRoot.icon.name || controlRoot.icon.source) : "",
-            "iconColor": controlRoot.icon && controlRoot.icon.color.a > 0? controlRoot.icon.color : Kirigami.Theme.textColor,
-            "iconWidth": controlRoot.icon && controlRoot.icon.width ? controlRoot.icon.width : 0,
-            "iconHeight": controlRoot.icon && controlRoot.icon.height ? controlRoot.icon.height : 0,
+            "icon": controlRoot.display !== T.AbstractButton.TextOnly
+                ? (controlRoot.icon.name !== "" ? controlRoot.icon.name : controlRoot.icon.source) : null,
+            "iconColor": controlRoot.icon.color.a > 0 ? controlRoot.icon.color : Kirigami.Theme.textColor,
+            "iconWidth": controlRoot.icon.width,
+            "iconHeight": controlRoot.icon.height,
+
             "menu": controlRoot.Accessible.role === Accessible.ButtonMenu
         }
     }

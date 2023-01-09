@@ -1,6 +1,7 @@
 /*
     SPDX-FileCopyrightText: 2017 Marco Martin <mart@kde.org>
     SPDX-FileCopyrightText: 2017 The Qt Company Ltd.
+    SPDX-FileCopyrightText: 2023 ivan tkachenko <me@ratijas.tk>
 
     SPDX-License-Identifier: LGPL-3.0-only OR GPL-2.0-or-later
 */
@@ -53,21 +54,33 @@ T.DelayButton {
         maximum: 1000
         value: controlRoot.progress * maximum
 
+        // note: keep in sync with ToolButton
         readonly property int toolButtonStyle: {
             switch (controlRoot.display) {
-            case T.ToolButton.IconOnly: return Qt.ToolButtonIconOnly;
-            case T.ToolButton.TextOnly: return Qt.ToolButtonTextOnly;
-            case T.ToolButton.TextBesideIcon: return Qt.ToolButtonTextBesideIcon;
-            case T.ToolButton.TextUnderIcon: return Qt.ToolButtonTextUnderIcon;
+            case T.AbstractButton.IconOnly: return Qt.ToolButtonIconOnly;
+            case T.AbstractButton.TextOnly: return Qt.ToolButtonTextOnly;
+            case T.AbstractButton.TextBesideIcon:
+            case T.AbstractButton.TextUnderIcon:
+                // TODO KF6: check if this condition is still needed
+                if (controlRoot.icon.name !== "" || controlRoot.icon.source.toString() !== "") {
+                    // has icon
+                    switch (controlRoot.display) {
+                        case T.AbstractButton.TextBesideIcon: return Qt.ToolButtonTextBesideIcon;
+                        case T.AbstractButton.TextUnderIcon: return Qt.ToolButtonTextUnderIcon;
+                    }
+                } else {
+                    return Qt.ToolButtonTextOnly;
+                }
             default: return Qt.ToolButtonFollowStyle;
             }
         }
 
         properties: {
-            "icon": controlRoot.icon.name || controlRoot.icon.source,
-            "iconColor": controlRoot.icon.color,
+            "icon": controlRoot.icon.name !== "" ? controlRoot.icon.name : controlRoot.icon.source,
+            "iconColor": controlRoot.icon.color.a > 0 ? controlRoot.icon.color : Kirigami.Theme.textColor,
             "iconWidth": controlRoot.icon.width,
             "iconHeight": controlRoot.icon.height,
+
             "toolButtonStyle": toolButtonStyle,
         }
     }

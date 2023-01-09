@@ -1,6 +1,7 @@
 /*
     SPDX-FileCopyrightText: 2017 Marco Martin <mart@kde.org>
     SPDX-FileCopyrightText: 2017 The Qt Company Ltd.
+    SPDX-FileCopyrightText: 2023 ivan tkachenko <me@ratijas.tk>
 
     SPDX-License-Identifier: LGPL-3.0-only OR GPL-2.0-or-later
 */
@@ -31,8 +32,8 @@ T.ItemDelegate {
         spacing: Kirigami.Units.smallSpacing
         Kirigami.Icon {
             Layout.alignment: Qt.AlignVCenter
-            visible: controlRoot.icon !== undefined && (controlRoot.icon.name.length > 0 || controlRoot.icon.source.toString().length > 0)
-            source: controlRoot.icon ? (controlRoot.icon.name || controlRoot.icon.source) : ""
+            visible: controlRoot.icon.name !== "" || controlRoot.icon.source.toString() !== ""
+            source: controlRoot.icon.name !== "" ? controlRoot.icon.name : controlRoot.icon.source
             Layout.preferredHeight: Kirigami.Units.iconSizes.small
             Layout.preferredWidth: Layout.preferredHeight
         }

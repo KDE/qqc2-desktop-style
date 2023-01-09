@@ -1,6 +1,7 @@
 /*
     SPDX-FileCopyrightText: 2017 Marco Martin <mart@kde.org>
     SPDX-FileCopyrightText: 2017 The Qt Company Ltd.
+    SPDX-FileCopyrightText: 2023 ivan tkachenko <me@ratijas.tk>
 
     SPDX-License-Identifier: LGPL-3.0-only OR GPL-2.0-or-later
 */
@@ -30,8 +31,13 @@ T.CheckDelegate {
     bottomPadding: padding
 
     contentItem: Label {
-        readonly property int indicatorEffectiveWidth: controlRoot.indicator && typeof controlRoot.indicator.pixelMetric === "function" && controlRoot.icon.name == "" && controlRoot.icon.source == ""
-            ? controlRoot.indicator.pixelMetric("indicatorwidth") + controlRoot.spacing : controlRoot.indicator.width
+        readonly property int indicatorEffectiveWidth: (
+                controlRoot.indicator
+                && typeof controlRoot.indicator.pixelMetric === "function"
+                && controlRoot.icon.name === ""
+                && controlRoot.icon.source.toString() === ""
+            ) ? controlRoot.indicator.pixelMetric("indicatorwidth") + controlRoot.spacing
+              : controlRoot.indicator.width
 
         leftPadding: controlRoot.indicator && !controlRoot.mirrored ? indicatorEffectiveWidth : 0
         rightPadding: controlRoot.indicator && controlRoot.mirrored ? indicatorEffectiveWidth : 0

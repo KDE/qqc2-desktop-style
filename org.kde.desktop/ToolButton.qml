@@ -1,6 +1,7 @@
 /*
     SPDX-FileCopyrightText: 2017 Marco Martin <mart@kde.org>
     SPDX-FileCopyrightText: 2017 The Qt Company Ltd.
+    SPDX-FileCopyrightText: 2023 ivan tkachenko <me@ratijas.tk>
 
     SPDX-License-Identifier: LGPL-3.0-only OR GPL-2.0-or-later
 */
@@ -57,23 +58,34 @@ T.ToolButton {
         // QtQuick styles!
         // TODO KF6: remove
         property bool showMenuArrow: controlRoot.Accessible.role === Accessible.ButtonMenu
-        readonly property bool hasIcon: controlRoot.icon.name.length > 0 || controlRoot.icon.source.length > 0
 
+        // note: keep in sync with DelayButton
         readonly property int toolButtonStyle: {
             switch (controlRoot.display) {
-            case T.ToolButton.IconOnly: return Qt.ToolButtonIconOnly;
-            case T.ToolButton.TextOnly: return Qt.ToolButtonTextOnly;
-            case T.ToolButton.TextBesideIcon: return hasIcon ? Qt.ToolButtonTextBesideIcon : Qt.ToolButtonTextOnly;
-            case T.ToolButton.TextUnderIcon: return hasIcon ? Qt.ToolButtonTextUnderIcon : Qt.ToolButtonTextOnly;
+            case T.AbstractButton.IconOnly: return Qt.ToolButtonIconOnly;
+            case T.AbstractButton.TextOnly: return Qt.ToolButtonTextOnly;
+            case T.AbstractButton.TextBesideIcon:
+            case T.AbstractButton.TextUnderIcon:
+                // TODO KF6: check if this condition is still needed
+                if (controlRoot.icon.name !== "" || controlRoot.icon.source.toString() !== "") {
+                    // has icon
+                    switch (controlRoot.display) {
+                        case T.AbstractButton.TextBesideIcon: return Qt.ToolButtonTextBesideIcon;
+                        case T.AbstractButton.TextUnderIcon: return Qt.ToolButtonTextUnderIcon;
+                    }
+                } else {
+                    return Qt.ToolButtonTextOnly;
+                }
             default: return Qt.ToolButtonFollowStyle;
             }
         }
 
         properties: {
-            "icon": controlRoot.icon ? (controlRoot.icon.name || controlRoot.icon.source) : "",
-            "iconColor": controlRoot.icon && controlRoot.icon.color.a > 0 ? controlRoot.icon.color : Kirigami.Theme.textColor,
-            "iconWidth": controlRoot.icon ? controlRoot.icon.width : 0,
-            "iconHeight": controlRoot.icon ? controlRoot.icon.height : 0,
+            "icon": controlRoot.icon.name !== "" ? controlRoot.icon.name : controlRoot.icon.source,
+            "iconColor": controlRoot.icon.color.a > 0 ? controlRoot.icon.color : Kirigami.Theme.textColor,
+            "iconWidth": controlRoot.icon.width,
+            "iconHeight": controlRoot.icon.height,
+
             "menu": showMenuArrow,
             "toolButtonStyle": toolButtonStyle,
         }
