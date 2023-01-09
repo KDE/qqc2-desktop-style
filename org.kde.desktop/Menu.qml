@@ -1,6 +1,7 @@
 /*
     SPDX-FileCopyrightText: 2017 Marco Martin <mart@kde.org>
     SPDX-FileCopyrightText: 2017 The Qt Company Ltd.
+    SPDX-FileCopyrightText: 2023 ivan tkachenko <me@ratijas.tk>
 
     SPDX-License-Identifier: LGPL-3.0-only OR GPL-2.0-or-later
 */
@@ -74,16 +75,20 @@ T.Menu {
 
         function onVisibleChildrenChanged() {
             const children = control.contentItem.contentItem.visibleChildren;
+            let hasCheckables = control.contentItem.hasCheckables;
+            let hasIcons = control.contentItem.hasIcons;
             for (let i in children) {
                 const child = children[i];
                 if (child.checkable) {
-                    control.contentItem.hasCheckables = true;
+                    hasCheckables = true;
                 }
                 if (child.icon && child.icon.hasOwnProperty("name")
-                        && (child.icon.name.length > 0 || child.icon.source.toString().length > 0)) {
-                    control.contentItem.hasIcons = true;
+                        && (child.icon.name !== "" || child.icon.source.toString() !== "")) {
+                    hasIcons = true;
                 }
             }
+            control.contentItem.hasCheckables = hasCheckables;
+            control.contentItem.hasIcons = hasIcons;
         }
     }
 
