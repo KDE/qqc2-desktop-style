@@ -48,7 +48,7 @@ T.DelayButton {
         on: controlRoot.checkable && controlRoot.checked
         hover: controlRoot.hovered
         text: controlRoot.Kirigami.MnemonicData.mnemonicLabel
-        hasFocus: controlRoot.visualFocus || (!controlRoot.flat && controlRoot.pressed)
+        hasFocus: controlRoot.visualFocus || controlRoot.pressed
         flat: false
         minimum: 0
         maximum: 1000
