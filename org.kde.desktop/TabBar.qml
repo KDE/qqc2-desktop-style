@@ -1,6 +1,7 @@
 /*
     SPDX-FileCopyrightText: 2017 Marco Martin <mart@kde.org>
     SPDX-FileCopyrightText: 2017 The Qt Company Ltd.
+    SPDX-FileCopyrightText: 2023 ivan tkachenko <me@ratijas.tk>
 
     SPDX-License-Identifier: LGPL-3.0-only OR GPL-2.0-or-later
 */
@@ -31,7 +32,7 @@ T.TabBar {
         model: controlRoot.contentModel
         currentIndex: controlRoot.currentIndex
 
-        spacing: -styleItem.pixelMetric("tabOverlap") - 1
+        spacing: -styleItem.pixelMetric("tabOverlap")
         orientation: ListView.Horizontal
         boundsBehavior: Flickable.StopAtBounds
         flickableDirection: Flickable.AutoFlickIfNeeded
