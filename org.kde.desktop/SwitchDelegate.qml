@@ -45,5 +45,7 @@ T.SwitchDelegate {
         control: controlRoot
     }
 
-    background: DefaultListItemBackground {}
+    background: DefaultListItemBackground {
+        control: controlRoot
+    }
 }

@@ -55,5 +55,7 @@ T.ItemDelegate {
         }
     }
 
-    background: DefaultListItemBackground {}
+    background: DefaultListItemBackground {
+        control: controlRoot
+    }
 }

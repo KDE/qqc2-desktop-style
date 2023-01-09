@@ -58,5 +58,7 @@ T.CheckDelegate {
         control: controlRoot
     }
 
-    background: DefaultListItemBackground {}
+    background: DefaultListItemBackground {
+        control: controlRoot
+    }
 }
