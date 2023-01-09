@@ -3,6 +3,7 @@
     SPDX-FileCopyrightText: 2017 Marco Martin <mart@kde.org>
     SPDX-FileCopyrightText: 2017 David Edmundson <davidedmundson@kde.org>
     SPDX-FileCopyrightText: 2019 David Redondo <david@david-redondo.de>
+    SPDX-FileCopyrightText: 2023 ivan tkachenko <me@ratijas.tk>
 
     SPDX-License-Identifier: LGPL-3.0-only OR GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KFQF-Accepted-GPL OR LicenseRef-Qt-Commercial
 */
@@ -307,7 +308,10 @@ void KQuickStyleItem::initStyleOption()
         opt->activeSubControls = QStyle::SC_ToolButton;
         opt->text = text();
 
-        opt->icon = iconFromIconProperty();
+        if (m_iconDirty || opt->icon.isNull()) {
+            opt->icon = iconFromIconProperty();
+            m_iconDirty = false;
+        }
 
         auto iconSize = QSize(m_properties[QStringLiteral("iconWidth")].toInt(), m_properties[QStringLiteral("iconHeight")].toInt());
         if (iconSize.isEmpty()) {
@@ -358,6 +362,11 @@ void KQuickStyleItem::initStyleOption()
 
         QStyleOptionTab *opt = qstyleoption_cast<QStyleOptionTab *>(m_styleoption);
         opt->text = text();
+
+        if (m_iconDirty || opt->icon.isNull()) {
+            opt->icon = iconFromIconProperty();
+            m_iconDirty = false;
+        }
 
         if (m_properties.value(QStringLiteral("hasFrame")).toBool()) {
             opt->features |= QStyleOptionTab::HasFrame;
@@ -495,7 +504,12 @@ void KQuickStyleItem::initStyleOption()
                     opt->checkType = exclusive.toBool() ? QStyleOptionMenuItem::Exclusive : QStyleOptionMenuItem::NonExclusive;
                 }
             }
-            opt->icon = iconFromIconProperty();
+
+            if (m_iconDirty || opt->icon.isNull()) {
+                opt->icon = iconFromIconProperty();
+                m_iconDirty = false;
+            }
+
             setProperty("_q_showUnderlined", m_hints[QStringLiteral("showUnderlined")].toBool());
 
             const QFont font = qApp->font(m_itemType == ComboBoxItem ? "QComboMenuItem" : "QMenu");
@@ -520,7 +534,10 @@ void KQuickStyleItem::initStyleOption()
         }
         opt->text = text();
 
-        opt->icon = iconFromIconProperty();
+        if (m_iconDirty || opt->icon.isNull()) {
+            opt->icon = iconFromIconProperty();
+            m_iconDirty = false;
+        }
 
         auto iconSize = QSize(m_properties[QStringLiteral("iconWidth")].toInt(), m_properties[QStringLiteral("iconHeight")].toInt());
         if (iconSize.isEmpty()) {
