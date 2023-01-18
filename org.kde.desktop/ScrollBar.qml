@@ -50,13 +50,13 @@ T.ScrollBar {
             // Controls auto-hide behavior state, 0 = hidden, 1 = fully visible
             property real handleState: 0
 
-            x: controlRoot.orientation === Qt.Vertical
+            x: controlRoot.vertical
                 ? Math.round((Qt.application.layoutDirection === Qt.LeftToRight
                     ? (parent.width - width) - (parent.width/2 - width/2) * handleState
                     : (parent.width/2 - width/2) * handleState))
                 : 0
 
-            y: controlRoot.orientation === Qt.Horizontal
+            y: controlRoot.horizontal
                 ? Math.round((parent.height - height) - (parent.height/2 - height/2) * handleState)
                 : 0
 
@@ -72,10 +72,10 @@ T.ScrollBar {
                 running: false
             }
 
-            width: Math.round(controlRoot.orientation === Qt.Vertical
+            width: Math.round(controlRoot.vertical
                     ? Math.max(2, Kirigami.Units.smallSpacing * handleState)
                     : parent.width)
-            height: Math.round(controlRoot.orientation === Qt.Horizontal
+            height: Math.round(controlRoot.horizontal
                     ? Math.max(2, Kirigami.Units.smallSpacing * handleState)
                     : parent.height)
             radius: Math.min(width, height)
@@ -100,7 +100,7 @@ T.ScrollBar {
         acceptedButtons: Qt.LeftButton | Qt.MiddleButton
         onExited: style.activeControl = "groove";
         onPressed: mouse => {
-            const jump_position = Math.min(1 - controlRoot.size, Math.max(0, mouse.y / (controlRoot.orientation === Qt.Vertical ? height : width) - controlRoot.size / 2));
+            const jump_position = Math.min(1 - controlRoot.size, Math.max(0, mouse.y / (controlRoot.vertical ? height : width) - controlRoot.size / 2));
             if (mouse.buttons & Qt.MiddleButton) {
                 style.activeControl = "handle";
                 controlRoot.position = jump_position;
@@ -169,7 +169,7 @@ T.ScrollBar {
         StylePrivate.StyleItem {
             id: style
 
-            readonly property real length: (controlRoot.orientation === Qt.Vertical ? height : width)
+            readonly property real length: controlRoot.vertical ? height : width
             property rect grooveRect: Qt.rect(0, 0, 0, 0)
             readonly property real topScrollbarPadding: grooveRect.top
             readonly property real bottomScrollbarPadding: height - grooveRect.bottom
@@ -193,7 +193,7 @@ T.ScrollBar {
             minimum: 0
             maximum: style.length / controlRoot.size - style.length
             value: controlRoot.position * (style.length / controlRoot.size)
-            horizontal: controlRoot.orientation === Qt.Horizontal
+            horizontal: controlRoot.horizontal
             enabled: controlRoot.enabled
 
             visible: controlRoot.size < 1.0
