@@ -134,7 +134,7 @@ T.ScrollBar {
             }
         }
         onPositionChanged: mouse => {
-            style.activeControl = style.hitTest(mouse.x, mouse.y)
+            style.activeControl = style.hitTest(mouse.x, mouse.y);
             if (mouse.buttons & Qt.MiddleButton) {
                 style.activeControl = "handle";
                 controlRoot.position = style.positionFromMouse(mouse);
@@ -142,6 +142,7 @@ T.ScrollBar {
             }
         }
         onReleased: mouse => {
+            style.activeControl = style.hitTest(mouse.x, mouse.y);
             buttonTimer.running = false;
             mouse.accepted = false;
         }
