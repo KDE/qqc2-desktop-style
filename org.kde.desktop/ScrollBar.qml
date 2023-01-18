@@ -35,8 +35,10 @@ T.ScrollBar {
     bottomPadding: style.bottomScrollbarPadding
 
     onPositionChanged: {
-        disappearTimer.restart();
-        handleGraphics.handleState = Math.min(1, handleGraphics.handleState + 0.1)
+        if (handleGraphics.visible) {
+            disappearTimer.restart();
+            handleGraphics.handleState = Math.min(1, handleGraphics.handleState + 0.1)
+        }
     }
 
     contentItem: Item {
