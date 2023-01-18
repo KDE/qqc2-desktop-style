@@ -100,10 +100,10 @@ T.ScrollBar {
         acceptedButtons: Qt.LeftButton | Qt.MiddleButton
         onExited: style.activeControl = "groove";
         onPressed: mouse => {
-            const jump_position = Math.min(1 - controlRoot.size, Math.max(0, mouse.y / (controlRoot.vertical ? height : width) - controlRoot.size / 2));
+            const jumpPosition = style.positionFromMouse(mouse);
             if (mouse.buttons & Qt.MiddleButton) {
                 style.activeControl = "handle";
-                controlRoot.position = jump_position;
+                controlRoot.position = jumpPosition;
                 mouse.accepted = true;
             } else if (style.activeControl === "down") {
                 buttonTimer.increment = 1;
@@ -115,7 +115,7 @@ T.ScrollBar {
                 mouse.accepted = true;
             } else if (style.activeControl === "downPage") {
                 if (style.styleHint("scrollToClickPosition")) {
-                    controlRoot.position = jump_position;
+                    controlRoot.position = jumpPosition;
                 } else {
                     buttonTimer.increment = controlRoot.size;
                     buttonTimer.running = true;
@@ -123,7 +123,7 @@ T.ScrollBar {
                 mouse.accepted = true;
             } else if (style.activeControl === "upPage") {
                 if (style.styleHint("scrollToClickPosition")) {
-                    controlRoot.position = jump_position;
+                    controlRoot.position = jumpPosition;
                 } else {
                     buttonTimer.increment = -controlRoot.size;
                     buttonTimer.running = true;
@@ -137,7 +137,7 @@ T.ScrollBar {
             style.activeControl = style.hitTest(mouse.x, mouse.y)
             if (mouse.buttons & Qt.MiddleButton) {
                 style.activeControl = "handle";
-                controlRoot.position = Math.min(1 - controlRoot.size, Math.max(0, mouse.y / style.length - controlRoot.size / 2));
+                controlRoot.position = style.positionFromMouse(mouse);
                 mouse.accepted = true;
             }
         }
@@ -182,6 +182,15 @@ T.ScrollBar {
 
             function computeRects() {
                 grooveRect = subControlRect("groove");
+            }
+
+            function positionFromMouse(mouse /*MouseEvent*/): real {
+                return Math.min(1 - controlRoot.size, Math.max(0,
+                    (controlRoot.horizontal
+                        ? mouse.x / width
+                        : mouse.y / height
+                    ) - controlRoot.size / 2
+                ));
             }
 
             control: controlRoot
