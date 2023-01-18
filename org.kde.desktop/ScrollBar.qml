@@ -1,16 +1,16 @@
 /*
     SPDX-FileCopyrightText: 2017 Marco Martin <mart@kde.org>
     SPDX-FileCopyrightText: 2017 The Qt Company Ltd.
+    SPDX-FileCopyrightText: 2023 ivan tkachenko <me@ratijas.tk>
 
     SPDX-License-Identifier: LGPL-3.0-only OR GPL-2.0-or-later
 */
-
 
 import QtQuick 2.15
 import QtQml 2.15
 import org.kde.qqc2desktopstyle.private 1.0 as StylePrivate
 import QtQuick.Templates 2.15 as T
-import org.kde.kirigami 2.11 as Kirigami
+import org.kde.kirigami 2.20 as Kirigami
 
 T.ScrollBar {
     id: controlRoot
@@ -44,17 +44,19 @@ T.ScrollBar {
 
         Rectangle {
             id: handleGraphics
+
+            // Controls auto-hide behavior state, 0 = hidden, 1 = fully visible
             property real handleState: 0
 
-            x: Math.round(controlRoot.orientation === Qt.Vertical
-                ? (Qt.application.layoutDirection === Qt.LeftToRight
+            x: controlRoot.orientation === Qt.Vertical
+                ? Math.round((Qt.application.layoutDirection === Qt.LeftToRight
                     ? (parent.width - width) - (parent.width/2 - width/2) * handleState
-                    : (parent.width/2 - width/2) * handleState)
-                : 0)
+                    : (parent.width/2 - width/2) * handleState))
+                : 0
 
-            y: Math.round(controlRoot.orientation === Qt.Horizontal
-                ? (parent.height - height) - (parent.height/2 - height/2) * handleState
-                : 0)
+            y: controlRoot.orientation === Qt.Horizontal
+                ? Math.round((parent.height - height) - (parent.height/2 - height/2) * handleState)
+                : 0
 
             NumberAnimation {
                 id: resetAnim
