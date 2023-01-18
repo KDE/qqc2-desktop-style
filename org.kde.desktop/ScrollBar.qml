@@ -60,14 +60,16 @@ T.ScrollBar {
                 ? Math.round((parent.height - height) - (parent.height/2 - height/2) * handleState)
                 : 0
 
-            NumberAnimation {
+            NumberAnimation on handleState {
                 id: resetAnim
-                target: handleGraphics
-                property: "handleState"
                 from: handleGraphics.handleState
                 to: 0
                 duration: Kirigami.Units.longDuration
                 easing.type: Easing.InOutQuad
+                // Same trick as in BusyIndicator. Animations using property
+                // interceptor syntax are running by default. We don't want
+                // this, as we will only run it with restart() method when needed.
+                running: false
             }
 
             width: Math.round(controlRoot.orientation === Qt.Vertical
