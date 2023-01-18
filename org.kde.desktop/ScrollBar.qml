@@ -99,7 +99,7 @@ T.ScrollBar {
         hoverEnabled: true
         acceptedButtons: Qt.LeftButton | Qt.MiddleButton
         onExited: style.activeControl = "groove";
-        onPressed: {
+        onPressed: mouse => {
             const jump_position = Math.min(1 - controlRoot.size, Math.max(0, mouse.y / (controlRoot.orientation === Qt.Vertical ? height : width) - controlRoot.size / 2));
             if (mouse.buttons & Qt.MiddleButton) {
                 style.activeControl = "handle";
@@ -133,7 +133,7 @@ T.ScrollBar {
                 mouse.accepted = false;
             }
         }
-        onPositionChanged: {
+        onPositionChanged: mouse => {
             style.activeControl = style.hitTest(mouse.x, mouse.y)
             if (mouse.buttons & Qt.MiddleButton) {
                 style.activeControl = "handle";
@@ -141,7 +141,7 @@ T.ScrollBar {
                 mouse.accepted = true;
             }
         }
-        onReleased: {
+        onReleased: mouse => {
             buttonTimer.running = false;
             mouse.accepted = false;
         }
