@@ -177,9 +177,10 @@ T.ScrollBar {
             readonly property real leftScrollbarPadding: grooveRect.left
             readonly property real rightScrollbarPadding: width - grooveRect.right
 
-            Component.onCompleted: computeRects()
             onWidthChanged: computeRects()
             onHeightChanged: computeRects()
+            onStyleNameChanged: computeRects()
+            Component.onCompleted: computeRects()
 
             function computeRects() {
                 grooveRect = subControlRect("groove");
