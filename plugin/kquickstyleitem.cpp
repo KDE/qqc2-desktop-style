@@ -1543,8 +1543,7 @@ QRectF KQuickStyleItem::subControlRect(const QString &subcontrolString)
         QStyle::ComplexControl control = QStyle::CC_ScrollBar;
         if (subcontrolString == QLatin1String("slider")) {
             subcontrol = QStyle::SC_ScrollBarSlider;
-        }
-        if (subcontrolString == QLatin1String("groove")) {
+        } else if (subcontrolString == QLatin1String("groove")) {
             subcontrol = QStyle::SC_ScrollBarGroove;
         } else if (subcontrolString == QLatin1String("handle")) {
             subcontrol = QStyle::SC_ScrollBarSlider;
