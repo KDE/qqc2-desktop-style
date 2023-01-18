@@ -169,6 +169,7 @@ void KQuickStyleItem::initStyleOption()
     QString sizeHint = m_hints.value(QStringLiteral("size")).toString();
 
     bool needsResolvePalette = true;
+    bool preventMirroring = false;
 
     switch (m_itemType) {
     case Button: {
@@ -717,6 +718,10 @@ void KQuickStyleItem::initStyleOption()
         opt->maximum = qMax(0, maximum());
         opt->pageStep = qMax(0, int(horizontal() ? width() : height()));
         opt->orientation = horizontal() ? Qt::Horizontal : Qt::Vertical;
+        if (horizontal()) {
+            // mirrored horizontal scrollbars are not something you wanna interact with
+            preventMirroring = true;
+        }
         opt->sliderPosition = value();
         opt->sliderValue = value();
         opt->activeSubControls = (activeControl() == QLatin1String("up")) ? QStyle::SC_ScrollBarSubLine
@@ -747,7 +752,7 @@ void KQuickStyleItem::initStyleOption()
 
     m_styleoption->styleObject = this;
     const auto mirror = m_control == nullptr ? qApp->layoutDirection() == Qt::RightToLeft : m_control->property("mirrored").toBool();
-    m_styleoption->direction = mirror ? Qt::RightToLeft : Qt::LeftToRight;
+    m_styleoption->direction = (mirror && !preventMirroring) ? Qt::RightToLeft : Qt::LeftToRight;
 
     int w = m_textureWidth > 0 ? m_textureWidth : width();
     int h = m_textureHeight > 0 ? m_textureHeight : height();
