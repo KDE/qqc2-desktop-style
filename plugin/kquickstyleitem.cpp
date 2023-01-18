@@ -728,7 +728,6 @@ void KQuickStyleItem::initStyleOption()
             opt->state |= QStyle::State_On;
         }
 
-        opt->sliderValue = value();
         opt->subControls = QStyle::SC_All;
 
         setTransient(KQuickStyleItem::style()->styleHint(QStyle::SH_ScrollBar_Transient, m_styleoption));
