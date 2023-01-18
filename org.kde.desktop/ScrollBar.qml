@@ -97,7 +97,6 @@ T.ScrollBar {
         anchors.fill: parent
         visible: controlRoot.size < 1.0 && interactive
         hoverEnabled: true
-        state: "inactive"
         acceptedButtons: Qt.LeftButton | Qt.MiddleButton
         onExited: style.activeControl = "groove";
         onPressed: {
@@ -151,22 +150,38 @@ T.ScrollBar {
         implicitWidth: style.horizontal ? 200 : style.pixelMetric("scrollbarExtent")
         implicitHeight: style.horizontal ? style.pixelMetric("scrollbarExtent") : 200
 
+        Timer {
+            id: buttonTimer
+            property real increment
+            repeat: true
+            interval: 150
+            triggeredOnStart: true
+            onTriggered: {
+                if (increment === 1) {
+                    controlRoot.increase();
+                } else if (increment === -1) {
+                    controlRoot.decrease();
+                } else {
+                    controlRoot.position = Math.min(1 - controlRoot.size, Math.max(0, controlRoot.position + increment));
+                }
+            }
+        }
         StylePrivate.StyleItem {
             id: style
 
             readonly property real length: (controlRoot.orientation === Qt.Vertical ? height : width)
             property rect grooveRect: Qt.rect(0, 0, 0, 0)
             readonly property real topScrollbarPadding: grooveRect.top
-            readonly property real bottomScrollbarPadding: style.height - grooveRect.bottom
+            readonly property real bottomScrollbarPadding: height - grooveRect.bottom
             readonly property real leftScrollbarPadding: grooveRect.left
-            readonly property real rightScrollbarPadding: style.width - grooveRect.right
+            readonly property real rightScrollbarPadding: width - grooveRect.right
 
             Component.onCompleted: computeRects()
             onWidthChanged: computeRects()
             onHeightChanged: computeRects()
 
             function computeRects() {
-                style.grooveRect = style.subControlRect("groove")
+                grooveRect = subControlRect("groove");
             }
 
             control: controlRoot
@@ -183,23 +198,6 @@ T.ScrollBar {
 
             visible: controlRoot.size < 1.0
             opacity: 1
-
-            Timer {
-                id: buttonTimer
-                property real increment
-                repeat: true
-                interval: 150
-                triggeredOnStart: true
-                onTriggered: {
-                    if (increment === 1) {
-                        controlRoot.increase();
-                    } else if (increment === -1) {
-                        controlRoot.decrease();
-                    } else {
-                        controlRoot.position = Math.min(1 - controlRoot.size, Math.max(0, controlRoot.position + increment));
-                    }
-                }
-            }
         }
         StylePrivate.StyleItem {
             id: inactiveStyle
@@ -217,6 +215,7 @@ T.ScrollBar {
             visible: controlRoot.size < 1.0
             opacity: 1
         }
+        state: "inactive"
         states: [
             State {
                 name: "hover"
@@ -243,23 +242,13 @@ T.ScrollBar {
                 }
             }
         ]
-        transitions: [
-            Transition {
-                ParallelAnimation {
-                    NumberAnimation {
-                        target: style
-                        property: "opacity"
-                        duration: Kirigami.Units.shortDuration
-                        easing.type: Easing.InOutQuad
-                    }
-                    NumberAnimation {
-                        target: inactiveStyle
-                        property: "opacity"
-                        duration: Kirigami.Units.shortDuration
-                        easing.type: Easing.InOutQuad
-                    }
-                }
+        transitions: Transition {
+            NumberAnimation {
+                targets: [style, inactiveStyle]
+                property: "opacity"
+                duration: Kirigami.Units.longDuration
+                easing.type: Easing.InOutQuad
             }
-        ]
+        }
     }
 }
