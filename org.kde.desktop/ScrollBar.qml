@@ -210,8 +210,8 @@ T.ScrollBar {
             // Qt 6 scrollbar might get stuck being too large, and clip out.
             minimum: 0
             maximum: (void controlRoot.visualPosition),
-                length / Math.max(0.001, controlRoot.visualSize) - length
-            value: length / Math.max(0.001, controlRoot.visualSize) * Math.min(1 - 0.001, controlRoot.visualPosition)
+                Math.round(length / Math.max(0.001, controlRoot.visualSize) - length)
+            value: Math.round(length / Math.max(0.001, controlRoot.visualSize) * Math.min(1 - 0.001, controlRoot.visualPosition))
 
             horizontal: controlRoot.horizontal
             enabled: controlRoot.enabled
