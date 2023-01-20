@@ -38,11 +38,11 @@ include(ECMDeprecationSettings)
 
 find_package(Qt${QT_MAJOR_VERSION} ${REQUIRED_QT_VERSION} REQUIRED NO_MODULE COMPONENTS Core Quick Gui Widgets QuickControls2 DBus)
 
-find_package(KF5 ${KF_DEP_VERSION} REQUIRED COMPONENTS Config Kirigami2)
+find_package(KF6 ${KF_DEP_VERSION} REQUIRED COMPONENTS Config Kirigami2)
 
 # IconThemes and ConfigWidgets are optional
-find_package(KF5IconThemes ${KF_DEP_VERSION})
-find_package(KF5ConfigWidgets ${KF_DEP_VERSION})
+find_package(KF6IconThemes ${KF_DEP_VERSION})
+find_package(KF6ConfigWidgets ${KF_DEP_VERSION})
 
 if (NOT APPLE AND NOT WIN32)
     find_package(X11)
@@ -57,29 +57,29 @@ if(X11_FOUND)
     endif()
 endif()
 
-set_package_properties(IconThemes PROPERTIES DESCRIPTION "KF5 IconThemes framework"
+set_package_properties(IconThemes PROPERTIES DESCRIPTION "KF6 IconThemes framework"
                        TYPE OPTIONAL
                        PURPOSE "Optional integration of Kirigami with KIconLoader icons handling for a better integration with Plasma Desktop"
                       )
-set_package_properties(ConfigWidgets PROPERTIES DESCRIPTION "KF5 WidgetAddons framework"
+set_package_properties(ConfigWidgets PROPERTIES DESCRIPTION "KF6 WidgetAddons framework"
                        TYPE OPTIONAL
                        PURPOSE "Optional integration of Kirigami with KColorScheme for color palettes integration with Plasma Desktop"
                       )
 
 find_package(PkgConfig)
 
-set(CMAKECONFIG_INSTALL_DIR "${KDE_INSTALL_CMAKEPACKAGEDIR}/KF5QQC2DesktopStyle")
+set(CMAKECONFIG_INSTALL_DIR "${KDE_INSTALL_CMAKEPACKAGEDIR}/KF6QQC2DesktopStyle")
 
 configure_package_config_file(
-  "${CMAKE_CURRENT_SOURCE_DIR}/KF5QQC2DesktopStyleConfig.cmake.in"
-  "${CMAKE_CURRENT_BINARY_DIR}/KF5QQC2DesktopStyleConfig.cmake"
+  "${CMAKE_CURRENT_SOURCE_DIR}/KF6QQC2DesktopStyleConfig.cmake.in"
+  "${CMAKE_CURRENT_BINARY_DIR}/KF6QQC2DesktopStyleConfig.cmake"
   INSTALL_DESTINATION  ${CMAKECONFIG_INSTALL_DIR}
   PATH_VARS  CMAKE_INSTALL_PREFIX
 )
 
 install(FILES
-  "${CMAKE_CURRENT_BINARY_DIR}/KF5QQC2DesktopStyleConfig.cmake"
-  "${CMAKE_CURRENT_BINARY_DIR}/KF5QQC2DesktopStyleConfigVersion.cmake"
+  "${CMAKE_CURRENT_BINARY_DIR}/KF6QQC2DesktopStyleConfig.cmake"
+  "${CMAKE_CURRENT_BINARY_DIR}/KF6QQC2DesktopStyleConfigVersion.cmake"
   DESTINATION "${CMAKECONFIG_INSTALL_DIR}"
   COMPONENT Devel
 )
@@ -87,15 +87,15 @@ install(FILES
 
 ecm_setup_version(PROJECT
     VARIABLE_PREFIX QQC2DESKTOPSTYLE
-    PACKAGE_VERSION_FILE "${CMAKE_CURRENT_BINARY_DIR}/KF5QQC2DesktopStyleConfigVersion.cmake"
-    SOVERSION 5)
+    PACKAGE_VERSION_FILE "${CMAKE_CURRENT_BINARY_DIR}/KF6QQC2DesktopStyleConfigVersion.cmake"
+    SOVERSION 6)
 
-# legacy support for CMake Config files with typo KF5QQC2Desk_opStyle TODO: KF6 remove
-set(CMAKECONFIG_INSTALL_DIR "${KDE_INSTALL_CMAKEPACKAGEDIR}/KF5QQC2DeskopStyle")
+# legacy support for CMake Config files with typo KF6QQC2Desk_opStyle TODO: KF6 remove
+set(CMAKECONFIG_INSTALL_DIR "${KDE_INSTALL_CMAKEPACKAGEDIR}/KF6QQC2DeskopStyle")
 
 configure_package_config_file(
-  "${CMAKE_CURRENT_SOURCE_DIR}/KF5QQC2DeskopStyleConfig.cmake.in"
-  "${CMAKE_CURRENT_BINARY_DIR}/KF5QQC2DeskopStyleConfig.cmake"
+  "${CMAKE_CURRENT_SOURCE_DIR}/KF6QQC2DeskopStyleConfig.cmake.in"
+  "${CMAKE_CURRENT_BINARY_DIR}/KF6QQC2DeskopStyleConfig.cmake"
   INSTALL_DESTINATION  ${CMAKECONFIG_INSTALL_DIR}
   PATH_VARS  CMAKE_INSTALL_PREFIX
 )
@@ -103,8 +103,8 @@ configure_package_config_file(
 ecm_find_qmlmodule(org.kde.sonnet 1.0)
 
 install(FILES
-  "${CMAKE_CURRENT_BINARY_DIR}/KF5QQC2DeskopStyleConfig.cmake"
-  "${CMAKE_CURRENT_BINARY_DIR}/KF5QQC2DeskopStyleConfigVersion.cmake"
+  "${CMAKE_CURRENT_BINARY_DIR}/KF6QQC2DeskopStyleConfig.cmake"
+  "${CMAKE_CURRENT_BINARY_DIR}/KF6QQC2DeskopStyleConfigVersion.cmake"
   DESTINATION "${CMAKECONFIG_INSTALL_DIR}"
   COMPONENT Devel
 )
@@ -112,8 +112,8 @@ install(FILES
 
 ecm_setup_version(PROJECT
     VARIABLE_PREFIX QQC2DESKTOPSTYLE
-    PACKAGE_VERSION_FILE "${CMAKE_CURRENT_BINARY_DIR}/KF5QQC2DeskopStyleConfigVersion.cmake"
-    SOVERSION 5)
+    PACKAGE_VERSION_FILE "${CMAKE_CURRENT_BINARY_DIR}/KF6QQC2DeskopStyleConfigVersion.cmake"
+    SOVERSION 6)
 
 #########################################################################
 ecm_set_disabled_deprecation_versions(
@@ -123,9 +123,9 @@ ecm_set_disabled_deprecation_versions(
 
 add_subdirectory(plugin)
 
-if (KF5IconThemes_FOUND AND KF5WidgetsAddons_FOUND)
+if (KF6IconThemes_FOUND AND KF6WidgetsAddons_FOUND)
 add_subdirectory(kirigami-plasmadesktop-integration)
-endif(KF5IconThemes_FOUND AND KF5WidgetsAddons_FOUND)
+endif(KF6IconThemes_FOUND AND KF6WidgetsAddons_FOUND)
 
 if (QT_MAJOR_VERSION EQUAL "5")
   install(DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/org.kde.desktop DESTINATION ${KDE_INSTALL_QMLDIR}/QtQuick/Controls.2)
