@@ -86,7 +86,6 @@ T.ScrollBar {
                 interval: 1000
                 onTriggered: {
                     resetAnim.restart();
-                    handleGraphics.handleState = 0;
                 }
             }
         }
