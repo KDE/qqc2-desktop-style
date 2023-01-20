@@ -27,9 +27,9 @@ T.ScrollView {
     //size in pixel to accommodate the border drawn by qstyle
     topPadding: internal.backgroundVisible() && background.hasOwnProperty("topPadding") ? background.topPadding : 0
     leftPadding: (internal.backgroundVisible() && background.hasOwnProperty("leftPadding") ? background.leftPadding : 0)
-                    + (LayoutMirroring.enabled ? internal.verticalScrollBarWidth : 0)
+                    + (mirrored ? internal.verticalScrollBarWidth : 0)
     rightPadding: (internal.backgroundVisible() && background.hasOwnProperty("rightPadding") ? background.rightPadding : 0)
-                    + (!LayoutMirroring.enabled ? internal.verticalScrollBarWidth : 0)
+                    + (!mirrored ? internal.verticalScrollBarWidth : 0)
     bottomPadding: (internal.backgroundVisible() && background.hasOwnProperty("bottomPadding") ? background.bottomPadding : 0)
                     + internal.horizontalScrollBarHeight
 
