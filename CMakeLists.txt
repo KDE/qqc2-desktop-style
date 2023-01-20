@@ -90,30 +90,7 @@ ecm_setup_version(PROJECT
     PACKAGE_VERSION_FILE "${CMAKE_CURRENT_BINARY_DIR}/KF6QQC2DesktopStyleConfigVersion.cmake"
     SOVERSION 6)
 
-# legacy support for CMake Config files with typo KF6QQC2Desk_opStyle TODO: KF6 remove
-set(CMAKECONFIG_INSTALL_DIR "${KDE_INSTALL_CMAKEPACKAGEDIR}/KF6QQC2DeskopStyle")
-
-configure_package_config_file(
-  "${CMAKE_CURRENT_SOURCE_DIR}/KF6QQC2DeskopStyleConfig.cmake.in"
-  "${CMAKE_CURRENT_BINARY_DIR}/KF6QQC2DeskopStyleConfig.cmake"
-  INSTALL_DESTINATION  ${CMAKECONFIG_INSTALL_DIR}
-  PATH_VARS  CMAKE_INSTALL_PREFIX
-)
-
 ecm_find_qmlmodule(org.kde.sonnet 1.0)
-
-install(FILES
-  "${CMAKE_CURRENT_BINARY_DIR}/KF6QQC2DeskopStyleConfig.cmake"
-  "${CMAKE_CURRENT_BINARY_DIR}/KF6QQC2DeskopStyleConfigVersion.cmake"
-  DESTINATION "${CMAKECONFIG_INSTALL_DIR}"
-  COMPONENT Devel
-)
-
-
-ecm_setup_version(PROJECT
-    VARIABLE_PREFIX QQC2DESKTOPSTYLE
-    PACKAGE_VERSION_FILE "${CMAKE_CURRENT_BINARY_DIR}/KF6QQC2DeskopStyleConfigVersion.cmake"
-    SOVERSION 6)
 
 #########################################################################
 ecm_set_disabled_deprecation_versions(
