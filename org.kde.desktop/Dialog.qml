@@ -22,6 +22,7 @@ T.Dialog {
     contentHeight: (contentItem.implicitHeight || (contentChildren.length === 1 ? contentChildren[0].implicitHeight : 0)) + header.implicitHeight + footer.implicitHeight
 
     padding: Kirigami.Units.gridUnit
+    margins: Kirigami.Units.gridUnit
 
     enter: Transition {
         NumberAnimation {
@@ -46,16 +47,21 @@ T.Dialog {
     contentItem: Item {}
 
     background: Kirigami.ShadowedRectangle {
-        radius: 2
+        radius: 7
+        Kirigami.Theme.inherit: false
+        Kirigami.Theme.colorSet: Kirigami.Theme.View
         color: Kirigami.Theme.backgroundColor
-        property color borderColor: Kirigami.Theme.textColor
-        border.color: Qt.rgba(borderColor.r, borderColor.g, borderColor.b, 0.3)
-        border.width: 1
 
-        shadow.xOffset: 0
-        shadow.yOffset: 4
-        shadow.color: Qt.rgba(0, 0, 0, 0.3)
-        shadow.size: 16
+        border {
+            width: 1
+            color: Kirigami.ColorUtils.linearInterpolation(Kirigami.Theme.backgroundColor, Kirigami.Theme.textColor, 0.3);
+        }
+
+        shadow {
+            size: Kirigami.Units.gridUnit
+            yOffset: 4
+            color: Qt.rgba(0, 0, 0, 0.2)
+        }
     }
 
     header: Kirigami.Heading {
