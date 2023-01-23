@@ -26,6 +26,12 @@ T.Label {
     renderType: Screen.devicePixelRatio % 1 !== 0 ? Text.QtRendering : Text.NativeRendering
 
     HoverHandler {
+        // By default HoverHandler accepts the left button while it shouldn't accept anything,
+        // causing https://bugreports.qt.io/browse/QTBUG-106489.
+        // Qt.NoButton unfortunately is not a valid value for acceptedButtons.
+        // Disabling masks the problem, but
+        // there is no proper workaround other than an upstream fix
+        enabled: false
         cursorShape: parent.hoveredLink ? Qt.PointingHandCursor : undefined
     }
 
