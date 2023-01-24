@@ -36,7 +36,7 @@ include(KDEGitCommitHooks)
 include(KDEFrameworkCompilerSettings NO_POLICY_SCOPE)
 include(ECMDeprecationSettings)
 
-find_package(Qt${QT_MAJOR_VERSION} ${REQUIRED_QT_VERSION} REQUIRED NO_MODULE COMPONENTS Core Quick Gui Widgets QuickControls2 DBus)
+find_package(Qt6 ${REQUIRED_QT_VERSION} REQUIRED NO_MODULE COMPONENTS Core Quick Gui Widgets QuickControls2 DBus)
 
 find_package(KF6 ${KF_DEP_VERSION} REQUIRED COMPONENTS Config Kirigami2)
 
@@ -46,15 +46,6 @@ find_package(KF6ConfigWidgets ${KF_DEP_VERSION})
 
 if (NOT APPLE AND NOT WIN32)
     find_package(X11)
-endif()
-
-# When building as a static plugin, dependencies may add a -lQt5X11Extras
-# to the linker, in that case, it requires to have the proper variables
-# to exists.
-if(X11_FOUND)
-    if (QT_MAJOR_VERSION STREQUAL "5")
-        find_package(Qt5X11Extras ${REQUIRED_QT_VERSION} NO_MODULE)
-    endif()
 endif()
 
 set_package_properties(IconThemes PROPERTIES DESCRIPTION "KF6 IconThemes framework"
@@ -104,16 +95,12 @@ if (KF6IconThemes_FOUND AND KF6WidgetsAddons_FOUND)
 add_subdirectory(kirigami-plasmadesktop-integration)
 endif(KF6IconThemes_FOUND AND KF6WidgetsAddons_FOUND)
 
-if (QT_MAJOR_VERSION EQUAL "5")
-  install(DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/org.kde.desktop DESTINATION ${KDE_INSTALL_QMLDIR}/QtQuick/Controls.2)
-else()
-  ecm_add_qml_module(org_kde_desktop URI "org.kde.desktop" VERSION 1.0 NO_PLUGIN)
-  file(GLOB _public_qml "org.kde.desktop/*.qml")
-  ecm_target_qml_sources(org_kde_desktop VERSION 1.0 SOURCES ${_public_qml})
-  file(GLOB _private_qml "org.kde.desktop/private/*.qml")
-  ecm_target_qml_sources(org_kde_desktop VERSION 1.0 PATH private SOURCES ${_private_qml})
-  ecm_finalize_qml_module(org_kde_desktop DESTINATION ${KDE_INSTALL_QMLDIR})
-endif()
+ecm_add_qml_module(org_kde_desktop URI "org.kde.desktop" VERSION 1.0 NO_PLUGIN)
+file(GLOB _public_qml "org.kde.desktop/*.qml")
+ecm_target_qml_sources(org_kde_desktop VERSION 1.0 SOURCES ${_public_qml})
+file(GLOB _private_qml "org.kde.desktop/private/*.qml")
+ecm_target_qml_sources(org_kde_desktop VERSION 1.0 PATH private SOURCES ${_private_qml})
+ecm_finalize_qml_module(org_kde_desktop DESTINATION ${KDE_INSTALL_QMLDIR})
 
 feature_summary(WHAT ALL INCLUDE_QUIET_PACKAGES FATAL_ON_MISSING_REQUIRED_PACKAGES)
 
