@@ -810,12 +810,12 @@ QIcon KQuickStyleItem::iconFromIconProperty() const
 {
     QIcon icon;
     const QVariant iconProperty = m_properties[QStringLiteral("icon")];
-    switch (iconProperty.type()) {
-    case QVariant::Icon:
+    switch (iconProperty.userType()) {
+    case QMetaType::QIcon:
         icon = iconProperty.value<QIcon>();
         break;
-    case QVariant::Url:
-    case QVariant::String: {
+    case QMetaType::QUrl:
+    case QMetaType::QString: {
         QString iconSource = iconProperty.toString();
         if (iconSource.startsWith(QLatin1String("qrc:/"))) {
             iconSource = iconSource.mid(3);
