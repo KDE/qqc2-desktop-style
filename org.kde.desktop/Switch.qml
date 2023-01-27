@@ -57,7 +57,7 @@ T.Switch {
         property FontMetrics fontMetrics: FontMetrics {}
         // Ensure consistent vertical position relative to indicator with multiple lines.
         // No need to round because .5 from the top will add with .5 from the bottom becoming 1.
-        topPadding: Math.max(0, (controlRoot.implicitIndicatorHeight - fontMetrics.height) / 2)
+        topPadding: Math.max(0, (control.implicitIndicatorHeight - fontMetrics.height) / 2)
         bottomPadding: topPadding
         leftPadding: control.indicator && !control.mirrored ? control.indicator.width + control.spacing : 0
         rightPadding: control.indicator && control.mirrored ? control.indicator.width + control.spacing : 0
