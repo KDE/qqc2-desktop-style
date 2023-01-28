@@ -60,17 +60,6 @@ T.ScrollView {
                 enabled: controlRoot.contentItem.enabled
                 hasFocus: controlRoot.activeFocus || controlRoot.contentItem.activeFocus
                 hover: controlRoot.hovered
-
-                Rectangle {
-                    anchors {
-                        leftMargin: styled.leftPadding
-                        rightMargin: styled.rightPadding
-                        bottomMargin: styled.bottomPadding
-                        topMargin: styled.topPadding
-                    }
-                    anchors.fill: parent
-                    color: Kirigami.Theme.backgroundColor
-                }
             }
         },
 
