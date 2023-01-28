@@ -418,7 +418,7 @@ void KQuickStyleItem::initStyleOption()
         QStyleOptionFrame *opt = qstyleoption_cast<QStyleOptionFrame *>(m_styleoption);
         opt->frameShape = QFrame::StyledPanel;
         opt->lineWidth = KQuickStyleItem::style()->pixelMetric(QStyle::PM_DefaultFrameWidth, m_styleoption, nullptr);
-        opt->midLineWidth = KQuickStyleItem::style()->pixelMetric(QStyle::PM_DefaultFrameWidth, m_styleoption, nullptr);
+        opt->midLineWidth = opt->lineWidth;
         break;
     }
     case FocusRect: {
