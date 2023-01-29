@@ -36,8 +36,6 @@ public:
         , buttonScheme(QPalette::Active, KColorScheme::ColorSet::Button)
         , viewScheme(QPalette::Active, KColorScheme::ColorSet::View)
     {
-        connect(qGuiApp, &QGuiApplication::paletteChanged, this, &StyleSingleton::refresh);
-
         // Use DBus in order to listen for settings changes directly, as the
         // QApplication doesn't expose the font variants we're looking for,
         // namely smallFont.
@@ -49,7 +47,7 @@ public:
                                               SLOT(notifyWatchersConfigurationChange()));
 
         connect(qGuiApp, &QGuiApplication::fontDatabaseChanged, this, &StyleSingleton::notifyWatchersConfigurationChange);
-        connect(qGuiApp, &QGuiApplication::fontChanged, this, &StyleSingleton::notifyWatchersConfigurationChange);
+        qGuiApp->installEventFilter(this);
 
         // Use NativeTextRendering as the default text rendering type when the scale factor is an integer.
         // NativeTextRendering is still distorted sometimes with fractional scale factors,
@@ -176,6 +174,18 @@ public:
     QFont smallFont;
 
     QVector<PlasmaDesktopTheme *> watchers;
+
+protected:
+    bool eventFilter([[maybe_unused]] QObject *obj, QEvent *event) override
+    {
+        if (event->type() == QEvent::ApplicationFontChange) {
+            notifyWatchersConfigurationChange();
+        }
+        if (event->type() == QEvent::PaletteChange) {
+            refresh();
+        }
+        return false;
+    }
 
 private:
     QHash<QPair<Kirigami::PlatformTheme::ColorSet, QPalette::ColorGroup>, Colors> m_cache;

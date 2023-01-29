@@ -103,7 +103,7 @@ KQuickStyleItem::KQuickStyleItem(QQuickItem *parent)
     setFlag(QQuickItem::ItemHasContents, true);
     setSmooth(false);
 
-    connect(qApp, &QApplication::fontChanged, this, &KQuickStyleItem::updateSizeHint, Qt::QueuedConnection);
+    qGuiApp->installEventFilter(this);
 
     Kirigami::TabletModeWatcher::self()->addWatcher(this);
 }
@@ -1953,6 +1953,10 @@ bool KQuickStyleItem::eventFilter(QObject *watched, QEvent *event)
             if (ke->key() == Qt::Key_Alt) {
                 updateItem();
             }
+        }
+    } else if (watched == qGuiApp) {
+        if (event->type() == QEvent::ApplicationFontChange) {
+            QMetaObject::invokeMethod(this, &KQuickStyleItem::updateSizeHint, Qt::QueuedConnection);
         }
     }
 
