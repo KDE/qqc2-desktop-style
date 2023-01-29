@@ -113,7 +113,7 @@ T.ScrollBar {
                 buttonTimer.running = true;
                 mouse.accepted = true;
             } else if (style.activeControl === "downPage") {
-                if (style.styleHint("scrollToClickPosition")) {
+                if (style.scrollToClickPosition(mouse)) {
                     controlRoot.position = jumpPosition;
                 } else {
                     buttonTimer.increment = controlRoot.size;
@@ -121,7 +121,7 @@ T.ScrollBar {
                 }
                 mouse.accepted = true;
             } else if (style.activeControl === "upPage") {
-                if (style.styleHint("scrollToClickPosition")) {
+                if (style.scrollToClickPosition(mouse)) {
                     controlRoot.position = jumpPosition;
                 } else {
                     buttonTimer.increment = -controlRoot.size;
@@ -192,6 +192,17 @@ T.ScrollBar {
                         : mouse.y / height
                     ) - controlRoot.size / 2
                 ));
+            }
+
+            // Style hint returns true if should scroll to click position,
+            // and false if should scroll by one page at a time.
+            // This function inverts the behavior if Alt button is pressed.
+            function scrollToClickPosition(mouse /*MouseEvent*/): bool {
+                let behavior = style.styleHint("scrollToClickPosition");
+                if (mouse.modifiers & Qt.AltModifier) {
+                    behavior = !behavior;
+                }
+                return behavior;
             }
 
             control: controlRoot
