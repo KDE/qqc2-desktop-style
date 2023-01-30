@@ -504,11 +504,7 @@ void KQuickStyleItem::initStyleOption()
                 QString shortcut = m_properties[QStringLiteral("shortcut")].toString();
                 if (!shortcut.isEmpty()) {
                     opt->text += QLatin1Char('\t') + shortcut;
-#if QT_VERSION < QT_VERSION_CHECK(6, 0, 0)
-                    opt->tabWidth = qMax(opt->tabWidth, qRound(textWidth(shortcut)));
-#else
                     opt->reservedShortcutWidth = qMax(opt->reservedShortcutWidth, qRound(textWidth(shortcut)));
-#endif
                 }
 
                 if (m_properties[QStringLiteral("checkable")].toBool()) {
@@ -1975,15 +1971,9 @@ void KQuickStyleItem::itemChange(QQuickItem::ItemChange change, const QQuickItem
     QQuickItem::itemChange(change, value);
 }
 
-#if QT_VERSION < QT_VERSION_CHECK(6, 0, 0)
-void KQuickStyleItem::geometryChanged(const QRectF &newGeometry, const QRectF &oldGeometry)
-{
-    QQuickItem::geometryChanged(newGeometry, oldGeometry);
-#else
 void KQuickStyleItem::geometryChange(const QRectF &newGeometry, const QRectF &oldGeometry)
 {
     QQuickItem::geometryChange(newGeometry, oldGeometry);
-#endif
 
     if (!newGeometry.isEmpty() && newGeometry != oldGeometry) {
         polish();

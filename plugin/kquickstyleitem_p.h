@@ -477,11 +477,7 @@ protected:
     bool eventFilter(QObject *watched, QEvent *event) override;
     void itemChange(QQuickItem::ItemChange change, const QQuickItem::ItemChangeData &value) override;
 
-#if QT_VERSION < QT_VERSION_CHECK(6, 0, 0)
-    void geometryChanged(const QRectF &newGeometry, const QRectF &oldGeometry) override;
-#else
     void geometryChange(const QRectF &newGeometry, const QRectF &oldGeometry) override;
-#endif
 
 private:
     QIcon iconFromIconProperty() const;
