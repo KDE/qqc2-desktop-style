@@ -200,9 +200,19 @@ T.ScrollBar {
             hover: activeControl !== "none"
             activeControl: "none"
             sunken: controlRoot.pressed
+            // Normally, min size should be controlled by
+            // PM_ScrollBarSliderMin pixel metrics, or ScrollBar.minimumSize
+            // property. But we are working with visual metrics (0..1) here;
+            // and despite what documentation says, minimumSize does not
+            // affect visualSize. So let's at least prevent division by zero.
+            // Note about comma, operator: including visualPosition in this
+            // expression help it propagate signals when needed; otherwise in
+            // Qt 6 scrollbar might get stuck being too large, and clip out.
             minimum: 0
-            maximum: style.length / controlRoot.size - style.length
-            value: controlRoot.position * (style.length / controlRoot.size)
+            maximum: (void controlRoot.visualPosition),
+                length / Math.max(0.001, controlRoot.visualSize) - length
+            value: length / Math.max(0.001, controlRoot.visualSize) * Math.min(1 - 0.001, controlRoot.visualPosition)
+
             horizontal: controlRoot.horizontal
             enabled: controlRoot.enabled
 
