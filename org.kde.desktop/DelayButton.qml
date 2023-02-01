@@ -32,6 +32,7 @@ T.DelayButton {
         onActivated: controlRoot.clicked()
     }
 
+    palette: Kirigami.Theme.inherit ? Kirigami.Theme.palette : undefined
     Kirigami.Theme.colorSet: Kirigami.Theme.Button
     Kirigami.Theme.inherit: false
 
