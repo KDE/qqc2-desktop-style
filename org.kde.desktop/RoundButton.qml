@@ -15,6 +15,7 @@ import org.kde.kirigami 2.16 as Kirigami
 T.RoundButton {
     id: controlRoot
 
+    palette: Kirigami.Theme.inherit ? Kirigami.Theme.palette : undefined
     Kirigami.Theme.colorSet: !flat && (controlRoot.activeFocus || controlRoot.highlighted) ? Kirigami.Theme.Selection : Kirigami.Theme.Button
     Kirigami.Theme.inherit: flat && !down && !checked
 

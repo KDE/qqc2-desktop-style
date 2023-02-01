@@ -17,6 +17,7 @@ import "private" as Private
 
 T.TextArea {
     id: controlRoot
+    palette: Kirigami.Theme.inherit ? Kirigami.Theme.palette : undefined
     Kirigami.Theme.colorSet: Kirigami.Theme.View
     Kirigami.Theme.inherit: false
 
