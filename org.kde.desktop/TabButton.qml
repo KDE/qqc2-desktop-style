@@ -46,15 +46,7 @@ T.TabButton {
 
         TextMetrics {
             id: textMetrics
-            font.capitalization: Kirigami.Theme.defaultFont.capitalization
-            font.family: Kirigami.Theme.defaultFont.family
-            font.italic: Kirigami.Theme.defaultFont.italic
-            font.letterSpacing: Kirigami.Theme.defaultFont.letterSpacing
-            font.pointSize: Kirigami.Theme.defaultFont.pointSize
-            font.strikeout: Kirigami.Theme.defaultFont.strikeout
-            font.underline: Kirigami.Theme.defaultFont.underline
-            font.weight: Kirigami.Theme.defaultFont.weight
-            font.wordSpacing: Kirigami.Theme.defaultFont.wordSpacing
+            font: Kirigami.Theme.defaultFont
             text: controlRoot.text
         }
 
