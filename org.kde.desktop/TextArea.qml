@@ -54,6 +54,8 @@ T.TextArea {
     onPressed: Private.MobileTextActionsToolBar.shouldBeVisible = true;
 
     TapHandler {
+        enabled: controlRoot.selectByMouse
+
         acceptedDevices: PointerDevice.Mouse | PointerDevice.Stylus
         acceptedButtons: Qt.LeftButton | Qt.RightButton
 
@@ -89,7 +91,9 @@ T.TextArea {
 
     Keys.onPressed: {
         // trigger if context menu button is pressed
-        Private.TextFieldContextMenu.targetKeyPressed(event, controlRoot)
+        if (root.selectByMouse) {
+            Private.TextFieldContextMenu.targetKeyPressed(event, controlRoot)
+        }
     }
 
     onPressAndHold: {
