@@ -30,7 +30,7 @@ T.TextField {
     padding: 6
 
     placeholderTextColor: Kirigami.Theme.disabledTextColor
-    color: controlRoot.enabled ? Kirigami.Theme.textColor : Kirigami.Theme.disabledTextColor
+    color: enabled ? Kirigami.Theme.textColor : Kirigami.Theme.disabledTextColor
     selectionColor: Kirigami.Theme.highlightColor
     selectedTextColor: Kirigami.Theme.highlightedTextColor
     verticalAlignment: TextInput.AlignVCenter

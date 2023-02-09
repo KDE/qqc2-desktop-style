@@ -28,7 +28,7 @@ StylePrivate.StyleItem {
     hover: control.hovered
     enabled: control.enabled
     properties: {
-        "icon": styleitem.drawIcon && control.display !== T.AbstractButton.TextOnly
+        "icon": drawIcon && control.display !== T.AbstractButton.TextOnly
             ? (control.icon.name !== "" ? control.icon.name : control.icon.source) : null,
         "iconColor": Qt.colorEqual(control.icon.color, "transparent") ? Kirigami.Theme.textColor : control.icon.color,
         "iconWidth": control.icon.width,

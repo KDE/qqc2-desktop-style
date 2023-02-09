@@ -27,9 +27,9 @@ T.ToolButton {
     hoverEnabled: Qt.styleHints.useHoverEffects
 
     flat: true
-    Kirigami.MnemonicData.enabled: controlRoot.enabled && controlRoot.visible
+    Kirigami.MnemonicData.enabled: enabled && visible
     Kirigami.MnemonicData.controlType: Kirigami.MnemonicData.SecondaryControl
-    Kirigami.MnemonicData.label: controlRoot.text
+    Kirigami.MnemonicData.label: text
 
     // KF6 TODO: investigate setting this by default
     // focusPolicy: Qt.TabFocus

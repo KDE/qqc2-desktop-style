@@ -18,7 +18,7 @@ T.ToolBar {
 
     padding: Kirigami.Units.smallSpacing
     contentItem: Item {}
-    position: controlRoot.parent.footer === controlRoot ? ToolBar.Footer : ToolBar.Header
+    position: parent.footer === controlRoot ? ToolBar.Footer : ToolBar.Header
 
     // Use Header colors if it's a header and Header colors are available
     // (if not, this will fall back to window colors)

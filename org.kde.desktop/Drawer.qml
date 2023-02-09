@@ -21,10 +21,10 @@ T.Drawer {
     implicitHeight: Math.max(implicitBackgroundHeight + topInset + bottomInset,
                              contentHeight + topPadding + bottomPadding)
 
-    topPadding: control.edge === Qt.BottomEdge ? 1 : 0
-    leftPadding: control.edge === Qt.RightEdge ? 1 : 0
-    rightPadding: control.edge === Qt.LeftEdge ? 1 : 0
-    bottomPadding: control.edge === Qt.TopEdge ? 1 : 0
+    topPadding: edge === Qt.BottomEdge ? 1 : 0
+    leftPadding: edge === Qt.RightEdge ? 1 : 0
+    rightPadding: edge === Qt.LeftEdge ? 1 : 0
+    bottomPadding: edge === Qt.TopEdge ? 1 : 0
 
     background: Rectangle {
         color: Kirigami.Theme.backgroundColor

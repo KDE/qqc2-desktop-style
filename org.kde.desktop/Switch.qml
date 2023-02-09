@@ -43,9 +43,9 @@ T.Switch {
         control: control
     }
 
-    Kirigami.MnemonicData.enabled: control.enabled && control.visible
+    Kirigami.MnemonicData.enabled: enabled && visible
     Kirigami.MnemonicData.controlType: Kirigami.MnemonicData.ActionElement
-    Kirigami.MnemonicData.label: control.text
+    Kirigami.MnemonicData.label: text
     Shortcut {
         //in case of explicit & the button manages it by itself
         enabled: !(RegExp(/\&[^\&]/).test(control.text))

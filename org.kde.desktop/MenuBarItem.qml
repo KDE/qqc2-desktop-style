@@ -24,9 +24,9 @@ T.MenuBarItem {
     bottomPadding: Kirigami.Units.smallSpacing
     hoverEnabled: true
 
-    Kirigami.MnemonicData.enabled: controlRoot.enabled && controlRoot.visible
+    Kirigami.MnemonicData.enabled: enabled && visible
     Kirigami.MnemonicData.controlType: Kirigami.MnemonicData.MenuItem
-    Kirigami.MnemonicData.label: controlRoot.text
+    Kirigami.MnemonicData.label: text
 
     Shortcut {
         //in case of explicit & the button manages it by itself
