@@ -92,7 +92,7 @@ T.TextArea {
 
     Keys.onPressed: {
         // trigger if context menu button is pressed
-        if (root.selectByMouse) {
+        if (controlRoot.selectByMouse) {
             Private.TextFieldContextMenu.targetKeyPressed(event, controlRoot)
         }
     }
