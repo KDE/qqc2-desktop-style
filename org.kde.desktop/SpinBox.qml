@@ -14,8 +14,6 @@ import org.kde.qqc2desktopstyle.private 1.0 as StylePrivate
 
 T.SpinBox {
     id: controlRoot
-
-    palette: Kirigami.Theme.inherit ? Kirigami.Theme.palette : undefined
     Kirigami.Theme.colorSet: Kirigami.Theme.View
     Kirigami.Theme.inherit: false
 

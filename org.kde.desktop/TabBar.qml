@@ -15,7 +15,6 @@ import QtQuick.Templates 2.15 as T
 T.TabBar {
     id: controlRoot
 
-    palette: Kirigami.Theme.inherit ? Kirigami.Theme.palette : undefined
     Kirigami.Theme.colorSet: Kirigami.Theme.Window
     Kirigami.Theme.inherit: false
 

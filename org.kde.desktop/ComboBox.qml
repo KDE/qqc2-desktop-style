@@ -18,7 +18,6 @@ import "private" as Private
 T.ComboBox {
     id: controlRoot
 
-    palette: Kirigami.Theme.inherit ? Kirigami.Theme.palette : undefined
     Kirigami.Theme.colorSet: editable ? Kirigami.Theme.View : Kirigami.Theme.Button
     Kirigami.Theme.inherit: false
 

@@ -15,7 +15,6 @@ import org.kde.kirigami 2.12 as Kirigami
 T.ToolTip {
     id: control
 
-    palette: Kirigami.Theme.inherit ? Kirigami.Theme.palette : undefined
     Kirigami.Theme.colorSet: Kirigami.Theme.Tooltip
     Kirigami.Theme.inherit: false
 
