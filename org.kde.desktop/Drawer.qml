@@ -30,16 +30,14 @@ T.Drawer {
         color: Kirigami.Theme.backgroundColor
         Rectangle {
             readonly property bool horizontal: control.edge === Qt.LeftEdge || control.edge === Qt.RightEdge
-            anchors {
-               top: control.edge !== Qt.TopEdge ? parent.top : undefined
-               left: control.edge !== Qt.LeftEdge ? parent.left : undefined
-               right: control.edge !== Qt.RightEdge ? parent.right : undefined
-               bottom: control.edge !== Qt.BottomEdge ? parent.bottom : undefined
-            }
+
+            width: horizontal ? 1 : parent.width
+            height: horizontal ? parent.height : 1
+            x: control.edge === Qt.LeftEdge ? parent.width - 1 : 0
+            y: control.edge === Qt.TopEdge ? parent.height - 1 : 0
+
             color: Kirigami.Theme.textColor
             opacity: 0.3
-            width: 1
-            height: 1
         }
     }
 
