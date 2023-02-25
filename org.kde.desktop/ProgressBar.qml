@@ -41,7 +41,7 @@ T.ProgressBar {
         // with non-zero duration to make it tied to a monitor refresh rate.
         // See git history for more (e.g. why not PauseAnimation)
         SequentialAnimation {
-            running: controlRoot.indeterminate
+            running: controlRoot.indeterminate && controlRoot.visible
             loops: Animation.Infinite
 
             NumberAnimation { duration: 1 }
