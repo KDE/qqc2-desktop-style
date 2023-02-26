@@ -34,6 +34,7 @@ T.Button {
         sequence: controlRoot.Kirigami.MnemonicData.sequence
         onActivated: controlRoot.clicked()
     }
+
     background: StylePrivate.StyleItem {
         control: controlRoot
         elementType: "button"
