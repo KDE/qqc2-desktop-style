@@ -9,7 +9,7 @@
 import QtQuick 2.5
 import org.kde.kirigami 2.4 as Kirigami
 import QtQuick.Templates 2.15 as T
-import "private"
+import "private" as Private
 
 T.SwitchDelegate {
     id: controlRoot
@@ -45,7 +45,7 @@ T.SwitchDelegate {
         control: controlRoot
     }
 
-    background: DefaultListItemBackground {
+    background: Private.DefaultListItemBackground {
         control: controlRoot
     }
 }
