@@ -73,7 +73,7 @@ T.TextField {
 
         // Disable undo action for security reasons
         // See QTBUG-103934
-        if (event.matches(StandardKey.Undo)) {
+        if ((echoMode === TextInput.PasswordEchoOnEdit || echoMode === TextInput.Password) && event.matches(StandardKey.Undo)) {
             event.accepted = true
         }
     }
