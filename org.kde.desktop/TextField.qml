@@ -89,7 +89,7 @@ T.TextField {
     Private.MobileCursor {
         target: controlRoot
         selectionStartHandle: true
-        property var rect: controlRoot.positionToRectangle(controlRoot.selectionStart)
+        readonly property rect rect: controlRoot.positionToRectangle(controlRoot.selectionStart)
         x: rect.x + target.padding
         y: rect.y + target.padding
     }
