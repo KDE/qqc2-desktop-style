@@ -14,6 +14,7 @@ import QtQuick.Controls 2.15
 import org.kde.qqc2desktopstyle.private 1.0 as StylePrivate
 import QtQuick.Templates 2.15 as T
 import org.kde.kirigami 2.4 as Kirigami
+import "private" as Private
 
 T.TabButton {
     id: controlRoot
@@ -35,12 +36,10 @@ T.TabButton {
     Kirigami.MnemonicData.enabled: controlRoot.enabled && controlRoot.visible
     Kirigami.MnemonicData.controlType: Kirigami.MnemonicData.SecondaryControl
     Kirigami.MnemonicData.label: controlRoot.text
-    Shortcut {
-        //in case of explicit & the button manages it by itself
-        enabled: !(RegExp(/\&[^\&]/).test(controlRoot.text))
-        sequence: controlRoot.Kirigami.MnemonicData.sequence
-        onActivated: controlRoot.checked = true;
+    Private.MnemonicShortcut {
+        control: controlRoot
     }
+
     background: StylePrivate.StyleItem {
         id: styleitem
 

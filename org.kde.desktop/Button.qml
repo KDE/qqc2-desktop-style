@@ -10,6 +10,7 @@ import QtQuick 2.6
 import QtQuick.Templates 2.15 as T
 import org.kde.qqc2desktopstyle.private 1.0 as StylePrivate
 import org.kde.kirigami 2.4 as Kirigami
+import "private" as Private
 
 T.Button {
     id: controlRoot
@@ -28,11 +29,8 @@ T.Button {
     Kirigami.MnemonicData.enabled: controlRoot.enabled && controlRoot.visible
     Kirigami.MnemonicData.controlType: Kirigami.MnemonicData.ActionElement
     Kirigami.MnemonicData.label: controlRoot.display !== T.AbstractButton.IconOnly ? controlRoot.text : ""
-    Shortcut {
-        //in case of explicit & the button manages it by itself
-        enabled: !(RegExp(/\&[^\&]/).test(controlRoot.text))
-        sequence: controlRoot.Kirigami.MnemonicData.sequence
-        onActivated: controlRoot.clicked()
+    Private.MnemonicShortcut {
+        control: controlRoot
     }
 
     background: StylePrivate.StyleItem {

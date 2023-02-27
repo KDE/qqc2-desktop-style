@@ -10,6 +10,7 @@ import QtQuick 2.6
 import QtQuick.Layouts 1.2
 import QtQuick.Templates 2.15 as T
 import org.kde.kirigami 2.4 as Kirigami
+import "private" as Private
 
 T.MenuBarItem {
     id: controlRoot
@@ -27,12 +28,8 @@ T.MenuBarItem {
     Kirigami.MnemonicData.enabled: controlRoot.enabled && controlRoot.visible
     Kirigami.MnemonicData.controlType: Kirigami.MnemonicData.MenuItem
     Kirigami.MnemonicData.label: controlRoot.text
-
-    Shortcut {
-        //in case of explicit & the button manages it by itself
-        enabled: !(RegExp(/\&[^\&]/).test(controlRoot.text))
-        sequence: controlRoot.Kirigami.MnemonicData.sequence
-        onActivated: controlRoot.clicked();
+    Private.MnemonicShortcut {
+        control: controlRoot
     }
 
     contentItem: Label {

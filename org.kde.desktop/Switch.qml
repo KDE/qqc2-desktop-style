@@ -9,6 +9,7 @@
 import QtQuick 2.6
 import QtQuick.Templates 2.15 as T
 import org.kde.kirigami 2.4 as Kirigami
+import "private" as Private
 
 T.Switch {
     id: control
@@ -46,11 +47,8 @@ T.Switch {
     Kirigami.MnemonicData.enabled: control.enabled && control.visible
     Kirigami.MnemonicData.controlType: Kirigami.MnemonicData.ActionElement
     Kirigami.MnemonicData.label: control.text
-    Shortcut {
-        //in case of explicit & the button manages it by itself
-        enabled: !(RegExp(/\&[^\&]/).test(control.text))
-        sequence: control.Kirigami.MnemonicData.sequence
-        onActivated: control.toggle();
+    Private.MnemonicShortcut {
+        control: control
     }
 
     contentItem: Label {

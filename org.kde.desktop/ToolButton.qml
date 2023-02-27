@@ -11,6 +11,7 @@ import QtQuick 2.6
 import QtQuick.Templates 2.15 as T
 import org.kde.kirigami 2.4 as Kirigami
 import org.kde.qqc2desktopstyle.private 1.0 as StylePrivate
+import "private" as Private
 
 T.ToolButton {
     id: controlRoot
@@ -27,19 +28,16 @@ T.ToolButton {
     hoverEnabled: Qt.styleHints.useHoverEffects
 
     flat: true
-    Kirigami.MnemonicData.enabled: controlRoot.enabled && controlRoot.visible
-    Kirigami.MnemonicData.controlType: Kirigami.MnemonicData.SecondaryControl
-    Kirigami.MnemonicData.label: controlRoot.text
-
     // KF6 TODO: investigate setting this by default
     // focusPolicy: Qt.TabFocus
 
-    Shortcut {
-        //in case of explicit & the button manages it by itself
-        enabled: !(RegExp(/\&[^\&]/).test(controlRoot.text))
-        sequence: controlRoot.Kirigami.MnemonicData.sequence
-        onActivated: controlRoot.clicked()
+    Kirigami.MnemonicData.enabled: controlRoot.enabled && controlRoot.visible
+    Kirigami.MnemonicData.controlType: Kirigami.MnemonicData.SecondaryControl
+    Kirigami.MnemonicData.label: controlRoot.text
+    Private.MnemonicShortcut {
+        control: controlRoot
     }
+
     background: StylePrivate.StyleItem {
         id: styleitem
         control: controlRoot

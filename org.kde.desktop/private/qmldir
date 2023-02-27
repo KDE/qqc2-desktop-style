@@ -4,3 +4,4 @@ DefaultListItemBackground 1.0 DefaultListItemBackground.qml
 MobileCursor 1.0 MobileCursor.qml
 FocusRect 1.0 FocusRect.qml
 singleton TextFieldContextMenu 1.0 TextFieldContextMenu.qml
+MnemonicShortcut MnemonicShortcut.qml
