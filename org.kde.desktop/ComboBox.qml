@@ -122,6 +122,7 @@ T.ComboBox {
         id: styleitem
         control: controlRoot
         elementType: "combobox"
+        flat: controlRoot.flat
         anchors.fill: parent
         hover: controlRoot.hovered || controlRoot.pressed
         on: controlRoot.pressed

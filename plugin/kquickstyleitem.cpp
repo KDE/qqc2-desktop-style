@@ -599,6 +599,8 @@ void KQuickStyleItem::initStyleOption()
             }
         }
         opt->iconSize = iconSize;
+        opt->frame = !m_flat;
+
         break;
     }
     case SpinBox: {
