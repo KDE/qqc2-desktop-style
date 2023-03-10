@@ -6,11 +6,11 @@
 */
 
 
-import QtQuick 2.15
-import QtQuick.Window 2.15
+import QtQuick
+import QtQuick.Window
 import QtQuick.Templates as T
 import org.kde.kirigami 2.20 as Kirigami
-import org.kde.qqc2desktopstyle.private 1.0 as StylePrivate
+import org.kde.qqc2desktopstyle.private as StylePrivate
 
 T.SpinBox {
     id: controlRoot

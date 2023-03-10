@@ -5,11 +5,11 @@
     SPDX-License-Identifier: LGPL-3.0-only OR GPL-2.0-or-later
 */
 
-import QtQuick 2.6
-import QtQuick.Layouts 1.2
+import QtQuick
+import QtQuick.Layouts
 import QtQuick.Templates as T
-import QtQuick.Controls 2.15 as Controls
-import org.kde.qqc2desktopstyle.private 1.0 as StylePrivate
+import QtQuick.Controls as Controls
+import org.kde.qqc2desktopstyle.private as StylePrivate
 import org.kde.kirigami 2.16 as Kirigami
 
 T.RoundButton {

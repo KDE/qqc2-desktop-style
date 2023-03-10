@@ -6,10 +6,10 @@
     SPDX-License-Identifier: LGPL-3.0-only OR GPL-2.0-or-later
 */
 
-import QtQuick 2.15
-import QtQml 2.15
-import org.kde.qqc2desktopstyle.private 1.0 as StylePrivate
-import QtQuick.Templates 2.15 as T
+import QtQuick
+import QtQml
+import org.kde.qqc2desktopstyle.private as StylePrivate
+import QtQuick.Templates as T
 import org.kde.kirigami 2.20 as Kirigami
 
 T.ScrollBar {

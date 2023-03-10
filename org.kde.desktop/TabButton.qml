@@ -7,12 +7,12 @@
 */
 
 
-import QtQuick 2.6
-import QtQml.Models 2.1
+import QtQuick
+import QtQml.Models
 //for TabBar.*
-import QtQuick.Controls 2.15
-import org.kde.qqc2desktopstyle.private 1.0 as StylePrivate
-import QtQuick.Templates 2.15 as T
+import QtQuick.Controls
+import org.kde.qqc2desktopstyle.private as StylePrivate
+import QtQuick.Templates as T
 import org.kde.kirigami 2.4 as Kirigami
 
 T.TabButton {

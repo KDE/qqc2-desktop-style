@@ -7,8 +7,8 @@
 */
 
 
-import QtQuick 2.15
-import QtQuick.Templates 2.15 as T
+import QtQuick
+import QtQuick.Templates as T
 import org.kde.kirigami 2.15 as Kirigami
 
 T.MenuSeparator {

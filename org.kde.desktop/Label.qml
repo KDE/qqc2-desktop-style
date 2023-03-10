@@ -6,10 +6,10 @@
 */
 
 
-import QtQuick 2.15
-import QtQuick.Window 2.2
-import QtQuick.Templates 2.15 as T
-import org.kde.qqc2desktopstyle.private 1.0 as StylePrivate
+import QtQuick
+import QtQuick.Window
+import QtQuick.Templates as T
+import org.kde.qqc2desktopstyle.private as StylePrivate
 import org.kde.kirigami 2.4 as Kirigami
 
 T.Label {

@@ -7,11 +7,11 @@
 */
 
 
-import QtQuick 2.9
-import QtQuick.Controls 2.15
-import QtQuick.Templates 2.15 as T
+import QtQuick
+import QtQuick.Controls
+import QtQuick.Templates as T
 import org.kde.kirigami 2.9 as Kirigami
-import org.kde.qqc2desktopstyle.private 1.0 as StylePrivate
+import org.kde.qqc2desktopstyle.private as StylePrivate
 
 T.ScrollView {
     id: controlRoot
