@@ -49,6 +49,7 @@ T.RadioDelegate {
     }
 
     indicator: CheckIndicator {
+        elementType: "radiobutton"
         x: controlRoot.mirrored ? controlRoot.leftPadding : controlRoot.width - width - controlRoot.rightPadding
         y: controlRoot.topPadding + (controlRoot.availableHeight - height) / 2
 

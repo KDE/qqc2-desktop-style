@@ -52,6 +52,7 @@ T.CheckDelegate {
     }
 
     indicator: CheckIndicator {
+        elementType: "checkbox"
         x: controlRoot.mirrored ? controlRoot.width - width - controlRoot.rightPadding : controlRoot.leftPadding
         y: controlRoot.topPadding + (controlRoot.availableHeight - height) / 2
 
