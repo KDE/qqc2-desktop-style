@@ -17,7 +17,12 @@ StylePrivate.StyleItem {
 
     property bool drawIcon: true
 
-    elementType: control.autoExclusive ? "radiobutton" : "checkbox"
+    // Fallback heuristic for MenuItem which can mimic either of those.
+    elementType: (control.autoExclusive
+            || (control.action !== null && control.action.T.ActionGroup.group !== null && control.action.T.ActionGroup.group.exclusive)
+            || (control.T.ButtonGroup.group !== null && control.T.ButtonGroup.group.exclusive))
+        ? "radiobutton" : "checkbox"
+
     sunken: control.pressed
     on: control.checked
     hover: control.hovered
