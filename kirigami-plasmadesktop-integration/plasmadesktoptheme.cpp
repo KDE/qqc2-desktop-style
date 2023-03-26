@@ -252,6 +252,10 @@ QIcon PlasmaDesktopTheme::iconFromTheme(const QString &name, const QColor &custo
 
 void PlasmaDesktopTheme::syncColors()
 {
+    if (QCoreApplication::closingDown()) {
+        return;
+    }
+
     QPalette::ColorGroup group = (QPalette::ColorGroup)colorGroup();
     auto parentItem = qobject_cast<QQuickItem *>(parent());
     if (parentItem) {
