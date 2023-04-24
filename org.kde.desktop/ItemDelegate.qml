@@ -22,11 +22,7 @@ T.ItemDelegate {
     hoverEnabled: true
 
     padding: Kirigami.Settings.tabletMode ? Kirigami.Units.largeSpacing : Kirigami.Units.smallSpacing
-
-    topPadding: padding
-    leftPadding: padding * 2
-    rightPadding: padding * 2
-    bottomPadding: padding
+    horizontalPadding: padding * 2
 
     contentItem: RowLayout {
         spacing: Kirigami.Units.smallSpacing
