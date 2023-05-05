@@ -63,7 +63,10 @@ T.TextArea {
         // unfortunately, taphandler's pressed event only triggers when the press is lifted
         // we need to use the longpress signal since it triggers when the button is first pressed
         longPressThreshold: 0
-        onLongPressed: Private.TextFieldContextMenu.targetClick(point, controlRoot, spellcheckhighlighterLoader, controlRoot.positionAt(point.position.x, point.position.y));
+        onLongPressed: {
+            controlRoot.Kirigami.ContextMenu.aboutToShow(point.position.x, point.position.y)
+            Private.TextFieldContextMenu.targetClick(controlRoot.Kirigami.ContextMenu.items, point, controlRoot, spellcheckhighlighterLoader, controlRoot.positionAt(point.position.x, point.position.y));
+        }
     }
 
     Loader {

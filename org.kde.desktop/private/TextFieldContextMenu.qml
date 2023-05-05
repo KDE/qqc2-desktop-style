@@ -24,6 +24,7 @@ Menu {
     property var spellcheckhighlighter: null
     property var spellcheckhighlighterLoader: null
     property var suggestions: []
+    property var extraItems: []
     Component.onCompleted: persistentSelectionSetting = persistentSelectionSetting // break binding
 
     property var runOnMenuClose: () => {}
@@ -37,7 +38,16 @@ Menu {
     }
 
     // target is pressed with mouse
-    function targetClick(handlerPoint, newTarget, spellcheckhighlighter, mousePosition) {
+    function targetClick(items, handlerPoint, newTarget, spellcheckhighlighter, mousePosition) {
+        console.log(items.length)
+
+        if (items.length > 0) {
+            for (var obj in items) {
+                console.log(items[obj])
+                contextMenu.insertItem(0, items[obj])
+            }
+        }
+
         if (handlerPoint.pressedButtons === Qt.RightButton) { // only accept just right click
             if (contextMenu.visible) {
                 deselectWhenMenuClosed = false; // don't deselect text if menu closed by right click on textfield
@@ -108,6 +118,11 @@ Menu {
 
     onOpened: {
         runOnMenuClose = () => {};
+    }
+
+    // TODO: make this dynamic
+    MenuSeparator {
+        visible: true
     }
 
     Instantiator {
