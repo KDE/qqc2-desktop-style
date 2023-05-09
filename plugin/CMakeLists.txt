@@ -9,12 +9,6 @@ set(qqc2desktopstyle_SRCS
 add_library(qqc2desktopstyleplugin SHARED ${qqc2desktopstyle_SRCS})
 target_link_libraries(qqc2desktopstyleplugin Qt6::Core Qt6::Qml Qt6::Quick Qt6::Gui Qt6::Widgets KF6::ConfigCore KF6::Kirigami2)
 
-if(KF6ConfigWidgets_FOUND)
-    target_link_libraries(qqc2desktopstyleplugin
-        KF6::ConfigWidgets
-    )
-endif()
-
 if(WIN32 AND BUILD_SHARED_LIBS)
     set_target_properties(qqc2desktopstyleplugin PROPERTIES PREFIX "")
 endif()

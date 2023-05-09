@@ -4,8 +4,8 @@ Dependencies:
     'frameworks/extra-cmake-modules': '@same'
     'frameworks/kirigami' : '@same'
     'frameworks/kiconthemes' : '@same'
-    'frameworks/kconfigwidgets' : '@same'
     'frameworks/sonnet' : '@same'
+    'frameworks/kcolorscheme' : '@same'
 
 Options:
   test-before-installing: True

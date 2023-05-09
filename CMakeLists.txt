@@ -40,9 +40,9 @@ find_package(Qt6 ${REQUIRED_QT_VERSION} REQUIRED NO_MODULE COMPONENTS Core Quick
 
 find_package(KF6 ${KF_DEP_VERSION} REQUIRED COMPONENTS Config Kirigami2)
 
-# IconThemes and ConfigWidgets are optional
+# IconThemes and ColorScheme are optional
 find_package(KF6IconThemes ${KF_DEP_VERSION})
-find_package(KF6ConfigWidgets ${KF_DEP_VERSION})
+find_package(KF6ColorScheme ${KF_DEP_VERSION})
 
 if (NOT APPLE AND NOT WIN32)
     find_package(X11)
@@ -52,7 +52,7 @@ set_package_properties(IconThemes PROPERTIES DESCRIPTION "KF6 IconThemes framewo
                        TYPE OPTIONAL
                        PURPOSE "Optional integration of Kirigami with KIconLoader icons handling for a better integration with Plasma Desktop"
                       )
-set_package_properties(ConfigWidgets PROPERTIES DESCRIPTION "KF6 WidgetAddons framework"
+set_package_properties(ColorScheme PROPERTIES DESCRIPTION "KF6 ColorScheme framework"
                        TYPE OPTIONAL
                        PURPOSE "Optional integration of Kirigami with KColorScheme for color palettes integration with Plasma Desktop"
                       )
