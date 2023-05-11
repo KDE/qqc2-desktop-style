@@ -37,6 +37,11 @@ QStyle *KQuickStyleItem::style()
     }
 }
 
+static bool isKeyFocusReason(Qt::FocusReason reason)
+{
+    return reason == Qt::TabFocusReason || reason == Qt::BacktabFocusReason || reason == Qt::ShortcutFocusReason;
+}
+
 KQuickStyleItem::KQuickStyleItem(QQuickItem *parent)
     : QQuickItem(parent)
     , m_styleoption(nullptr)
@@ -795,7 +800,7 @@ void KQuickStyleItem::initStyleOption()
     // some styles don't draw a focus rectangle if
     // QStyle::State_KeyboardFocusChange is not set
     if (window()) {
-        if (m_lastFocusReason == Qt::TabFocusReason || m_lastFocusReason == Qt::BacktabFocusReason) {
+        if (isKeyFocusReason(m_lastFocusReason)) {
             m_styleoption->state |= QStyle::State_KeyboardFocusChange;
         }
     }
@@ -1622,7 +1627,7 @@ void KQuickStyleItem::paint(QPainter *painter)
         KQuickStyleItem::style()->drawComplexControl(QStyle::CC_ToolButton, qstyleoption_cast<QStyleOptionComplex *>(m_styleoption), painter);
         break;
     case Tab: {
-        if (m_lastFocusReason != Qt::TabFocusReason && m_lastFocusReason != Qt::BacktabFocusReason) {
+        if (!isKeyFocusReason(m_lastFocusReason)) {
             m_styleoption->state &= ~QStyle::State_HasFocus;
         }
         KQuickStyleItem::style()->drawControl(QStyle::CE_TabBarTab, m_styleoption, painter);
