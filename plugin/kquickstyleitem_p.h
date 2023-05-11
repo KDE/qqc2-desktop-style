@@ -49,7 +49,7 @@ class KQuickStyleItem : public QQuickItem
     Q_PROPERTY(bool flat READ flat WRITE setFlat NOTIFY flatChanged)
     Q_PROPERTY(bool active READ active WRITE setActive NOTIFY activeChanged)
     Q_PROPERTY(bool selected READ selected WRITE setSelected NOTIFY selectedChanged)
-    Q_PROPERTY(bool hasFocus READ hasFocus WRITE sethasFocus NOTIFY hasFocusChanged)
+    Q_PROPERTY(bool hasFocus READ hasFocus WRITE setHasFocus NOTIFY hasFocusChanged)
     Q_PROPERTY(bool on READ on WRITE setOn NOTIFY onChanged)
     Q_PROPERTY(bool hover READ hover WRITE setHover NOTIFY hoverChanged)
     Q_PROPERTY(bool horizontal READ horizontal WRITE setHorizontal NOTIFY horizontalChanged)
@@ -266,7 +266,7 @@ public:
             Q_EMIT selectedChanged();
         }
     }
-    void sethasFocus(bool focus)
+    void setHasFocus(bool focus)
     {
         if (m_focus != focus) {
             m_focus = focus;
