@@ -66,7 +66,7 @@ KQuickStyleItem::KQuickStyleItem(QQuickItem *parent)
     , m_contentHeight(0)
     , m_textureWidth(0)
     , m_textureHeight(0)
-    , m_lastFocusReason(Qt::NoFocusReason)
+    , m_focusReason(Qt::NoFocusReason)
 {
     // Check that we really are a QApplication before attempting to access the
     // application style.
@@ -800,7 +800,7 @@ void KQuickStyleItem::initStyleOption()
     // some styles don't draw a focus rectangle if
     // QStyle::State_KeyboardFocusChange is not set
     if (window()) {
-        if (isKeyFocusReason(m_lastFocusReason)) {
+        if (isKeyFocusReason(m_focusReason)) {
             m_styleoption->state |= QStyle::State_KeyboardFocusChange;
         }
     }
@@ -1627,7 +1627,7 @@ void KQuickStyleItem::paint(QPainter *painter)
         KQuickStyleItem::style()->drawComplexControl(QStyle::CC_ToolButton, qstyleoption_cast<QStyleOptionComplex *>(m_styleoption), painter);
         break;
     case Tab: {
-        if (!isKeyFocusReason(m_lastFocusReason)) {
+        if (!isKeyFocusReason(m_focusReason)) {
             m_styleoption->state &= ~QStyle::State_HasFocus;
         }
         KQuickStyleItem::style()->drawControl(QStyle::CE_TabBarTab, m_styleoption, painter);
@@ -1809,6 +1809,17 @@ bool KQuickStyleItem::hasThemeIcon(const QString &icon) const
     return QIcon::hasThemeIcon(icon);
 }
 
+void KQuickStyleItem::updateFocusReason()
+{
+    if (m_control) {
+        auto reason = m_focusReasonProperty.read(m_control).value<Qt::FocusReason>();
+        if (m_focusReason != reason) {
+            m_focusReason = reason;
+            polish();
+        }
+    }
+}
+
 bool KQuickStyleItem::event(QEvent *ev)
 {
     if (ev->type() == QEvent::StyleAnimationUpdate) {
@@ -1867,8 +1878,21 @@ void KQuickStyleItem::setControl(QQuickItem *control)
     }
 
     m_control = control;
+    m_focusReasonProperty = {};
+    m_focusReason = Qt::NoFocusReason;
 
     if (m_control) {
+        // focusReasonChanged is a signal of QQuickControl class which is not exposed.
+        const auto mo = m_control->metaObject();
+        m_focusReasonProperty = mo->property(mo->indexOfProperty("focusReason"));
+        if (m_focusReasonProperty.isValid()) {
+            // wish there was something like QMetaMethod::fromSignal but for slots
+            const auto slot = metaObject()->method(metaObject()->indexOfSlot("updateFocusReason()"));
+            // also wish there was a way to connect QMetaMethod to arbitrary member function
+            connect(m_control, m_focusReasonProperty.notifySignal(), this, slot);
+            updateFocusReason();
+        }
+
         m_control->installEventFilter(this);
 
         if (m_control->window()) {
@@ -1939,10 +1963,6 @@ void KQuickStyleItem::updatePolish()
 bool KQuickStyleItem::eventFilter(QObject *watched, QEvent *event)
 {
     if (watched == m_control) {
-        if (event->type() == QEvent::FocusIn || event->type() == QEvent::FocusOut) {
-            QFocusEvent *fe = static_cast<QFocusEvent *>(event);
-            m_lastFocusReason = fe->reason();
-        }
         // Page accepts mouse events without doing anything with them (for a workaround wrt dragging from empty areas of flickables) when the interaction is
         // pure mouse, steal events from them, so a parent handler can initiate a window drag from empty areas, either Kirigami.ApplicationWindow or the breeze
         // style from a QQwuickwidget

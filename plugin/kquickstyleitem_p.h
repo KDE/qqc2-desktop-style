@@ -434,6 +434,9 @@ public Q_SLOTS:
     QString elidedText(const QString &text, int elideMode, int width);
     bool hasThemeIcon(const QString &) const;
 
+private Q_SLOTS:
+    void updateFocusReason();
+
 Q_SIGNALS:
     void elementTypeChanged();
     void textChanged();
@@ -524,7 +527,8 @@ protected:
     int m_textureWidth;
     int m_textureHeight;
 
-    Qt::FocusReason m_lastFocusReason;
+    QMetaProperty m_focusReasonProperty;
+    Qt::FocusReason m_focusReason;
 
     QImage m_image;
     KQuickPadding m_border;
