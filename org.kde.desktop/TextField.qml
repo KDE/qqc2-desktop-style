@@ -55,7 +55,7 @@ T.TextField {
 
     onTextChanged: Private.MobileTextActionsToolBar.shouldBeVisible = false;
 
-    onPressed: Private.MobileTextActionsToolBar.shouldBeVisible = true;
+    onPressed: event => Private.MobileTextActionsToolBar.shouldBeVisible = true;
 
     TapHandler {
         acceptedDevices: PointerDevice.Mouse | PointerDevice.Stylus
@@ -67,7 +67,7 @@ T.TextField {
         onLongPressed: Private.TextFieldContextMenu.targetClick(point, controlRoot, null, null);
     }
 
-    Keys.onPressed: {
+    Keys.onPressed: event => {
         // trigger if context menu button is pressed
         Private.TextFieldContextMenu.targetKeyPressed(event, controlRoot)
 
@@ -78,7 +78,7 @@ T.TextField {
         }
     }
 
-    onPressAndHold: {
+    onPressAndHold: event => {
         if (!Kirigami.Settings.tabletMode) {
             return;
         }
