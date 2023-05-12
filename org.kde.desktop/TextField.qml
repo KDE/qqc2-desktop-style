@@ -16,6 +16,7 @@ import "private" as Private
 
 T.TextField {
     id: controlRoot
+
     Kirigami.Theme.colorSet: Kirigami.Theme.View
     Kirigami.Theme.inherit: false
 
@@ -41,12 +42,14 @@ T.TextField {
     selectByMouse: !Kirigami.Settings.tabletMode
 
     cursorDelegate: Kirigami.Settings.tabletMode ? mobileCursor : null
+
     Component {
         id: mobileCursor
         Private.MobileCursor {
             target: controlRoot
         }
     }
+
     onFocusChanged: {
         if (focus) {
             Private.MobileTextActionsToolBar.controlRoot = controlRoot;
@@ -86,6 +89,7 @@ T.TextField {
         cursorPosition = positionAt(event.x, event.y);
         selectWord();
     }
+
     Private.MobileCursor {
         target: controlRoot
         selectionStartHandle: true
