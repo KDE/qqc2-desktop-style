@@ -15,14 +15,21 @@ import org.kde.kirigami 2.4 as Kirigami
 T.MenuItem {
     id: controlRoot
 
-    implicitWidth: Math.max(background ? background.implicitWidth : 0,
-                            contentItem.implicitWidth + leftPadding + rightPadding + (arrow ? arrow.implicitWidth : 0))
-    implicitHeight: visible ? Math.max(background ? background.implicitHeight : 0,
-                             Math.max(contentItem.implicitHeight,
-                                      indicator ? indicator.implicitHeight : 0) + topPadding + bottomPadding) : 0
+    implicitWidth: Math.max(implicitBackgroundWidth + leftInset + rightInset,
+                            implicitContentWidth + leftPadding + rightPadding)
+    implicitHeight: Math.max(implicitBackgroundHeight + topInset + bottomInset,
+                             implicitContentHeight + topPadding + bottomPadding,
+                             implicitIndicatorHeight + topPadding + bottomPadding)
+
+    // implicitWidth: Math.max(background ? background.implicitWidth : 0,
+    //                         contentItem.implicitWidth + leftPadding + rightPadding + (arrow ? arrow.implicitWidth : 0))
+    // implicitHeight: visible ? Math.max(background ? background.implicitHeight : 0,
+    //                          Math.max(contentItem.implicitHeight,
+    //                                   indicator ? indicator.implicitHeight : 0) + topPadding + bottomPadding) : 0
+
     baselineOffset: contentItem.y + contentItem.baselineOffset
 
-    width: parent ? parent.width : implicitWidth
+    width: parent ? parent.width : undefined
 
     Layout.fillWidth: true
     padding: Kirigami.Units.smallSpacing
@@ -113,12 +120,11 @@ T.MenuItem {
     }
 
     background: Item {
-        anchors.fill: parent
         implicitWidth: Kirigami.Units.gridUnit * 8
 
         Rectangle {
             anchors.fill: parent
-            anchors.margins: 2
+            // anchors.margins: 2
             opacity: (controlRoot.highlighted || controlRoot.hovered) ? 1 : 0
             color: Qt.rgba(Kirigami.Theme.focusColor.r, Kirigami.Theme.focusColor.g, Kirigami.Theme.focusColor.b, 0.3)
             border.color: Kirigami.Theme.focusColor

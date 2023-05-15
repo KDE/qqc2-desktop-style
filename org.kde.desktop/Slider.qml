@@ -22,7 +22,45 @@ T.Slider {
     LayoutMirroring.enabled: Qt.application.layoutDirection === Qt.RightToLeft
 
     handle: Item {
-        anchors.verticalCenter: controlRoot.verticalCenter
+        property rect subControlRect: Qt.rect(0, 0, 0, 0)
+
+        x: subControlRect.x
+        y: subControlRect.y
+        width: subControlRect.width
+        height: subControlRect.height
+
+        function computeRects() {
+            if (controlRoot.background instanceof StylePrivate.StyleItem) {
+                Qt.callLater(() => {
+                    subControlRect = controlRoot.background.subControlRect("handle");
+                });
+            }
+        }
+
+        Connections {
+            target: controlRoot
+            enabled: controlRoot.background instanceof StylePrivate.StyleItem
+            function onValueChanged() {
+                print("AAA", value);
+                controlRoot.handle.computeRects();
+            }
+            function onWidthChanged() {
+                controlRoot.handle.computeRects();
+            }
+            function onHeightChanged() {
+                controlRoot.handle.computeRects();
+            }
+        }
+
+        Connections {
+            target: controlRoot.background
+            enabled: controlRoot.background instanceof StylePrivate.StyleItem
+            function onStyleNameChanged() {
+                controlRoot.handle.computeRects();
+            }
+        }
+
+        Component.onCompleted: computeRects()
     }
 
     snapMode: T.Slider.SnapOnRelease
