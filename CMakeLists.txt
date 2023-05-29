@@ -99,7 +99,7 @@ ecm_add_qml_module(org_kde_desktop URI "org.kde.desktop" VERSION 1.0 NO_PLUGIN)
 file(GLOB _public_qml "org.kde.desktop/*.qml")
 ecm_target_qml_sources(org_kde_desktop VERSION 1.0 SOURCES ${_public_qml})
 file(GLOB _private_qml "org.kde.desktop/private/*.qml")
-ecm_target_qml_sources(org_kde_desktop VERSION 1.0 PATH private SOURCES ${_private_qml})
+ecm_target_qml_sources(org_kde_desktop VERSION 1.0 PRIVATE PATH private SOURCES ${_private_qml})
 ecm_finalize_qml_module(org_kde_desktop DESTINATION ${KDE_INSTALL_QMLDIR})
 
 feature_summary(WHAT ALL INCLUDE_QUIET_PACKAGES FATAL_ON_MISSING_REQUIRED_PACKAGES)
