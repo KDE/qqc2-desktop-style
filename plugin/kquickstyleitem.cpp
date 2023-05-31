@@ -162,7 +162,7 @@ void KQuickStyleItem::initStyleOption()
         connect(m_theme, &Kirigami::PlatformTheme::colorsChanged, this, [this]() {
             // we need to reset the palette event if Qt::AA_SetPalette attribute has been set
             m_styleoption->palette = m_theme->palette();
-            updateItem();
+            polish();
         });
     }
     Q_ASSERT(m_theme);
@@ -1977,7 +1977,7 @@ bool KQuickStyleItem::eventFilter(QObject *watched, QEvent *event)
         if (event->type() == QEvent::KeyPress || event->type() == QEvent::KeyRelease) {
             QKeyEvent *ke = static_cast<QKeyEvent *>(event);
             if (ke->key() == Qt::Key_Alt) {
-                updateItem();
+                polish();
             }
         }
     } else if (watched == qGuiApp) {
@@ -2027,7 +2027,7 @@ void KQuickStyleItem::styleChanged()
     connect(style, &QObject::destroyed, this, &KQuickStyleItem::styleChanged);
 
     updateSizeHint();
-    updateItem();
+    polish();
     Q_EMIT styleNameChanged();
 }
 
