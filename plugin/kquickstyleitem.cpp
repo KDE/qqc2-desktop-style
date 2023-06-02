@@ -959,15 +959,16 @@ int KQuickStyleItem::bottomPadding() const
 
 QString KQuickStyleItem::styleName() const
 {
-    QString style = QString::fromLatin1(KQuickStyleItem::style()->metaObject()->className());
-    style = style.toLower();
-    if (style.startsWith(QLatin1Char('q'))) {
-        style = style.right(style.length() - 1);
+    const QString fullName = QString::fromLatin1(KQuickStyleItem::style()->metaObject()->className());
+    QStringView shortName = fullName;
+    if (shortName.startsWith(QLatin1Char('q'), Qt::CaseInsensitive)) {
+        shortName = shortName.sliced(1);
     }
-    if (style.endsWith(QLatin1String("style"))) {
-        style = style.left(style.length() - 5);
+    const QLatin1String suffix("style");
+    if (shortName.endsWith(suffix, Qt::CaseInsensitive)) {
+        shortName.chop(suffix.length());
     }
-    return style;
+    return shortName.toString().toLower();
 }
 
 QString KQuickStyleItem::hitTest(int px, int py)
