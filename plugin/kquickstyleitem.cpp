@@ -899,52 +899,42 @@ void KQuickStyleItem::resolvePalette()
     }
 }
 
-int KQuickStyleItem::leftPadding() const
-{
-    switch (m_itemType) {
-    case Frame: {
-        const QRect cr = KQuickStyleItem::style()->subElementRect(QStyle::SE_ShapedFrameContents, m_styleoption);
-        return cr.left() - m_styleoption->rect.left();
-    }
-    default:
-        return 0;
-    }
-}
-
 int KQuickStyleItem::topPadding() const
 {
-    switch (m_itemType) {
-    case Frame: {
-        const QRect cr = KQuickStyleItem::style()->subElementRect(QStyle::SE_ShapedFrameContents, m_styleoption);
-        return cr.top() - m_styleoption->rect.top();
-    }
-    default:
-        return 0;
-    }
+    return padding(Qt::TopEdge);
+}
+
+int KQuickStyleItem::leftPadding() const
+{
+    return padding(Qt::LeftEdge);
 }
 
 int KQuickStyleItem::rightPadding() const
 {
-    switch (m_itemType) {
-    case Frame: {
-        const QRect cr = KQuickStyleItem::style()->subElementRect(QStyle::SE_ShapedFrameContents, m_styleoption);
-        return m_styleoption->rect.right() - cr.right();
-    }
-    default:
-        return 0;
-    }
+    return padding(Qt::RightEdge);
 }
 
 int KQuickStyleItem::bottomPadding() const
 {
-    switch (m_itemType) {
-    case Frame: {
+    return padding(Qt::BottomEdge);
+}
+
+int KQuickStyleItem::padding(Qt::Edge edge) const
+{
+    if (m_itemType == Frame) {
         const QRect cr = KQuickStyleItem::style()->subElementRect(QStyle::SE_ShapedFrameContents, m_styleoption);
-        return m_styleoption->rect.bottom() - cr.bottom();
+        switch (edge) {
+        case Qt::TopEdge:
+            return cr.top() - m_styleoption->rect.top();
+        case Qt::LeftEdge:
+            return cr.left() - m_styleoption->rect.left();
+        case Qt::RightEdge:
+            return m_styleoption->rect.right() - cr.right();
+        case Qt::BottomEdge:
+            return m_styleoption->rect.bottom() - cr.bottom();
+        }
     }
-    default:
-        return 0;
-    }
+    return 0;
 }
 
 /*

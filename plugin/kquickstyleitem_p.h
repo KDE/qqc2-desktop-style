@@ -392,8 +392,8 @@ public:
     virtual void initStyleOption();
     void resolvePalette();
 
-    int leftPadding() const;
     int topPadding() const;
+    int leftPadding() const;
     int rightPadding() const;
     int bottomPadding() const;
 
@@ -483,6 +483,7 @@ protected:
     void geometryChange(const QRectF &newGeometry, const QRectF &oldGeometry) override;
 
 private:
+    int padding(Qt::Edge edge) const;
     QIcon iconFromIconProperty() const;
     const char *classNameForItem() const;
     qreal baselineOffset();
