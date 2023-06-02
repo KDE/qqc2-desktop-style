@@ -389,7 +389,7 @@ public:
     }
     void setContentHeight(int arg);
 
-    virtual void initStyleOption();
+    void initStyleOption();
     void resolvePalette();
 
     int topPadding() const;
