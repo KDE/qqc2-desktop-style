@@ -390,7 +390,6 @@ public:
     void setContentHeight(int arg);
 
     void initStyleOption();
-    void resolvePalette();
 
     int topPadding() const;
     int leftPadding() const;
@@ -484,6 +483,7 @@ protected:
 
 private:
     int padding(Qt::Edge edge) const;
+    void resolvePaletteAndUpdateColorGroup();
     QIcon iconFromIconProperty() const;
     const char *classNameForItem() const;
     qreal baselineOffset();

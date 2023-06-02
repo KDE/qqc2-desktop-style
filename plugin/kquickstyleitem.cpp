@@ -160,8 +160,7 @@ void KQuickStyleItem::initStyleOption()
         Q_ASSERT(m_theme);
 
         connect(m_theme, &Kirigami::PlatformTheme::colorsChanged, this, [this]() {
-            // we need to reset the palette event if Qt::AA_SetPalette attribute has been set
-            m_styleoption->palette = m_theme->palette();
+            resolvePaletteAndUpdateColorGroup();
             polish();
         });
     }
@@ -173,7 +172,6 @@ void KQuickStyleItem::initStyleOption()
 
     QString sizeHint = m_hints.value(QStringLiteral("size")).toString();
 
-    bool needsResolvePalette = true;
     bool preventMirroring = false;
 
     switch (m_itemType) {
@@ -243,11 +241,6 @@ void KQuickStyleItem::initStyleOption()
         opt->textElideMode = Qt::ElideRight;
         opt->displayAlignment = Qt::AlignLeft | Qt::AlignVCenter;
         opt->decorationAlignment = Qt::AlignCenter;
-        resolvePalette();
-        needsResolvePalette = false;
-        QPalette pal = m_styleoption->palette;
-        pal.setBrush(QPalette::Base, Qt::NoBrush);
-        m_styleoption->palette = pal;
         const QFont font = qApp->font("QAbstractItemView");
         opt->font = font;
         opt->fontMetrics = QFontMetrics(font);
@@ -749,9 +742,7 @@ void KQuickStyleItem::initStyleOption()
         m_styleoption = new QStyleOption();
     }
 
-    if (needsResolvePalette) {
-        resolvePalette();
-    }
+    resolvePaletteAndUpdateColorGroup();
 
     m_styleoption->styleObject = this;
     const auto mirror = m_control == nullptr ? qApp->layoutDirection() == Qt::RightToLeft : m_control->property("mirrored").toBool();
@@ -761,19 +752,6 @@ void KQuickStyleItem::initStyleOption()
     int h = m_textureHeight > 0 ? m_textureHeight : height();
 
     m_styleoption->rect = QRect(m_paintMargins, 0, w - 2 * m_paintMargins, h);
-
-    if (isEnabled()) {
-        m_styleoption->state |= QStyle::State_Enabled;
-        m_styleoption->palette.setCurrentColorGroup(QPalette::Active);
-    } else {
-        m_styleoption->palette.setCurrentColorGroup(QPalette::Disabled);
-    }
-
-    if (m_active) {
-        m_styleoption->state |= QStyle::State_Active;
-    } else {
-        m_styleoption->palette.setCurrentColorGroup(QPalette::Inactive);
-    }
 
     if (m_sunken) {
         m_styleoption->state |= QStyle::State_Sunken;
@@ -810,7 +788,38 @@ void KQuickStyleItem::initStyleOption()
     } else if (sizeHint == QLatin1String("small")) {
         m_styleoption->state |= QStyle::State_Small;
     }
+}
 
+void KQuickStyleItem::resolvePaletteAndUpdateColorGroup()
+{
+    if (!QCoreApplication::testAttribute(Qt::AA_SetPalette)) {
+        const QVariant controlPalette = m_control ? m_control->property("palette") : QVariant();
+        if (controlPalette.isValid()) {
+            m_styleoption->palette = controlPalette.value<QPalette>();
+        } else {
+            m_styleoption->palette = m_theme->palette();
+        }
+    }
+
+    // Special case for Item type
+    if (m_itemType == Item) {
+        QPalette palette = m_styleoption->palette;
+        palette.setBrush(QPalette::Base, Qt::NoBrush);
+        m_styleoption->palette = palette;
+    }
+
+    if (isEnabled()) {
+        m_styleoption->state |= QStyle::State_Enabled;
+        m_styleoption->palette.setCurrentColorGroup(QPalette::Active);
+    } else {
+        m_styleoption->palette.setCurrentColorGroup(QPalette::Disabled);
+    }
+
+    if (m_active) {
+        m_styleoption->state |= QStyle::State_Active;
+    } else {
+        m_styleoption->palette.setCurrentColorGroup(QPalette::Inactive);
+    }
 }
 
 QIcon KQuickStyleItem::iconFromIconProperty() const
@@ -883,20 +892,6 @@ const char *KQuickStyleItem::classNameForItem() const
         return "";
     }
     Q_UNREACHABLE();
-}
-
-void KQuickStyleItem::resolvePalette()
-{
-    if (QCoreApplication::testAttribute(Qt::AA_SetPalette)) {
-        return;
-    }
-
-    const QVariant controlPalette = m_control ? m_control->property("palette") : QVariant();
-    if (controlPalette.isValid()) {
-        m_styleoption->palette = controlPalette.value<QPalette>();
-    } else {
-        m_styleoption->palette = m_theme->palette();
-    }
 }
 
 int KQuickStyleItem::topPadding() const
