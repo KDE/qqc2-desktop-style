@@ -12,10 +12,10 @@
 #define KQUICKSTYLEITEM_P_H
 
 #include "kquickpadding_p.h"
+#include <QImage>
 #include <QPointer>
-#include <QtGui/qimage.h>
-#include <QtQuick/qquickimageprovider.h>
-#include <QtQuick/qquickitem.h>
+#include <QQuickImageProvider>
+#include <QQuickItem>
 
 #include <memory>
 

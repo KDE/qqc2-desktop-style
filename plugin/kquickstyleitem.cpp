@@ -17,7 +17,7 @@
 #include <QStringBuilder>
 #include <QStyle>
 #include <QStyleFactory>
-#include <QtQuick/qsgninepatchnode.h>
+#include <qsgninepatchnode.h>
 #include <qstyleoption.h>
 
 #include <KConfigGroup>
