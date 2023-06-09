@@ -64,7 +64,7 @@ T.Slider {
 
             acceptedButtons: Qt.NoButton
 
-            onWheel: {
+            onWheel: wheel => {
                 const lastValue = controlRoot.value
                 const delta = wheel.angleDelta.y || wheel.angleDelta.x
                 wheelDelta += delta;
