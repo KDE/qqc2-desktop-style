@@ -91,9 +91,9 @@ ecm_set_disabled_deprecation_versions(
 
 add_subdirectory(plugin)
 
-if (KF6IconThemes_FOUND AND KF6WidgetsAddons_FOUND)
+if (KF6IconThemes_FOUND AND KF6ColorScheme_FOUND)
 add_subdirectory(kirigami-plasmadesktop-integration)
-endif(KF6IconThemes_FOUND AND KF6WidgetsAddons_FOUND)
+endif(KF6IconThemes_FOUND AND KF6ColorScheme_FOUND)
 
 ecm_add_qml_module(org_kde_desktop URI "org.kde.desktop" VERSION 1.0 NO_PLUGIN)
 file(GLOB _public_qml "org.kde.desktop/*.qml")
