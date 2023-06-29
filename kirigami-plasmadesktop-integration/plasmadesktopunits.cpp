@@ -49,3 +49,5 @@ void PlasmaDesktopUnits::updateAnimationSpeed()
     setLongDuration(longDuration);
     setVeryLongDuration(longDuration * 2);
 }
+
+#include "moc_plasmadesktopunits.cpp"

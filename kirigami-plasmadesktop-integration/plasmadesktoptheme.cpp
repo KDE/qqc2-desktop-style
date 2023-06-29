@@ -319,4 +319,5 @@ bool PlasmaDesktopTheme::event(QEvent *event)
     return PlatformTheme::event(event);
 }
 
+#include "moc_plasmadesktoptheme.cpp"
 #include "plasmadesktoptheme.moc"
