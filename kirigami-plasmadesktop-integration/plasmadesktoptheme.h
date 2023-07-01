@@ -15,8 +15,6 @@
 #include <QPointer>
 #include <QQuickItem>
 
-class PlasmaDesktopTheme;
-class KIconLoader;
 class StyleSingleton;
 
 class PlasmaDesktopTheme : public Kirigami::PlatformTheme

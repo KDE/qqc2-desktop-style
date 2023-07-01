@@ -5,20 +5,16 @@
 */
 
 #include "plasmadesktoptheme.h"
-#include <KIconLoader>
-#include <QDebug>
+
+#include <QDBusConnection>
 #include <QGuiApplication>
 #include <QPalette>
-#include <QQmlContext>
-#include <QQmlEngine>
 #include <QQuickRenderControl>
 #include <QQuickWindow>
-#include <QScopeGuard>
 
 #include <KColorScheme>
 #include <KConfigGroup>
 #include <KIconColors>
-#include <QDBusConnection>
 
 class StyleSingleton : public QObject
 {
