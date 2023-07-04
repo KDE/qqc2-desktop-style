@@ -19,7 +19,6 @@ T.Slider {
     implicitHeight: background.horizontal ? background.implicitHeight : Kirigami.Units.gridUnit * 12
 
     hoverEnabled: true
-    LayoutMirroring.enabled: Qt.application.layoutDirection === Qt.RightToLeft
 
     handle: Item {
         anchors.verticalCenter: controlRoot.verticalCenter
@@ -61,6 +60,7 @@ T.Slider {
                 leftMargin: controlRoot.leftPadding
                 rightMargin: controlRoot.rightPadding
             }
+            LayoutMirroring.enabled: false
 
             acceptedButtons: Qt.NoButton
 
