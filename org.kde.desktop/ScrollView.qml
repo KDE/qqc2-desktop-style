@@ -25,12 +25,12 @@ T.ScrollView {
     Kirigami.Theme.inherit: !background || !background.visible
 
     //size in pixel to accommodate the border drawn by qstyle
-    topPadding: internal.backgroundVisible() && background.hasOwnProperty("topPadding") ? background.topPadding : 0
-    leftPadding: (internal.backgroundVisible() && background.hasOwnProperty("leftPadding") ? background.leftPadding : 0)
+    topPadding: controlRoot.background?.visible && background.hasOwnProperty("topPadding") ? background.topPadding : 0
+    leftPadding: (controlRoot.background?.visible && background.hasOwnProperty("leftPadding") ? background.leftPadding : 0)
                     + (mirrored ? internal.verticalScrollBarWidth : 0)
-    rightPadding: (internal.backgroundVisible() && background.hasOwnProperty("rightPadding") ? background.rightPadding : 0)
+    rightPadding: (controlRoot.background?.visible && background.hasOwnProperty("rightPadding") ? background.rightPadding : 0)
                     + (!mirrored ? internal.verticalScrollBarWidth : 0)
-    bottomPadding: (internal.backgroundVisible() && background.hasOwnProperty("bottomPadding") ? background.bottomPadding : 0)
+    bottomPadding: (controlRoot.background?.visible && background.hasOwnProperty("bottomPadding") ? background.bottomPadding : 0)
                     + internal.horizontalScrollBarHeight
 
     //create a background only after Component.onCompleted, see on the component creation below for explanation
@@ -67,14 +67,6 @@ T.ScrollView {
         QtObject {
             id: internal
 
-            // Unlike bindings with non-deterministic order of propagation,
-            // calling function will ensure that values are fresh (fetched at
-            // the time of call) and also QML Engine will still subscribe to
-            // the accessed properties regardless, making it safe & correct
-            // way to factor out sub-expressions.
-            function backgroundVisible() {
-                return controlRoot.background && controlRoot.background.visible;
-            }
             readonly property real verticalScrollBarWidth: controlRoot.ScrollBar.vertical.visible && controlRoot.ScrollBar.vertical.interactive ? controlRoot.ScrollBar.vertical.width : 0
             readonly property real horizontalScrollBarHeight: controlRoot.ScrollBar.horizontal.visible && controlRoot.ScrollBar.vertical.interactive ? controlRoot.ScrollBar.horizontal.height : 0
         }
@@ -84,8 +76,8 @@ T.ScrollView {
         parent: controlRoot
         z: 1
         x: controlRoot.mirrored
-            ? (internal.backgroundVisible() && controlRoot.background.hasOwnProperty("leftPadding") ? controlRoot.background.leftPadding : 0)
-            : controlRoot.width - width - (internal.backgroundVisible() && controlRoot.background.hasOwnProperty("rightPadding") ? controlRoot.background.rightPadding : 0)
+            ? (controlRoot.background?.visible && controlRoot.background.hasOwnProperty("leftPadding") ? controlRoot.background.leftPadding : 0)
+            : controlRoot.width - width - (controlRoot.background?.visible && controlRoot.background.hasOwnProperty("rightPadding") ? controlRoot.background.rightPadding : 0)
         y: controlRoot.topPadding
         height: controlRoot.availableHeight
         active: controlRoot.ScrollBar.horizontal.active
@@ -95,7 +87,7 @@ T.ScrollView {
         parent: controlRoot
         z: 1
         x: controlRoot.leftPadding
-        y: controlRoot.height - height - (internal.backgroundVisible() && controlRoot.background.hasOwnProperty("bottomPadding") ? controlRoot.background.bottomPadding : 0)
+        y: controlRoot.height - height - (controlRoot.background?.visible && controlRoot.background.hasOwnProperty("bottomPadding") ? controlRoot.background.bottomPadding : 0)
         width: controlRoot.availableWidth
         active: controlRoot.ScrollBar.vertical.active
     }
