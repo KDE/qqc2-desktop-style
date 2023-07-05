@@ -51,7 +51,9 @@ T.TextArea {
     }
 
     onTextChanged: Private.MobileTextActionsToolBar.shouldBeVisible = false;
-    onPressed: Private.MobileTextActionsToolBar.shouldBeVisible = true;
+    onPressed: event => {
+        Private.MobileTextActionsToolBar.shouldBeVisible = true;
+    }
 
     TapHandler {
         enabled: controlRoot.selectByMouse
@@ -89,14 +91,14 @@ T.TextArea {
         }
     }
 
-    Keys.onPressed: {
+    Keys.onPressed: event => {
         // trigger if context menu button is pressed
         if (controlRoot.selectByMouse) {
             Private.TextFieldContextMenu.targetKeyPressed(event, controlRoot)
         }
     }
 
-    onPressAndHold: {
+    onPressAndHold: event => {
         if (hoverEnabled) {
             return;
         }

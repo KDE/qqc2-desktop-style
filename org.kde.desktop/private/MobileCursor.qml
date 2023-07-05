@@ -44,7 +44,7 @@ Item {
                 margins: -Kirigami.Units.gridUnit
             }
             preventStealing: true
-            onPositionChanged: {
+            onPositionChanged: mouse => {
                 var pos = mapToItem(target, mouse.x, mouse.y);
                 pos = target.positionAt(pos.x, pos.y);
 
