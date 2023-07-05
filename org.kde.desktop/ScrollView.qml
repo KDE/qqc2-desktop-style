@@ -35,37 +35,21 @@ T.ScrollView {
     bottomPadding: (controlRoot.background?.visible && background.hasOwnProperty("bottomPadding") ? background.bottomPadding : 0)
                     + internal.horizontalScrollBarHeight
 
-    //create a background only after Component.onCompleted, see on the component creation below for explanation
-    Component.onCompleted: {
-        if (!controlRoot.background) {
-            controlRoot.background = backgroundComponent.createObject(controlRoot);
-        }
+    background: StylePrivate.StyleItem {
+        control: controlRoot
+        elementType: "frame"
+        visible: false
+        sunken: true
+        raised: false
+        enabled: controlRoot.contentItem.enabled
+        hasFocus: controlRoot.activeFocus || controlRoot.contentItem.activeFocus
+        hover: controlRoot.hovered
     }
 
     data: [
         Kirigami.WheelHandler {
             target: controlRoot.contentItem
         },
-        // create a background only after Component.onCompleted because:
-        // implementations can set their own background in a declarative way.
-        // ScrollView {background.visible: true} must *not* work, because all
-        // upstream styles don't have a background so applications using this
-        // would break with other styles.
-        Component {
-            id: backgroundComponent
-            StylePrivate.StyleItem {
-                id: styled
-                control: controlRoot
-                elementType: "frame"
-                visible: false
-                sunken: true
-                raised: false
-                enabled: controlRoot.contentItem.enabled
-                hasFocus: controlRoot.activeFocus || controlRoot.contentItem.activeFocus
-                hover: controlRoot.hovered
-            }
-        },
-
         QtObject {
             id: internal
 
