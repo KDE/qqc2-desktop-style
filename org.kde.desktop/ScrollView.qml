@@ -16,8 +16,6 @@ import org.kde.qqc2desktopstyle.private as StylePrivate
 T.ScrollView {
     id: controlRoot
 
-    clip: true
-
     implicitWidth: Math.max(implicitBackgroundWidth + leftInset + rightInset,
                             contentWidth + leftPadding + rightPadding)
     implicitHeight: Math.max(implicitBackgroundHeight + topInset + bottomInset,
