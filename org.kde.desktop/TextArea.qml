@@ -68,10 +68,15 @@ T.TextArea {
     }
 
     Loader {
+        id: sonnetSettings
+        active: controlRoot.Kirigami.SpellChecking.enabled && !controlRoot.readOnly
+        sourceComponent: Sonnet.Settings {}
+    }
+
+    Loader {
         id: spellcheckhighlighterLoader
-        property bool activable: controlRoot.Kirigami.SpellChecking.enabled
-        property Sonnet.Settings settings: Sonnet.Settings {}
-        active: activable && settings.checkerEnabledByDefault
+
+        active: sonnetSettings.active && sonnetSettings.item.checkerEnabledByDefault
         onActiveChanged: if (active) {
             item.active = true;
         }
