@@ -205,7 +205,7 @@ void KQuickStyleItem::initStyleOption()
         if (m_flat) {
             opt->features |= QStyleOptionButton::Flat;
         }
-        const QFont font = qApp->font("QPushButton");
+        const QFont font = resolveFont("QPushButton");
         opt->fontMetrics = QFontMetrics(font);
         bool hasMenu = m_properties[QStringLiteral("menu")].toBool();
         if (hasMenu) {
@@ -248,7 +248,7 @@ void KQuickStyleItem::initStyleOption()
         QPalette pal = m_styleoption->palette;
         pal.setBrush(QPalette::Base, Qt::NoBrush);
         m_styleoption->palette = pal;
-        const QFont font = qApp->font("QAbstractItemView");
+        const QFont font = resolveFont("QAbstractItemView");
         opt->font = font;
         opt->fontMetrics = QFontMetrics(font);
         break;
@@ -294,7 +294,7 @@ void KQuickStyleItem::initStyleOption()
             opt->position = QStyleOptionHeader::Middle;
         }
 
-        const QFont font = qApp->font("QHeaderView");
+        const QFont font = resolveFont("QHeaderView");
         opt->fontMetrics = QFontMetrics(font);
         break;
     }
@@ -350,7 +350,7 @@ void KQuickStyleItem::initStyleOption()
             opt->toolButtonStyle = Qt::ToolButtonFollowStyle;
         }
 
-        const QFont font = qApp->font("QToolButton");
+        const QFont font = resolveFont("QPushButton");
         opt->font = font;
         opt->fontMetrics = QFontMetrics(font);
         break;
@@ -469,7 +469,7 @@ void KQuickStyleItem::initStyleOption()
         opt->menuItemType = QStyleOptionMenuItem::Normal;
         setProperty("_q_showUnderlined", m_hints[QStringLiteral("showUnderlined")].toBool());
 
-        const QFont font = qApp->font("QMenuBar");
+        const QFont font = resolveFont("QMenuBar");
         opt->font = font;
         opt->fontMetrics = QFontMetrics(font);
         m_font = opt->font;
@@ -526,7 +526,7 @@ void KQuickStyleItem::initStyleOption()
 
             setProperty("_q_showUnderlined", m_hints[QStringLiteral("showUnderlined")].toBool());
 
-            const QFont font = qApp->font(m_itemType == ComboBoxItem ? "QComboMenuItem" : "QMenu");
+            const QFont font = resolveFont(m_itemType == ComboBoxItem ? "QComboMenuItem" : "QMenu");
             opt->font = font;
             opt->fontMetrics = QFontMetrics(font);
             m_font = opt->font;
@@ -582,7 +582,8 @@ void KQuickStyleItem::initStyleOption()
 
         QStyleOptionComboBox *opt = qstyleoption_cast<QStyleOptionComboBox *>(m_styleoption);
 
-        const QFont font = qApp->font("QPushButton"); // DAVE - QQC1 code does this, but if you look at QComboBox this doesn't make sense
+        // DAVE - QQC1 code does this, but if you look at QComboBox this doesn't make sense
+        const QFont font = resolveFont("QPushButton");
         opt->fontMetrics = QFontMetrics(font);
         opt->currentText = text();
         opt->editable = m_properties[QStringLiteral("editable")].toBool();
@@ -2065,6 +2066,16 @@ QPixmap QQuickTableRowImageProvider1::requestPixmap(const QString &id, QSize *si
         KQuickStyleItem::style()->drawPrimitive(QStyle::PE_PanelItemViewRow, &opt, &pixpainter);
     }
     return pixmap;
+}
+
+QFont KQuickStyleItem::resolveFont(const char *className)
+{
+    if (m_control) {
+        if (const auto font = m_control->property("font"); font.isValid()) {
+            return font.value<QFont>();
+        }
+    }
+    return qApp->font(className);
 }
 
 #include "moc_kquickpadding_p.cpp"

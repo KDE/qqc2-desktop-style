@@ -488,6 +488,7 @@ private:
     const char *classNameForItem() const;
     qreal baselineOffset();
     void styleChanged();
+    QFont resolveFont(const char *className);
 
 protected:
     Kirigami::PlatformTheme *m_theme = nullptr;
