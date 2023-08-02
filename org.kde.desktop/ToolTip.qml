@@ -9,7 +9,6 @@
 import QtQuick
 import QtQuick.Controls as Controls
 import QtQuick.Templates as T
-import QtQuick.Layouts
 import org.kde.kirigami 2.12 as Kirigami
 
 T.ToolTip {
@@ -59,10 +58,16 @@ T.ToolTip {
         }
     }
 
-    // FIXME: use a top-level Item here so that ToolTip instances with child
-    // items can safely use anchors
-    contentItem: RowLayout {
+    contentItem: Item {
+        implicitWidth: Math.min(label.maxTextLength, label.contentWidth)
+        implicitHeight: label.implicitHeight
+
         Controls.Label {
+            id: label
+
+            // This value is basically arbitrary. It just looks nice.
+            readonly property double maxTextLength: Kirigami.Units.gridUnit * 14
+
             // Strip out ampersands right before non-whitespace characters, i.e.
             // those used to determine the alt key shortcut
             // (except when the word ends in ; (HTML entities))
@@ -74,9 +79,11 @@ T.ToolTip {
             color: Kirigami.Theme.textColor
 
             Kirigami.Theme.colorSet: Kirigami.Theme.Tooltip
-            Layout.fillWidth: true
-            // This value is basically arbitrary. It just looks nice.
-            Layout.maximumWidth: Kirigami.Units.gridUnit * 14
+            // ensure that long text actually gets wrapped
+            onLineLaidOut: (line) => {
+                if (line.implicitWidth > maxTextLength)
+                    line.width = maxTextLength
+            }
         }
     }
 
