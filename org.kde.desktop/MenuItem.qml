@@ -120,7 +120,7 @@ T.MenuItem {
             anchors.fill: parent
             anchors.margins: 2
             opacity: (controlRoot.highlighted || controlRoot.hovered) ? 1 : 0
-            color: Qt.rgba(Kirigami.Theme.focusColor.r, Kirigami.Theme.focusColor.g, Kirigami.Theme.focusColor.b, 0.3)
+            color: Qt.alpha(Kirigami.Theme.focusColor, 0.3)
             border.color: Kirigami.Theme.focusColor
             border.width: 1
             radius: 3
