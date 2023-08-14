@@ -13,10 +13,13 @@ import org.kde.kirigami 2 as Kirigami
 
 T.Slider {
     id: controlRoot
+
     Kirigami.Theme.colorSet: Kirigami.Theme.Button
 
-    implicitWidth: horizontal ? Kirigami.Units.gridUnit * 12 : implicitBackgroundWidth
-    implicitHeight: vertical ? Kirigami.Units.gridUnit * 12 : implicitBackgroundHeight
+    implicitWidth: Math.max(implicitBackgroundWidth + leftInset + rightInset,
+                            implicitContentWidth + leftPadding + rightPadding)
+    implicitHeight: Math.max(implicitBackgroundHeight + topInset + bottomInset,
+                             implicitContentHeight + topPadding + bottomPadding)
 
     hoverEnabled: true
 
@@ -30,9 +33,16 @@ T.Slider {
         control: controlRoot
         elementType: "slider"
         sunken: controlRoot.pressed
-        implicitWidth: 200
-        contentWidth: controlRoot.horizontal ? controlRoot.implicitWidth : (Kirigami.Settings.tabletMode ? 24 : 22)
-        contentHeight: controlRoot.vertical ? controlRoot.implicitHeight : (Kirigami.Settings.tabletMode ? 24 : 22)
+
+        // Normally, you would rely on implicit size provided by
+        // QStyle::sizeFromContents, but it seems like no style ever
+        // implemented it for Sliders, at least not for the ones without ticks.
+        //
+        // Tablet Mode check is artificial, and does not affect actual
+        // rendering in any way, at least in Breeze or any other shipped style.
+        contentWidth: controlRoot.horizontal ? Kirigami.Units.gridUnit * 12 : (Kirigami.Settings.tabletMode ? 24 : 22)
+        contentHeight: controlRoot.vertical ? Kirigami.Units.gridUnit * 12 : (Kirigami.Settings.tabletMode ? 24 : 22)
+        // Most styles draw sliders at the top of their available area, rather than centered.
         anchors.verticalCenter: controlRoot.verticalCenter
 
         minimum: 0
