@@ -5,11 +5,10 @@
     SPDX-License-Identifier: LGPL-3.0-only OR GPL-2.0-or-later
 */
 
-
 import QtQuick
 import org.kde.qqc2desktopstyle.private as StylePrivate
 import QtQuick.Templates as T
-import org.kde.kirigami 2.4 as Kirigami
+import org.kde.kirigami 2 as Kirigami
 
 T.Slider {
     id: controlRoot
