@@ -14,8 +14,8 @@ T.Slider {
     id: controlRoot
     Kirigami.Theme.colorSet: Kirigami.Theme.Button
 
-    implicitWidth: background.horizontal ? Kirigami.Units.gridUnit * 12 : background.implicitWidth
-    implicitHeight: background.horizontal ? background.implicitHeight : Kirigami.Units.gridUnit * 12
+    implicitWidth: horizontal ? Kirigami.Units.gridUnit * 12 : implicitBackgroundWidth
+    implicitHeight: vertical ? Kirigami.Units.gridUnit * 12 : implicitBackgroundHeight
 
     hoverEnabled: true
 
@@ -34,8 +34,8 @@ T.Slider {
         elementType: "slider"
         sunken: controlRoot.pressed
         implicitWidth: 200
-        contentWidth: horizontal ? controlRoot.implicitWidth : (Kirigami.Settings.tabletMode ? 24 : 22)
-        contentHeight: horizontal ? (Kirigami.Settings.tabletMode ? 24 : 22) : controlRoot.implicitHeight
+        contentWidth: controlRoot.horizontal ? controlRoot.implicitWidth : (Kirigami.Settings.tabletMode ? 24 : 22)
+        contentHeight: controlRoot.vertical ? controlRoot.implicitHeight : (Kirigami.Settings.tabletMode ? 24 : 22)
         anchors.verticalCenter: controlRoot.verticalCenter
 
         maximum: factor * controlRoot.to
