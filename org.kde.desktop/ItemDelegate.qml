@@ -13,7 +13,10 @@ import org.kde.kirigami as Kirigami
 import org.kde.desktop.private as Private
 
 T.ItemDelegate {
-    id: controlRoot
+    id: root
+
+    readonly property int _index: index !== undefined ? index : model.index
+    readonly property int _count: ListView.view.count ?? GridView.view.count
 
     implicitWidth: Math.max(implicitBackgroundWidth + leftInset + rightInset,
                             implicitContentWidth + leftPadding + rightPadding)
@@ -23,11 +26,20 @@ T.ItemDelegate {
 
     hoverEnabled: true
 
-    spacing: Kirigami.Units.smallSpacing
-    padding: Kirigami.Settings.tabletMode ? Kirigami.Units.largeSpacing : Kirigami.Units.smallSpacing
-    horizontalPadding: padding * 2
+    spacing: Kirigami.Units.mediumSpacing
+    padding: Kirigami.Units.mediumSpacing
+    horizontalPadding: padding + Kirigami.Units.smallSpacing
     leftPadding: !mirrored ? horizontalPadding + (indicator ? implicitIndicatorWidth + spacing : 0) : horizontalPadding
     rightPadding: mirrored ? horizontalPadding + (indicator ? implicitIndicatorWidth + spacing : 0) : horizontalPadding
+
+    verticalPadding: padding
+    topPadding: verticalPadding + (_index === 0 ? Math.round(Kirigami.Units.smallSpacing / 2) : 0)
+    bottomPadding: verticalPadding + (_index === _count -1 ? Math.round(Kirigami.Units.smallSpacing / 2) : 0)
+
+    topInset: Math.round(Kirigami.Units.smallSpacing / (_index === 0 ? 1 : 2))
+    bottomInset: Math.round(Kirigami.Units.smallSpacing / (_index === _count -1 ? 1 : 2))
+    rightInset: Kirigami.Units.smallSpacing
+    leftInset: Kirigami.Units.smallSpacing
 
     icon.width: Kirigami.Units.iconSizes.smallMedium
     icon.height: Kirigami.Units.iconSizes.smallMedium
@@ -45,8 +57,8 @@ T.ItemDelegate {
         Kirigami.Icon {
             selected: controlRoot.highlighted || controlRoot.down
             Layout.alignment: Qt.AlignVCenter
-            visible: controlRoot.icon.name !== "" || controlRoot.icon.source.toString() !== ""
-            source: controlRoot.icon.name !== "" ? controlRoot.icon.name : controlRoot.icon.source
+            visible: root.icon.name !== "" || root.icon.source.toString() !== ""
+            source: root.icon.name !== "" ? root.icon.name : root.icon.source
             Layout.preferredHeight: controlRoot.icon.height
             Layout.preferredWidth: controlRoot.icon.width
         }
@@ -54,13 +66,13 @@ T.ItemDelegate {
         Label {
             id: textLabel
 
-            text: controlRoot.text
-            font: controlRoot.font
-            color: controlRoot.highlighted || (controlRoot.down && !controlRoot.sectionDelegate)
+            text: root.text
+            font: root.font
+            color: root.highlighted || root.down
                 ? Kirigami.Theme.highlightedTextColor
-                : (controlRoot.enabled ? Kirigami.Theme.textColor : Kirigami.Theme.disabledTextColor)
+                : (root.enabled ? Kirigami.Theme.textColor : Kirigami.Theme.disabledTextColor)
             elide: Text.ElideRight
-            visible: controlRoot.text
+            visible: root.text
             horizontalAlignment: Text.AlignLeft
             verticalAlignment: Text.AlignVCenter
             Layout.alignment: Qt.AlignLeft
@@ -68,7 +80,31 @@ T.ItemDelegate {
         }
     }
 
-    background: Private.DefaultListItemBackground {
-        control: controlRoot
+    background: Rectangle {
+        radius: Kirigami.Units.smallSpacing
+
+        color: if (root.highlighted || root.checked || (root.down && !root.checked) || root.visualFocus) {
+            const highlight = Kirigami.ColorUtils.tintWithAlpha(Kirigami.Theme.backgroundColor, Kirigami.Theme.highlightColor, 0.20);
+            if (root.hovered) {
+                Kirigami.ColorUtils.tintWithAlpha(highlight, Kirigami.Theme.textColor, 0.10)
+            } else {
+                highlight
+            }
+        } else if (root.hovered) {
+            Kirigami.ColorUtils.tintWithAlpha(Kirigami.Theme.backgroundColor, Kirigami.Theme.textColor, 0.10)
+        } else {
+           Kirigami.Theme.backgroundColor
+        }
+
+        border {
+            color: Kirigami.Theme.highlightColor
+            width: root.visualFocus || root.activeFocus ? 1 : 0
+        }
+
+        Behavior on color {
+            ColorAnimation {
+                duration: Kirigami.Units.shortDuration
+            }
+        }
     }
 }
