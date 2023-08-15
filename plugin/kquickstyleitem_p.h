@@ -294,6 +294,7 @@ public:
     {
         if (m_horizontal != horizontal) {
             m_horizontal = horizontal;
+            updateSizeHint();
             polish();
             Q_EMIT horizontalChanged();
         }
