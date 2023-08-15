@@ -1,5 +1,5 @@
 /*
- *  SPDX-FileCopyrightText: 2022 ivan (@ratijas) tkachenko <me@ratijas.tk>
+ *  SPDX-FileCopyrightText: 2023 ivan (@ratijas) tkachenko <me@ratijas.tk>
  *
  *  SPDX-License-Identifier: LGPL-2.0-or-later
  */
@@ -145,6 +145,39 @@ Kirigami.ApplicationWindow {
             stepSize: 30000
             value:    90000
             Layout.fillWidth: true
+        }
+
+        Label {
+            text: "Non-live:"
+            Layout.alignment: Qt.AlignRight | Qt.AlignVCenter
+        }
+
+        RowLayout {
+            spacing: Kirigami.Units.largeSpacing
+            Layout.fillWidth: true
+
+            // Test for BUG-473400
+            Slider {
+                id: nonLiveSlider
+                live: false
+                to:       300000
+                stepSize: 30000
+                value:    90000
+                Layout.fillWidth: true
+            }
+
+            Label {
+                text: String(Math.round(nonLiveSlider.value))
+                horizontalAlignment: Text.AlignRight
+                Layout.preferredWidth: nonLiveSliderTextMetrics.advanceWidth
+                LayoutMirroring.enabled: false
+            }
+
+            TextMetrics {
+                id: nonLiveSliderTextMetrics
+                font: nonLiveSlider.font
+                text: String(nonLiveSlider.to)
+            }
         }
     }
 

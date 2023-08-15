@@ -1,6 +1,7 @@
 /*
     SPDX-FileCopyrightText: 2017 Marco Martin <mart@kde.org>
     SPDX-FileCopyrightText: 2017 The Qt Company Ltd.
+    SPDX-FileCopyrightText: 2023 ivan tkachenko <me@ratijas.tk>
 
     SPDX-License-Identifier: LGPL-3.0-only OR GPL-2.0-or-later
 */
@@ -26,10 +27,6 @@ T.Slider {
     snapMode: T.Slider.SnapOnRelease
 
     background: StylePrivate.StyleItem {
-        // Rescale for extra precision. Adapts to the range of `from` & `to` to avoid integer overflow.
-        property int factor: (Math.abs(controlRoot.from) < 100000 && Math.abs(controlRoot.to) < 100000)
-            ? 10000 : 1
-
         control: controlRoot
         elementType: "slider"
         sunken: controlRoot.pressed
@@ -38,10 +35,11 @@ T.Slider {
         contentHeight: controlRoot.vertical ? controlRoot.implicitHeight : (Kirigami.Settings.tabletMode ? 24 : 22)
         anchors.verticalCenter: controlRoot.verticalCenter
 
-        maximum: factor * controlRoot.to
-        minimum: factor * controlRoot.from
-        step: factor * controlRoot.stepSize
-        value: factor * controlRoot.value
+        minimum: 0
+        maximum: 100000
+        step: 100000 * (controlRoot.stepSize / (controlRoot.to - controlRoot.from))
+        value: 100000 * position
+
         horizontal: controlRoot.orientation === Qt.Horizontal
         enabled: controlRoot.enabled
         hasFocus: controlRoot.activeFocus
