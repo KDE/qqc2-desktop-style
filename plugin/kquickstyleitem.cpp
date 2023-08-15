@@ -1408,10 +1408,10 @@ QVariant KQuickStyleItem::styleHint(const QString &metric)
     // Add SH_Menu_SpaceActivatesItem
 }
 
-void KQuickStyleItem::setHints(const QVariantMap &str)
+void KQuickStyleItem::setHints(const QVariantMap &hints)
 {
-    if (m_hints != str) {
-        m_hints = str;
+    if (m_hints != hints) {
+        m_hints = hints;
         initStyleOption();
         updateSizeHint();
         polish();

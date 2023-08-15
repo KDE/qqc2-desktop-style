@@ -372,7 +372,7 @@ public:
             Q_EMIT activeControlChanged();
         }
     }
-    void setHints(const QVariantMap &str);
+    void setHints(const QVariantMap &hints);
     void setProperties(const QVariantMap &props)
     {
         if (m_properties != props) {
