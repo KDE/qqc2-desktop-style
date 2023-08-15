@@ -34,9 +34,6 @@ T.Slider {
         elementType: "slider"
         sunken: controlRoot.pressed
 
-        // Most styles draw sliders at the top of their available area, rather than centered.
-        anchors.verticalCenter: controlRoot.verticalCenter
-
         minimum: 0
         maximum: 100000
         step: 100000 * (controlRoot.stepSize / (controlRoot.to - controlRoot.from))
