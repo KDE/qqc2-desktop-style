@@ -1,6 +1,7 @@
 /*
     SPDX-FileCopyrightText: 2017 Marco Martin <mart@kde.org>
     SPDX-FileCopyrightText: 2017 The Qt Company Ltd.
+    SPDX-FileCopyrightText: 2023 ivan tkachenko <me@ratijas.tk>
 
     SPDX-License-Identifier: LGPL-3.0-only OR GPL-2.0-or-later
 */
@@ -22,15 +23,11 @@ T.ProgressBar {
     contentItem: Item {}
 
     background: StylePrivate.StyleItem {
-        // Rescale for extra precision. Adapts to the range of `from` & `to` to avoid integer overflow.
-        property int factor: (Math.abs(controlRoot.from) < 100000 && Math.abs(controlRoot.to) < 100000)
-            ? 10000 : 1
-
         elementType: "progressbar"
         control: controlRoot
-        maximum: indeterminate ? 0 : factor * controlRoot.to
-        minimum: indeterminate ? 0 : factor * controlRoot.from
-        value: indeterminate ? 0 : factor * controlRoot.value
+        minimum: 0
+        maximum: controlRoot.indeterminate ? 0 : 100000
+        value: controlRoot.indeterminate ? 0 : 100000 * controlRoot.position
         horizontal: true
         enabled: controlRoot.enabled
     }
