@@ -10,6 +10,7 @@ import QtQuick
 import org.kde.qqc2desktopstyle.private as StylePrivate
 import QtQuick.Templates as T
 import org.kde.kirigami 2 as Kirigami
+import "private" as Private
 
 T.Slider {
     id: controlRoot
@@ -23,8 +24,8 @@ T.Slider {
 
     hoverEnabled: true
 
-    handle: Item {
-        anchors.verticalCenter: controlRoot.verticalCenter
+    handle: Private.DefaultSliderHandle {
+        control: controlRoot
     }
 
     snapMode: T.Slider.SnapOnRelease
