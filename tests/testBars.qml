@@ -17,12 +17,16 @@ Kirigami.ApplicationWindow {
     height: demo.implicitHeight
 
     component LoopAnimation : SequentialAnimation {
+        id: animation
+
+        property real to: 1
+
         running: true
 
         // this is bound to global time, so that you could open multiple
         // windows side by side, and they all play in sync
         ScriptAction {
-            script: phase.value = value()
+            script: phase.value = value() * animation.to
             function value() {
                 var phase = Date.now() % 7000;
                 if (phase < 500) {
@@ -45,9 +49,30 @@ Kirigami.ApplicationWindow {
 
     component Demo : GridLayout {
         id: layout
-        columns: 2
+        columns: 4
         columnSpacing: Kirigami.Units.smallSpacing
         rowSpacing: Kirigami.Units.smallSpacing
+
+        Slider {
+            orientation: Qt.Vertical
+            to: 10
+            value: 3
+            stepSize: 1
+            LoopAnimation on value {
+                to: 10
+            }
+            Layout.fillHeight: true
+            Layout.rowSpan: 11
+        }
+
+        Slider {
+            orientation: Qt.Vertical
+            to: 10
+            value: 3
+            stepSize: 1
+            Layout.fillHeight: true
+            Layout.rowSpan: 11
+        }
 
         Label {
             text: "Mirrorring:"
