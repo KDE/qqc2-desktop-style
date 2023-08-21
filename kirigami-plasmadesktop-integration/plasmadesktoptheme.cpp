@@ -234,7 +234,7 @@ void PlasmaDesktopTheme::syncWindow()
             window = qw;
         }
         if (qw) {
-            connect(qw, &QQuickWindow::sceneGraphInitialized, this, &PlasmaDesktopTheme::syncWindow);
+            connect(qw, &QQuickWindow::sceneGraphInitialized, this, &PlasmaDesktopTheme::syncWindow, Qt::UniqueConnection);
         }
     }
     m_window = window;
