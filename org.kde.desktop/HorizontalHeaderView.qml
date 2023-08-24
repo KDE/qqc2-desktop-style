@@ -37,7 +37,17 @@ T.HorizontalHeaderView {
 
         text: model[controlRoot.textRole]
         elementType: "header"
-        raised: false
+        on: {
+            if (!controlRoot.syncView || !controlRoot.syncView.selectionModel) {
+                return false
+            }
+            for (let idx of controlRoot.syncView.selectionModel.selectedIndexes) {
+                if (idx.row === model.row || idx.column === model.column) {
+                    return true;
+                }
+            }
+            return false;
+        }
         //FIXME: this is not usable as we don't have ways to query the sort column
         //activeControl: orderQuery ? (filteredMimeTypesModel.sortOrder == Qt.AscendingOrder ? "down" : "up") : ""
         properties: {

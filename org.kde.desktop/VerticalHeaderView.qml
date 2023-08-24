@@ -37,7 +37,17 @@ T.VerticalHeaderView {
 
         text: model[controlRoot.textRole]
         elementType: "header"
-        raised: false
+        on: {
+            if (!controlRoot.syncView || !controlRoot.syncView.selectionModel) {
+                return false
+            }
+            for (let idx of controlRoot.syncView.selectionModel.selectedIndexes) {
+                if (idx.row === model.row || idx.column === model.column) {
+                    return true;
+                }
+            }
+            return false;
+        }
         properties: {
             "headerpos": headerPosition,
             "textalignment": Text.AlignVCenter | Text.AlignHCenter,
