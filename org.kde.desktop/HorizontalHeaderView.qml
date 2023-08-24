@@ -42,7 +42,8 @@ T.HorizontalHeaderView {
         //activeControl: orderQuery ? (filteredMimeTypesModel.sortOrder == Qt.AscendingOrder ? "down" : "up") : ""
         properties: {
             "headerpos": headerPosition,
-            "textalignment": Text.AlignHCenter
+            "textalignment": Text.AlignVCenter | Text.AlignHCenter,
+            "orientation": Qt.Horizontal
         }
     }
 }

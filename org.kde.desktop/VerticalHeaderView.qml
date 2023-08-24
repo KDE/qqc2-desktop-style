@@ -14,22 +14,22 @@ import org.kde.qqc2desktopstyle.private as StylePrivate
 T.VerticalHeaderView {
     id: controlRoot
 
-    implicitWidth: syncView ? syncView.width : 0
-    // The contentHeight of TableView will be zero at start-up, until the delegate
-    // items have been loaded. This means that even if the implicit height of
-    // HorizontalHeaderView should be the same as the content height in the end, we
-    // need to ensure that it has at least a height of 1 at start-up, otherwise
+    // The contentWidth of TableView will be zero at start-up, until the delegate
+    // items have been loaded. This means that even if the implicit width of
+    // VerticalHeaderView should be the same as the content width in the end, we
+    // need to ensure that it has at least a width of 1 at start-up, otherwise
     // TableView won't bother loading any delegates at all.
-    implicitHeight: Math.max(1, contentHeight)
+    implicitWidth: Math.max(1, contentWidth)
+    implicitHeight: syncView ? syncView.height : 0
 
     delegate: StylePrivate.StyleItem {
         required property var model
-        required property int column
+        required property int row
         readonly property string headerPosition: {
-            if (controlRoot.columns === 1) {
+            if (controlRoot.rows === 1) {
                 return "only";
             }
-            if (model.column == 0) {
+            if (model.row == 0) {
                 return LayoutMirroring.enabled ? "end" : "beginning"
             }
             return "middle"
@@ -40,7 +40,8 @@ T.VerticalHeaderView {
         raised: false
         properties: {
             "headerpos": headerPosition,
-            "textalignment": Text.AlignHCenter
+            "textalignment": Text.AlignVCenter | Text.AlignHCenter,
+            "orientation": Qt.Vertical
         }
     }
 }
