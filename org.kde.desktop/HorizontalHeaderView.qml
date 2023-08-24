@@ -41,12 +41,9 @@ T.HorizontalHeaderView {
             if (!controlRoot.syncView || !controlRoot.syncView.selectionModel) {
                 return false
             }
-            for (let idx of controlRoot.syncView.selectionModel.selectedIndexes) {
-                if (idx.row === model.row || idx.column === model.column) {
-                    return true;
-                }
-            }
-            return false;
+            // This line is for property bindings
+            controlRoot.syncView.selectionModel.selectedIndexes
+            return syncView.selectionModel.columnIntersectsSelection(model.column)
         }
         //FIXME: this is not usable as we don't have ways to query the sort column
         //activeControl: orderQuery ? (filteredMimeTypesModel.sortOrder == Qt.AscendingOrder ? "down" : "up") : ""

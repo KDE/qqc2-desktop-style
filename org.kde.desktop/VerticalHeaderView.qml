@@ -41,12 +41,9 @@ T.VerticalHeaderView {
             if (!controlRoot.syncView || !controlRoot.syncView.selectionModel) {
                 return false
             }
-            for (let idx of controlRoot.syncView.selectionModel.selectedIndexes) {
-                if (idx.row === model.row || idx.column === model.column) {
-                    return true;
-                }
-            }
-            return false;
+            // This line is for property bindings
+            controlRoot.syncView.selectionModel.selectedIndexes
+            return syncView.selectionModel.rowIntersectsSelection(model.row)
         }
         properties: {
             "headerpos": headerPosition,
