@@ -15,7 +15,9 @@ import org.kde.kirigami 2.4 as Kirigami
 T.ProgressBar {
     id: controlRoot
 
-    implicitWidth: 250
+    implicitWidth: Math.max(implicitBackgroundWidth + leftInset + rightInset,
+                            implicitContentWidth + leftPadding + rightPadding,
+                            250)
     implicitHeight: Math.max(implicitBackgroundHeight + topInset + bottomInset,
                              implicitContentHeight + topPadding + bottomPadding)
 
