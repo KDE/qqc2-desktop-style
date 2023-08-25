@@ -44,7 +44,7 @@ T.VerticalHeaderView {
                 return false
             }
             // This line is for property bindings
-            controlRoot.syncView.selectionModel.selectedIndexes
+            void(controlRoot.syncView.selectionModel.selectedIndexes)
             return syncView.selectionModel.rowIntersectsSelection(model.row)
         }
         properties: {

@@ -44,7 +44,7 @@ T.HorizontalHeaderView {
                 return false
             }
             // This line is for property bindings
-            controlRoot.syncView.selectionModel.selectedIndexes;
+            void(controlRoot.syncView.selectionModel.selectedIndexes);
             return syncView.selectionModel.columnIntersectsSelection(model.column)
         }
         //FIXME: this is not usable as we don't have ways to query the sort column
