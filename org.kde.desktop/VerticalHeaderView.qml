@@ -29,7 +29,7 @@ T.VerticalHeaderView {
             if (controlRoot.rows === 1) {
                 return "only";
             } else if (model.row == 0) {
-                return LayoutMirroring.enabled ? "end" : "beginning";
+                return "beginning";
             } else if (model.row == controlRoot.rows - 1) {
                 return "end";
             } else {

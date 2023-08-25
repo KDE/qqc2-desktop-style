@@ -31,7 +31,7 @@ T.HorizontalHeaderView {
             } else if (model.column === 0) {
                 return LayoutMirroring.enabled ? "end" : "beginning";
             } else if (model.column === controlRoot.columns - 1) {
-                return "end";
+                return LayoutMirroring.enabled ? "beginning" : "end";
             } else {
                 return "middle";
             }
