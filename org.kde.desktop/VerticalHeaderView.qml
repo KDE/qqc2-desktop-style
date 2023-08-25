@@ -28,11 +28,13 @@ T.VerticalHeaderView {
         readonly property string headerPosition: {
             if (controlRoot.rows === 1) {
                 return "only";
+            } else if (model.row == 0) {
+                return LayoutMirroring.enabled ? "end" : "beginning";
+            } else if (model.row == controlRoot.rows - 1) {
+                return "end";
+            } else {
+                return "middle";
             }
-            if (model.row == 0) {
-                return LayoutMirroring.enabled ? "end" : "beginning"
-            }
-            return "middle"
         }
 
         text: model[controlRoot.textRole]
