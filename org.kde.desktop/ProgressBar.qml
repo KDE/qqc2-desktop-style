@@ -16,7 +16,11 @@ T.ProgressBar {
     id: controlRoot
 
     implicitWidth: 250
-    implicitHeight: 22
+    implicitHeight: Math.max(implicitBackgroundHeight + topInset + bottomInset,
+                             implicitContentHeight + topPadding + bottomPadding)
+
+    topInset: Kirigami.Units.largeSpacing
+    bottomInset: Kirigami.Units.largeSpacing
 
     hoverEnabled: false
 
