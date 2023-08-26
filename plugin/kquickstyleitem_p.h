@@ -360,6 +360,14 @@ public:
     {
         if (m_activeControl != str) {
             m_activeControl = str;
+            // Slider is the only type whose size hints react to active control changes.
+            switch (m_itemType) {
+            case Slider:
+                updateSizeHint();
+                break;
+            default:
+                break;
+            }
             polish();
             Q_EMIT activeControlChanged();
         }
