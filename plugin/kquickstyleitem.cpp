@@ -1134,9 +1134,28 @@ QSize KQuickStyleItem::sizeFromContents(int width, int height)
 
         break;
     }
-    case Slider:
-        size = KQuickStyleItem::style()->sizeFromContents(QStyle::CT_Slider, m_styleoption, QSize(width, height));
+    case Slider: {
+        const auto opt = qstyleoption_cast<const QStyleOptionSlider *>(m_styleoption);
+        const auto tickPosition = opt->tickPosition;
+
+        // Copied from QSlider
+        const int SliderLength = 84, TickSpace = 5;
+        int thick = style()->pixelMetric(QStyle::PM_SliderThickness, m_styleoption, nullptr);
+        if (tickPosition & QSlider::TicksAbove) {
+            thick += TickSpace;
+        }
+        if (tickPosition & QSlider::TicksBelow) {
+            thick += TickSpace;
+        }
+        int w = thick;
+        int h = SliderLength;
+        if (opt->orientation == Qt::Horizontal) {
+            w = SliderLength;
+            h = thick;
+        }
+        size = KQuickStyleItem::style()->sizeFromContents(QStyle::CT_Slider, m_styleoption, QSize(w, h));
         break;
+    }
     case ProgressBar:
         size = KQuickStyleItem::style()->sizeFromContents(QStyle::CT_ProgressBar, m_styleoption, QSize(width, height));
         break;
