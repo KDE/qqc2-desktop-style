@@ -27,7 +27,7 @@ GridLayout {
     }
     QQC2.VerticalHeaderView {
         syncView: table
-        Layout.fillWidth: true
+        Layout.fillHeight: true
     }
     TableView {
         id: table
