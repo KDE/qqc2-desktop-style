@@ -293,7 +293,10 @@ void KQuickStyleItem::initStyleOption()
         } else {
             opt->position = QStyleOptionHeader::Middle;
         }
-
+        opt->orientation = m_properties.value(QStringLiteral("orientation")).value<Qt::Orientation>();
+        if (opt->orientation == Qt::Orientation(0)) {
+            opt->orientation = Qt::Horizontal;
+        }
         const QFont font = qApp->font("QHeaderView");
         opt->fontMetrics = QFontMetrics(font);
         break;
