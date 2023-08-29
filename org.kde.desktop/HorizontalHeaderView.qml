@@ -37,7 +37,7 @@ T.HorizontalHeaderView {
             }
         }
 
-        text: model[controlRoot.textRole]
+        text: controlRoot.textRole.length > 0 ? model[controlRoot.textRole] : model.modelData
         elementType: "header"
         on: {
             if (!controlRoot.syncView || !controlRoot.syncView.selectionModel) {
