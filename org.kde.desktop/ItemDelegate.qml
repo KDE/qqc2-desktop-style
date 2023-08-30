@@ -6,7 +6,6 @@
     SPDX-License-Identifier: LGPL-3.0-only OR GPL-2.0-or-later
 */
 
-
 import QtQuick
 import QtQuick.Layouts
 import QtQuick.Templates as T
@@ -16,16 +15,22 @@ import "private"
 T.ItemDelegate {
     id: controlRoot
 
-    implicitWidth: contentItem.implicitWidth + leftPadding + rightPadding
-    implicitHeight: Math.max(contentItem.implicitHeight,
-                             indicator ? indicator.implicitHeight : 0) + topPadding + bottomPadding
+    implicitWidth: Math.max(implicitBackgroundWidth + leftInset + rightInset,
+                            implicitContentWidth + leftPadding + rightPadding)
+    implicitHeight: Math.max(implicitBackgroundHeight + topInset + bottomInset,
+                             implicitContentHeight + topPadding + bottomPadding,
+                             implicitIndicatorHeight + topPadding + bottomPadding)
+
     hoverEnabled: true
 
     padding: Kirigami.Settings.tabletMode ? Kirigami.Units.largeSpacing : Kirigami.Units.smallSpacing
     horizontalPadding: padding * 2
+    spacing: Kirigami.Units.smallSpacing
 
     contentItem: RowLayout {
-        spacing: Kirigami.Units.smallSpacing
+        LayoutMirroring.enabled: controlRoot.mirrored
+        spacing: controlRoot.spacing
+
         Kirigami.Icon {
             Layout.alignment: Qt.AlignVCenter
             visible: controlRoot.icon.name !== "" || controlRoot.icon.source.toString() !== ""
@@ -33,21 +38,25 @@ T.ItemDelegate {
             Layout.preferredHeight: Kirigami.Units.iconSizes.small
             Layout.preferredWidth: Layout.preferredHeight
         }
-        Label {
-            leftPadding: controlRoot.mirrored ? (controlRoot.indicator ? controlRoot.indicator.width : 0) + controlRoot.spacing : 0
-            rightPadding: !controlRoot.mirrored ? (controlRoot.indicator ? controlRoot.indicator.width : 0) + controlRoot.spacing : 0
 
+        Label {
             text: controlRoot.text
             font: controlRoot.font
             color: controlRoot.highlighted || controlRoot.checked || (controlRoot.pressed && !controlRoot.checked && !controlRoot.sectionDelegate)
-                ? Kirigami.Theme.highlightedTextColor :
-                (controlRoot.enabled ? Kirigami.Theme.textColor : Kirigami.Theme.disabledTextColor)
+                ? Kirigami.Theme.highlightedTextColor
+                : (controlRoot.enabled ? Kirigami.Theme.textColor : Kirigami.Theme.disabledTextColor)
             elide: Text.ElideRight
             visible: controlRoot.text
             horizontalAlignment: Text.AlignLeft
             verticalAlignment: Text.AlignVCenter
             Layout.alignment: Qt.AlignLeft
             Layout.fillWidth: true
+        }
+
+        Item {
+            visible: controlRoot.indicator !== null
+
+            Layout.preferredWidth: controlRoot.indicator?.width ?? 0
         }
     }
 
