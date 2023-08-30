@@ -1162,6 +1162,21 @@ QSize KQuickStyleItem::sizeFromContents(int width, int height)
     case ProgressBar:
         size = KQuickStyleItem::style()->sizeFromContents(QStyle::CT_ProgressBar, m_styleoption, QSize(width, height));
         break;
+
+    case ScrollBar: {
+        const auto opt = qstyleoption_cast<const QStyleOptionSlider *>(m_styleoption);
+
+        // Copied from QScrollBar
+        const int scrollBarExtent = KQuickStyleItem::style()->pixelMetric(QStyle::PM_ScrollBarExtent, opt, nullptr);
+        const int scrollBarSliderMin = KQuickStyleItem::style()->pixelMetric(QStyle::PM_ScrollBarSliderMin, opt, nullptr);
+        if (opt->orientation == Qt::Horizontal) {
+            size = QSize(scrollBarExtent * 2 + scrollBarSliderMin, scrollBarExtent);
+        } else {
+            size = QSize(scrollBarExtent, scrollBarExtent * 2 + scrollBarSliderMin);
+        }
+        size = KQuickStyleItem::style()->sizeFromContents(QStyle::CT_ScrollBar, opt, size);
+        break;
+    }
     case SpinBox:
     case Edit: {
         // We have to create a new style option since we might be calling with a QStyleOptionSpinBox
