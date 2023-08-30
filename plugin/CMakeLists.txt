@@ -2,6 +2,7 @@ ecm_add_qml_module(qqc2desktopstyleplugin URI org.kde.qqc2desktopstyle.private G
 
 target_sources(qqc2desktopstyleplugin PRIVATE
     kquickstyleitem.cpp
+    itembranchindicators.cpp
 )
 
 target_link_libraries(qqc2desktopstyleplugin PRIVATE
