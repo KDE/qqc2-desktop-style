@@ -14,9 +14,14 @@ T.DialogButtonBox {
     id: control
 
     implicitWidth: Math.max(implicitBackgroundWidth + leftInset + rightInset,
-                            contentWidth + leftPadding + rightPadding)
+                            implicitContentWidth + leftPadding + rightPadding)
     implicitHeight: Math.max(implicitBackgroundHeight + topInset + bottomInset,
-                             contentHeight + topPadding + bottomPadding)
+                             implicitContentHeight + topPadding + bottomPadding)
+
+    contentWidth: {
+        const view = contentItem as ListView;
+        return view ? view.contentWidth : 0;
+    }
 
     spacing: Kirigami.Units.smallSpacing
     padding: Kirigami.Units.smallSpacing
@@ -24,11 +29,11 @@ T.DialogButtonBox {
 
     delegate: Button {
         // Round because fractional width values are possible.
-        width: Math.round(Math.min(
+        width: Math.floor(Math.min(
             implicitWidth,
             // Divide availableWidth (width - leftPadding - rightPadding) by the number of buttons,
             // then subtract the spacing between each button.
-            (control.availableWidth / control.count) - (control.spacing * (control.count - 1))
+            ((control.availableWidth - (control.spacing * (control.count - 1))) / control.count)
         ))
         Kirigami.MnemonicData.controlType: Kirigami.MnemonicData.DialogButton
     }
