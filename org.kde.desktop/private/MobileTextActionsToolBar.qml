@@ -1,77 +1,18 @@
 /*
-    SPDX-FileCopyrightText: 2018 Marco Martin <mart@kde.org>
+    SPDX-FileCopyrightText: 2023 Fushan Wen <qydwhotmail@gmail.com>
 
-    SPDX-License-Identifier: LGPL-2.0-or-later
+    SPDX-License-Identifier: LGPL-2.1-or-later
 */
 
 pragma Singleton
 
 import QtQuick
-import QtQuick.Layouts
-import QtQuick.Window
-import QtQuick.Controls
-import org.kde.kirigami as Kirigami
+import org.kde.kirigami as Kirigami // tabletMode
 
-Popup {
-    id: root
-
-    property Item controlRoot
-    parent: controlRoot ? controlRoot.Window.contentItem : undefined
-    modal: false
-    focus: false
-    closePolicy: Popup.NoAutoClose
+Loader {
+    property Item controlRoot: null
     property bool shouldBeVisible: false
 
-    x: {
-        if (!controlRoot || !controlRoot.Window.contentItem) {
-            return 0;
-        }
-        return Math.min(Math.max(0, controlRoot.mapToItem(root.parent, controlRoot.positionToRectangle(controlRoot.selectionStart).x, 0).x - root.width/2), controlRoot.Window.contentItem.width - root.width);
-    }
-
-    y: {
-        if (!controlRoot || !controlRoot.Window.contentItem) {
-            return 0;
-        }
-        var desiredY = controlRoot.mapToItem(root.parent, 0, controlRoot.positionToRectangle(controlRoot.selectionStart).y).y  - root.height;
-
-        if (desiredY >= 0) {
-            return Math.min(desiredY, controlRoot.Window.contentItem.height - root.height);
-        } else {
-            return Math.min(Math.max(0, controlRoot.mapToItem(root.parent, 0, controlRoot.positionToRectangle(controlRoot.selectionEnd).y + Math.round(Kirigami.Units.gridUnit*1.5)).y), controlRoot.Window.contentItem.height - root.height);
-        }
-    }
-
-
-    visible: controlRoot ? shouldBeVisible && Kirigami.Settings.tabletMode && (controlRoot.selectedText.length > 0 || controlRoot.canPaste) : false
-
-    width: contentItem.implicitWidth + leftPadding + rightPadding
-
-    contentItem: RowLayout {
-        ToolButton {
-            focusPolicy: Qt.NoFocus
-            icon.name: "edit-cut"
-            visible: controlRoot && controlRoot.selectedText.length > 0 && (!controlRoot.hasOwnProperty("echoMode") || controlRoot.echoMode === TextInput.Normal)
-            onClicked: {
-                controlRoot.cut();
-            }
-        }
-        ToolButton {
-            focusPolicy: Qt.NoFocus
-            icon.name: "edit-copy"
-            visible: controlRoot && controlRoot.selectedText.length > 0 && (!controlRoot.hasOwnProperty("echoMode") || controlRoot.echoMode === TextInput.Normal)
-            onClicked: {
-                controlRoot.copy();
-            }
-        }
-        ToolButton {
-            focusPolicy: Qt.NoFocus
-            icon.name: "edit-paste"
-            visible: controlRoot && controlRoot.canPaste
-            onClicked: {
-                controlRoot.paste();
-            }
-        }
-    }
+    active: controlRoot ? shouldBeVisible && Kirigami.Settings.tabletMode && (controlRoot.selectedText.length > 0 || controlRoot.canPaste) : false
+    source: "MobileTextActionsToolBarImpl.qml"
 }
-
