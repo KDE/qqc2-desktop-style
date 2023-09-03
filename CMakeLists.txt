@@ -1,7 +1,7 @@
 cmake_minimum_required(VERSION 3.16)
 
 set(KF_VERSION "5.110.0") # handled by release scripts
-set(KF_DEP_VERSION "5.109.0") # handled by release scripts
+set(KF_DEP_VERSION "5.110.0") # handled by release scripts
 
 project(qqc2-desktop-style VERSION ${KF_VERSION})
 
@@ -21,7 +21,7 @@ include(FeatureSummary)
 
 ################# set KDE specific information #################
 
-find_package(ECM 5.109.0 REQUIRED NO_MODULE)
+find_package(ECM 5.110.0 REQUIRED NO_MODULE)
 
 # where to look first for cmake modules, before ${CMAKE_ROOT}/Modules/ is checked
 set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} ${ECM_MODULE_PATH})
