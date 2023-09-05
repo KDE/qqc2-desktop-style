@@ -9,7 +9,7 @@
 
 import QtQuick
 import QtQuick.Templates as T
-import org.kde.kirigami 2.20 as Kirigami
+import org.kde.kirigami as Kirigami
 
 Rectangle {
     id: background
@@ -17,7 +17,11 @@ Rectangle {
     property T.ItemDelegate control
 
     color: control.highlighted || (control.pressed && !control.checked && !control.sectionDelegate)
-        ? Kirigami.Theme.highlightColor : Kirigami.Theme.backgroundColor
+        ? Kirigami.Theme.highlightColor
+        : ((control.TableView.view && control.TableView.view.alternatingRows && row % 2
+            || control.Kirigami.Theme.useAlternateBackgroundColor && index % 2)
+            ? Kirigami.Theme.alternateBackgroundColor
+            : Kirigami.Theme.backgroundColor)
 
     visible: control.ListView.view ? control.ListView.view.highlight === null : true
 

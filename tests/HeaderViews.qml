@@ -33,6 +33,7 @@ GridLayout {
         id: table
         Layout.fillWidth: true
         Layout.fillHeight: true
+        alternatingRows: true
 
         selectionModel: ItemSelectionModel {}
 
