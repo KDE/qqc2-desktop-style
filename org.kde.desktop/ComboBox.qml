@@ -124,9 +124,9 @@ T.ComboBox {
         elementType: "combobox"
         flat: controlRoot.flat
         anchors.fill: parent
-        hover: controlRoot.hovered || controlRoot.pressed
-        on: controlRoot.pressed
-        hasFocus: controlRoot.activeFocus && !controlRoot.popup.visible
+        hover: controlRoot.hovered
+        on: controlRoot.down
+        hasFocus: controlRoot.activeFocus
         enabled: controlRoot.enabled
         // contentHeight as in QComboBox magic numbers taken from QQC1 style
         contentHeight: Math.max(Math.ceil(textHeight("")), 14) + 2
