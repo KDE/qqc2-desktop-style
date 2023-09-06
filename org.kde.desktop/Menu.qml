@@ -17,6 +17,8 @@ import org.kde.qqc2desktopstyle.private as StylePrivate
 T.Menu {
     id: control
 
+    z: Kirigami.OverlayZStacking.z
+
     implicitWidth: Math.max(background ? background.implicitWidth : 0,
                             contentItem ? contentItem.implicitWidth + leftPadding + rightPadding : 0)
     implicitHeight: Math.max(background ? background.implicitHeight : 0,

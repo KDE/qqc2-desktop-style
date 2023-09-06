@@ -14,6 +14,8 @@ import org.kde.kirigami as Kirigami
 T.Drawer {
     id: control
 
+    z: Kirigami.OverlayZStacking.z
+
     parent: T.ApplicationWindow.overlay
 
     implicitWidth: Math.max(implicitBackgroundWidth + leftInset + rightInset,

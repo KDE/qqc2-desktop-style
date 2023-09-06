@@ -136,6 +136,9 @@ T.ComboBox {
     }
 
     popup: T.Popup {
+        Kirigami.OverlayZStacking.layer: Kirigami.OverlayZStacking.Menu
+        z: Kirigami.OverlayZStacking.z
+
         y: controlRoot.height
         width: controlRoot.width
         implicitHeight: contentItem.implicitHeight

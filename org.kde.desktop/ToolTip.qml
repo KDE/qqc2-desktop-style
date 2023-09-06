@@ -20,8 +20,7 @@ T.ToolTip {
     x: parent ? Math.round((parent.width - implicitWidth) / 2) : 0
     y: -implicitHeight - 3
 
-    // Always show the tooltip on top of everything else
-    z: 999
+    z: Kirigami.OverlayZStacking.z
 
     // Math.ceil() prevents blurry edges and prevents unnecessary text wrapping
     // (vs using floor or sometimes round).

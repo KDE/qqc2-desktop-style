@@ -13,6 +13,8 @@ import org.kde.kirigami as Kirigami
 T.Dialog {
     id: control
 
+    z: Kirigami.OverlayZStacking.z
+
     implicitWidth: Math.max(background ? background.implicitWidth : 0,
                             contentWidth > 0 ? contentWidth + leftPadding + rightPadding : 0)
     implicitHeight: Math.max(background ? background.implicitHeight : 0,

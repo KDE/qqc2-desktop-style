@@ -12,6 +12,9 @@ import org.kde.kirigami as Kirigami
 Popup {
     id: root
 
+    Kirigami.OverlayZStacking.layer: Kirigami.OverlayZStacking.Menu
+    z: Kirigami.OverlayZStacking.z
+
     parent: controlRoot.Window.window.contentItem
     modal: false
     focus: false
