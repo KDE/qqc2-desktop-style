@@ -6,6 +6,7 @@
 
 import QtQuick
 import org.kde.kirigami 2.5 as Kirigami
+import org.kde.desktop.private as Private
 
 Item {
     id: root
@@ -30,7 +31,7 @@ Item {
         Rectangle {
             width: Math.round(Kirigami.Units.gridUnit/1.5)
             height: width
-            visible: MobileTextActionsToolBar.shouldBeVisible
+            visible: Private.MobileTextActionsToolBar.shouldBeVisible
             anchors {
                 horizontalCenter: parent.horizontalCenter
                 verticalCenter: parent.bottom

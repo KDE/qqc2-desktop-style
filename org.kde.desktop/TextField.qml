@@ -12,7 +12,7 @@ import QtQuick.Controls as Controls
 import QtQuick.Templates as T
 import org.kde.kirigami 2.4 as Kirigami
 import org.kde.qqc2desktopstyle.private as StylePrivate
-import "private" as Private
+import org.kde.desktop.private as Private
 
 T.TextField {
     id: controlRoot

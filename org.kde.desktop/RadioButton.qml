@@ -11,7 +11,7 @@ import QtQuick
 import QtQuick.Templates as T
 import QtQuick.Controls
 import org.kde.kirigami 2.4 as Kirigami
-import "private"
+import org.kde.desktop.private as Private
 
 T.RadioButton {
     id: controlRoot
@@ -80,7 +80,7 @@ T.RadioButton {
         horizontalAlignment: Text.AlignLeft
         verticalAlignment: Text.AlignVCenter
 
-        FocusRect {
+        Private.FocusRect {
             control: controlRoot
 
             anchors {

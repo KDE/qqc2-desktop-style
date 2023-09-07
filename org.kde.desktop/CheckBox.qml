@@ -11,7 +11,7 @@ import QtQuick
 import QtQuick.Templates as T
 import QtQuick.Controls
 import org.kde.kirigami 2.4 as Kirigami
-import "private"
+import org.kde.desktop.private as Private
 
 T.CheckBox {
     id: controlRoot
@@ -81,7 +81,7 @@ T.CheckBox {
         verticalAlignment: Text.AlignVCenter
         wrapMode: Text.Wrap
 
-        FocusRect {
+        Private.FocusRect {
             control: controlRoot
 
             anchors {

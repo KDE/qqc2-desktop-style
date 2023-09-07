@@ -10,7 +10,7 @@ import QtQuick
 import QtQuick.Layouts
 import QtQuick.Templates as T
 import org.kde.kirigami 2.4 as Kirigami
-import "private"
+import org.kde.desktop.private as Private
 
 T.ItemDelegate {
     id: controlRoot
@@ -60,7 +60,7 @@ T.ItemDelegate {
         }
     }
 
-    background: DefaultListItemBackground {
+    background: Private.DefaultListItemBackground {
         control: controlRoot
     }
 }

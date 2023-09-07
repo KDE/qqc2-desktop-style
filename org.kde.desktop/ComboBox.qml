@@ -13,7 +13,7 @@ import QtQuick.Controls as Controls
 import org.kde.qqc2desktopstyle.private as StylePrivate
 import org.kde.kirigami 2.12 as Kirigami
 
-import "private" as Private
+import org.kde.desktop.private as Private
 
 T.ComboBox {
     id: controlRoot

@@ -98,7 +98,7 @@ if (KF6IconThemes_FOUND AND KF6ColorScheme_FOUND)
     add_subdirectory(kirigami-plasmadesktop-integration)
 endif()
 
-ecm_add_qml_module(org_kde_desktop URI "org.kde.desktop" VERSION 1.0 NO_PLUGIN)
+ecm_add_qml_module(org_kde_desktop URI "org.kde.desktop" VERSION 1.0 GENERATE_PLUGIN_SOURCE)
 
 file(GLOB _public_qml "org.kde.desktop/*.qml")
 ecm_target_qml_sources(org_kde_desktop
@@ -106,12 +106,8 @@ ecm_target_qml_sources(org_kde_desktop
     SOURCES ${_public_qml}
 )
 
-file(GLOB _private_qml "org.kde.desktop/private/*.qml")
-ecm_target_qml_sources(org_kde_desktop
-    VERSION 1.0
-    PRIVATE PATH private
-    SOURCES ${_private_qml}
-)
+# Private module goes separately, beacuse a type in qmldir can not be both internal and singleton
+ecm_add_qml_module(org_kde_desktop_private URI "org.kde.desktop.private" VERSION 1.0 GENERATE_PLUGIN_SOURCE)
 
 set_source_files_properties(org.kde.desktop/private/MobileTextActionsToolBar.qml
     PROPERTIES QT_QML_SINGLETON_TYPE TRUE
@@ -120,7 +116,14 @@ set_source_files_properties(org.kde.desktop/private/TextFieldContextMenu.qml
     PROPERTIES QT_QML_SINGLETON_TYPE TRUE
 )
 
-ecm_finalize_qml_module(org_kde_desktop DESTINATION ${KDE_INSTALL_QMLDIR})
+file(GLOB _private_qml "org.kde.desktop/private/*.qml")
+ecm_target_qml_sources(org_kde_desktop_private
+    VERSION 1.0
+    SOURCES ${_private_qml}
+)
+
+ecm_finalize_qml_module(org_kde_desktop         DESTINATION ${KDE_INSTALL_QMLDIR})
+ecm_finalize_qml_module(org_kde_desktop_private DESTINATION ${KDE_INSTALL_QMLDIR})
 
 feature_summary(WHAT ALL INCLUDE_QUIET_PACKAGES FATAL_ON_MISSING_REQUIRED_PACKAGES)
 
