@@ -11,8 +11,8 @@ import QtQuick
 import QtQuick.Layouts
 import QtQuick.Controls
 import QtQuick.Templates as T
+import org.kde.kirigami as Kirigami
 import org.kde.qqc2desktopstyle.private as StylePrivate
-import org.kde.kirigami 2.12 as Kirigami
 
 T.Menu {
     id: control

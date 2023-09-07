@@ -4,7 +4,7 @@
 import QtQuick
 import QtQuick.Templates as T
 import QtQuick.Controls
-import org.kde.kirigami 2.15 as Kirigami
+import org.kde.kirigami as Kirigami
 
 T.Pane {
     id: control

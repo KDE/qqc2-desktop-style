@@ -7,10 +7,10 @@
 */
 
 import QtQuick
-import org.kde.qqc2desktopstyle.private as StylePrivate
 import QtQuick.Templates as T
-import org.kde.kirigami 2 as Kirigami
+import org.kde.kirigami as Kirigami
 import org.kde.desktop.private as Private
+import org.kde.qqc2desktopstyle.private as StylePrivate
 
 T.Slider {
     id: controlRoot

@@ -8,7 +8,7 @@
 import QtQuick
 import QtQuick.Controls
 import QtQuick.Templates as T
-import org.kde.kirigami 2.14 as Kirigami
+import org.kde.kirigami as Kirigami
 import org.kde.qqc2desktopstyle.private as StylePrivate
 
 T.Page {

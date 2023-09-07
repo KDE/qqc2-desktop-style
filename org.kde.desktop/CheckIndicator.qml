@@ -9,8 +9,8 @@
 
 import QtQuick
 import QtQuick.Templates as T
+import org.kde.kirigami as Kirigami
 import org.kde.qqc2desktopstyle.private as StylePrivate
-import org.kde.kirigami 2.4 as Kirigami
 
 StylePrivate.StyleItem {
     id: styleitem

@@ -8,9 +8,9 @@
 
 
 import QtQuick
-import org.kde.qqc2desktopstyle.private as StylePrivate
-import org.kde.kirigami 2.4 as Kirigami
+import org.kde.kirigami as Kirigami
 import QtQuick.Templates as T
+import org.kde.qqc2desktopstyle.private as StylePrivate
 
 T.TabBar {
     id: controlRoot

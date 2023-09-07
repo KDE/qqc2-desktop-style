@@ -9,7 +9,7 @@
 import QtQuick
 import QtQuick.Controls as Controls
 import QtQuick.Templates as T
-import org.kde.kirigami 2.12 as Kirigami
+import org.kde.kirigami as Kirigami
 
 T.ToolTip {
     id: control

@@ -11,9 +11,9 @@ import QtQuick
 import QtQml.Models
 //for TabBar.*
 import QtQuick.Controls
-import org.kde.qqc2desktopstyle.private as StylePrivate
 import QtQuick.Templates as T
-import org.kde.kirigami 2.4 as Kirigami
+import org.kde.kirigami as Kirigami
+import org.kde.qqc2desktopstyle.private as StylePrivate
 
 T.TabButton {
     id: controlRoot

@@ -6,7 +6,7 @@
 */
 
 import QtQuick
-import org.kde.kirigami 2.8 as Kirigami
+import org.kde.kirigami as Kirigami
 
 Item {
     id: indicator

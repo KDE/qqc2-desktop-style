@@ -10,7 +10,7 @@
 import QtQuick
 import QtQuick.Templates as T
 import QtQuick.Controls
-import org.kde.kirigami 2.4 as Kirigami
+import org.kde.kirigami as Kirigami
 import org.kde.desktop.private as Private
 
 T.RadioButton {

@@ -10,7 +10,7 @@ pragma Singleton
 import QtQuick
 import QtQml
 import QtQuick.Controls
-import org.kde.kirigami 2.5 as Kirigami
+import org.kde.kirigami as Kirigami
 
 Menu {
     id: contextMenu

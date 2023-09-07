@@ -10,10 +10,9 @@ import QtQuick
 import QtQuick.Window
 import QtQuick.Templates as T
 import QtQuick.Controls as Controls
-import org.kde.qqc2desktopstyle.private as StylePrivate
-import org.kde.kirigami 2.12 as Kirigami
-
+import org.kde.kirigami as Kirigami
 import org.kde.desktop.private as Private
+import org.kde.qqc2desktopstyle.private as StylePrivate
 
 T.ComboBox {
     id: controlRoot

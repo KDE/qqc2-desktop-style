@@ -5,7 +5,7 @@
 */
 
 import QtQuick
-import org.kde.kirigami 2.5 as Kirigami
+import org.kde.kirigami as Kirigami
 import org.kde.desktop.private as Private
 
 Item {

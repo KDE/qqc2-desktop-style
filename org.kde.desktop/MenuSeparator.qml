@@ -9,7 +9,7 @@
 
 import QtQuick
 import QtQuick.Templates as T
-import org.kde.kirigami 2.15 as Kirigami
+import org.kde.kirigami as Kirigami
 
 T.MenuSeparator {
     id: controlRoot

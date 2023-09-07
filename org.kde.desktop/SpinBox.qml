@@ -9,7 +9,7 @@
 import QtQuick
 import QtQuick.Window
 import QtQuick.Templates as T
-import org.kde.kirigami 2.20 as Kirigami
+import org.kde.kirigami as Kirigami
 import org.kde.qqc2desktopstyle.private as StylePrivate
 
 T.SpinBox {

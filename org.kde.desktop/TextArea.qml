@@ -10,10 +10,10 @@
 import QtQuick
 import QtQuick.Window
 import QtQuick.Templates as T
-import org.kde.kirigami 2.18 as Kirigami
-import org.kde.qqc2desktopstyle.private as StylePrivate
+import org.kde.kirigami as Kirigami
 import org.kde.sonnet as Sonnet
 import org.kde.desktop.private as Private
+import org.kde.qqc2desktopstyle.private as StylePrivate
 
 T.TextArea {
     id: controlRoot

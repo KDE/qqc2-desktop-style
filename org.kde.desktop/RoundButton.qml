@@ -9,8 +9,8 @@ import QtQuick
 import QtQuick.Layouts
 import QtQuick.Templates as T
 import QtQuick.Controls as Controls
+import org.kde.kirigami as Kirigami
 import org.kde.qqc2desktopstyle.private as StylePrivate
-import org.kde.kirigami 2.16 as Kirigami
 
 T.RoundButton {
     id: controlRoot

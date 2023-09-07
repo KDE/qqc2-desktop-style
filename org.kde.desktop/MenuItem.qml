@@ -10,7 +10,7 @@
 import QtQuick
 import QtQuick.Layouts
 import QtQuick.Templates as T
-import org.kde.kirigami 2.4 as Kirigami
+import org.kde.kirigami as Kirigami
 
 T.MenuItem {
     id: controlRoot
