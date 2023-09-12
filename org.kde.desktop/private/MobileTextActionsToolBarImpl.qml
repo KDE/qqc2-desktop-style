@@ -5,11 +5,11 @@
 */
 
 import QtQuick
+import QtQuick.Controls as QQC2
 import QtQuick.Layouts
-import QtQuick.Controls
 import org.kde.kirigami as Kirigami
 
-Popup {
+QQC2.Popup {
     id: root
 
     Kirigami.OverlayZStacking.layer: Kirigami.OverlayZStacking.Menu
@@ -18,7 +18,7 @@ Popup {
     parent: controlRoot.Window.window.contentItem
     modal: false
     focus: false
-    closePolicy: Popup.NoAutoClose
+    closePolicy: QQC2.Popup.NoAutoClose
 
     x: !parent ? 0 : Math.min(Math.max(0, controlRoot.mapToItem(root.parent, controlRoot.positionToRectangle(controlRoot.selectionStart).x, 0).x - root.width / 2), root.parent.width - root.width)
 
@@ -39,7 +39,7 @@ Popup {
     visible: true
 
     contentItem: RowLayout {
-        ToolButton {
+        QQC2.ToolButton {
             focusPolicy: Qt.NoFocus
             icon.name: "edit-cut"
             visible: controlRoot.selectedText.length > 0 && (!controlRoot.hasOwnProperty("echoMode") || controlRoot.echoMode === TextInput.Normal)
@@ -47,7 +47,7 @@ Popup {
                 controlRoot.cut();
             }
         }
-        ToolButton {
+        QQC2.ToolButton {
             focusPolicy: Qt.NoFocus
             icon.name: "edit-copy"
             visible: controlRoot.selectedText.length > 0 && (!controlRoot.hasOwnProperty("echoMode") || controlRoot.echoMode === TextInput.Normal)
@@ -55,7 +55,7 @@ Popup {
                 controlRoot.copy();
             }
         }
-        ToolButton {
+        QQC2.ToolButton {
             focusPolicy: Qt.NoFocus
             icon.name: "edit-paste"
             visible: controlRoot.canPaste
@@ -65,4 +65,3 @@ Popup {
         }
     }
 }
-

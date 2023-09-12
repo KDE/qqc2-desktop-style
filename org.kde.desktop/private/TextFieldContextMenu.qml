@@ -7,12 +7,12 @@
 
 pragma Singleton
 
+import QtQml.Models
 import QtQuick
-import QtQml
-import QtQuick.Controls
+import QtQuick.Controls as QQC2
 import org.kde.kirigami as Kirigami
 
-Menu {
+QQC2.Menu {
     id: contextMenu
 
     property Item target
@@ -28,7 +28,7 @@ Menu {
 
     property var runOnMenuClose: () => {}
 
-    parent: Overlay.overlay
+    parent: QQC2.Overlay.overlay
 
     function storeCursorAndSelection() {
         contextMenu.restoredCursorPosition = target.cursorPosition;
@@ -77,10 +77,10 @@ Menu {
     readonly property bool targetIsPassword: target !== null && (target.echoMode === TextInput.PasswordEchoOnEdit || target.echoMode === TextInput.Password)
 
     onAboutToShow: {
-        if (Overlay.overlay) {
+        if (QQC2.Overlay.overlay) {
             let tempZ = 0
-            for (let i in Overlay.overlay.visibleChildren) {
-                tempZ = Math.max(tempZ, Overlay.overlay.visibleChildren[i].z)
+            for (let i in QQC2.Overlay.overlay.visibleChildren) {
+                tempZ = Math.max(tempZ, QQC2.Overlay.overlay.visibleChildren[i].z)
             }
             z = tempZ + 1
         }
@@ -113,7 +113,7 @@ Menu {
     Instantiator {
         active: target !== null && !target.readOnly && spellcheckhighlighter !== null && spellcheckhighlighter.active && spellcheckhighlighter.wordIsMisspelled
         model: suggestions
-        delegate: MenuItem {
+        delegate: QQC2.MenuItem {
             text: modelData
             onClicked: {
                 deselectWhenMenuClosed = false;
@@ -126,17 +126,17 @@ Menu {
         onObjectRemoved: contextMenu.removeItem(0)
     }
 
-    MenuItem {
+    QQC2.MenuItem {
         visible: target !== null && !target.readOnly && spellcheckhighlighter !== null && spellcheckhighlighter.active && spellcheckhighlighter.wordIsMisspelled && suggestions.length === 0
-        action: Action {
+        action: QQC2.Action {
             text: spellcheckhighlighter ? qsTr("No suggestions for \"%1\"").arg(spellcheckhighlighter.wordUnderMouse) : ''
             enabled: false
         }
     }
 
-    MenuItem {
+    QQC2.MenuItem {
         visible: target !== null && !target.readOnly && spellcheckhighlighter !== null && spellcheckhighlighter.active && spellcheckhighlighter.wordIsMisspelled
-        action: Action {
+        action: QQC2.Action {
             text: spellcheckhighlighter ? qsTr("Add \"%1\" to dictionary").arg(spellcheckhighlighter.wordUnderMouse) : ''
             onTriggered: {
                 deselectWhenMenuClosed = false;
@@ -145,9 +145,9 @@ Menu {
         }
     }
 
-    MenuItem {
+    QQC2.MenuItem {
         visible: target !== null && !target.readOnly && spellcheckhighlighter !== null && spellcheckhighlighter.active && spellcheckhighlighter.wordIsMisspelled
-        action: Action {
+        action: QQC2.Action {
             text: qsTr("Ignore")
             onTriggered: {
                 deselectWhenMenuClosed = false;
@@ -156,7 +156,7 @@ Menu {
         }
     }
 
-    MenuItem {
+    QQC2.MenuItem {
         visible: target !== null && !target.readOnly && spellcheckhighlighterLoader && spellcheckhighlighterLoader.activable
         checkable: true
         checked: spellcheckhighlighter ? spellcheckhighlighter.active : false
@@ -167,13 +167,13 @@ Menu {
         }
     }
 
-    MenuSeparator {
+    QQC2.MenuSeparator {
         visible: target !== null && !target.readOnly && ((spellcheckhighlighter !== null && spellcheckhighlighter.active && spellcheckhighlighter.wordIsMisspelled) || (spellcheckhighlighterLoader && spellcheckhighlighterLoader.activable))
     }
 
-    MenuItem {
+    QQC2.MenuItem {
         visible: target !== null && !target.readOnly && !targetIsPassword
-        action: Action {
+        action: QQC2.Action {
             icon.name: "edit-undo-symbolic"
             text: qsTr("Undo")
             shortcut: StandardKey.Undo
@@ -184,9 +184,9 @@ Menu {
             runOnMenuClose = () => target.undo();
         }
     }
-    MenuItem {
+    QQC2.MenuItem {
         visible: target !== null && !target.readOnly && !targetIsPassword
-        action: Action {
+        action: QQC2.Action {
             icon.name: "edit-redo-symbolic"
             text: qsTr("Redo")
             shortcut: StandardKey.Redo
@@ -197,12 +197,12 @@ Menu {
             runOnMenuClose = () => target.redo();
         }
     }
-    MenuSeparator {
+    QQC2.MenuSeparator {
         visible: target !== null && !target.readOnly && !targetIsPassword
     }
-    MenuItem {
+    QQC2.MenuItem {
         visible: target !== null && !target.readOnly && !targetIsPassword
-        action: Action {
+        action: QQC2.Action {
             icon.name: "edit-cut-symbolic"
             text: qsTr("Cut")
             shortcut: StandardKey.Cut
@@ -213,8 +213,8 @@ Menu {
             runOnMenuClose = () => target.cut();
         }
     }
-    MenuItem {
-        action: Action {
+    QQC2.MenuItem {
+        action: QQC2.Action {
             icon.name: "edit-copy-symbolic"
             text: qsTr("Copy")
             shortcut: StandardKey.Copy
@@ -226,9 +226,9 @@ Menu {
             runOnMenuClose = () => target.copy();
         }
     }
-    MenuItem {
+    QQC2.MenuItem {
         visible: target !== null && !target.readOnly
-        action: Action {
+        action: QQC2.Action {
             icon.name: "edit-paste-symbolic"
             text: qsTr("Paste")
             shortcut: StandardKey.Paste
@@ -239,9 +239,9 @@ Menu {
             runOnMenuClose = () => target.paste();
         }
     }
-    MenuItem {
+    QQC2.MenuItem {
         visible: target !== null && !target.readOnly
-        action: Action {
+        action: QQC2.Action {
             icon.name: "edit-delete-symbolic"
             text: qsTr("Delete")
             shortcut: StandardKey.Delete
@@ -252,11 +252,11 @@ Menu {
             runOnMenuClose = () => target.remove(target.selectionStart, target.selectionEnd);
         }
     }
-    MenuSeparator {
+    QQC2.MenuSeparator {
         visible: !targetIsPassword
     }
-    MenuItem {
-        action: Action {
+    QQC2.MenuItem {
+        action: QQC2.Action {
             icon.name: "edit-select-all-symbolic"
             text: qsTr("Select All")
             shortcut: StandardKey.SelectAll
