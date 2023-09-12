@@ -13,7 +13,7 @@ import QtQuick.Controls as QQC2
 import org.kde.kirigami as Kirigami
 
 QQC2.Menu {
-    id: contextMenu
+    id: root
 
     property Item target
     property bool deselectWhenMenuClosed: true
@@ -31,30 +31,30 @@ QQC2.Menu {
     parent: QQC2.Overlay.overlay
 
     function storeCursorAndSelection() {
-        contextMenu.restoredCursorPosition = target.cursorPosition;
-        contextMenu.restoredSelectionStart = target.selectionStart;
-        contextMenu.restoredSelectionEnd = target.selectionEnd;
+        root.restoredCursorPosition = target.cursorPosition;
+        root.restoredSelectionStart = target.selectionStart;
+        root.restoredSelectionEnd = target.selectionEnd;
     }
 
     // target is pressed with mouse
     function targetClick(handlerPoint, newTarget, spellcheckhighlighter, mousePosition) {
         if (handlerPoint.pressedButtons === Qt.RightButton) { // only accept just right click
-            if (contextMenu.visible) {
+            if (root.visible) {
                 deselectWhenMenuClosed = false; // don't deselect text if menu closed by right click on textfield
                 dismiss();
             } else {
-                contextMenu.target = newTarget;
-                contextMenu.target.persistentSelection = true; // persist selection when menu is opened
-                contextMenu.spellcheckhighlighterLoader = spellcheckhighlighter;
+                root.target = newTarget;
+                root.target.persistentSelection = true; // persist selection when menu is opened
+                root.spellcheckhighlighterLoader = spellcheckhighlighter;
                 if (spellcheckhighlighter && spellcheckhighlighter.active) {
-                    contextMenu.spellcheckhighlighter = spellcheckhighlighter.item;
-                    contextMenu.suggestions = mousePosition ? spellcheckhighlighter.item.suggestions(mousePosition) : [];
+                    root.spellcheckhighlighter = spellcheckhighlighter.item;
+                    root.suggestions = mousePosition ? spellcheckhighlighter.item.suggestions(mousePosition) : [];
                 } else {
-                    contextMenu.spellcheckhighlighter = null;
-                    contextMenu.suggestions = [];
+                    root.spellcheckhighlighter = null;
+                    root.suggestions = [];
                 }
                 storeCursorAndSelection();
-                popup(contextMenu.target);
+                popup(root.target);
                 // slightly locate context menu away from mouse so no item is selected when menu is opened
                 x += 1
                 y += 1
@@ -67,10 +67,10 @@ QQC2.Menu {
     // context menu keyboard key
     function targetKeyPressed(event, newTarget) {
         if (event.modifiers === Qt.NoModifier && event.key === Qt.Key_Menu) {
-            contextMenu.target = newTarget;
+            root.target = newTarget;
             target.persistentSelection = true; // persist selection when menu is opened
             storeCursorAndSelection();
-            popup(contextMenu.target);
+            popup(root.target);
         }
     }
 
@@ -85,7 +85,6 @@ QQC2.Menu {
             z = tempZ + 1
         }
     }
-
     // deal with whether or not text should be deselected
     onClosed: {
         // restore text field's original persistent selection setting
@@ -121,9 +120,9 @@ QQC2.Menu {
             }
         }
         onObjectAdded: {
-            contextMenu.insertItem(0, object)
+            root.insertItem(0, object)
         }
-        onObjectRemoved: contextMenu.removeItem(0)
+        onObjectRemoved: root.removeItem(0)
     }
 
     QQC2.MenuItem {
