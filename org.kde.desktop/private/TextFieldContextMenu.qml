@@ -208,7 +208,7 @@ QQC2.Menu {
 
         checkable: true
         checked: root.spellcheckhighlighter?.active ?? false
-        text: qsTr("Enable Spellchecker")
+        text: qsTr("Spell Check")
 
         onToggled: {
             if (root.spellcheckhighlighterLoader) {
