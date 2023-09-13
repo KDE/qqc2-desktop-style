@@ -166,7 +166,7 @@ QQC2.Menu {
     QQC2.MenuItem {
         visible: root.__showSpellcheckActions() && root.suggestions.length === 0
         action: QQC2.Action {
-            text: root.spellcheckhighlighter ? qsTr("No suggestions for \"%1\"").arg(root.spellcheckhighlighter.wordUnderMouse) : ""
+            text: root.spellcheckhighlighter ? qsTr("No Suggestions for \"%1\"").arg(root.spellcheckhighlighter.wordUnderMouse) : ""
             enabled: false
         }
     }
@@ -178,7 +178,7 @@ QQC2.Menu {
     QQC2.MenuItem {
         visible: root.__showSpellcheckActions()
         action: QQC2.Action {
-            text: root.spellcheckhighlighter ? qsTr("Add \"%1\" to dictionary").arg(root.spellcheckhighlighter.wordUnderMouse) : ""
+            text: root.spellcheckhighlighter ? qsTr("Add \"%1\" to Dictionary").arg(root.spellcheckhighlighter.wordUnderMouse) : ""
             onTriggered: {
                 root.deselectWhenMenuClosed = false;
                 root.runOnMenuClose = () => {
