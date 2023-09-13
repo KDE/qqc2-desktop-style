@@ -159,7 +159,7 @@ QQC2.Menu {
             root.insertItem(0, object);
         }
         onObjectRemoved: (index, object) => {
-            root.removeItem(0);
+            root.removeItem(object);
         }
     }
 
