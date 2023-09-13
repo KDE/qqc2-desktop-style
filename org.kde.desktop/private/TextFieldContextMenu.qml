@@ -1,6 +1,7 @@
 /*
     SPDX-FileCopyrightText: 2020 Devin Lin <espidev@gmail.com>
     SPDX-FileCopyrightText: 2021 Carl Schwan <carlschwan@kde.org>
+    SPDX-FileCopyrightText: 2023 ivan tkachenko <me@ratijas.tk>
 
     SPDX-License-Identifier: LGPL-2.0-or-later
 */
@@ -11,6 +12,7 @@ import QtQml.Models
 import QtQuick
 import QtQuick.Controls as QQC2
 import org.kde.kirigami as Kirigami
+import org.kde.sonnet as Sonnet
 
 QQC2.Menu {
     id: root
@@ -21,9 +23,11 @@ QQC2.Menu {
     property int restoredSelectionStart
     property int restoredSelectionEnd
     property bool persistentSelectionSetting
-    property var spellcheckhighlighter: null
-    property var spellcheckhighlighterLoader: null
-    property var suggestions: []
+
+    property Sonnet.SpellcheckHighlighter spellcheckhighlighter
+    property Loader spellcheckhighlighterLoader
+    property /*list<string>*/var suggestions: []
+
     Component.onCompleted: persistentSelectionSetting = persistentSelectionSetting // break binding
 
     property var runOnMenuClose: () => {}
@@ -31,30 +35,29 @@ QQC2.Menu {
     parent: QQC2.Overlay.overlay
 
     function storeCursorAndSelection() {
-        root.restoredCursorPosition = target.cursorPosition;
-        root.restoredSelectionStart = target.selectionStart;
-        root.restoredSelectionEnd = target.selectionEnd;
+        restoredCursorPosition = target.cursorPosition;
+        restoredSelectionStart = target.selectionStart;
+        restoredSelectionEnd = target.selectionEnd;
     }
 
     // target is pressed with mouse
-    function targetClick(handlerPoint, newTarget, spellcheckhighlighter, mousePosition) {
+    function targetClick(handlerPoint, newTarget, spellcheckhighlighterLoader, mousePosition) {
         if (handlerPoint.pressedButtons === Qt.RightButton) { // only accept just right click
-            if (root.visible) {
+            if (visible) {
                 deselectWhenMenuClosed = false; // don't deselect text if menu closed by right click on textfield
                 dismiss();
             } else {
-                root.target = newTarget;
-                root.target.persistentSelection = true; // persist selection when menu is opened
-                root.spellcheckhighlighterLoader = spellcheckhighlighter;
-                if (spellcheckhighlighter && spellcheckhighlighter.active) {
-                    root.spellcheckhighlighter = spellcheckhighlighter.item;
-                    root.suggestions = mousePosition ? spellcheckhighlighter.item.suggestions(mousePosition) : [];
-                } else {
-                    root.spellcheckhighlighter = null;
-                    root.suggestions = [];
-                }
+                target = newTarget;
+                target.persistentSelection = true; // persist selection when menu is opened
+
+                this.spellcheckhighlighterLoader = spellcheckhighlighterLoader;
+                spellcheckhighlighter = spellcheckhighlighterLoader?.item ?? null;
+                suggestions = (spellcheckhighlighter && mousePosition)
+                    ? spellcheckhighlighter.suggestions(mousePosition)
+                    : [];
+
                 storeCursorAndSelection();
-                popup(root.target);
+                popup(target);
                 // slightly locate context menu away from mouse so no item is selected when menu is opened
                 x += 1
                 y += 1
@@ -67,14 +70,41 @@ QQC2.Menu {
     // context menu keyboard key
     function targetKeyPressed(event, newTarget) {
         if (event.modifiers === Qt.NoModifier && event.key === Qt.Key_Menu) {
-            root.target = newTarget;
+            target = newTarget;
             target.persistentSelection = true; // persist selection when menu is opened
             storeCursorAndSelection();
-            popup(root.target);
+            popup(target);
         }
     }
 
-    readonly property bool targetIsPassword: target !== null && (target.echoMode === TextInput.PasswordEchoOnEdit || target.echoMode === TextInput.Password)
+    function __hasSelectedText(): bool {
+        return target !== null
+            && target.selectedText !== "";
+    }
+
+    function __editable(): bool {
+        return target !== null
+            && !target.readOnly;
+    }
+
+    function __showSpellcheckActions(): bool {
+        return __editable()
+            && spellcheckhighlighter !== null
+            && spellcheckhighlighter.active
+            && spellcheckhighlighter.wordIsMisspelled;
+    }
+
+    // Show actions which should normally be hidden for password field
+    function __showPasswordRestrictedActions(): bool {
+        return target !== null
+            && target.echoMode !== TextInput.PasswordEchoOnEdit
+            && target.echoMode !== TextInput.Password;
+    }
+
+    // Show text editing actions which should normally be hidden for password field
+    function __showPasswordRestrictedEditingActions(): bool {
+        return __showPasswordRestrictedActions() && !target.readOnly;
+    }
 
     onAboutToShow: {
         if (QQC2.Overlay.overlay) {
@@ -110,106 +140,131 @@ QQC2.Menu {
     }
 
     Instantiator {
-        active: target !== null && !target.readOnly && spellcheckhighlighter !== null && spellcheckhighlighter.active && spellcheckhighlighter.wordIsMisspelled
-        model: suggestions
+        active: root.__showSpellcheckActions()
+
+        model: root.suggestions
         delegate: QQC2.MenuItem {
+            required property string modelData
+
             text: modelData
+
             onClicked: {
-                deselectWhenMenuClosed = false;
-                runOnMenuClose = () => spellcheckhighlighter.replaceWord(modelData);
+                root.deselectWhenMenuClosed = false;
+                root.runOnMenuClose = () => {
+                    root.spellcheckhighlighter.replaceWord(modelData);
+                };
             }
         }
-        onObjectAdded: {
-            root.insertItem(0, object)
+        onObjectAdded: (index, object) => {
+            root.insertItem(0, object);
         }
-        onObjectRemoved: root.removeItem(0)
+        onObjectRemoved: (index, object) => {
+            root.removeItem(0);
+        }
     }
 
     QQC2.MenuItem {
-        visible: target !== null && !target.readOnly && spellcheckhighlighter !== null && spellcheckhighlighter.active && spellcheckhighlighter.wordIsMisspelled && suggestions.length === 0
+        visible: root.__showSpellcheckActions() && root.suggestions.length === 0
         action: QQC2.Action {
-            text: spellcheckhighlighter ? qsTr("No suggestions for \"%1\"").arg(spellcheckhighlighter.wordUnderMouse) : ''
+            text: root.spellcheckhighlighter ? qsTr("No suggestions for \"%1\"").arg(root.spellcheckhighlighter.wordUnderMouse) : ""
             enabled: false
         }
     }
 
     QQC2.MenuItem {
-        visible: target !== null && !target.readOnly && spellcheckhighlighter !== null && spellcheckhighlighter.active && spellcheckhighlighter.wordIsMisspelled
+        visible: root.__showSpellcheckActions()
         action: QQC2.Action {
-            text: spellcheckhighlighter ? qsTr("Add \"%1\" to dictionary").arg(spellcheckhighlighter.wordUnderMouse) : ''
+            text: root.spellcheckhighlighter ? qsTr("Add \"%1\" to dictionary").arg(root.spellcheckhighlighter.wordUnderMouse) : ""
             onTriggered: {
-                deselectWhenMenuClosed = false;
-                runOnMenuClose = () => spellcheckhighlighter.addWordToDictionary(spellcheckhighlighter.wordUnderMouse);
+                root.deselectWhenMenuClosed = false;
+                root.runOnMenuClose = () => {
+                    root.spellcheckhighlighter.addWordToDictionary(root.spellcheckhighlighter.wordUnderMouse);
+                };
             }
         }
     }
 
     QQC2.MenuItem {
-        visible: target !== null && !target.readOnly && spellcheckhighlighter !== null && spellcheckhighlighter.active && spellcheckhighlighter.wordIsMisspelled
+        visible: root.__showSpellcheckActions()
         action: QQC2.Action {
             text: qsTr("Ignore")
             onTriggered: {
-                deselectWhenMenuClosed = false;
-                runOnMenuClose = () => spellcheckhighlighter.ignoreWord(spellcheckhighlighter.wordUnderMouse);
+                root.deselectWhenMenuClosed = false;
+                root.runOnMenuClose = () => {
+                    root.spellcheckhighlighter.ignoreWord(root.spellcheckhighlighter.wordUnderMouse);
+                };
             }
         }
     }
 
     QQC2.MenuItem {
-        visible: target !== null && !target.readOnly && spellcheckhighlighterLoader && spellcheckhighlighterLoader.activable
+        visible: root.target !== null
+            && !root.target.readOnly
+            && (root.spellcheckhighlighterLoader?.activable ?? false)
+
         checkable: true
-        checked: spellcheckhighlighter ? spellcheckhighlighter.active : false
+        checked: root.spellcheckhighlighter?.active ?? false
         text: qsTr("Enable Spellchecker")
+
         onCheckedChanged: {
-            spellcheckhighlighterLoader.active = checked;
-            spellcheckhighlighter = spellcheckhighlighterLoader.item;
+            root.spellcheckhighlighterLoader.active = checked;
+            root.spellcheckhighlighter = root.spellcheckhighlighterLoader.item;
         }
     }
 
     QQC2.MenuSeparator {
-        visible: target !== null && !target.readOnly && ((spellcheckhighlighter !== null && spellcheckhighlighter.active && spellcheckhighlighter.wordIsMisspelled) || (spellcheckhighlighterLoader && spellcheckhighlighterLoader.activable))
+        visible: root.__showSpellcheckActions()
+            || (root.target !== null
+                && !root.target.readOnly
+                && (root.spellcheckhighlighterLoader?.activable ?? false))
     }
 
     QQC2.MenuItem {
-        visible: target !== null && !target.readOnly && !targetIsPassword
         action: QQC2.Action {
             icon.name: "edit-undo-symbolic"
             text: qsTr("Undo")
             shortcut: StandardKey.Undo
         }
-        enabled: target !== null && target.canUndo
+        visible: root.__showPasswordRestrictedEditingActions()
+        enabled: root.target?.canUndo ?? false
         onTriggered: {
-            deselectWhenMenuClosed = false;
-            runOnMenuClose = () => target.undo();
+            root.deselectWhenMenuClosed = false;
+            root.runOnMenuClose = () => {
+                root.target.undo();
+            };
         }
     }
     QQC2.MenuItem {
-        visible: target !== null && !target.readOnly && !targetIsPassword
         action: QQC2.Action {
             icon.name: "edit-redo-symbolic"
             text: qsTr("Redo")
             shortcut: StandardKey.Redo
         }
-        enabled: target !== null && target.canRedo
+        visible: root.__showPasswordRestrictedEditingActions()
+        enabled: root.target?.canRedo ?? false
         onTriggered: {
-            deselectWhenMenuClosed = false;
-            runOnMenuClose = () => target.redo();
+            root.deselectWhenMenuClosed = false;
+            root.runOnMenuClose = () => {
+                root.target.redo();
+            };
         }
     }
     QQC2.MenuSeparator {
-        visible: target !== null && !target.readOnly && !targetIsPassword
+        visible: root.__showPasswordRestrictedEditingActions()
     }
     QQC2.MenuItem {
-        visible: target !== null && !target.readOnly && !targetIsPassword
         action: QQC2.Action {
             icon.name: "edit-cut-symbolic"
             text: qsTr("Cut")
             shortcut: StandardKey.Cut
         }
-        enabled: target !== null && target.selectedText
+        visible: root.__showPasswordRestrictedEditingActions()
+        enabled: root.__hasSelectedText()
         onTriggered: {
-            deselectWhenMenuClosed = false;
-            runOnMenuClose = () => target.cut();
+            root.deselectWhenMenuClosed = false;
+            root.runOnMenuClose = () => {
+                root.target.cut();
+            };
         }
     }
     QQC2.MenuItem {
@@ -218,41 +273,47 @@ QQC2.Menu {
             text: qsTr("Copy")
             shortcut: StandardKey.Copy
         }
-        enabled: target !== null && target.selectedText
-        visible: !targetIsPassword
+        visible: root.__showPasswordRestrictedActions()
+        enabled: root.__hasSelectedText()
         onTriggered: {
-            deselectWhenMenuClosed = false;
-            runOnMenuClose = () => target.copy();
+            root.deselectWhenMenuClosed = false;
+            root.runOnMenuClose = () => {
+                root.target.copy();
+            };
         }
     }
     QQC2.MenuItem {
-        visible: target !== null && !target.readOnly
         action: QQC2.Action {
             icon.name: "edit-paste-symbolic"
             text: qsTr("Paste")
             shortcut: StandardKey.Paste
         }
-        enabled: target !== null && target.canPaste
+        visible: root.__editable()
+        enabled: target?.canPaste ?? false
         onTriggered: {
-            deselectWhenMenuClosed = false;
-            runOnMenuClose = () => target.paste();
+            root.deselectWhenMenuClosed = false;
+            root.runOnMenuClose = () => {
+                root.target.paste();
+            };
         }
     }
     QQC2.MenuItem {
-        visible: target !== null && !target.readOnly
         action: QQC2.Action {
             icon.name: "edit-delete-symbolic"
             text: qsTr("Delete")
             shortcut: StandardKey.Delete
         }
-        enabled: target !== null && target.selectedText
+        visible: root.__editable()
+        enabled: root.__hasSelectedText()
         onTriggered: {
-            deselectWhenMenuClosed = false;
-            runOnMenuClose = () => target.remove(target.selectionStart, target.selectionEnd);
+            root.deselectWhenMenuClosed = false;
+            root.runOnMenuClose = () => {
+                root.target.remove(root.target.selectionStart, root.target.selectionEnd);
+            };
         }
     }
     QQC2.MenuSeparator {
-        visible: !targetIsPassword
+        visible: root.__showPasswordRestrictedActions()
     }
     QQC2.MenuItem {
         action: QQC2.Action {
@@ -260,10 +321,12 @@ QQC2.Menu {
             text: qsTr("Select All")
             shortcut: StandardKey.SelectAll
         }
-        visible: !targetIsPassword
+        visible: root.__showPasswordRestrictedActions()
         onTriggered: {
-            deselectWhenMenuClosed = false;
-            runOnMenuClose = () => target.selectAll();
+            root.deselectWhenMenuClosed = false;
+            root.runOnMenuClose = () => {
+                root.target.selectAll();
+            };
         }
     }
 }
