@@ -313,7 +313,8 @@ QQC2.Menu {
         }
     }
     QQC2.MenuSeparator {
-        visible: root.__showPasswordRestrictedActions()
+        visible: root.target !== null
+            && (root.__editable() || root.__showPasswordRestrictedActions())
     }
     QQC2.MenuItem {
         action: QQC2.Action {
@@ -321,7 +322,7 @@ QQC2.Menu {
             text: qsTr("Select All")
             shortcut: StandardKey.SelectAll
         }
-        visible: root.__showPasswordRestrictedActions()
+        visible: root.target !== null
         onTriggered: {
             root.deselectWhenMenuClosed = false;
             root.runOnMenuClose = () => {
