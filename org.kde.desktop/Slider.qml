@@ -69,11 +69,11 @@ T.Slider {
                 // See: https://doc.qt.io/qt-5/qml-qtquick-wheelevent.html#angleDelta-prop
                 while (wheelDelta >= 120) {
                     wheelDelta -= 120;
-                    controlRoot.decrease();
+                    controlRoot.increase();
                 }
                 while (wheelDelta <= -120) {
                     wheelDelta += 120;
-                    controlRoot.increase();
+                    controlRoot.decrease();
                 }
                 if (lastValue !== controlRoot.value) {
                     controlRoot.moved();
