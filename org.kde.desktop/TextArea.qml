@@ -89,7 +89,7 @@ T.TextArea {
             misspelledColor: Kirigami.Theme.negativeTextColor
             active: spellcheckhighlighterLoader.activable && settings.checkerEnabledByDefault
 
-            onChangeCursorPosition: {
+            onChangeCursorPosition: (start, end) => {
                 controlRoot.cursorPosition = start;
                 controlRoot.moveCursorSelection(end, TextEdit.SelectCharacters);
             }
