@@ -171,6 +171,10 @@ QQC2.Menu {
         }
     }
 
+    QQC2.MenuSeparator {
+        visible: root.__showSpellcheckActions()
+    }
+
     QQC2.MenuItem {
         visible: root.__showSpellcheckActions()
         action: QQC2.Action {
