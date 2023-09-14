@@ -108,6 +108,10 @@ QQC2.Menu {
 
     // deal with whether or not text should be deselected
     onClosed: {
+        // reset parent, so OverlayZStacking could refresh z order next time
+        // this menu is about to open for the same item that might have been
+        // reparented to a different popup.
+        parent = null;
         // restore text field's original persistent selection setting
         target.persistentSelection = persistentSelectionSetting
         // deselect text field text if menu is closed not because of a right click on the text field
