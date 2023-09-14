@@ -49,6 +49,12 @@ T.HorizontalHeaderView {
         }
         //FIXME: this is not usable as we don't have ways to query the sort column
         //activeControl: orderQuery ? (filteredMimeTypesModel.sortOrder == Qt.AscendingOrder ? "down" : "up") : ""
+        activeControl: {
+            if (model.sort !== undefined) {
+                return model.sort == Qt.AscendingOrder ? "down" : "up"
+            }
+            return ""
+        }
         properties: {
             "headerpos": headerPosition,
             "textalignment": Text.AlignVCenter | Text.AlignHCenter,
