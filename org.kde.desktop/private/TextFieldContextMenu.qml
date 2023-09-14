@@ -104,15 +104,6 @@ QQC2.Menu {
         return __showPasswordRestrictedActions() && !target.readOnly;
     }
 
-    onAboutToShow: {
-        if (QQC2.Overlay.overlay) {
-            let tempZ = 0
-            for (let i in QQC2.Overlay.overlay.visibleChildren) {
-                tempZ = Math.max(tempZ, QQC2.Overlay.overlay.visibleChildren[i].z)
-            }
-            z = tempZ + 1
-        }
-    }
     // deal with whether or not text should be deselected
     onClosed: {
         // restore text field's original persistent selection setting
