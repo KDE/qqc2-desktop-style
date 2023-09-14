@@ -11,6 +11,7 @@ import QtQuick
 import QtQuick.Templates as T
 import org.kde.kirigami as Kirigami
 import org.kde.desktop.private as Private
+import org.kde.qqc2desktopstyle.private as StylePrivate
 
 T.CheckDelegate {
     id: controlRoot
@@ -29,13 +30,15 @@ T.CheckDelegate {
     horizontalPadding: padding * 2
 
     contentItem: Label {
-        readonly property int indicatorEffectiveWidth: (
-                controlRoot.indicator
-                && typeof controlRoot.indicator.pixelMetric === "function"
-                && controlRoot.icon.name === ""
-                && controlRoot.icon.source.toString() === ""
-            ) ? controlRoot.indicator.pixelMetric("indicatorwidth") + controlRoot.spacing
-              : controlRoot.indicator.width
+        function __controlHasIcon(): bool {
+            return controlRoot.icon.name !== ""
+                || controlRoot.icon.source.toString() !== "";
+        }
+
+        readonly property int indicatorEffectiveWidth:
+            controlRoot.indicator instanceof StylePrivate.StyleItem && !__controlHasIcon()
+                ? controlRoot.indicator.pixelMetric("indicatorwidth") + controlRoot.spacing
+                : controlRoot.indicator.width
 
         leftPadding: controlRoot.indicator && !controlRoot.mirrored ? indicatorEffectiveWidth : 0
         rightPadding: controlRoot.indicator && controlRoot.mirrored ? indicatorEffectiveWidth : 0
