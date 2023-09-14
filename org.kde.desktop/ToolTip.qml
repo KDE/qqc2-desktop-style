@@ -24,8 +24,10 @@ T.ToolTip {
 
     // Math.ceil() prevents blurry edges and prevents unnecessary text wrapping
     // (vs using floor or sometimes round).
-    implicitWidth: Math.ceil(contentItem.implicitWidth) + leftPadding + rightPadding
-    implicitHeight: Math.ceil(contentItem.implicitHeight) + topPadding + bottomPadding
+    implicitWidth: Math.max(implicitBackgroundWidth + leftInset + rightInset,
+                            Math.ceil(contentWidth) + leftPadding + rightPadding)
+    implicitHeight: Math.max(implicitBackgroundHeight + topInset + bottomInset,
+                             Math.ceil(contentHeight) + topPadding + bottomPadding)
 
     margins: 6
     padding: 6

@@ -19,8 +19,11 @@ T.TabBar {
     Kirigami.Theme.inherit: false
 
     //Some QStyles seem to not return sensible pixelmetrics here
-    implicitWidth: Math.max(Kirigami.Units.gridUnit * 6, contentItem.implicitWidth)
-    implicitHeight: contentItem.implicitHeight
+    implicitWidth: Math.max(implicitBackgroundWidth + leftInset + rightInset,
+                            contentWidth + leftPadding + rightPadding,
+                            Kirigami.Units.gridUnit * 6)
+    implicitHeight: Math.max(implicitBackgroundHeight + topInset + bottomInset,
+                             contentHeight + topPadding + bottomPadding)
 
     spacing: 0
 

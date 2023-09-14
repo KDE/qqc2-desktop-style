@@ -14,11 +14,10 @@ import org.kde.kirigami as Kirigami
 T.Frame {
     id: control
 
-    implicitWidth: contentWidth + leftPadding + rightPadding
-    implicitHeight: contentHeight + topPadding + bottomPadding
-
-    contentWidth: contentItem.implicitWidth || (contentChildren.length === 1 ? contentChildren[0].implicitWidth : 0)
-    contentHeight: contentItem.implicitHeight || (contentChildren.length === 1 ? contentChildren[0].implicitHeight : 0)
+    implicitWidth: Math.max(implicitBackgroundWidth + leftInset + rightInset,
+                            contentWidth + leftPadding + rightPadding)
+    implicitHeight: Math.max(implicitBackgroundHeight + topInset + bottomInset,
+                             contentHeight + topPadding + bottomPadding)
 
     padding: 6
 

@@ -18,10 +18,7 @@ T.DialogButtonBox {
     implicitHeight: Math.max(implicitBackgroundHeight + topInset + bottomInset,
                              implicitContentHeight + topPadding + bottomPadding)
 
-    contentWidth: {
-        const view = contentItem as ListView;
-        return view ? view.contentWidth : 0;
-    }
+    contentWidth: (contentItem as ListView)?.contentWidth ?? 0
 
     spacing: Kirigami.Units.smallSpacing
     padding: Kirigami.Units.smallSpacing
