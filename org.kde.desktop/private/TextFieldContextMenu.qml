@@ -32,8 +32,6 @@ QQC2.Menu {
 
     property var runOnMenuClose: () => {}
 
-    parent: QQC2.Overlay.overlay
-
     function storeCursorAndSelection() {
         restoredCursorPosition = target.cursorPosition;
         restoredSelectionStart = target.selectionStart;
