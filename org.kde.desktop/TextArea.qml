@@ -2,11 +2,13 @@
     SPDX-FileCopyrightText: 2017 Marco Martin <mart@kde.org>
     SPDX-FileCopyrightText: 2017 The Qt Company Ltd.
     SPDX-FileCopyrightText: 2021 Carl Schwan <carlschwan@kde.org>
+    SPDX-FileCopyrightText: 2023 ivan tkachenko <me@ratijas.tk>
 
     SPDX-License-Identifier: LGPL-3.0-only OR GPL-2.0-or-later
 */
 
 
+import QtQml.Models
 import QtQuick
 import QtQuick.Window
 import QtQuick.Templates as T
@@ -64,30 +66,33 @@ T.TextArea {
         // unfortunately, taphandler's pressed event only triggers when the press is lifted
         // we need to use the longpress signal since it triggers when the button is first pressed
         longPressThreshold: 0
-        onLongPressed: Private.TextFieldContextMenu.targetClick(point, controlRoot, spellcheckhighlighterLoader, controlRoot.positionAt(point.position.x, point.position.y));
-    }
 
-    Loader {
-        id: sonnetSettings
-        active: controlRoot.Kirigami.SpellChecking.enabled && !controlRoot.readOnly
-        sourceComponent: Sonnet.Settings {}
-    }
-
-    Loader {
-        id: spellcheckhighlighterLoader
-
-        active: sonnetSettings.active && sonnetSettings.item.checkerEnabledByDefault
-        onActiveChanged: if (active) {
-            item.active = true;
+        onLongPressed: {
+            Private.TextFieldContextMenu.targetClick(
+                point,
+                controlRoot,
+                spellcheckHighlighterInstantiator,
+                controlRoot.positionAt(point.position.x, point.position.y),
+            );
         }
-        sourceComponent: Sonnet.SpellcheckHighlighter {
-            id: spellcheckhighlighter
+    }
+
+    Kirigami.SpellChecking.enabled: !controlRoot.readOnly
+        && Private.GlobalSonnetSettings.checkerEnabledByDefault
+
+    Instantiator {
+        id: spellcheckHighlighterInstantiator
+
+        active: controlRoot.Kirigami.SpellChecking.enabled
+        asynchronous: true
+
+        Sonnet.SpellcheckHighlighter {
+            active: true
             document: controlRoot.textDocument
             cursorPosition: controlRoot.cursorPosition
             selectionStart: controlRoot.selectionStart
             selectionEnd: controlRoot.selectionEnd
             misspelledColor: Kirigami.Theme.negativeTextColor
-            active: spellcheckhighlighterLoader.activable && settings.checkerEnabledByDefault
 
             onChangeCursorPosition: (start, end) => {
                 controlRoot.cursorPosition = start;

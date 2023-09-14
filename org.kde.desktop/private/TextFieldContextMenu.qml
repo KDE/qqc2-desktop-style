@@ -24,9 +24,14 @@ QQC2.Menu {
     property int restoredSelectionEnd
     property bool persistentSelectionSetting
 
-    property Sonnet.SpellcheckHighlighter spellcheckhighlighter
-    property Loader spellcheckhighlighterLoader
-    property /*list<string>*/var suggestions: []
+    // assuming that Instantiator::active is bound to target.Kirigami.SpellChecking.enabled
+    property Instantiator/*<Sonnet.SpellcheckHighlighter>*/ spellcheckHighlighterInstantiator
+
+    // assuming that spellchecker's active state is not writable, use target.Kirigami.SpellChecking.enabled instead.
+    readonly property Sonnet.SpellcheckHighlighter spellcheckHighlighter:
+        spellcheckHighlighterInstantiator?.object as Sonnet.SpellcheckHighlighter
+
+    property /*list<string>*/var spellcheckSuggestions: []
 
     Component.onCompleted: persistentSelectionSetting = persistentSelectionSetting // break binding
 
@@ -39,19 +44,28 @@ QQC2.Menu {
     }
 
     // target is pressed with mouse
-    function targetClick(handlerPoint, newTarget, spellcheckhighlighterLoader, mousePosition) {
+    function targetClick(
+        handlerPoint,
+        target,
+        spellcheckHighlighterInstantiator,
+        mousePosition,
+    ) {
+        if (!(target instanceof TextInput || target instanceof TextEdit)) {
+            console.warn("Target not supported by standard context menu:", target);
+            return;
+        }
         if (handlerPoint.pressedButtons === Qt.RightButton) { // only accept just right click
             if (visible) {
                 deselectWhenMenuClosed = false; // don't deselect text if menu closed by right click on textfield
                 dismiss();
             } else {
-                target = newTarget;
+                this.target = target;
                 target.persistentSelection = true; // persist selection when menu is opened
 
-                this.spellcheckhighlighterLoader = spellcheckhighlighterLoader;
-                spellcheckhighlighter = spellcheckhighlighterLoader?.item ?? null;
-                suggestions = (spellcheckhighlighter && mousePosition)
-                    ? spellcheckhighlighter.suggestions(mousePosition)
+                this.spellcheckHighlighterInstantiator = spellcheckHighlighterInstantiator;
+
+                spellcheckSuggestions = (spellcheckHighlighter && mousePosition)
+                    ? spellcheckHighlighter.suggestions(mousePosition)
                     : [];
 
                 storeCursorAndSelection();
@@ -66,9 +80,9 @@ QQC2.Menu {
     }
 
     // context menu keyboard key
-    function targetKeyPressed(event, newTarget) {
+    function targetKeyPressed(event, target) {
         if (event.modifiers === Qt.NoModifier && event.key === Qt.Key_Menu) {
-            target = newTarget;
+            this.target = target;
             target.persistentSelection = true; // persist selection when menu is opened
             storeCursorAndSelection();
             popup(target);
@@ -85,11 +99,16 @@ QQC2.Menu {
             && !target.readOnly;
     }
 
+    function __hasSpellcheckCapability(): bool {
+        return __editable()
+            && spellcheckHighlighterInstantiator !== null;
+    }
+
     function __showSpellcheckActions(): bool {
         return __editable()
-            && spellcheckhighlighter !== null
-            && spellcheckhighlighter.active
-            && spellcheckhighlighter.wordIsMisspelled;
+            && spellcheckHighlighter !== null
+            && spellcheckHighlighter.active
+            && spellcheckHighlighter.wordIsMisspelled;
     }
 
     // Show actions which should normally be hidden for password field
@@ -112,6 +131,11 @@ QQC2.Menu {
         // this menu is about to open for the same item that might have been
         // reparented to a different popup.
         parent = null;
+
+        // clean up spellchecker
+        spellcheckHighlighterInstantiator = null;
+        spellcheckSuggestions = [];
+
         // restore text field's original persistent selection setting
         target.persistentSelection = persistentSelectionSetting
         // deselect text field text if menu is closed not because of a right click on the text field
@@ -137,7 +161,7 @@ QQC2.Menu {
     Instantiator {
         active: root.__showSpellcheckActions()
 
-        model: root.suggestions
+        model: root.spellcheckSuggestions
         delegate: QQC2.MenuItem {
             required property string modelData
 
@@ -146,7 +170,7 @@ QQC2.Menu {
             onClicked: {
                 root.deselectWhenMenuClosed = false;
                 root.runOnMenuClose = () => {
-                    root.spellcheckhighlighter.replaceWord(modelData);
+                    root.spellcheckHighlighter.replaceWord(modelData);
                 };
             }
         }
@@ -159,10 +183,13 @@ QQC2.Menu {
     }
 
     QQC2.MenuItem {
-        visible: root.__showSpellcheckActions() && root.suggestions.length === 0
+        visible: root.__showSpellcheckActions() && root.spellcheckSuggestions.length === 0
         action: QQC2.Action {
-            text: root.spellcheckhighlighter ? qsTr("No Suggestions for \"%1\"").arg(root.spellcheckhighlighter.wordUnderMouse) : ""
             enabled: false
+            text: root.spellcheckHighlighter
+                ? qsTr('No Suggestions for "%1"')
+                    .arg(root.spellcheckHighlighter.wordUnderMouse)
+                : ""
         }
     }
 
@@ -173,11 +200,15 @@ QQC2.Menu {
     QQC2.MenuItem {
         visible: root.__showSpellcheckActions()
         action: QQC2.Action {
-            text: root.spellcheckhighlighter ? qsTr("Add \"%1\" to Dictionary").arg(root.spellcheckhighlighter.wordUnderMouse) : ""
+            text: root.spellcheckHighlighter
+                ? qsTr('Add "%1" to Dictionary')
+                    .arg(root.spellcheckHighlighter.wordUnderMouse)
+                : ""
+
             onTriggered: {
                 root.deselectWhenMenuClosed = false;
                 root.runOnMenuClose = () => {
-                    root.spellcheckhighlighter.addWordToDictionary(root.spellcheckhighlighter.wordUnderMouse);
+                    root.spellcheckHighlighter.addWordToDictionary(root.spellcheckHighlighter.wordUnderMouse);
                 };
             }
         }
@@ -190,34 +221,29 @@ QQC2.Menu {
             onTriggered: {
                 root.deselectWhenMenuClosed = false;
                 root.runOnMenuClose = () => {
-                    root.spellcheckhighlighter.ignoreWord(root.spellcheckhighlighter.wordUnderMouse);
+                    root.spellcheckHighlighter.ignoreWord(root.spellcheckHighlighter.wordUnderMouse);
                 };
             }
         }
     }
 
     QQC2.MenuItem {
-        visible: root.target !== null
-            && !root.target.readOnly
-            && (root.spellcheckhighlighterLoader?.activable ?? false)
+        visible: root.__hasSpellcheckCapability()
 
         checkable: true
-        checked: root.spellcheckhighlighter?.active ?? false
+        checked: root.target?.Kirigami.SpellChecking.enabled ?? false
         text: qsTr("Spell Check")
 
         onToggled: {
-            if (root.spellcheckhighlighterLoader) {
-                root.spellcheckhighlighterLoader.active = checked;
-                root.spellcheckhighlighter = root.spellcheckhighlighterLoader.item;
+            if (root.target) {
+                root.target.Kirigami.SpellChecking.enabled = checked;
             }
         }
     }
 
     QQC2.MenuSeparator {
-        visible: root.__showSpellcheckActions()
-            || (root.target !== null
-                && !root.target.readOnly
-                && (root.spellcheckhighlighterLoader?.activable ?? false))
+        visible: root.__hasSpellcheckCapability()
+            && (root.__editable() || root.__showPasswordRestrictedActions())
     }
 
     QQC2.MenuItem {

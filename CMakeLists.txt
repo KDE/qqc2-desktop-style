@@ -110,6 +110,7 @@ ecm_target_qml_sources(org_kde_desktop
 ecm_add_qml_module(org_kde_desktop_private URI "org.kde.desktop.private" VERSION 1.0 GENERATE_PLUGIN_SOURCE)
 
 set_source_files_properties(
+    org.kde.desktop/private/GlobalSonnetSettings.qml
     org.kde.desktop/private/MobileTextActionsToolBar.qml
     org.kde.desktop/private/TextFieldContextMenu.qml
 
