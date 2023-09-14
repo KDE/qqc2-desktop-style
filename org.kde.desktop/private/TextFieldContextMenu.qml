@@ -104,6 +104,8 @@ QQC2.Menu {
         return __showPasswordRestrictedActions() && !target.readOnly;
     }
 
+    modal: true
+
     // deal with whether or not text should be deselected
     onClosed: {
         // restore text field's original persistent selection setting
