@@ -109,11 +109,12 @@ ecm_target_qml_sources(org_kde_desktop
 # Private module goes separately, beacuse a type in qmldir can not be both internal and singleton
 ecm_add_qml_module(org_kde_desktop_private URI "org.kde.desktop.private" VERSION 1.0 GENERATE_PLUGIN_SOURCE)
 
-set_source_files_properties(org.kde.desktop/private/MobileTextActionsToolBar.qml
-    PROPERTIES QT_QML_SINGLETON_TYPE TRUE
-)
-set_source_files_properties(org.kde.desktop/private/TextFieldContextMenu.qml
-    PROPERTIES QT_QML_SINGLETON_TYPE TRUE
+set_source_files_properties(
+    org.kde.desktop/private/MobileTextActionsToolBar.qml
+    org.kde.desktop/private/TextFieldContextMenu.qml
+
+    PROPERTIES
+        QT_QML_SINGLETON_TYPE TRUE
 )
 
 file(GLOB _private_qml "org.kde.desktop/private/*.qml")
