@@ -35,6 +35,7 @@ T.Button {
         onActivated: controlRoot.clicked()
     }
     background: StylePrivate.StyleItem {
+        id: styleItem
         control: controlRoot
         elementType: "button"
         sunken: controlRoot.down
@@ -52,6 +53,13 @@ T.Button {
             "iconHeight": controlRoot.icon.height,
 
             "menu": controlRoot.Accessible.role === Accessible.ButtonMenu
+        }
+
+        Connections {
+            target: controlRoot.Kirigami.MnemonicData
+            function onActiveChanged() {
+                styleItem.updateItem();
+            }
         }
     }
 }

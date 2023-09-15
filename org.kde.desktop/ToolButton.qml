@@ -41,7 +41,7 @@ T.ToolButton {
         onActivated: controlRoot.clicked()
     }
     background: StylePrivate.StyleItem {
-        id: styleitem
+        id: styleItem
         control: controlRoot
         elementType: "toolbutton"
         sunken: controlRoot.down
@@ -88,6 +88,13 @@ T.ToolButton {
 
             "menu": showMenuArrow,
             "toolButtonStyle": toolButtonStyle,
+        }
+
+        Connections {
+            target: controlRoot.Kirigami.MnemonicData
+            function onActiveChanged() {
+                styleItem.updateItem();
+            }
         }
     }
 }

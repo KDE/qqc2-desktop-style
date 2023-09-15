@@ -42,6 +42,7 @@ T.DelayButton {
     }
 
     background: StylePrivate.StyleItem {
+        id: styleItem
         control: controlRoot
         elementType: "delaybutton"
         sunken: controlRoot.down
@@ -82,6 +83,13 @@ T.DelayButton {
             "iconHeight": controlRoot.icon.height,
 
             "toolButtonStyle": toolButtonStyle,
+        }
+
+        Connections {
+            target: controlRoot.Kirigami.MnemonicData
+            function onActiveChanged() {
+                styleItem.updateItem();
+            }
         }
     }
 }

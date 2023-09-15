@@ -98,5 +98,12 @@ T.TabButton {
         text: controlRoot.Kirigami.MnemonicData.mnemonicLabel
         hover: controlRoot.hovered
         hasFocus: controlRoot.activeFocus
+
+        Connections {
+            target: controlRoot.Kirigami.MnemonicData
+            function onActiveChanged() {
+                styleitem.updateItem();
+            }
+        }
     }
 }
