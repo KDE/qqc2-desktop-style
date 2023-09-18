@@ -77,13 +77,13 @@ T.TextArea {
         }
     }
 
-    Kirigami.SpellChecking.enabled: !controlRoot.readOnly
+    Kirigami.SpellCheck.enabled: !controlRoot.readOnly
         && Private.GlobalSonnetSettings.checkerEnabledByDefault
 
     Instantiator {
         id: spellcheckHighlighterInstantiator
 
-        active: controlRoot.Kirigami.SpellChecking.enabled
+        active: controlRoot.Kirigami.SpellCheck.enabled
         asynchronous: true
 
         Sonnet.SpellcheckHighlighter {

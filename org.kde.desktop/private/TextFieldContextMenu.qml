@@ -24,10 +24,10 @@ QQC2.Menu {
     property int restoredSelectionEnd
     property bool persistentSelectionSetting
 
-    // assuming that Instantiator::active is bound to target.Kirigami.SpellChecking.enabled
+    // assuming that Instantiator::active is bound to target.Kirigami.SpellCheck.enabled
     property Instantiator/*<Sonnet.SpellcheckHighlighter>*/ spellcheckHighlighterInstantiator
 
-    // assuming that spellchecker's active state is not writable, use target.Kirigami.SpellChecking.enabled instead.
+    // assuming that spellchecker's active state is not writable, use target.Kirigami.SpellCheck.enabled instead.
     readonly property Sonnet.SpellcheckHighlighter spellcheckHighlighter:
         spellcheckHighlighterInstantiator?.object as Sonnet.SpellcheckHighlighter
 
@@ -231,12 +231,12 @@ QQC2.Menu {
         visible: root.__hasSpellcheckCapability()
 
         checkable: true
-        checked: root.target?.Kirigami.SpellChecking.enabled ?? false
+        checked: root.target?.Kirigami.SpellCheck.enabled ?? false
         text: qsTr("Spell Check")
 
         onToggled: {
             if (root.target) {
-                root.target.Kirigami.SpellChecking.enabled = checked;
+                root.target.Kirigami.SpellCheck.enabled = checked;
             }
         }
     }
