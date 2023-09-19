@@ -47,15 +47,16 @@ T.MenuBarItem {
         verticalAlignment: Text.AlignVCenter
     }
 
-    background: Item {
-        anchors.fill: parent
-        implicitWidth: Kirigami.Units.gridUnit * 8
+    background: Rectangle {
+        implicitWidth: 40
+        implicitHeight: Kirigami.Units.gridUnit + 2 * Kirigami.Units.smallSpacing
+        color: Kirigami.Theme.highlightColor
+        opacity: controlRoot.down || controlRoot.highlighted ? 0.7 : 0
 
-        Rectangle {
-            anchors.fill: parent
-            color: Kirigami.Theme.highlightColor
-            opacity: controlRoot.down || controlRoot.highlighted  ? 0.7 : 0
-            Behavior on opacity { NumberAnimation { duration: Kirigami.Units.shortDuration } }
+        Behavior on opacity {
+            NumberAnimation {
+                duration: Kirigami.Units.shortDuration
+            }
         }
     }
 }
