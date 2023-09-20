@@ -16,7 +16,7 @@ Rectangle {
 
     property T.ItemDelegate control
 
-    color: control.highlighted || (control.pressed && !control.checked && !control.sectionDelegate)
+    color: control.highlighted || (control.down && !control.checked && !control.sectionDelegate)
         ? Kirigami.Theme.highlightColor
         : ((control.TableView.view && control.TableView.view.alternatingRows && row % 2
             || control.Kirigami.Theme.useAlternateBackgroundColor && index % 2)
@@ -28,6 +28,6 @@ Rectangle {
     Rectangle {
         anchors.fill: parent
         color: Kirigami.Theme.highlightColor
-        opacity: control.hovered && !control.pressed ? 0.2 : 0
+        opacity: control.hovered && !control.down ? 0.2 : 0
     }
 }
