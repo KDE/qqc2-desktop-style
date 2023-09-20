@@ -26,6 +26,8 @@ T.ItemDelegate {
     padding: Kirigami.Settings.tabletMode ? Kirigami.Units.largeSpacing : Kirigami.Units.smallSpacing
     horizontalPadding: padding * 2
     spacing: Kirigami.Units.smallSpacing
+    icon.width: Kirigami.Units.iconSizes.smallMedium
+    icon.height: Kirigami.Units.iconSizes.smallMedium
 
     contentItem: RowLayout {
         LayoutMirroring.enabled: controlRoot.mirrored
@@ -35,8 +37,8 @@ T.ItemDelegate {
             Layout.alignment: Qt.AlignVCenter
             visible: controlRoot.icon.name !== "" || controlRoot.icon.source.toString() !== ""
             source: controlRoot.icon.name !== "" ? controlRoot.icon.name : controlRoot.icon.source
-            Layout.preferredHeight: Kirigami.Units.iconSizes.small
-            Layout.preferredWidth: Layout.preferredHeight
+            Layout.preferredHeight: controlRoot.icon.height
+            Layout.preferredWidth: controlRoot.icon.width
         }
 
         Label {

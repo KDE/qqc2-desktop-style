@@ -8,6 +8,7 @@
 
 
 import QtQuick
+import QtQuick.Layouts
 import QtQuick.Templates as T
 import org.kde.kirigami as Kirigami
 import org.kde.desktop.private as Private
@@ -29,27 +30,33 @@ T.CheckDelegate {
     padding: Kirigami.Settings.tabletMode ? Kirigami.Units.largeSpacing : Kirigami.Units.smallSpacing
     horizontalPadding: padding * 2
 
-    contentItem: Label {
-        function __controlHasIcon(): bool {
-            return controlRoot.icon.name !== ""
-                || controlRoot.icon.source.toString() !== "";
+    icon.width: Kirigami.Units.iconSizes.smallMedium
+    icon.height: Kirigami.Units.iconSizes.smallMedium
+
+    contentItem: RowLayout {
+        LayoutMirroring.enabled: controlRoot.mirrored
+        spacing: controlRoot.spacing
+
+        Kirigami.Icon {
+            Layout.alignment: Qt.AlignVCenter
+            visible: controlRoot.icon.name !== "" || controlRoot.icon.source.toString() !== ""
+            source: controlRoot.icon.name !== "" ? controlRoot.icon.name : controlRoot.icon.source
+            Layout.preferredHeight: controlRoot.icon.height
+            Layout.preferredWidth: controlRoot.icon.width
         }
 
-        readonly property int indicatorEffectiveWidth:
-            controlRoot.indicator instanceof StylePrivate.StyleItem && !__controlHasIcon()
-                ? controlRoot.indicator.pixelMetric("indicatorwidth") + controlRoot.spacing
-                : controlRoot.indicator.width
+        Label {
+            Layout.alignment: Qt.AlignLeft
+            Layout.fillWidth: true
 
-        leftPadding: controlRoot.indicator && !controlRoot.mirrored ? indicatorEffectiveWidth : 0
-        rightPadding: controlRoot.indicator && controlRoot.mirrored ? indicatorEffectiveWidth : 0
-
-        text: controlRoot.text
-        font: controlRoot.font
-        color: (((controlRoot.pressed && !controlRoot.checked) || controlRoot.highlighted) && !controlRoot.sectionDelegate) ? Kirigami.Theme.highlightedTextColor : Kirigami.Theme.textColor
-        elide: Text.ElideRight
-        visible: controlRoot.text
-        horizontalAlignment: Text.AlignLeft
-        verticalAlignment: Text.AlignVCenter
+            text: controlRoot.text
+            font: controlRoot.font
+            color: (((controlRoot.pressed && !controlRoot.checked) || controlRoot.highlighted) && !controlRoot.sectionDelegate) ? Kirigami.Theme.highlightedTextColor : Kirigami.Theme.textColor
+            elide: Text.ElideRight
+            visible: controlRoot.text
+            horizontalAlignment: Text.AlignLeft
+            verticalAlignment: Text.AlignVCenter
+        }
     }
 
     indicator: CheckIndicator {
@@ -58,6 +65,7 @@ T.CheckDelegate {
         y: controlRoot.topPadding + (controlRoot.availableHeight - height) / 2
 
         control: controlRoot
+        drawIcon: false
     }
 
     background: Private.DefaultListItemBackground {

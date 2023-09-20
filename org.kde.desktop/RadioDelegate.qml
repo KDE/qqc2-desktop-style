@@ -8,6 +8,7 @@
 
 
 import QtQuick
+import QtQuick.Layouts
 import QtQuick.Templates as T
 import org.kde.kirigami as Kirigami
 import org.kde.desktop.private as Private
@@ -23,33 +24,38 @@ T.RadioDelegate {
     padding: Kirigami.Settings.tabletMode ? Kirigami.Units.largeSpacing : Kirigami.Units.smallSpacing
     horizontalPadding: padding * 2
 
-    contentItem: Label {
-        readonly property int indicatorEffectiveWidth: (
-                controlRoot.indicator
-                && typeof controlRoot.indicator.pixelMetric === "function"
-                && controlRoot.icon.name === ""
-                && controlRoot.icon.source.toString() === ""
-            ) ? controlRoot.indicator.pixelMetric("exclusiveindicatorwidth") + controlRoot.spacing
-              : controlRoot.indicator.width
+    icon.width: Kirigami.Units.iconSizes.smallMedium
+    icon.height: Kirigami.Units.iconSizes.smallMedium
 
-        leftPadding: controlRoot.indicator && !controlRoot.mirrored ? indicatorEffectiveWidth : 0
-        rightPadding: controlRoot.indicator && controlRoot.mirrored ? indicatorEffectiveWidth : 0
+    contentItem: RowLayout {
+        LayoutMirroring.enabled: controlRoot.mirrored
+        spacing: controlRoot.spacing
 
-        text: controlRoot.text
-        font: controlRoot.font
-        color: (controlRoot.pressed && !controlRoot.checked && !controlRoot.sectionDelegate) ? Kirigami.Theme.highlightedTextColor : Kirigami.Theme.textColor
-        elide: Text.ElideRight
-        visible: controlRoot.text
-        horizontalAlignment: Text.AlignLeft
-        verticalAlignment: Text.AlignVCenter
+        Kirigami.Icon {
+            Layout.alignment: Qt.AlignVCenter
+            visible: controlRoot.icon.name !== "" || controlRoot.icon.source.toString() !== ""
+            source: controlRoot.icon.name !== "" ? controlRoot.icon.name : controlRoot.icon.source
+            Layout.preferredHeight: controlRoot.icon.height
+            Layout.preferredWidth: controlRoot.icon.width
+        }
+
+        Label {
+            text: controlRoot.text
+            font: controlRoot.font
+            color: (controlRoot.pressed && !controlRoot.checked && !controlRoot.sectionDelegate) ? Kirigami.Theme.highlightedTextColor : Kirigami.Theme.textColor
+            elide: Text.ElideRight
+            visible: controlRoot.text
+            horizontalAlignment: Text.AlignLeft
+            verticalAlignment: Text.AlignVCenter
+        }
     }
 
     indicator: CheckIndicator {
         elementType: "radiobutton"
         x: controlRoot.mirrored ? controlRoot.leftPadding : controlRoot.width - width - controlRoot.rightPadding
         y: controlRoot.topPadding + (controlRoot.availableHeight - height) / 2
-
         control: controlRoot
+        drawIcon: false
     }
 
     background: Private.DefaultListItemBackground {

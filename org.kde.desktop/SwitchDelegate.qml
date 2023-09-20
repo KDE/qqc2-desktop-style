@@ -7,6 +7,7 @@
 
 
 import QtQuick
+import QtQuick.Layouts
 import QtQuick.Templates as T
 import org.kde.kirigami as Kirigami
 import org.kde.desktop.private as Private
@@ -25,17 +26,30 @@ T.SwitchDelegate {
     padding: Kirigami.Settings.tabletMode ? Kirigami.Units.largeSpacing : Kirigami.Units.smallSpacing
     horizontalPadding: padding * 2
 
-    contentItem: Label {
-        leftPadding: controlRoot.mirrored ? (controlRoot.indicator ? controlRoot.indicator.width : 0) + controlRoot.spacing : 0
-        rightPadding: !controlRoot.mirrored ? (controlRoot.indicator ? controlRoot.indicator.width : 0) + controlRoot.spacing : 0
+    icon.width: Kirigami.Units.iconSizes.smallMedium
+    icon.height: Kirigami.Units.iconSizes.smallMedium
 
-        text: controlRoot.text
-        font: controlRoot.font
-        color: (controlRoot.pressed && !controlRoot.checked && !controlRoot.sectionDelegate) ? Kirigami.Theme.highlightedTextColor : Kirigami.Theme.textColor
-        elide: Text.ElideRight
-        visible: controlRoot.text
-        horizontalAlignment: Text.AlignLeft
-        verticalAlignment: Text.AlignVCenter
+    contentItem: RowLayout {
+        LayoutMirroring.enabled: controlRoot.mirrored
+        spacing: controlRoot.spacing
+
+        Kirigami.Icon {
+            Layout.alignment: Qt.AlignVCenter
+            visible: controlRoot.icon.name !== "" || controlRoot.icon.source.toString() !== ""
+            source: controlRoot.icon.name !== "" ? controlRoot.icon.name : controlRoot.icon.source
+            Layout.preferredHeight: controlRoot.icon.height
+            Layout.preferredWidth: controlRoot.icon.width
+        }
+
+        Label {
+            text: controlRoot.text
+            font: controlRoot.font
+            color: (controlRoot.pressed && !controlRoot.checked && !controlRoot.sectionDelegate) ? Kirigami.Theme.highlightedTextColor : Kirigami.Theme.textColor
+            elide: Text.ElideRight
+            visible: controlRoot.text
+            horizontalAlignment: Text.AlignLeft
+            verticalAlignment: Text.AlignVCenter
+        }
     }
 
     indicator: SwitchIndicator {
