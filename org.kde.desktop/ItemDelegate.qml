@@ -23,9 +23,12 @@ T.ItemDelegate {
 
     hoverEnabled: true
 
+    spacing: Kirigami.Units.smallSpacing
     padding: Kirigami.Settings.tabletMode ? Kirigami.Units.largeSpacing : Kirigami.Units.smallSpacing
     horizontalPadding: padding * 2
-    spacing: Kirigami.Units.smallSpacing
+    leftPadding: !mirrored ? horizontalPadding + (indicator ? implicitIndicatorWidth + spacing : 0) : horizontalPadding
+    rightPadding: mirrored ? horizontalPadding + (indicator ? implicitIndicatorWidth + spacing : 0) : horizontalPadding
+
     icon.width: Kirigami.Units.iconSizes.smallMedium
     icon.height: Kirigami.Units.iconSizes.smallMedium
 
@@ -53,12 +56,6 @@ T.ItemDelegate {
             verticalAlignment: Text.AlignVCenter
             Layout.alignment: Qt.AlignLeft
             Layout.fillWidth: true
-        }
-
-        Item {
-            visible: controlRoot.indicator !== null
-
-            Layout.preferredWidth: controlRoot.indicator?.width ?? 0
         }
     }
 

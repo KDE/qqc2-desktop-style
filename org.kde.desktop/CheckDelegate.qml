@@ -23,12 +23,13 @@ T.CheckDelegate {
                              implicitContentHeight + topPadding + bottomPadding,
                              implicitIndicatorHeight + topPadding + bottomPadding)
 
-    spacing: indicator && typeof indicator.pixelMetric === "function" ? indicator.pixelMetric("checkboxlabelspacing") : Kirigami.Units.smallSpacing
-
     hoverEnabled: true
 
+    spacing: Kirigami.Units.smallSpacing
     padding: Kirigami.Settings.tabletMode ? Kirigami.Units.largeSpacing : Kirigami.Units.smallSpacing
     horizontalPadding: padding * 2
+    leftPadding: !mirrored ? horizontalPadding + implicitIndicatorWidth + spacing : horizontalPadding
+    rightPadding: mirrored ? horizontalPadding + implicitIndicatorWidth + spacing : horizontalPadding
 
     icon.width: Kirigami.Units.iconSizes.smallMedium
     icon.height: Kirigami.Units.iconSizes.smallMedium
@@ -61,7 +62,7 @@ T.CheckDelegate {
 
     indicator: CheckIndicator {
         elementType: "checkbox"
-        x: controlRoot.mirrored ? controlRoot.width - width - controlRoot.rightPadding : controlRoot.leftPadding
+        x: !controlRoot.mirrored ? controlRoot.horizontalPadding : controlRoot.width - width - controlRoot.horizontalPadding
         y: controlRoot.topPadding + (controlRoot.availableHeight - height) / 2
 
         control: controlRoot

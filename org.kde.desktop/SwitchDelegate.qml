@@ -23,8 +23,11 @@ T.SwitchDelegate {
 
     hoverEnabled: true
 
+    spacing: Kirigami.Units.smallSpacing
     padding: Kirigami.Settings.tabletMode ? Kirigami.Units.largeSpacing : Kirigami.Units.smallSpacing
     horizontalPadding: padding * 2
+    leftPadding: !mirrored ? horizontalPadding + implicitIndicatorWidth + spacing : horizontalPadding
+    rightPadding: mirrored ? horizontalPadding + implicitIndicatorWidth + spacing : horizontalPadding
 
     icon.width: Kirigami.Units.iconSizes.smallMedium
     icon.height: Kirigami.Units.iconSizes.smallMedium
@@ -53,7 +56,7 @@ T.SwitchDelegate {
     }
 
     indicator: SwitchIndicator {
-        x: controlRoot.mirrored ? controlRoot.leftPadding : controlRoot.width - width - controlRoot.rightPadding
+        x: !controlRoot.mirrored ? controlRoot.horizontalPadding : controlRoot.width - width - controlRoot.horizontalPadding
         y: controlRoot.topPadding + (controlRoot.availableHeight - height) / 2
         control: controlRoot
     }
