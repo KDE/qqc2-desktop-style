@@ -16,18 +16,28 @@ Rectangle {
 
     property T.ItemDelegate control
 
-    color: control.highlighted || (control.down && !control.checked && !control.sectionDelegate)
-        ? Kirigami.Theme.highlightColor
-        : ((control.TableView.view && control.TableView.view.alternatingRows && row % 2
-            || control.Kirigami.Theme.useAlternateBackgroundColor && index % 2)
-            ? Kirigami.Theme.alternateBackgroundColor
-            : Kirigami.Theme.backgroundColor)
-
     visible: control.ListView.view ? control.ListView.view.highlight === null : true
 
-    Rectangle {
-        anchors.fill: parent
-        color: Kirigami.Theme.highlightColor
-        opacity: control.hovered && !control.down ? 0.2 : 0
+    readonly property color hoverColor: Kirigami.ColorUtils.linearInterpolation(Kirigami.Theme.highlightColor, normalColor, 0.8)
+    readonly property color downColor: Kirigami.Theme.highlightColor
+    readonly property color normalColor: {
+        if (control.TableView.view?.alternatingRows && row % 2) {
+            return Kirigami.Theme.alternateBackgroundColor
+        } else if (control.Kirigami.Theme.useAlternateBackgroundColor && index % 2) {
+            return Kirigami.Theme.alternateBackgroundColor
+        }
+        return Kirigami.Theme.backgroundColor
+    }
+
+    color: {
+        if (control.highlighted || (control.down && !control.checked)) {
+            return downColor
+        }
+
+        if (control.hovered) {
+            return hoverColor
+        }
+
+        return normalColor
     }
 }
