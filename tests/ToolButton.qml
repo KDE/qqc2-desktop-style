@@ -116,11 +116,7 @@ ApplicationWindow {
         ToolButton {
             text: "With Menu decoration"
 
-            Component.onCompleted: {
-                if (background.hasOwnProperty("showMenuArrow")) {
-                    background.showMenuArrow = true
-                }
-            }
+            Accessible.role: Accessible.ButtonMenu
         }
     }
 }
