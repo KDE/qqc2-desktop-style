@@ -17,6 +17,8 @@
 #include <QQuickImageProvider>
 #include <QQuickItem>
 
+#include <qqmlregistration.h>
+
 #include <memory>
 
 class QWidget;
@@ -41,6 +43,7 @@ public:
 class KQuickStyleItem : public QQuickItem
 {
     Q_OBJECT
+    QML_NAMED_ELEMENT(StyleItem)
 
     Q_PROPERTY(KQuickPadding *border READ border CONSTANT)
 

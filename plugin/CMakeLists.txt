@@ -1,12 +1,10 @@
-project(qqc2desktopstyle)
+ecm_add_qml_module(qqc2desktopstyleplugin URI org.kde.qqc2desktopstyle.private GENERATE_PLUGIN_SOURCE)
 
-set(qqc2desktopstyle_SRCS
-    qqc2desktopstyleplugin.cpp
+target_sources(qqc2desktopstyleplugin PRIVATE
     kquickstyleitem.cpp
 )
 
-add_library(qqc2desktopstyleplugin SHARED ${qqc2desktopstyle_SRCS})
-target_link_libraries(qqc2desktopstyleplugin
+target_link_libraries(qqc2desktopstyleplugin PRIVATE
     Qt6::Core
     Qt6::Qml
     Qt6::Quick
@@ -16,9 +14,4 @@ target_link_libraries(qqc2desktopstyleplugin
     KF6::Kirigami2
 )
 
-if(WIN32 AND BUILD_SHARED_LIBS)
-    set_target_properties(qqc2desktopstyleplugin PROPERTIES PREFIX "")
-endif()
-
-install(TARGETS qqc2desktopstyleplugin DESTINATION ${KDE_INSTALL_QMLDIR}/org/kde/qqc2desktopstyle/private)
-install(FILES qmldir DESTINATION ${KDE_INSTALL_QMLDIR}/org/kde/qqc2desktopstyle/private)
+ecm_finalize_qml_module(qqc2desktopstyleplugin)
