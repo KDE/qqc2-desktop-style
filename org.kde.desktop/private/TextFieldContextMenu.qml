@@ -146,7 +146,12 @@ QQC2.Menu {
         target.select(restoredSelectionStart, restoredSelectionEnd);
 
         // run action, and free memory
-        runOnMenuClose();
+        try {
+            runOnMenuClose();
+        } catch (e) {
+            console.error(e);
+            console.trace();
+        }
         runOnMenuClose = () => {};
 
         // clean up spellchecker
