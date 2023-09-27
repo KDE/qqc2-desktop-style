@@ -132,10 +132,6 @@ QQC2.Menu {
         // reparented to a different popup.
         parent = null;
 
-        // clean up spellchecker
-        spellcheckHighlighterInstantiator = null;
-        spellcheckSuggestions = [];
-
         // restore text field's original persistent selection setting
         target.persistentSelection = persistentSelectionSetting
         // deselect text field text if menu is closed not because of a right click on the text field
@@ -152,6 +148,10 @@ QQC2.Menu {
         // run action, and free memory
         runOnMenuClose();
         runOnMenuClose = () => {};
+
+        // clean up spellchecker
+        spellcheckHighlighterInstantiator = null;
+        spellcheckSuggestions = [];
     }
 
     onOpened: {
