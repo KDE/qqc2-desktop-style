@@ -47,7 +47,9 @@ T.Menu {
 
         spacing: 0 // Hardcoded to the Breeze theme value
 
-        interactive: ApplicationWindow.window ? contentHeight > ApplicationWindow.window.height : false
+        interactive: Window.window
+                        ? contentHeight + control.topPadding + control.bottomPadding > Window.window.height
+                        : false
         clip: true
         currentIndex: control.currentIndex
 
