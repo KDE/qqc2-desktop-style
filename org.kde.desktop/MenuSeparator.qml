@@ -19,6 +19,10 @@ T.MenuSeparator {
     implicitHeight: visible ? Math.max(implicitBackgroundHeight + topInset + bottomInset,
                              implicitContentHeight + topPadding + bottomPadding) : 0
 
+    // Let optional chaining operator fallback to undefined which would call a
+    // RESET method so that width would follow implicit width automatically.
+    width: parent?.width
+
     verticalPadding: Math.round(Kirigami.Units.smallSpacing / 2)
     hoverEnabled: false
     focusPolicy: Qt.NoFocus

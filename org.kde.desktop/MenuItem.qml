@@ -22,7 +22,9 @@ T.MenuItem {
                                       indicator ? indicator.implicitHeight : 0) + topPadding + bottomPadding) : 0
     baselineOffset: contentItem.y + contentItem.baselineOffset
 
-    width: parent ? parent.width : implicitWidth
+    // Let optional chaining operator fallback to undefined which would call a
+    // RESET method so that width would follow implicit width automatically.
+    width: parent?.width
 
     Layout.fillWidth: true
     padding: Kirigami.Units.smallSpacing
