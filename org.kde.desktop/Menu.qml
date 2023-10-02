@@ -34,7 +34,7 @@ T.Menu {
         visible: false
     }
 
-    delegate: MenuItem { onImplicitWidthChanged: control.contentItem.contentItem.childrenChanged() }
+    delegate: MenuItem {}
 
     contentItem: ListView {
         property bool hasCheckables: false
