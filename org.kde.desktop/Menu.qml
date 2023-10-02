@@ -49,7 +49,7 @@ T.Menu {
 
         interactive: ApplicationWindow.window ? contentHeight > ApplicationWindow.window.height : false
         clip: true
-        currentIndex: control.currentIndex || 0
+        currentIndex: control.currentIndex
 
         keyNavigationEnabled: true
         keyNavigationWraps: true
