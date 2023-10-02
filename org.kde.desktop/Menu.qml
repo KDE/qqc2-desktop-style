@@ -25,8 +25,10 @@ T.Menu {
                              contentHeight + topPadding + bottomPadding)
 
     margins: 0
+
     horizontalPadding: style.pixelMetric("menuhmargin")
     verticalPadding: style.pixelMetric("menuvmargin")
+
     StylePrivate.StyleItem {
         id: style
         visible: false
@@ -35,9 +37,10 @@ T.Menu {
     delegate: MenuItem { onImplicitWidthChanged: control.contentItem.contentItem.childrenChanged() }
 
     contentItem: ListView {
-        implicitHeight: contentHeight
         property bool hasCheckables: false
         property bool hasIcons: false
+
+        implicitHeight: contentHeight
         model: control.contentModel
 
         implicitWidth: {
@@ -53,6 +56,7 @@ T.Menu {
         interactive: ApplicationWindow.window ? contentHeight > ApplicationWindow.window.height : false
         clip: true
         currentIndex: control.currentIndex || 0
+
         keyNavigationEnabled: true
         keyNavigationWraps: true
 
