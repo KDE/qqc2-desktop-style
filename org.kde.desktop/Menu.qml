@@ -40,16 +40,10 @@ T.Menu {
         property bool hasCheckables: false
         property bool hasIcons: false
 
+        implicitWidth: contentItem.children
+            .reduce((maxWidth, child) => Math.max(maxWidth, child.implicitWidth), 0)
         implicitHeight: contentHeight
         model: control.contentModel
-
-        implicitWidth: {
-            let maxWidth = 0;
-            for (let i = 0; i < contentItem.children.length; ++i) {
-                maxWidth = Math.max(maxWidth, contentItem.children[i].implicitWidth);
-            }
-            return maxWidth;
-        }
 
         spacing: 0 // Hardcoded to the Breeze theme value
 
@@ -83,8 +77,7 @@ T.Menu {
             const children = control.contentItem.contentItem.visibleChildren;
             let hasCheckables = control.contentItem.hasCheckables;
             let hasIcons = control.contentItem.hasIcons;
-            for (let i in children) {
-                const child = children[i];
+            for (const child of children) {
                 if (child.checkable) {
                     hasCheckables = true;
                 }
