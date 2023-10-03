@@ -32,9 +32,15 @@ T.ItemDelegate {
     icon.width: Kirigami.Units.iconSizes.smallMedium
     icon.height: Kirigami.Units.iconSizes.smallMedium
 
+    T.ToolTip.visible: (Kirigami.Settings.tabletMode ? down : hovered) && (contentItem.truncated ?? false)
+    T.ToolTip.text: text
+    T.ToolTip.delay: Kirigami.Units.toolTipDelay
+
     contentItem: RowLayout {
         LayoutMirroring.enabled: controlRoot.mirrored
         spacing: controlRoot.spacing
+
+        property alias truncated: textLabel.truncated
 
         Kirigami.Icon {
             Layout.alignment: Qt.AlignVCenter
@@ -45,6 +51,8 @@ T.ItemDelegate {
         }
 
         Label {
+            id: textLabel
+
             text: controlRoot.text
             font: controlRoot.font
             color: controlRoot.highlighted || controlRoot.checked || (controlRoot.pressed && !controlRoot.checked && !controlRoot.sectionDelegate)
