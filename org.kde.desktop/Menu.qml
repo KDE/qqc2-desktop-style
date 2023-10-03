@@ -42,7 +42,10 @@ T.Menu {
 
         implicitWidth: contentItem.children
             .reduce((maxWidth, child) => Math.max(maxWidth, child.implicitWidth), 0)
-        implicitHeight: contentHeight
+        // Some non-zero value, so the whole menu does not get stuck zero
+        // sized. Otherwise in RTL environment ListView just refuses to
+        // report any usable contentHeight -- just zero.
+        implicitHeight: Math.max(1, contentHeight)
         model: control.contentModel
 
         spacing: 0 // Hardcoded to the Breeze theme value
