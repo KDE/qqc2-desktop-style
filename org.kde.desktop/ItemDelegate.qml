@@ -43,6 +43,7 @@ T.ItemDelegate {
         property alias truncated: textLabel.truncated
 
         Kirigami.Icon {
+            selected: controlRoot.highlighted || controlRoot.down
             Layout.alignment: Qt.AlignVCenter
             visible: controlRoot.icon.name !== "" || controlRoot.icon.source.toString() !== ""
             source: controlRoot.icon.name !== "" ? controlRoot.icon.name : controlRoot.icon.source
