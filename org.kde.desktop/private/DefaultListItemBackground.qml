@@ -16,28 +16,55 @@ Rectangle {
 
     property T.ItemDelegate control
 
-    visible: control.ListView.view ? control.ListView.view.highlight === null : true
-
-    readonly property color hoverColor: Kirigami.ColorUtils.linearInterpolation(Kirigami.Theme.highlightColor, normalColor, 0.8)
-    readonly property color downColor: Kirigami.Theme.highlightColor
-    readonly property color normalColor: {
+    readonly property bool highlight: control.highlighted || control.down
+    readonly property bool useAlternatingColors: {
         if (control.TableView.view?.alternatingRows && row % 2) {
-            return Kirigami.Theme.alternateBackgroundColor
+            return true
         } else if (control.Kirigami.Theme.useAlternateBackgroundColor && index % 2) {
-            return Kirigami.Theme.alternateBackgroundColor
+            return true
         }
-        return Kirigami.Theme.backgroundColor
+        return false
     }
 
-    color: {
-        if (control.highlighted || (control.down && !control.checked)) {
-            return downColor
+    readonly property color hoverColor: Qt.alpha(Kirigami.Theme.hoverColor, 0.3)
+    readonly property color highlightColor: Kirigami.Theme.highlightColor
+    readonly property color normalColor: useAlternatingColors ? Kirigami.Theme.alternateBackgroundColor : Kirigami.Theme.backgroundColor
+
+    property real horizontalPadding: Kirigami.Units.smallSpacing
+    property real verticalPadding: Kirigami.Units.smallSpacing
+    property real cornerRadius: 3
+
+    color: normalColor
+
+    Rectangle {
+        anchors {
+            fill: parent
+            leftMargin: background.horizontalPadding
+            rightMargin: background.horizontalPadding
+            // We want total spacing between consecutive list items to be
+            // verticalPadding. So use half that as top/bottom margin, separately
+            // ceiling/flooring them so that the total spacing is preserved.
+            topMargin: Math.ceil(background.verticalPadding / 2)
+            bottomMargin: Math.floor(background.verticalPadding / 2)
         }
 
-        if (control.hovered) {
-            return hoverColor
+        radius: background.cornerRadius
+
+        color: {
+            if (background.highlight) {
+                return background.highlightColor
+            } else {
+                return (background.control.hovered || background.control.visualFocus) ? background.hoverColor : background.normalColor
+            }
         }
 
-        return normalColor
+        border.width: 1
+        border.color: {
+            if (background.highlight) {
+                return background.highlightColor
+            } else {
+                return (background.control.hovered || background.control.visualFocus) ? Kirigami.Theme.hoverColor : "transparent"
+            }
+        }
     }
 }
