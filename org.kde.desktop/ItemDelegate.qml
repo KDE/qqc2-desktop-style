@@ -55,7 +55,7 @@ T.ItemDelegate {
 
             text: controlRoot.text
             font: controlRoot.font
-            color: controlRoot.highlighted || controlRoot.checked || (controlRoot.pressed && !controlRoot.checked && !controlRoot.sectionDelegate)
+            color: controlRoot.highlighted || (controlRoot.down && !controlRoot.sectionDelegate)
                 ? Kirigami.Theme.highlightedTextColor
                 : (controlRoot.enabled ? Kirigami.Theme.textColor : Kirigami.Theme.disabledTextColor)
             elide: Text.ElideRight
