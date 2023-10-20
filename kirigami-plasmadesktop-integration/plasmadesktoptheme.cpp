@@ -169,7 +169,7 @@ public:
     KColorScheme viewScheme;
     QFont smallFont;
 
-    QVector<PlasmaDesktopTheme *> watchers;
+    QList<PlasmaDesktopTheme *> watchers;
 
 protected:
     bool eventFilter([[maybe_unused]] QObject *obj, QEvent *event) override
