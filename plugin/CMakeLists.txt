@@ -11,7 +11,7 @@ target_link_libraries(qqc2desktopstyleplugin PRIVATE
     Qt6::Gui
     Qt6::Widgets
     KF6::ConfigCore
-    KF6::Kirigami2
+    KF6::KirigamiPlatform
 )
 
 ecm_finalize_qml_module(qqc2desktopstyleplugin)

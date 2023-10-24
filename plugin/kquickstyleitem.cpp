@@ -23,8 +23,8 @@
 #include <KConfigGroup>
 #include <ksharedconfig.h>
 
-#include <Kirigami/PlatformTheme>
-#include <Kirigami/TabletModeWatcher>
+#include <Kirigami/Platform/PlatformTheme>
+#include <Kirigami/Platform/TabletModeWatcher>
 
 std::unique_ptr<QStyle> KQuickStyleItem::s_style = nullptr;
 
@@ -110,7 +110,7 @@ KQuickStyleItem::KQuickStyleItem(QQuickItem *parent)
 
     qGuiApp->installEventFilter(this);
 
-    Kirigami::TabletModeWatcher::self()->addWatcher(this);
+    Kirigami::Platform::TabletModeWatcher::self()->addWatcher(this);
 }
 
 KQuickStyleItem::~KQuickStyleItem()
@@ -150,16 +150,16 @@ KQuickStyleItem::~KQuickStyleItem()
     }
 
     m_styleoption = nullptr;
-    Kirigami::TabletModeWatcher::self()->removeWatcher(this);
+    Kirigami::Platform::TabletModeWatcher::self()->removeWatcher(this);
 }
 
 void KQuickStyleItem::initStyleOption()
 {
     if (!m_theme) {
-        m_theme = static_cast<Kirigami::PlatformTheme *>(qmlAttachedPropertiesObject<Kirigami::PlatformTheme>(this, true));
+        m_theme = static_cast<Kirigami::Platform::PlatformTheme *>(qmlAttachedPropertiesObject<Kirigami::Platform::PlatformTheme>(this, true));
         Q_ASSERT(m_theme);
 
-        connect(m_theme, &Kirigami::PlatformTheme::colorsChanged, this, [this]() {
+        connect(m_theme, &Kirigami::Platform::PlatformTheme::colorsChanged, this, [this]() {
             // we need to reset the palette event if Qt::AA_SetPalette attribute has been set
             m_styleoption->palette = m_theme->palette();
             polish();
@@ -1856,7 +1856,7 @@ bool KQuickStyleItem::event(QEvent *ev)
             polish();
         }
         return true;
-    } else if (ev->type() == Kirigami::TabletModeChangedEvent::type) {
+    } else if (ev->type() == Kirigami::Platform::TabletModeChangedEvent::type) {
         Q_EMIT leftPaddingChanged();
         Q_EMIT rightPaddingChanged();
         Q_EMIT topPaddingChanged();

@@ -7,7 +7,7 @@
 #ifndef KIRIGAMIPLASMATHEME_H
 #define KIRIGAMIPLASMATHEME_H
 
-#include <Kirigami/PlatformTheme>
+#include <Kirigami/Platform/PlatformTheme>
 
 #include <QColor>
 #include <QIcon>
@@ -17,7 +17,7 @@
 
 class StyleSingleton;
 
-class PlasmaDesktopTheme : public Kirigami::PlatformTheme
+class PlasmaDesktopTheme : public Kirigami::Platform::PlatformTheme
 {
     Q_OBJECT
 

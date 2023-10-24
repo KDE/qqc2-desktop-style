@@ -9,7 +9,7 @@ add_library(org.kde.desktop MODULE ${org.kde.desktop_SRCS})
 target_link_libraries(org.kde.desktop
     PUBLIC
         Qt6::Core
-        KF6::Kirigami2
+        KF6::KirigamiPlatform
     PRIVATE
         Qt6::DBus
         Qt6::Qml
@@ -19,4 +19,4 @@ target_link_libraries(org.kde.desktop
         KF6::IconThemes
 )
 
-install(TARGETS org.kde.desktop DESTINATION ${KDE_INSTALL_PLUGINDIR}/kf6/kirigami)
+install(TARGETS org.kde.desktop DESTINATION ${KDE_INSTALL_PLUGINDIR}/kf6/kirigami/platform)

@@ -37,7 +37,7 @@ include(ECMDeprecationSettings)
 
 find_package(Qt6 ${REQUIRED_QT_VERSION} REQUIRED NO_MODULE COMPONENTS Core Quick Gui Widgets QuickControls2 DBus)
 
-find_package(KF6 ${KF_DEP_VERSION} REQUIRED COMPONENTS Config Kirigami2)
+find_package(KF6 ${KF_DEP_VERSION} REQUIRED COMPONENTS Config KirigamiPlatform)
 
 # IconThemes and ColorScheme are optional
 find_package(KF6IconThemes ${KF_DEP_VERSION})

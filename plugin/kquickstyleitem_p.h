@@ -27,7 +27,10 @@ class QStyle;
 
 namespace Kirigami
 {
+namespace Platform
+{
 class PlatformTheme;
+}
 }
 
 class QQuickTableRowImageProvider1 : public QQuickImageProvider
@@ -502,7 +505,7 @@ private:
     void styleChanged();
 
 protected:
-    Kirigami::PlatformTheme *m_theme = nullptr;
+    Kirigami::Platform::PlatformTheme *m_theme = nullptr;
     QStyleOption *m_styleoption;
     QPointer<QQuickItem> m_control;
     QPointer<QWindow> m_window;
