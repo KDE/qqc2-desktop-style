@@ -14,7 +14,8 @@ import org.kde.kirigami as Kirigami
 T.ToolTip {
     id: control
 
-    Kirigami.Theme.colorSet: Kirigami.Theme.Tooltip
+    Kirigami.Theme.colorSet: parent && parent.Kirigami.Theme.colorSet === Kirigami.Theme.Complementary
+        ? Kirigami.Theme.Complementary : Kirigami.Theme.Tooltip
     Kirigami.Theme.inherit: false
 
     x: parent ? Math.round((parent.width - implicitWidth) / 2) : 0
@@ -79,7 +80,7 @@ T.ToolTip {
             font: control.font
             color: Kirigami.Theme.textColor
 
-            Kirigami.Theme.colorSet: Kirigami.Theme.Tooltip
+            Kirigami.Theme.colorSet: control.Kirigami.Theme.colorSet
             // ensure that long text actually gets wrapped
             onLineLaidOut: (line) => {
                 if (line.implicitWidth > maxTextLength)
@@ -92,7 +93,7 @@ T.ToolTip {
     background: Kirigami.ShadowedRectangle {
         radius: 3
         color: Kirigami.Theme.backgroundColor
-        Kirigami.Theme.colorSet: Kirigami.Theme.Tooltip
+        Kirigami.Theme.colorSet: control.Kirigami.Theme.colorSet
 
         // Roughly but doesn't exactly match the medium shadow setting for Breeze menus/tooltips.
         // TODO: Find a way to more closely match the user's Breeze settings.
