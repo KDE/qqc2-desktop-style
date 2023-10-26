@@ -177,7 +177,7 @@ protected:
         if (event->type() == QEvent::ApplicationFontChange) {
             notifyWatchersConfigurationChange();
         }
-        if (event->type() == QEvent::PaletteChange) {
+        if (event->type() == QEvent::ApplicationPaletteChange) {
             refresh();
         }
         return false;
