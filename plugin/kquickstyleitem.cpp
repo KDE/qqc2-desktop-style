@@ -100,7 +100,7 @@ KQuickStyleItem::KQuickStyleItem(QQuickItem *parent)
         // We are not a QApplication.  Create an internal copy of the configured
         // desktop style, to be used for metrics, options and painting.
         KSharedConfig::Ptr kdeglobals = KSharedConfig::openConfig();
-        KConfigGroup cg(kdeglobals, "KDE");
+        KConfigGroup cg(kdeglobals, QStringLiteral("KDE"));
         s_style.reset(QStyleFactory::create(cg.readEntry("widgetStyle", QStringLiteral("Fusion"))));
     }
 

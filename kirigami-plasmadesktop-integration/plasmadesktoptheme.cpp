@@ -59,7 +59,7 @@ public:
     QFont loadSmallFont() const
     {
         KSharedConfigPtr ptr = KSharedConfig::openConfig();
-        KConfigGroup general(ptr->group("general"));
+        KConfigGroup general(ptr->group(QStringLiteral("general")));
 
         return general.readEntry("smallestReadableFont", []() {
             auto smallFont = qApp->font();
