@@ -33,8 +33,8 @@ T.ToolBar {
             anchors {
                 left: parent.left
                 right: parent.right
-                top: controlRoot.position === T.ToolBar.Footer || (controlRoot.parent.footer && controlRoot.parent.footer === controlRoot) ? parent.top : undefined
-                bottom: controlRoot.position === T.ToolBar.Footer || (controlRoot.parent.footer && controlRoot.parent.footer === controlRoot) ? undefined : parent.bottom
+                top: controlRoot.position === T.ToolBar.Footer || (controlRoot.parent.footer && controlRoot.parent.footer === controlRoot) ? parent.top : parent.bottom
+                bottomMargin: height
             }
         }
     }
