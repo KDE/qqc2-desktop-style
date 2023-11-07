@@ -61,7 +61,7 @@ T.Menu {
 
         ScrollBar.vertical: ScrollBar {}
 
-        // mimic qtwidgets behaviour in regards to menu highlighting
+        // mimic qtwidgets behaviour regarding menu highlighting
         Connections {
             target: control.contentItem.currentItem
 

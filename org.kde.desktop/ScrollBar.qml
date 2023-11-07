@@ -194,8 +194,8 @@ T.ScrollBar {
                 ));
             }
 
-            // Style hint returns true if should scroll to click position,
-            // and false if should scroll by one page at a time.
+            // Style hint returns true if it should scroll to click position,
+            // and false if it should scroll by one page at a time.
             // This function inverts the behavior if Alt button is pressed.
             function scrollToClickPosition(mouse /*MouseEvent*/): bool {
                 let behavior = style.styleHint("scrollToClickPosition");
@@ -215,7 +215,7 @@ T.ScrollBar {
             // PM_ScrollBarSliderMin pixel metrics, or ScrollBar.minimumSize
             // property. But we are working with visual metrics (0..1) here;
             // and despite what documentation says, minimumSize does not
-            // affect visualSize. So let's at least prevent division by zero.
+            // affect visualSize. So let us at least prevent division by zero.
             // Note about comma, operator: including plain `size` in this
             // expression help it propagate signals when needed; otherwise in
             // Qt 6 scrollbar might get stuck being too large, and clip out.

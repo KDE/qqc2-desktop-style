@@ -725,7 +725,7 @@ void KQuickStyleItem::initStyleOption()
         opt->pageStep = qMax(0, int(horizontal() ? width() : height()));
         opt->orientation = horizontal() ? Qt::Horizontal : Qt::Vertical;
         if (horizontal()) {
-            // mirrored horizontal scrollbars are not something you wanna interact with
+            // mirrored horizontal scrollbars are not something you want to interact with
             preventMirroring = true;
         }
         opt->sliderPosition = value();
@@ -1485,7 +1485,7 @@ void KQuickStyleItem::setElementType(const QString &str)
         m_itemType = TabFrame;
     } else if (str == QLatin1String("comboboxitem")) {
         // Gtk uses qobject cast, hence we need to separate this from menuitem
-        // On mac, we temporarily use the menu item because it has more accurate
+        // On macOS, we temporarily use the menu item because it has more accurate
         // palette.
         m_itemType = ComboBoxItem;
     } else if (str == QLatin1String("toolbar")) {
@@ -1715,7 +1715,7 @@ void KQuickStyleItem::paint(QPainter *painter)
         break;
     case ComboBox: {
         KQuickStyleItem::style()->drawComplexControl(QStyle::CC_ComboBox, qstyleoption_cast<QStyleOptionComplex *>(m_styleoption), painter);
-        // This is needed on mac as it will use the painter color and ignore the palette
+        // This is needed on macOS as it will use the painter color and ignore the palette
         QPen pen = painter->pen();
         painter->setPen(m_styleoption->palette.text().color());
         KQuickStyleItem::style()->drawControl(QStyle::CE_ComboBoxLabel, m_styleoption, painter);

@@ -125,7 +125,7 @@ QQC2.Menu {
 
     modal: true
 
-    // deal with whether or not text should be deselected
+    // deal with whether text should be deselected
     onClosed: {
         // reset parent, so OverlayZStacking could refresh z order next time
         // this menu is about to open for the same item that might have been

@@ -54,7 +54,7 @@ T.BusyIndicator {
             }
         }
 
-        // sync all busy animations so they start at a common place in the rotation
+        // sync all busy animations such that they start at a common place in the rotation
         onAnimationShouldBeRunningChanged: startOrStopAnimation();
 
         function startOrStopAnimation() {
