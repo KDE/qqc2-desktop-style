@@ -13,31 +13,35 @@
 #include <KConfigGroup>
 #include <KSharedConfig>
 
+#include "animationspeedprovider.h"
+
+namespace
+{
 constexpr int defaultLongDuration = 200;
+}
 
 PlasmaDesktopUnits::PlasmaDesktopUnits(QObject *parent)
     : Kirigami::Platform::Units(parent)
-    , m_animationSpeedWatcher(KConfigWatcher::create(KSharedConfig::openConfig()))
+#if defined(Q_OS_WIN)
+    , m_animationSpeedProvider(new WindowsAnimationSpeedProvider)
+#elif defined(Q_OS_UNIX)
+    , m_animationSpeedProvider(new KConfigAnimationSpeedProvider)
+#endif
 {
-    connect(m_animationSpeedWatcher.data(), &KConfigWatcher::configChanged, this, [this](const KConfigGroup &group, const QByteArrayList &names) {
-        if (group.name() == QLatin1String("KDE") && names.contains(QByteArrayLiteral("AnimationDurationFactor"))) {
-            updateAnimationSpeed();
-        }
+    m_notifier = m_animationSpeedProvider->animationSpeedModifier().addNotifier([this] {
+        updateAnimationSpeed();
     });
-
     updateAnimationSpeed();
 }
 
 // Copy from plasma-framework/src/declarativeimports/core/units.cpp, since we don't want to depend on plasma-framework here
 void PlasmaDesktopUnits::updateAnimationSpeed()
 {
-    KConfigGroup generalCfg = KConfigGroup(KSharedConfig::openConfig(), QStringLiteral("KDE"));
-    const qreal animationSpeedModifier = qMax(0.0, generalCfg.readEntry("AnimationDurationFactor", 1.0));
-
     // Read the old longDuration value for compatibility
     KConfigGroup cfg = KConfigGroup(KSharedConfig::openConfig(QStringLiteral("plasmarc")), QStringLiteral("Units"));
     int longDuration = cfg.readEntry("longDuration", defaultLongDuration);
 
+    const qreal animationSpeedModifier = m_animationSpeedProvider->animationSpeedModifier().value();
     longDuration = qRound(longDuration * animationSpeedModifier);
 
     // Animators with a duration of 0 do not fire reliably

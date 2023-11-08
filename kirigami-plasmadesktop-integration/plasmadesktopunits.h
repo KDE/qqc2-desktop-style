@@ -8,10 +8,11 @@
 #define KIRIGAMIPLASMADESKTOPUNITS_H
 
 #include <QObject>
+#include <QPropertyNotifier>
 
 #include <Kirigami/Platform/Units>
 
-#include <KConfigWatcher>
+class AnimationSpeedProvider;
 
 class PlasmaDesktopUnits : public Kirigami::Platform::Units
 {
@@ -23,7 +24,8 @@ public:
     void updateAnimationSpeed();
 
 private:
-    KConfigWatcher::Ptr m_animationSpeedWatcher;
+    std::unique_ptr<AnimationSpeedProvider> m_animationSpeedProvider;
+    QPropertyNotifier m_notifier;
 };
 
 #endif
