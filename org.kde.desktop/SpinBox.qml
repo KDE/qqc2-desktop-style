@@ -75,6 +75,11 @@ T.SpinBox {
             controlRoot.value = controlRoot.valueFromText(controlRoot.contentItem.text, controlRoot.locale)
             controlRoot.valueModified()
         }
+
+        // Since the contentItem receives focus (we make them editable by default),
+        // the screen reader reads its Accessible properties instead of the SpinBox's
+        Accessible.name: controlRoot.Accessible.name
+        Accessible.description: controlRoot.Accessible.description
     }
 
     up.indicator: Item {
