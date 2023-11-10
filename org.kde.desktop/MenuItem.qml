@@ -20,6 +20,7 @@ T.MenuItem {
     implicitHeight: visible ? Math.max(background ? background.implicitHeight : 0,
                              Math.max(contentItem.implicitHeight,
                                       indicator ? indicator.implicitHeight : 0) + topPadding + bottomPadding) : 0
+
     baselineOffset: contentItem.y + contentItem.baselineOffset
 
     // Let optional chaining operator fallback to undefined which would call a
@@ -114,18 +115,12 @@ T.MenuItem {
         control: controlRoot
     }
 
-    background: Item {
-        anchors.fill: parent
+    background: Rectangle {
         implicitWidth: Kirigami.Units.gridUnit * 8
-
-        Rectangle {
-            anchors.fill: parent
-            anchors.margins: 2
-            opacity: (controlRoot.highlighted || controlRoot.hovered) ? 1 : 0
-            color: Qt.alpha(Kirigami.Theme.focusColor, 0.3)
-            border.color: Kirigami.Theme.focusColor
-            border.width: 1
-            radius: 3
-        }
+        opacity: (controlRoot.highlighted || controlRoot.hovered) ? 1 : 0
+        color: Qt.alpha(Kirigami.Theme.focusColor, 0.3)
+        border.color: Kirigami.Theme.focusColor
+        border.width: 1
+        radius: 3
     }
 }
