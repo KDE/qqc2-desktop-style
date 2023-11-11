@@ -9,33 +9,25 @@
 import QtQuick
 import QtQuick.Templates as T
 import org.kde.kirigami as Kirigami
+import org.kde.desktop.private as Private
 
 T.ToolBar {
     id: controlRoot
 
-    implicitWidth: Math.max(implicitBackgroundWidth + leftInset + rightInset, contentWidth + leftPadding + rightPadding)
-    implicitHeight: Math.max(implicitBackgroundHeight + topInset + bottomInset, contentHeight + topPadding + bottomPadding)
+    implicitWidth: Math.max(implicitBackgroundWidth + leftInset + rightInset,
+                            contentWidth + leftPadding + rightPadding)
+    implicitHeight: Math.max(implicitBackgroundHeight + topInset + bottomInset,
+                             contentHeight + topPadding + bottomPadding)
 
     padding: Kirigami.Units.smallSpacing
-    contentItem: Item {}
-    position: parent.footer === controlRoot ? ToolBar.Footer : ToolBar.Header
 
-    // Use Header colors if it's a header and Header colors are available
-    // (if not, this will fall back to window colors)
-    // Window colors
-    Kirigami.Theme.colorSet: position === T.ToolBar.Footer || (parent.footer && parent.footer === controlRoot) ? Kirigami.Theme.Window : Kirigami.Theme.Header
+    // Note: relying on this heuristic might break your apps if used with other QQC2 styles.
+    position: parent?.footer === controlRoot ? T.ToolBar.Footer : T.ToolBar.Header
+
+    Kirigami.Theme.colorSet: position === T.ToolBar.Footer ? Kirigami.Theme.Window : Kirigami.Theme.Header
     Kirigami.Theme.inherit: false
 
-    background: Rectangle {
-        implicitHeight: 40
-        color: Kirigami.Theme.backgroundColor
-        Kirigami.Separator {
-            anchors {
-                left: parent.left
-                right: parent.right
-                top: controlRoot.position === T.ToolBar.Footer || (controlRoot.parent.footer && controlRoot.parent.footer === controlRoot) ? parent.top : parent.bottom
-                bottomMargin: height
-            }
-        }
+    background: Private.DefaultToolBarBackground {
+        control: controlRoot
     }
 }
