@@ -216,13 +216,8 @@ T.ScrollBar {
             // property. But we are working with visual metrics (0..1) here;
             // and despite what documentation says, minimumSize does not
             // affect visualSize. So let us at least prevent division by zero.
-            // Note about comma, operator: including plain `size` in this
-            // expression help it propagate signals when needed; otherwise in
-            // Qt 6 scrollbar might get stuck being too large, and clip out.
-            // See also: https://codereview.qt-project.org/c/qt/qtdeclarative/+/501319
             minimum: 0
-            maximum: (void controlRoot.size),
-                Math.round(length / Math.max(0.001, controlRoot.visualSize) - length)
+            maximum: Math.round(length / Math.max(0.001, controlRoot.visualSize) - length)
             value: Math.round(length / Math.max(0.001, controlRoot.visualSize) * Math.min(1 - 0.001, controlRoot.visualPosition))
 
             horizontal: controlRoot.horizontal
