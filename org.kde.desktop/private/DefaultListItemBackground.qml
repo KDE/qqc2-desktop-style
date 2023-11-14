@@ -29,6 +29,8 @@ Rectangle {
     readonly property color hoverColor: Qt.alpha(Kirigami.Theme.hoverColor, 0.3)
     readonly property color highlightColor: Kirigami.Theme.highlightColor
     readonly property color normalColor: useAlternatingColors ? Kirigami.Theme.alternateBackgroundColor : Kirigami.Theme.backgroundColor
+    // Workaround for QTBUG-113304
+    readonly property bool reallyFocus: control.visualFocus || (control.activeFocus && control.focusReason === Qt.OtherFocusReason)
 
     property real horizontalPadding: Kirigami.Units.smallSpacing
     property real verticalPadding: Kirigami.Units.smallSpacing
@@ -54,7 +56,7 @@ Rectangle {
             if (background.highlight) {
                 return background.highlightColor
             } else {
-                return (background.control.hovered || background.control.visualFocus) ? background.hoverColor : background.normalColor
+                return (background.control.hovered || background.reallyFocus) ? background.hoverColor : background.normalColor
             }
         }
 
@@ -63,7 +65,7 @@ Rectangle {
             if (background.highlight) {
                 return background.highlightColor
             } else {
-                return (background.control.hovered || background.control.visualFocus) ? Kirigami.Theme.hoverColor : "transparent"
+                return (background.control.hovered || background.reallyFocus) ? Kirigami.Theme.hoverColor : "transparent"
             }
         }
     }
