@@ -64,7 +64,7 @@ T.RadioDelegate {
         }
     }
 
-    indicator: CheckIndicator {
+    indicator: Private.CheckIndicator {
         elementType: "radiobutton"
         x: !controlRoot.mirrored ? controlRoot.horizontalPadding : controlRoot.width - width - controlRoot.horizontalPadding
         y: controlRoot.topPadding + (controlRoot.availableHeight - height) / 2

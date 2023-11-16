@@ -9,6 +9,7 @@
 import QtQuick
 import QtQuick.Templates as T
 import org.kde.kirigami as Kirigami
+import org.kde.desktop.private as Private
 
 T.Switch {
     id: control
@@ -26,7 +27,7 @@ T.Switch {
 
     hoverEnabled: true
 
-    indicator: SwitchIndicator {
+    indicator: Private.SwitchIndicator {
         x: if (control.contentItem !== null && control.contentItem.width > 0) {
             return control.mirrored ?
                 control.width - width - control.rightPadding : control.leftPadding

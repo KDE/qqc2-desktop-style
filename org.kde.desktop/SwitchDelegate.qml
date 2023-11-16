@@ -63,7 +63,7 @@ T.SwitchDelegate {
         }
     }
 
-    indicator: SwitchIndicator {
+    indicator: Private.SwitchIndicator {
         x: !controlRoot.mirrored ? controlRoot.horizontalPadding : controlRoot.width - width - controlRoot.horizontalPadding
         y: controlRoot.topPadding + (controlRoot.availableHeight - height) / 2
         control: controlRoot

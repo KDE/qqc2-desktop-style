@@ -28,7 +28,7 @@ T.CheckBox {
 
     hoverEnabled: true
 
-    indicator: CheckIndicator {
+    indicator: Private.CheckIndicator {
         elementType: "checkbox"
         x: if (control.contentItem !== null && control.contentItem.width > 0) {
             return control.mirrored ?

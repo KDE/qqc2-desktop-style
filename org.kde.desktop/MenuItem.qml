@@ -11,6 +11,7 @@ import QtQuick
 import QtQuick.Layouts
 import QtQuick.Templates as T
 import org.kde.kirigami as Kirigami
+import org.kde.desktop.private as Private
 
 T.MenuItem {
     id: controlRoot
@@ -105,7 +106,7 @@ T.MenuItem {
         visible: controlRoot.subMenu
     }
 
-    indicator: CheckIndicator {
+    indicator: Private.CheckIndicator {
         x: controlRoot.mirrored ? controlRoot.width - width - controlRoot.rightPadding : controlRoot.leftPadding
         y: controlRoot.topPadding + (controlRoot.availableHeight - height) / 2
 
