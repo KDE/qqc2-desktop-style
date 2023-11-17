@@ -40,12 +40,17 @@ T.HorizontalHeaderView {
         text: model[controlRoot.textRole]
         elementType: "header"
         on: {
-            if (!controlRoot.syncView || !controlRoot.syncView.selectionModel) {
+            let selectionModel = controlRoot.selectionModel
+            if (!selectionModel && controlRoot.syncView) {
+                selectionModel = controlRoot.syncView.selectionModel
+            }
+            if (!selectionModel) {
                 return false
             }
+
             // This line is for property bindings
-            void(controlRoot.syncView.selectionModel.selectedIndexes);
-            return syncView.selectionModel.columnIntersectsSelection(model.column)
+            void(selectionModel.selectedIndexes);
+            return selectionModel.columnIntersectsSelection(model.column)
         }
         //FIXME: this is not usable as we don't have ways to query the sort column
         //activeControl: orderQuery ? (filteredMimeTypesModel.sortOrder == Qt.AscendingOrder ? "down" : "up") : ""
