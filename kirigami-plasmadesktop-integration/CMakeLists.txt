@@ -1,11 +1,12 @@
-set(org.kde.desktop_SRCS
+
+add_library(org.kde.desktop MODULE)
+
+target_sources(org.kde.desktop PRIVATE
     animationspeedprovider.cpp
     plasmadesktoptheme.cpp
     kirigamiplasmafactory.cpp
     plasmadesktopunits.cpp
 )
-
-add_library(org.kde.desktop MODULE ${org.kde.desktop_SRCS})
 
 target_link_libraries(org.kde.desktop
     PUBLIC
