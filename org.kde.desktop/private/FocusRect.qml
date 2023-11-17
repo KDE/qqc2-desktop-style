@@ -7,8 +7,8 @@
 
 
 import QtQuick
-import org.kde.qqc2desktopstyle.private as StylePrivate
+import org.kde.desktop.impl as StyleImpl
 
-StylePrivate.StyleItem {
+StyleImpl.StyleItem {
     elementType: "focusrect"
 }

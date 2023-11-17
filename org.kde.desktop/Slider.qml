@@ -10,7 +10,7 @@ import QtQuick
 import QtQuick.Templates as T
 import org.kde.kirigami as Kirigami
 import org.kde.desktop.private as Private
-import org.kde.qqc2desktopstyle.private as StylePrivate
+import org.kde.desktop.impl as StyleImpl
 
 T.Slider {
     id: controlRoot
@@ -30,7 +30,7 @@ T.Slider {
 
     snapMode: T.Slider.SnapOnRelease
 
-    background: StylePrivate.StyleItem {
+    background: StyleImpl.StyleItem {
         control: controlRoot
         elementType: "slider"
         sunken: controlRoot.pressed

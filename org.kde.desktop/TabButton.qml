@@ -13,7 +13,7 @@ import QtQml.Models
 import QtQuick.Controls
 import QtQuick.Templates as T
 import org.kde.kirigami as Kirigami
-import org.kde.qqc2desktopstyle.private as StylePrivate
+import org.kde.desktop.impl as StyleImpl
 
 T.TabButton {
     id: controlRoot
@@ -41,7 +41,7 @@ T.TabButton {
         sequence: controlRoot.Kirigami.MnemonicData.sequence
         onActivated: controlRoot.checked = true;
     }
-    background: StylePrivate.StyleItem {
+    background: StyleImpl.StyleItem {
         id: styleitem
 
         TextMetrics {

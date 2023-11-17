@@ -12,7 +12,7 @@ import QtQuick.Templates as T
 import QtQuick.Controls as Controls
 import org.kde.kirigami as Kirigami
 import org.kde.desktop.private as Private
-import org.kde.qqc2desktopstyle.private as StylePrivate
+import org.kde.desktop.impl as StyleImpl
 
 T.ComboBox {
     id: controlRoot
@@ -121,7 +121,7 @@ T.ComboBox {
         y: rect.y + 6
     }
 
-    background: StylePrivate.StyleItem {
+    background: StyleImpl.StyleItem {
         id: styleitem
         control: controlRoot
         elementType: "combobox"

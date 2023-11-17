@@ -10,7 +10,7 @@
 import QtQuick
 import org.kde.kirigami as Kirigami
 import QtQuick.Templates as T
-import org.kde.qqc2desktopstyle.private as StylePrivate
+import org.kde.desktop.impl as StyleImpl
 
 T.TabBar {
     id: controlRoot
@@ -47,7 +47,7 @@ T.TabBar {
         preferredHighlightEnd: width - 40
     }
 
-    StylePrivate.StyleItem {
+    StyleImpl.StyleItem {
         id: styleItem
         control: controlRoot
         visible: false

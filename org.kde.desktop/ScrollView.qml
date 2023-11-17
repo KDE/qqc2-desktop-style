@@ -11,7 +11,7 @@ import QtQuick
 import QtQuick.Controls
 import QtQuick.Templates as T
 import org.kde.kirigami as Kirigami
-import org.kde.qqc2desktopstyle.private as StylePrivate
+import org.kde.desktop.impl as StyleImpl
 
 T.ScrollView {
     id: controlRoot
@@ -53,7 +53,7 @@ T.ScrollView {
         // would break with other styles.
         Component {
             id: backgroundComponent
-            StylePrivate.StyleItem {
+            StyleImpl.StyleItem {
                 id: styled
                 control: controlRoot
                 elementType: "frame"

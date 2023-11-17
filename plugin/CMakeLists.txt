@@ -1,6 +1,6 @@
 
 add_library(DesktopStyleImpl)
-ecm_add_qml_module(DesktopStyleImpl URI org.kde.qqc2desktopstyle.private GENERATE_PLUGIN_SOURCE)
+ecm_add_qml_module(DesktopStyleImpl URI org.kde.desktop.impl GENERATE_PLUGIN_SOURCE)
 
 target_sources(DesktopStyleImpl PRIVATE
     kquickstyleitem.cpp

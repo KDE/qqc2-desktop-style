@@ -10,7 +10,7 @@
 import QtQuick
 import QtQuick.Templates as T
 import org.kde.kirigami as Kirigami
-import org.kde.qqc2desktopstyle.private as StylePrivate
+import org.kde.desktop.impl as StyleImpl
 
 T.ToolButton {
     id: controlRoot
@@ -40,7 +40,7 @@ T.ToolButton {
         sequence: controlRoot.Kirigami.MnemonicData.sequence
         onActivated: controlRoot.clicked()
     }
-    background: StylePrivate.StyleItem {
+    background: StyleImpl.StyleItem {
         id: styleitem
         control: controlRoot
         elementType: "toolbutton"

@@ -9,7 +9,7 @@ pragma ComponentBehavior: Bound
 
 import QtQuick
 import QtQuick.Templates as T
-import org.kde.qqc2desktopstyle.private as StylePrivate
+import org.kde.desktop.impl as StyleImpl
 
 T.VerticalHeaderView {
     id: controlRoot
@@ -22,7 +22,7 @@ T.VerticalHeaderView {
     implicitWidth: Math.max(1, contentWidth)
     implicitHeight: syncView ? syncView.height : 0
 
-    delegate: StylePrivate.StyleItem {
+    delegate: StyleImpl.StyleItem {
         required property var model
         required property int row
         readonly property string headerPosition: {

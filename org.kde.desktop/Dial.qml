@@ -10,7 +10,7 @@ import QtQuick
 import QtQuick.Controls
 import QtQuick.Templates as T
 import org.kde.kirigami as Kirigami
-import org.kde.qqc2desktopstyle.private as StylePrivate
+import org.kde.desktop.impl as StyleImpl
 
 T.Dial {
     id: controlRoot
@@ -18,7 +18,7 @@ T.Dial {
     implicitWidth: 128
     implicitHeight: 128
 
-    background: StylePrivate.StyleItem {
+    background: StyleImpl.StyleItem {
         control: controlRoot
         visible: true
         elementType: "dial"

@@ -12,7 +12,7 @@ import QtQuick.Layouts
 import QtQuick.Controls
 import QtQuick.Templates as T
 import org.kde.kirigami as Kirigami
-import org.kde.qqc2desktopstyle.private as StylePrivate
+import org.kde.desktop.impl as StyleImpl
 
 T.Menu {
     id: control
@@ -29,7 +29,7 @@ T.Menu {
     horizontalPadding: style.pixelMetric("menuhmargin")
     verticalPadding: style.pixelMetric("menuvmargin")
 
-    StylePrivate.StyleItem {
+    StyleImpl.StyleItem {
         id: style
         visible: false
     }

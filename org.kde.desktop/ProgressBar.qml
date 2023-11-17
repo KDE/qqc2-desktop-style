@@ -7,7 +7,7 @@
 */
 
 import QtQuick
-import org.kde.qqc2desktopstyle.private as StylePrivate
+import org.kde.desktop.impl as StyleImpl
 import QtQuick.Templates as T
 import org.kde.kirigami as Kirigami
 
@@ -27,7 +27,7 @@ T.ProgressBar {
 
     contentItem: Item {}
 
-    background: StylePrivate.StyleItem {
+    background: StyleImpl.StyleItem {
         elementType: "progressbar"
         control: controlRoot
         minimum: 0

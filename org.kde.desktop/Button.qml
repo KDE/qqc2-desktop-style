@@ -9,7 +9,7 @@
 import QtQuick
 import QtQuick.Templates as T
 import org.kde.kirigami as Kirigami
-import org.kde.qqc2desktopstyle.private as StylePrivate
+import org.kde.desktop.impl as StyleImpl
 
 T.Button {
     id: controlRoot
@@ -34,7 +34,7 @@ T.Button {
         sequence: controlRoot.Kirigami.MnemonicData.sequence
         onActivated: controlRoot.clicked()
     }
-    background: StylePrivate.StyleItem {
+    background: StyleImpl.StyleItem {
         control: controlRoot
         elementType: "button"
         sunken: controlRoot.down

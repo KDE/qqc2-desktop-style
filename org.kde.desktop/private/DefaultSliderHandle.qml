@@ -6,16 +6,16 @@
 
 import QtQuick
 import QtQuick.Templates as T
-import org.kde.qqc2desktopstyle.private as StylePrivate
+import org.kde.desktop.impl as StyleImpl
 
 Item {
     id: handle
 
     required property T.Slider control
 
-    readonly property StylePrivate.StyleItem styleItem: {
+    readonly property StyleImpl.StyleItem styleItem: {
         const item = control.background;
-        return (item instanceof StylePrivate.StyleItem) ? item : null;
+        return (item instanceof StyleImpl.StyleItem) ? item : null;
     }
 
     // It won't keep track of an actual position, but QtQuick.Templates code

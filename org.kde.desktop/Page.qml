@@ -9,7 +9,7 @@ import QtQuick
 import QtQuick.Controls
 import QtQuick.Templates as T
 import org.kde.kirigami as Kirigami
-import org.kde.qqc2desktopstyle.private as StylePrivate
+import org.kde.desktop.impl as StyleImpl
 
 T.Page {
     id: controlRoot
@@ -26,7 +26,7 @@ T.Page {
     background: Rectangle {
         color: Kirigami.Theme.backgroundColor
     }
-    readonly property Item __internal: StylePrivate.StyleItem {
+    readonly property Item __internal: StyleImpl.StyleItem {
         parent: controlRoot
         visible: false
         control: controlRoot

@@ -9,7 +9,7 @@
 import QtQuick
 import QtQuick.Templates as T
 import org.kde.kirigami as Kirigami
-import org.kde.qqc2desktopstyle.private as StylePrivate
+import org.kde.desktop.impl as StyleImpl
 
 T.Control {
     id: control
@@ -24,7 +24,7 @@ T.Control {
     rightPadding: styleItem.pixelMetric("layoutrightmargin")
     bottomPadding: styleItem.pixelMetric("layoutbottommargin")
 
-    property Item __style: StylePrivate.StyleItem {
+    property Item __style: StyleImpl.StyleItem {
         id: styleItem
     }
 }

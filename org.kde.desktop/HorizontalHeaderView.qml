@@ -9,7 +9,7 @@ pragma ComponentBehavior: Bound
 
 import QtQuick
 import QtQuick.Templates as T
-import org.kde.qqc2desktopstyle.private as StylePrivate
+import org.kde.desktop.impl as StyleImpl
 
 T.HorizontalHeaderView {
     id: controlRoot
@@ -22,7 +22,7 @@ T.HorizontalHeaderView {
     // TableView won't bother loading any delegates at all.
     implicitHeight: Math.max(1, contentHeight)
 
-    delegate: StylePrivate.StyleItem {
+    delegate: StyleImpl.StyleItem {
         required property var model
         required property int column
         readonly property string headerPosition: {

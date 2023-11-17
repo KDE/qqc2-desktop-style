@@ -8,7 +8,7 @@
 
 import QtQuick
 import QtQml
-import org.kde.qqc2desktopstyle.private as StylePrivate
+import org.kde.desktop.impl as StyleImpl
 import QtQuick.Templates as T
 import org.kde.kirigami as Kirigami
 
@@ -166,7 +166,7 @@ T.ScrollBar {
                 }
             }
         }
-        StylePrivate.StyleItem {
+        StyleImpl.StyleItem {
             id: style
 
             readonly property real length: controlRoot.vertical ? height : width
@@ -226,7 +226,7 @@ T.ScrollBar {
             visible: controlRoot.size < 1.0
             opacity: 1
         }
-        StylePrivate.StyleItem {
+        StyleImpl.StyleItem {
             id: inactiveStyle
             anchors.fill: parent
             control: controlRoot

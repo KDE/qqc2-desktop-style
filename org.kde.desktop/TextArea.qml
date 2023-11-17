@@ -15,7 +15,7 @@ import QtQuick.Templates as T
 import org.kde.kirigami as Kirigami
 import org.kde.sonnet as Sonnet
 import org.kde.desktop.private as Private
-import org.kde.qqc2desktopstyle.private as StylePrivate
+import org.kde.desktop.impl as StyleImpl
 
 T.TextArea {
     id: controlRoot
@@ -147,7 +147,7 @@ T.TextArea {
         elide: Text.ElideRight
     }
 
-    background: StylePrivate.StyleItem {
+    background: StyleImpl.StyleItem {
         control: controlRoot
         elementType: "edit"
         implicitWidth: 200
