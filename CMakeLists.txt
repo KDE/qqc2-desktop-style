@@ -88,7 +88,7 @@ ecm_find_qmlmodule(org.kde.sonnet 1.0)
 
 #########################################################################
 ecm_set_disabled_deprecation_versions(
-    QT 6.4
+    QT 6.5
     KF 5.102
 )
 
