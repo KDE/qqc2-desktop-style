@@ -28,6 +28,9 @@ T.MenuItem {
     // Let optional chaining operator fallback to undefined which would call a
     // RESET method so that width would follow implicit width automatically.
     width: parent?.width
+    // Note: Binding height here to make sure menu items that are not visible are
+    // properly collapsed, otherwise they will still occupy space inside the menu.
+    height: visible ? undefined : 0
 
     Layout.fillWidth: true
     padding: Kirigami.Units.smallSpacing
