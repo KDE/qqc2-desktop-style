@@ -32,9 +32,9 @@ Rectangle {
     // Workaround for QTBUG-113304
     readonly property bool reallyFocus: control.visualFocus || (control.activeFocus && control.focusReason === Qt.OtherFocusReason)
 
-    property real horizontalPadding: Kirigami.Units.smallSpacing
-    property real verticalPadding: Kirigami.Units.smallSpacing
-    property real cornerRadius: 3
+    property real horizontalPadding: control.TableView.view ? 0 : Kirigami.Units.smallSpacing
+    property real verticalPadding: control.TableView.view ? 0 : Kirigami.Units.smallSpacing
+    property real cornerRadius: control.TableView.view ? 0 : 3
 
     color: normalColor
 
