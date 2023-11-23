@@ -7,10 +7,24 @@
 
 #include "kquickstyleitem_p.h"
 
+#include <Kirigami/Platform/PlatformTheme>
+
 #include <QAbstractItemModel>
 #include <QGuiApplication>
 #include <QStyle>
 #include <QStyleOption>
+
+ItemBranchIndicators::ItemBranchIndicators(QQuickItem *parent)
+    : QQuickPaintedItem(parent)
+{
+    if (auto theme = static_cast<Kirigami::Platform::PlatformTheme *>(qmlAttachedPropertiesObject<Kirigami::Platform::PlatformTheme>(this, true))) {
+        m_palette = theme->palette();
+        connect(theme, &Kirigami::Platform::PlatformTheme::paletteChanged, this, [this](const QPalette &palette) {
+            m_palette = palette;
+            update();
+        });
+    }
+}
 
 void ItemBranchIndicators::setModelIndex(const QModelIndex &new_index)
 {
@@ -55,6 +69,7 @@ void ItemBranchIndicators::paint(QPainter *painter)
     styleOption.state.setFlag(QStyle::State_Selected, m_selected);
     styleOption.state.setFlag(QStyle::State_Children, false);
     styleOption.rect.setSize(QSize(elementWidth, height()));
+    styleOption.palette = m_palette;
     for (auto it = parentChain.rbegin(); it != parentChain.rend(); ++it) {
         styleOption.state.setFlag(QStyle::State_Item, *it == m_index);
         styleOption.state.setFlag(QStyle::State_Sibling, it->siblingAtRow(it->row() + 1).isValid());

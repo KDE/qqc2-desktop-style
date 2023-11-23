@@ -7,6 +7,7 @@
 #define ITEMBRANCHINDICATORS_H
 
 #include <QModelIndex>
+#include <QPalette>
 #include <QQuickPaintedItem>
 
 class ItemBranchIndicators : public QQuickPaintedItem
@@ -16,6 +17,7 @@ class ItemBranchIndicators : public QQuickPaintedItem
     Q_PROPERTY(QModelIndex modelIndex MEMBER m_index WRITE setModelIndex NOTIFY modelIndexChanged)
     Q_PROPERTY(bool selected MEMBER m_selected WRITE setSelected NOTIFY selectedChanged)
 public:
+    explicit ItemBranchIndicators(QQuickItem *parent = nullptr);
     void setModelIndex(const QModelIndex &index);
     void setSelected(bool selected);
     void paint(QPainter *painter) override;
@@ -28,6 +30,7 @@ private:
     std::vector<QModelIndex> parentChain;
     QModelIndex m_index;
     bool m_selected;
+    QPalette m_palette;
 };
 
 #endif
