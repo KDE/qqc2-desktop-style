@@ -85,6 +85,8 @@ T.TreeViewDelegate {
     }
 
     background: Private.DefaultListItemBackground {
+        Kirigami.Theme.colorSet: Kirigami.Theme.View
+        Kirigami.Theme.inherit: false
         control: controlRoot
     }
 
