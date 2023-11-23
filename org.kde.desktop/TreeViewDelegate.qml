@@ -63,6 +63,7 @@ T.TreeViewDelegate {
             hover: hover.hovered
             elementType: "itembranchindicator"
             on: controlRoot.expanded
+            selected: controlRoot.highlighted || controlRoot.checked || (controlRoot.pressed && !controlRoot.checked)
             properties: {
                 "isItem": true,
                 "hasChildren": true,
@@ -80,6 +81,7 @@ T.TreeViewDelegate {
         height: parent.height
         x: controlRoot.mirrored ? controlRoot.width - controlRoot.leftMargin - width : controlRoot.leftMargin
         modelIndex: controlRoot.modelIndex
+        selected: controlRoot.highlighted || controlRoot.checked || (controlRoot.pressed && !controlRoot.checked)
     }
 
     background: Private.DefaultListItemBackground {

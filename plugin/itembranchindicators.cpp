@@ -38,10 +38,21 @@ void ItemBranchIndicators::setModelIndex(const QModelIndex &new_index)
     Q_EMIT modelIndexChanged();
 }
 
+void ItemBranchIndicators::setSelected(bool selected)
+{
+    if (m_selected == selected) {
+        return;
+    }
+    m_selected = selected;
+    update();
+    Q_EMIT selectedChanged();
+}
+
 void ItemBranchIndicators::paint(QPainter *painter)
 {
     const auto elementWidth = KQuickStyleItem::style()->pixelMetric(QStyle::PM_TreeViewIndentation);
     QStyleOption styleOption;
+    styleOption.state.setFlag(QStyle::State_Selected, m_selected);
     styleOption.state.setFlag(QStyle::State_Children, false);
     styleOption.rect.setSize(QSize(elementWidth, height()));
     for (auto it = parentChain.rbegin(); it != parentChain.rend(); ++it) {
