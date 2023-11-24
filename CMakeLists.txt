@@ -37,6 +37,11 @@ include(ECMDeprecationSettings)
 
 find_package(Qt6 ${REQUIRED_QT_VERSION} REQUIRED NO_MODULE COMPONENTS Core Quick Gui Widgets QuickControls2 DBus)
 
+if (BUILD_TESTING)
+    include(ECMAddTests)
+    find_package(Qt6 ${REQUIRED_QT_VERSION} REQUIRED COMPONENTS Test QuickTest)
+endif()
+
 find_package(KF6 ${KF_DEP_VERSION} REQUIRED COMPONENTS Config KirigamiPlatform)
 
 # IconThemes and ColorScheme are optional

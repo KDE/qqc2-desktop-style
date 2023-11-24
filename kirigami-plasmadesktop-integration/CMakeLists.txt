@@ -25,3 +25,5 @@ if(WIN32)
 endif()
 
 install(TARGETS org.kde.desktop DESTINATION ${KDE_INSTALL_PLUGINDIR}/kf6/kirigami/platform)
+
+add_subdirectory(autotests)
