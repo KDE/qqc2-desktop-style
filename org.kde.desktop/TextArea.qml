@@ -34,7 +34,6 @@ T.TextArea {
     color: Kirigami.Theme.textColor
     selectionColor: Kirigami.Theme.highlightColor
     selectedTextColor: Kirigami.Theme.highlightedTextColor
-    wrapMode: Text.WordWrap
     hoverEnabled: !Kirigami.Settings.tabletMode || !Kirigami.Settings.hasTransientTouchInput
     verticalAlignment: TextEdit.AlignTop
 
