@@ -7,6 +7,7 @@
 
 
 import QtQuick
+import QtQuick.Controls as QQC2
 import QtQuick.Templates as T
 import org.kde.kirigami as Kirigami
 
@@ -25,6 +26,19 @@ T.Dialog {
                              + (implicitFooterHeight > 0 ? implicitFooterHeight + spacing : 0))
 
     padding: Kirigami.Units.gridUnit
+
+    // black background, fades in and out
+    QQC2.Overlay.modal: Rectangle {
+        color: Qt.rgba(0, 0, 0, 0.3)
+
+        // the opacity of the item is changed internally by QQuickPopup on open/close
+        Behavior on opacity {
+            OpacityAnimator {
+                duration: Kirigami.Units.longDuration
+                easing.type: Easing.InOutQuad
+            }
+        }
+    }
 
     enter: Transition {
         NumberAnimation {
