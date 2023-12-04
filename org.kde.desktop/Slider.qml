@@ -63,17 +63,18 @@ T.Slider {
 
             onWheel: wheel => {
                 const lastValue = controlRoot.value
-                const delta = wheel.angleDelta.y || wheel.angleDelta.x
+                // The X axis delta is inverted (scrolling right produce negative values)
+                const delta = wheel.angleDelta.y || -wheel.angleDelta.x
                 wheelDelta += delta;
                 // magic number 120 for common "one click"
                 // See: https://doc.qt.io/qt-5/qml-qtquick-wheelevent.html#angleDelta-prop
                 while (wheelDelta >= 120) {
                     wheelDelta -= 120;
-                    controlRoot.decrease();
+                    controlRoot.increase();
                 }
                 while (wheelDelta <= -120) {
                     wheelDelta += 120;
-                    controlRoot.increase();
+                    controlRoot.decrease();
                 }
                 if (lastValue !== controlRoot.value) {
                     controlRoot.moved();
