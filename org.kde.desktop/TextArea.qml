@@ -55,7 +55,7 @@ T.TextArea {
     TapHandler {
         enabled: controlRoot.selectByMouse
 
-        acceptedDevices: PointerDevice.Mouse | PointerDevice.Stylus
+        acceptedDevices: PointerDevice.Mouse | PointerDevice.TouchPad | PointerDevice.Stylus
         acceptedButtons: Qt.LeftButton | Qt.RightButton
 
         // unfortunately, taphandler's pressed event only triggers when the press is lifted
