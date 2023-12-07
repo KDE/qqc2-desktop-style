@@ -28,7 +28,7 @@ Rectangle {
 
     readonly property color hoverColor: Qt.alpha(Kirigami.Theme.hoverColor, 0.3)
     readonly property color highlightColor: Kirigami.Theme.highlightColor
-    readonly property color normalColor: useAlternatingColors ? Kirigami.Theme.alternateBackgroundColor : Kirigami.Theme.backgroundColor
+    readonly property color normalColor: useAlternatingColors ? Kirigami.Theme.alternateBackgroundColor : "transparent"
     // Workaround for QTBUG-113304
     readonly property bool reallyFocus: control.visualFocus || (control.activeFocus && control.focusReason === Qt.OtherFocusReason)
 
