@@ -23,7 +23,6 @@ Item {
     QtObject { // colors collected in one place so that main code remains clean and these properties are not exposed
         id: colorFactory
 
-        readonly property color switchColor: control.checked ? Qt.alpha(Kirigami.Theme.highlightColor, 0.5) : blendBackgroundWithTextColorWithRatio(0.9)
         readonly property color switchBorderColor: control.checked ? Kirigami.Theme.highlightColor : handleBorderColor
 
         readonly property color handleColor: Kirigami.Theme.backgroundColor
@@ -36,7 +35,7 @@ Item {
     }
 
     Rectangle {
-        id: background
+        id: inactive
 
         anchors {
             fill: parent
@@ -46,15 +45,20 @@ Item {
         }
 
         radius: Math.round(height / 2)
-        color: colorFactory.switchColor
+        color: colorFactory.blendBackgroundWithTextColorWithRatio(0.9)
         border.color: colorFactory.switchBorderColor
+    }
 
-        Behavior on color {
-            ColorAnimation {
-                easing.type: Easing.InCubic
-                duration: Kirigami.Units.shortDuration
-            }
+    Rectangle {
+        anchors {
+            left: inactive.left
+            top: inactive.top
+            bottom: inactive.bottom
+            right: handle.right
         }
+
+        radius: inactive.radius
+        color: Qt.alpha(Kirigami.Theme.highlightColor, 0.5)
     }
 
     Rectangle {
