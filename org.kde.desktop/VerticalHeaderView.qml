@@ -30,8 +30,6 @@ T.VerticalHeaderView {
                 return "only";
             } else if (model.row == 0) {
                 return "beginning";
-            } else if (model.row == controlRoot.rows - 1) {
-                return "end";
             } else {
                 return "middle";
             }
@@ -50,6 +48,18 @@ T.VerticalHeaderView {
         properties: {
             "headerpos": headerPosition,
             "textalignment": Text.AlignVCenter | Text.AlignHCenter,
+            "orientation": Qt.Vertical
+        }
+    }
+
+    StylePrivate.StyleItem {
+        parent: controlRoot
+        anchors.fill: parent
+        anchors.topMargin: controlRoot.contentHeight
+        z: -1
+        elementType: "header"
+        properties: {
+            "headerpos": "end",
             "orientation": Qt.Vertical
         }
     }

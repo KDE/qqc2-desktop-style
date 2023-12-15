@@ -30,8 +30,6 @@ T.HorizontalHeaderView {
                 return "only";
             } else if (model.column === 0) {
                 return LayoutMirroring.enabled ? "end" : "beginning";
-            } else if (model.column === controlRoot.columns - 1) {
-                return LayoutMirroring.enabled ? "beginning" : "end";
             } else {
                 return "middle";
             }
@@ -63,6 +61,18 @@ T.HorizontalHeaderView {
         properties: {
             "headerpos": headerPosition,
             "textalignment": Text.AlignVCenter | Text.AlignHCenter,
+            "orientation": Qt.Horizontal
+        }
+    }
+
+    StylePrivate.StyleItem {
+        parent: controlRoot
+        anchors.fill: parent
+        anchors.leftMargin: controlRoot.contentWidth
+        z: -1
+        elementType: "header"
+        properties: {
+            "headerpos": LayoutMirroring.enabled ? "beginning" : "end",
             "orientation": Qt.Horizontal
         }
     }
