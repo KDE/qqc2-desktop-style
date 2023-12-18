@@ -32,6 +32,7 @@ T.ItemDelegate {
     icon.width: Kirigami.Units.iconSizes.smallMedium
     icon.height: Kirigami.Units.iconSizes.smallMedium
 
+    Accessible.onPressAction: clicked()
     T.ToolTip.visible: (Kirigami.Settings.tabletMode ? down : hovered) && (contentItem.truncated ?? false)
     T.ToolTip.text: text
     T.ToolTip.delay: Kirigami.Units.toolTipDelay
