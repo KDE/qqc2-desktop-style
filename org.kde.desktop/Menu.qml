@@ -26,6 +26,8 @@ T.Menu {
 
     margins: 0
 
+    rightPadding: (scrollbar.visible &&  !mirrored) ? scrollbar.width : undefined
+    leftPadding: (scrollbar.visible &&  mirrored) ? scrollbar.width : undefined
     horizontalPadding: style.pixelMetric("menuhmargin")
     verticalPadding: style.pixelMetric("menuvmargin")
 
@@ -37,6 +39,7 @@ T.Menu {
     delegate: MenuItem {}
 
     contentItem: ListView {
+        id: listview
         property bool hasCheckables: false
         property bool hasIcons: false
 
@@ -59,7 +62,13 @@ T.Menu {
         keyNavigationEnabled: true
         keyNavigationWraps: true
 
-        ScrollBar.vertical: ScrollBar {}
+        ScrollBar.vertical: ScrollBar {
+            id: scrollbar
+            parent: listview.parent
+            anchors.top: listview.top
+            anchors.left: listview.right
+            anchors.bottom: listview.bottom
+        }
 
         // mimic qtwidgets behaviour regarding menu highlighting
         Connections {
