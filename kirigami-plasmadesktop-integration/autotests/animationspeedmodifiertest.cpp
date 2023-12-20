@@ -83,6 +83,8 @@ void IntegrationTest::testAnimationSpeedModifier_kconfig()
         QVERIFY(longDurationSpy.wait());
     }
     QCOMPARE(rootObject->property("longDuration").toDouble(), defaultLongDuration * 0.5);
+
+    kdeGroup.writeEntry("AnimationDurationFactor", 1);
 }
 #endif
 
