@@ -101,7 +101,16 @@ KQuickStyleItem::KQuickStyleItem(QQuickItem *parent)
         // desktop style, to be used for metrics, options and painting.
         KSharedConfig::Ptr kdeglobals = KSharedConfig::openConfig();
         KConfigGroup cg(kdeglobals, QStringLiteral("KDE"));
-        s_style.reset(QStyleFactory::create(cg.readEntry("widgetStyle", QStringLiteral("Fusion"))));
+        const QString defaultStyleName = QStringLiteral("Fusion");
+        s_style.reset(QStyleFactory::create(cg.readEntry("widgetStyle", defaultStyleName)));
+        if (!s_style) {
+            s_style.reset(QStyleFactory::create(defaultStyleName));
+            // Prevent inevitable crashes on nullptr dereference
+            if (!s_style) {
+                qWarning() << "org.kde.desktop: Could not find any QStyle such as Breeze or Fusion";
+                ::exit(EXIT_FAILURE);
+            }
+        }
     }
 
     m_font = qApp->font();
