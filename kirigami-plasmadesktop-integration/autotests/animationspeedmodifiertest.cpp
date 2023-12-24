@@ -49,9 +49,11 @@ void IntegrationTest::initTestCase()
     const QString kirigamiFolder(libraryDir.absolutePath() + QDir::separator() + u"kf6"_s + QDir::separator() + u"kirigami" + QDir::separator()
                                  + u"platform"_s);
     QVERIFY2(libraryDir.mkpath(kirigamiFolder), qUtf8Printable(kirigamiFolder));
-    QVERIFY(QFile(libraryPath).copy(kirigamiFolder + QDir::separator() + QFileInfo(libraryPath).fileName()));
-    QQuickStyle::setStyle(u"org.kde.desktop"_s);
+    const QString targetFilePath = kirigamiFolder + QDir::separator() + QFileInfo(libraryPath).fileName();
+    QFile(targetFilePath).remove();
+    QVERIFY(QFile(libraryPath).copy(targetFilePath));
     QCoreApplication::addLibraryPath(QString::fromLatin1(qgetenv("CMAKE_BINARY_DIR")));
+    QQuickStyle::setStyle(u"org.kde.desktop"_s);
 
     QStandardPaths::setTestModeEnabled(true);
 
