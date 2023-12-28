@@ -15,6 +15,7 @@ Rectangle {
     id: background
 
     property T.ItemDelegate control
+    property bool isFirstItem: false
 
     readonly property bool highlight: control.highlighted || control.down
     readonly property bool useAlternatingColors: {
@@ -47,7 +48,9 @@ Rectangle {
             // We want total spacing between consecutive list items to be
             // verticalPadding. So use half that as top/bottom margin, separately
             // ceiling/flooring them so that the total spacing is preserved.
-            topMargin: Math.ceil(background.verticalPadding / 2)
+            // But we do want the full normal top margin for the first one!
+            // That way the side and top margins match.
+            topMargin: background.isFirstItem ? background.verticalPadding : Math.ceil(background.verticalPadding / 2)
             bottomMargin: Math.floor(background.verticalPadding / 2)
         }
 
