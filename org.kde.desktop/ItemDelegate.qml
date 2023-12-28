@@ -24,8 +24,8 @@ T.ItemDelegate {
     hoverEnabled: true
 
     spacing: Kirigami.Units.smallSpacing
-    padding: Kirigami.Settings.tabletMode ? Kirigami.Units.largeSpacing : Kirigami.Units.smallSpacing
-    horizontalPadding: padding * 2
+    padding: Kirigami.Settings.tabletMode ? Kirigami.Units.largeSpacing : Kirigami.Units.mediumSpacing
+    horizontalPadding: Kirigami.Units.smallSpacing * 2
     leftPadding: !mirrored ? horizontalPadding + (indicator ? implicitIndicatorWidth + spacing : 0) : horizontalPadding
     rightPadding: mirrored ? horizontalPadding + (indicator ? implicitIndicatorWidth + spacing : 0) : horizontalPadding
 
