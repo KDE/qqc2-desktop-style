@@ -19,7 +19,6 @@ T.Label {
     // in RTL mode unless horizontalAlignment is explicitly set.
     // https://bugreports.qt.io/browse/QTBUG-95873
     horizontalAlignment: Text.AlignLeft
-    verticalAlignment: lineCount > 1 ? Text.AlignTop : Text.AlignVCenter
 
     HoverHandler {
         // By default HoverHandler accepts the left button while it shouldn't accept anything,
