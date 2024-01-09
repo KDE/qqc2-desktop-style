@@ -1967,14 +1967,17 @@ QSGNode *KQuickStyleItem::updatePaintNode(QSGNode *node, UpdatePaintNodeData *)
 #endif
 
     styleNode->setTexture(window()->createTextureFromImage(m_image, QQuickWindow::TextureCanUseAtlas));
-    QRectF bounds = boundingRect();
-    QPointF globalPixelPos = mapToScene(bounds.topLeft()) * window()->effectiveDevicePixelRatio();
-    QPointF posAdjust = QPointF(globalPixelPos.x() - std::round(globalPixelPos.x()), globalPixelPos.y() - std::round(globalPixelPos.y()))
-        / window()->effectiveDevicePixelRatio();
-    bounds.moveTopLeft(bounds.topLeft() - posAdjust);
-    styleNode->setBounds(bounds);
-    styleNode->setDevicePixelRatio(window()->effectiveDevicePixelRatio());
 
+    auto scale = window()->effectiveDevicePixelRatio();
+    QRectF bounds = QRectF(boundingRect().topLeft(), QSizeF{m_image.width() / scale, m_image.height() / scale});
+
+    QPointF globalPixelPos = mapToScene(bounds.topLeft()) * scale;
+    QPointF posAdjust = QPointF(globalPixelPos.x() - std::round(globalPixelPos.x()), globalPixelPos.y() - std::round(globalPixelPos.y()))
+        / scale;
+    bounds.moveTopLeft(bounds.topLeft() - posAdjust);
+
+    styleNode->setBounds(bounds);
+    styleNode->setDevicePixelRatio(scale);
     styleNode->setPadding(m_border.left(), m_border.top(), m_border.right(), m_border.bottom());
     styleNode->update();
 
