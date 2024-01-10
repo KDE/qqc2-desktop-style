@@ -18,7 +18,6 @@
 class KQuickPadding : public QObject
 {
     Q_OBJECT
-    QML_ELEMENT
     QML_ANONYMOUS
 
     Q_PROPERTY(int left READ left WRITE setLeft NOTIFY leftChanged)
