@@ -36,8 +36,10 @@ T.ComboBox {
     rightPadding: editable && !mirrored ? 24 : padding
 
     delegate: ItemDelegate {
+        required property var model
+        required property int index
         width: ListView.view.width
-        text: controlRoot.textRole ? (Array.isArray(controlRoot.model) ? modelData[controlRoot.textRole] : model[controlRoot.textRole]) : modelData
+        text: model[controlRoot.textRole]
         highlighted: controlRoot.highlightedIndex == index
         property bool separatorVisible: false
         Kirigami.Theme.colorSet: controlRoot.Kirigami.Theme.inherit ? controlRoot.Kirigami.Theme.colorSet : Kirigami.Theme.View
