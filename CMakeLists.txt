@@ -132,6 +132,7 @@ ecm_target_qml_sources(org_kde_desktop_private
 ecm_finalize_qml_module(org_kde_desktop         DESTINATION ${KDE_INSTALL_QMLDIR})
 ecm_finalize_qml_module(org_kde_desktop_private DESTINATION ${KDE_INSTALL_QMLDIR})
 
-feature_summary(WHAT ALL INCLUDE_QUIET_PACKAGES FATAL_ON_MISSING_REQUIRED_PACKAGES)
+include(ECMFeatureSummary)
+ecm_feature_summary(WHAT ALL INCLUDE_QUIET_PACKAGES FATAL_ON_MISSING_REQUIRED_PACKAGES)
 
 kde_configure_git_pre_commit_hook(CHECKS CLANG_FORMAT)
