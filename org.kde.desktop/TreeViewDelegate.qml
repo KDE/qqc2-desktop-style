@@ -33,7 +33,7 @@ T.TreeViewDelegate {
     Kirigami.Theme.inherit: false
 
     leftPadding: !mirrored ? leftMargin + __contentIndent : 0
-    rightPadding: mirrored ? leftMargin + __contentIndent  : 0
+    rightPadding: mirrored ? leftMargin + __contentIndent : 0
 
     highlighted: controlRoot.selected || controlRoot.current
                || ((controlRoot.treeView.selectionBehavior === TableView.SelectRows
@@ -56,22 +56,22 @@ T.TreeViewDelegate {
 
     // The indicator is only visible when the item has children, so  this is only the closest branch indicator (+arrow) - the rest of the branch indicator lines are below
     indicator: StylePrivate.StyleItem {
-            readonly property real __indicatorIndent: controlRoot.leftMargin + (controlRoot.depth * controlRoot.indentation)
-            x: !controlRoot.mirrored ? __indicatorIndent : controlRoot.width - __indicatorIndent - width
-            height: parent.height
-            width: pixelMetric("treeviewindentation")
-            hover: hover.hovered
-            elementType: "itembranchindicator"
-            on: controlRoot.expanded
-            selected: controlRoot.highlighted || controlRoot.checked || (controlRoot.pressed && !controlRoot.checked)
-            properties: {
-                "isItem": true,
-                "hasChildren": true,
-                "hasSibling": controlRoot.treeView.model.rowCount(controlRoot.modelIndex.parent) > controlRoot.modelIndex.row + 1
-            }
-            HoverHandler {
-                id: hover
-            }
+        readonly property real __indicatorIndent: controlRoot.leftMargin + (controlRoot.depth * controlRoot.indentation)
+        x: !controlRoot.mirrored ? __indicatorIndent : controlRoot.width - __indicatorIndent - width
+        height: parent.height
+        width: pixelMetric("treeviewindentation")
+        hover: hover.hovered
+        elementType: "itembranchindicator"
+        on: controlRoot.expanded
+        selected: controlRoot.highlighted || controlRoot.checked || (controlRoot.pressed && !controlRoot.checked)
+        properties: {
+            "isItem": true,
+            "hasChildren": true,
+            "hasSibling": controlRoot.treeView.model.rowCount(controlRoot.modelIndex.parent) > controlRoot.modelIndex.row + 1
+        }
+        HoverHandler {
+            id: hover
+        }
     }
 
     // The rest of the branch indicators, this is outside of the background so consumers can freely
@@ -96,8 +96,8 @@ T.TreeViewDelegate {
         spacing: Kirigami.Units.smallSpacing
         Kirigami.Icon {
             Layout.alignment: Qt.AlignVCenter
-            visible: controlRoot.icon.name !== "" || controlRoot.icon.source.toString() !== "" || controlRoot.model.decoration != undefined
-            source: controlRoot.icon.name !== "" ? controlRoot.icon.name : controlRoot.icon.source !== "" ? controlRoot.icon.source : controlRoot.model.decoration
+            visible: controlRoot.icon.name !== "" || controlRoot.icon.source.toString() !== "" || controlRoot.model.decoration !== undefined
+            source: controlRoot.icon.name !== "" ? controlRoot.icon.name : controlRoot.icon.source.toString() !== "" ? controlRoot.icon.source : controlRoot.model.decoration
             Layout.preferredHeight: controlRoot.icon.height
             Layout.preferredWidth: controlRoot.icon.width
             selected: controlRoot.highlighted || controlRoot.checked || (controlRoot.pressed && !controlRoot.checked)
@@ -107,10 +107,10 @@ T.TreeViewDelegate {
             text: controlRoot.model.display
             font: controlRoot.font
             color: controlRoot.highlighted || controlRoot.checked || (controlRoot.pressed && !controlRoot.checked)
-                ? Kirigami.Theme.highlightedTextColor :
-                (controlRoot.enabled ? Kirigami.Theme.textColor : Kirigami.Theme.disabledTextColor)
+                ? Kirigami.Theme.highlightedTextColor
+                : (controlRoot.enabled ? Kirigami.Theme.textColor : Kirigami.Theme.disabledTextColor)
             elide: Text.ElideRight
-            visible: text
+            visible: text !== ""
             horizontalAlignment: Text.AlignLeft
             verticalAlignment: Text.AlignVCenter
             Layout.alignment: Qt.AlignLeft
