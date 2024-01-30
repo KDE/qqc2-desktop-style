@@ -82,6 +82,7 @@ T.TreeViewDelegate {
         x: controlRoot.mirrored ? controlRoot.width - controlRoot.leftMargin - width : controlRoot.leftMargin
         modelIndex: controlRoot.modelIndex
         selected: controlRoot.highlighted || controlRoot.checked || (controlRoot.pressed && !controlRoot.checked)
+        rootIndex: controlRoot.treeView.rootIndex
     }
 
     background: Private.DefaultListItemBackground {

@@ -15,20 +15,26 @@ class ItemBranchIndicators : public QQuickPaintedItem
     Q_OBJECT
     QML_ELEMENT
     Q_PROPERTY(QModelIndex modelIndex MEMBER m_index WRITE setModelIndex NOTIFY modelIndexChanged)
+    Q_PROPERTY(QModelIndex rootIndex MEMBER m_rootIndex WRITE setRootIndex NOTIFY rootIndexChanged)
     Q_PROPERTY(bool selected MEMBER m_selected WRITE setSelected NOTIFY selectedChanged)
 public:
     explicit ItemBranchIndicators(QQuickItem *parent = nullptr);
     void setModelIndex(const QModelIndex &index);
+    void setRootIndex(const QModelIndex &index);
     void setSelected(bool selected);
     void paint(QPainter *painter) override;
 
 Q_SIGNALS:
     void modelIndexChanged();
+    void rootIndexChanged();
     void selectedChanged();
 
 private:
+    void updateParentChain();
+
     std::vector<QModelIndex> parentChain;
     QModelIndex m_index;
+    QModelIndex m_rootIndex;
     bool m_selected;
     QPalette m_palette;
 };

@@ -26,17 +26,16 @@ ItemBranchIndicators::ItemBranchIndicators(QQuickItem *parent)
     }
 }
 
-void ItemBranchIndicators::setModelIndex(const QModelIndex &new_index)
+void ItemBranchIndicators::updateParentChain()
 {
-    m_index = new_index;
-
     const bool wasPainting = parentChain.size() != 0;
     parentChain.clear();
 
     // If we have children the indicator is drawn in the QML
-    if (new_index.column() == 0) {
-        auto index = new_index.model()->hasChildren(new_index) ? new_index.parent() : new_index;
-        while (index.isValid()) {
+    if (m_index.column() == 0) {
+        auto index = m_index.model()->hasChildren(m_index) ? m_index.parent() : m_index;
+        // if the TreeView's root index is set, don't go past it
+        while (index.isValid() && (!m_rootIndex.isValid() || index != m_rootIndex)) {
             parentChain.push_back(index);
             index = index.parent();
         }
@@ -48,7 +47,19 @@ void ItemBranchIndicators::setModelIndex(const QModelIndex &new_index)
     if (wasPainting || !parentChain.empty()) {
         update();
     }
+}
 
+void ItemBranchIndicators::setRootIndex(const QModelIndex &new_root_index)
+{
+    m_rootIndex = new_root_index;
+    updateParentChain();
+    Q_EMIT rootIndexChanged();
+}
+
+void ItemBranchIndicators::setModelIndex(const QModelIndex &new_index)
+{
+    m_index = new_index;
+    updateParentChain();
     Q_EMIT modelIndexChanged();
 }
 
