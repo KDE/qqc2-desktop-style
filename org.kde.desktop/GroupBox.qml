@@ -37,6 +37,6 @@ T.GroupBox {
 
     background: Rectangle {
         color: "transparent"
-        border.color: Qt.alpha(Kirigami.Theme.textColor, 0.3)
+        border.color: Kirigami.ColorUtils.linearInterpolation(Kirigami.Theme.backgroundColor, Kirigami.Theme.textColor, 0.25)
     }
 }

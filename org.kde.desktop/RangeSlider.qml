@@ -30,7 +30,7 @@ T.RangeSlider {
         implicitWidth: 18
         implicitHeight: 18
         radius: width / 2
-        border.color: control.activeFocus ? Kirigami.Theme.highlightColor : Qt.alpha(Kirigami.Theme.textColor, 0.3)
+        border.color: control.activeFocus ? Kirigami.Theme.highlightColor : Kirigami.ColorUtils.linearInterpolation(Kirigami.Theme.backgroundColor, Kirigami.Theme.textColor, 0.25)
         color: Kirigami.Theme.backgroundColor
         Rectangle {
             z: -1
@@ -50,7 +50,7 @@ T.RangeSlider {
         implicitWidth: 18
         implicitHeight: 18
         radius: width / 2
-        border.color: control.activeFocus ? Kirigami.Theme.highlightColor : Qt.alpha(Kirigami.Theme.textColor, 0.3)
+        border.color: control.activeFocus ? Kirigami.Theme.highlightColor :  Kirigami.ColorUtils.linearInterpolation(Kirigami.Theme.backgroundColor, Kirigami.Theme.textColor, 0.25)
         color: Kirigami.Theme.backgroundColor
         Rectangle {
             z: -1

@@ -50,7 +50,7 @@ T.Popup {
         radius: 2
         color: Kirigami.Theme.backgroundColor
 
-        border.color: Qt.alpha(Kirigami.Theme.textColor, 0.3)
+        border.color: Kirigami.ColorUtils.linearInterpolation(Kirigami.Theme.backgroundColor, Kirigami.Theme.textColor, 0.25)
         border.width: 1
 
         shadow.xOffset: 0

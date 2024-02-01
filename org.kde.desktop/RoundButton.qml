@@ -76,7 +76,7 @@ T.RoundButton {
         }
     }
     background: Rectangle {
-        property color borderColor: Qt.tint(controlRoot.palette.buttonText, Qt.alpha(color, 0.7))
+        property color borderColor: Kirigami.ColorUtils.linearInterpolation(controlRoot.palette.button, controlRoot.palette.buttonText, 0.25)
 
         visible: !controlRoot.flat || controlRoot.hovered || controlRoot.activeFocus || controlRoot.highlighted || controlRoot.checked || controlRoot.down
 
