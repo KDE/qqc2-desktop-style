@@ -37,6 +37,9 @@ T.Drawer {
             height: horizontal ? parent.height : 1
             x: control.edge === Qt.LeftEdge ? parent.width - 1 : 0
             y: control.edge === Qt.TopEdge ? parent.height - 1 : 0
+
+            Kirigami.Theme.inherit: false
+            Kirigami.Theme.colorSet: Kirigami.Theme.Header
         }
     }
 
