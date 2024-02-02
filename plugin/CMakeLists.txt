@@ -1,4 +1,4 @@
-ecm_add_qml_module(qqc2desktopstyleplugin URI org.kde.qqc2desktopstyle.private GENERATE_PLUGIN_SOURCE)
+ecm_add_qml_module(qqc2desktopstyleplugin URI org.kde.qqc2desktopstyle.private GENERATE_PLUGIN_SOURCE DEPENDENCIES QtQuick)
 
 target_sources(qqc2desktopstyleplugin PRIVATE
     kquickstyleitem.cpp
