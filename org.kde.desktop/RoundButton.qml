@@ -76,7 +76,7 @@ T.RoundButton {
         }
     }
     background: Rectangle {
-        property color borderColor: Kirigami.ColorUtils.linearInterpolation(controlRoot.palette.button, controlRoot.palette.buttonText, 0.25)
+        property color borderColor: Kirigami.ColorUtils.linearInterpolation(controlRoot.palette.button, controlRoot.palette.buttonText, Kirigami.Theme.frameContrast)
 
         visible: !controlRoot.flat || controlRoot.hovered || controlRoot.activeFocus || controlRoot.highlighted || controlRoot.checked || controlRoot.down
 

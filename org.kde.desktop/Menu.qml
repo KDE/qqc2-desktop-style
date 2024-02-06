@@ -130,7 +130,7 @@ T.Menu {
         implicitWidth: Kirigami.Units.gridUnit * 8
         color: Kirigami.Theme.backgroundColor
 
-        border.color: Kirigami.ColorUtils.linearInterpolation(Kirigami.Theme.backgroundColor, Kirigami.Theme.textColor, 0.25)
+        border.color: Kirigami.ColorUtils.linearInterpolation(Kirigami.Theme.backgroundColor, Kirigami.Theme.textColor, Kirigami.Theme.frameContrast)
         border.width: 1
 
         shadow.xOffset: 0
