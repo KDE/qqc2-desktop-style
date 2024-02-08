@@ -17,8 +17,6 @@ import org.kde.qqc2desktopstyle.private as StylePrivate
 T.CheckDelegate {
     id: controlRoot
 
-    readonly property bool __isFirstItem: ListView.view != null && typeof index == "number" ? index === 0 : false
-
     implicitWidth: Math.max(implicitBackgroundWidth + leftInset + rightInset,
                             implicitContentWidth + leftPadding + rightPadding)
     implicitHeight: Math.max(implicitBackgroundHeight + topInset + bottomInset,
@@ -28,8 +26,7 @@ T.CheckDelegate {
     hoverEnabled: true
 
     spacing: Kirigami.Units.smallSpacing
-    topPadding: (Kirigami.Settings.tabletMode ? Kirigami.Units.largeSpacing : Kirigami.Units.mediumSpacing) + (__isFirstItem ? Math.ceil(background.verticalPadding / 2)  : 0)
-    bottomPadding: Kirigami.Settings.tabletMode ? Kirigami.Units.largeSpacing : Kirigami.Units.mediumSpacing
+    padding: Kirigami.Settings.tabletMode ? Kirigami.Units.largeSpacing : Kirigami.Units.mediumSpacing
     horizontalPadding: Kirigami.Units.smallSpacing * 2
     leftPadding: !mirrored ? horizontalPadding + implicitIndicatorWidth + spacing : horizontalPadding
     rightPadding: mirrored ? horizontalPadding + implicitIndicatorWidth + spacing : horizontalPadding
@@ -81,8 +78,6 @@ T.CheckDelegate {
     }
 
     background: Private.DefaultListItemBackground {
-        id: background
         control: controlRoot
-        isFirstItem: controlRoot.__isFirstItem
     }
 }
