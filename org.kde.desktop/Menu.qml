@@ -46,9 +46,11 @@ T.Menu {
         implicitWidth: contentItem.children
             .reduce((maxWidth, child) => Math.max(maxWidth, child.implicitWidth), 0)
         // Some non-zero value, so the whole menu does not get stuck zero
-        // sized. Otherwise in RTL environment ListView just refuses to
-        // report any usable contentHeight -- just zero.
-        implicitHeight: Math.max(1, contentHeight)
+        // sized. Otherwise ListView just refuses to update implicitHeight -- just zero.
+        // `contentHeight` reports a wrong estimated height when all items are invisible.
+        // Use childrenRect instead.
+        // https://invent.kde.org/qt/qt/qtdeclarative/-/blob/8a0787f3bbed226785c842e1fd273a5b6dc06a32/src/quick/items/qquicklistview.cpp#L520
+        implicitHeight: Math.max(1, contentItem.childrenRect.height)
         model: control.contentModel
 
         spacing: 0 // Hardcoded to the Breeze theme value
