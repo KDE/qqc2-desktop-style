@@ -25,14 +25,11 @@ T.MenuItem {
 
     baselineOffset: contentItem.y + contentItem.baselineOffset
 
-    // Let optional chaining operator fallback to undefined which would call a
-    // RESET method so that width would follow implicit width automatically.
-    width: parent?.width
+    // width is set in https://invent.kde.org/qt/qt/qtdeclarative/-/blob/1e6cb2462ee87476a5eab7c71735c001a46c7b55/src/quicktemplates/qquickmenu.cpp#L332
     // Note: Binding height here to make sure menu items that are not visible are
     // properly collapsed, otherwise they will still occupy space inside the menu.
     height: visible ? undefined : 0
 
-    Layout.fillWidth: true
     padding: Kirigami.Units.smallSpacing
     verticalPadding: Kirigami.Settings.hasTransientTouchInput ? 8 : 4 // Hardcoded to the Breeze theme value
     hoverEnabled: !Kirigami.Settings.isMobile
