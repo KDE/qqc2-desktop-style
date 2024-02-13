@@ -40,7 +40,9 @@ T.HorizontalHeaderView {
         on: {
             let selectionModel = controlRoot.selectionModel
             if (!selectionModel && controlRoot.syncView) {
-                selectionModel = controlRoot.syncView.selectionModel
+                if (controlRoot.syncView.selectionModel && controlRoot.syncView.model == controlRoot.model) {
+                    selectionModel = controlRoot.syncView.selectionModel
+                }
             }
             if (!selectionModel) {
                 return false
