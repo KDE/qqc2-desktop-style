@@ -38,12 +38,19 @@ T.VerticalHeaderView {
         text: model[controlRoot.textRole]
         elementType: "header"
         on: {
-            if (!controlRoot.syncView || !controlRoot.syncView.selectionModel) {
+            let selectionModel = controlRoot.selectionModel
+            if (!selectionModel && controlRoot.syncView) {
+                if (controlRoot.syncView.selectionModel && controlRoot.syncView.model == controlRoot.model) {
+                    selectionModel = controlRoot.syncView.selectionModel
+                }
+            }
+            if (!selectionModel) {
                 return false
             }
+
             // This line is for property bindings
-            void(controlRoot.syncView.selectionModel.selectedIndexes)
-            return syncView.selectionModel.rowIntersectsSelection(model.row)
+            void(selectionModel.selectedIndexes);
+            return selectionModel.rowIntersectsSelection(model.row)
         }
         properties: {
             "headerpos": headerPosition,
