@@ -1429,6 +1429,8 @@ QVariant KQuickStyleItem::styleHint(const QString &metric)
         return KQuickStyleItem::style()->styleHint(QStyle::SH_Menu_SubMenuPopupDelay, m_styleoption);
     } else if (metric == QLatin1String("wheelScrollLines")) {
         return qApp->wheelScrollLines();
+    } else if (metric == QLatin1String("dialogButtonsHaveIcons")) {
+        return KQuickStyleItem::style()->styleHint(QStyle::SH_DialogButtonBox_ButtonsHaveIcons);
     }
     return 0;
 

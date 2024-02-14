@@ -9,6 +9,7 @@
 import QtQuick
 import QtQuick.Templates as T
 import org.kde.kirigami as Kirigami
+import org.kde.qqc2desktopstyle.private as StylePrivate
 
 T.DialogButtonBox {
     id: control
@@ -23,6 +24,10 @@ T.DialogButtonBox {
     spacing: Kirigami.Units.mediumSpacing
     padding: Kirigami.Units.smallSpacing
     alignment: Qt.AlignRight
+
+    property Item __style: StylePrivate.StyleItem {
+        id: styleItem
+    }
 
     delegate: Button {
         // Round because fractional width values are possible.
@@ -54,6 +59,11 @@ T.DialogButtonBox {
         // standardButton() returns a pointer to an existing standard button.
         // If no such button exists, it returns nullptr.
         // Icon names are copied from KStyle::standardIcon()
+
+        if (!styleItem.styleHint("dialogButtonsHaveIcons")) {
+            return;
+        }
+
         function setStandardIcon(buttonType, iconName) {
             const button = standardButton(buttonType)
             if (button && button.icon.name === "" && button.icon.source.toString() === "") {
