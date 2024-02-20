@@ -31,9 +31,8 @@ T.Menu {
     horizontalPadding: style.pixelMetric("menuhmargin")
     verticalPadding: style.pixelMetric("menuvmargin")
 
-    StylePrivate.StyleItem {
+    property Item __style: StylePrivate.StyleItem {
         id: style
-        visible: false
     }
 
     delegate: MenuItem {}
