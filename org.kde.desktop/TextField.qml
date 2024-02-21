@@ -63,7 +63,7 @@ T.TextField {
 
         // unfortunately, taphandler's pressed event only triggers when the press is lifted
         // we need to use the longpress signal since it triggers when the button is first pressed
-        longPressThreshold: 0
+        longPressThreshold: 0.001 // https://invent.kde.org/qt/qt/qtdeclarative/-/commit/8f6809681ec82da783ae8dcd76fa2c209b28fde6
         onLongPressed: {
             Private.TextFieldContextMenu.targetClick(
                 point,
