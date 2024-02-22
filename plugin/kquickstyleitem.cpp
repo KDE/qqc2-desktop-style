@@ -903,12 +903,11 @@ void KQuickStyleItem::resolvePalette()
         return;
     }
 
-    const QVariant controlPalette = m_control ? m_control->property("palette") : QVariant();
-    if (controlPalette.isValid()) {
-        m_styleoption->palette = controlPalette.value<QPalette>();
-    } else {
-        m_styleoption->palette = m_theme->palette();
-    }
+    // In theory here we should conside  m_control->property("palette")
+    // Whether the client code did set a custom palette color, but we can't read and write it
+    // from c++ anymore as is not a QPalette but a wrapper type we don't have access to,
+    // this kind of binding will need to be done on QML side
+    m_styleoption->palette = m_theme->palette();
 }
 
 int KQuickStyleItem::topPadding() const
