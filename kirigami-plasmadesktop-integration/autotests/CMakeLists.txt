@@ -16,3 +16,13 @@ target_link_libraries(animationspeedmodifiertest user32)
 else()
 target_link_libraries(animationspeedmodifiertest KF6::ConfigCore)
 endif()
+
+if (WIN32)
+    return() # Doesn't work in the Windows CI
+endif()
+
+ecm_add_test(
+    TextFieldContextMenuTest.cpp
+    LINK_LIBRARIES Qt::Test Qt::Qml Qt::QuickControls2
+)
+set_tests_properties(TextFieldContextMenuTest PROPERTIES ENVIRONMENT "CMAKE_BINARY_DIR=${CMAKE_BINARY_DIR};CMAKE_SHARED_LIBRARY_SUFFIX=${CMAKE_SHARED_LIBRARY_SUFFIX}")
