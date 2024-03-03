@@ -50,6 +50,7 @@ T.ToolButton {
         text: controlRoot.Kirigami.MnemonicData.mnemonicLabel
         hasFocus: controlRoot.visualFocus || (!controlRoot.flat && controlRoot.pressed) || controlRoot.highlighted
         flat: controlRoot.flat
+        font: controlRoot.font
 
         // note: keep in sync with DelayButton
         readonly property int toolButtonStyle: {

@@ -67,7 +67,7 @@ class KQuickStyleItem : public QQuickItem
     Q_PROPERTY(QString styleName READ styleName NOTIFY styleNameChanged)
     Q_PROPERTY(QVariantMap hints READ hints WRITE setHints NOTIFY hintChanged RESET resetHints)
     Q_PROPERTY(QVariantMap properties READ properties WRITE setProperties NOTIFY propertiesChanged)
-    Q_PROPERTY(QFont font READ font NOTIFY fontChanged)
+    Q_PROPERTY(QFont font READ font WRITE setFont RESET resetFont NOTIFY fontChanged)
 
     // For range controls
     Q_PROPERTY(int minimum READ minimum WRITE setMinimum NOTIFY minimumChanged)
@@ -390,7 +390,9 @@ public:
             Q_EMIT propertiesChanged();
         }
     }
+    void setFont(const QFont &font);
     void resetHints();
+    void resetFont();
 
     int contentWidth() const
     {

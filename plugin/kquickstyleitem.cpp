@@ -362,7 +362,7 @@ void KQuickStyleItem::initStyleOption()
             opt->toolButtonStyle = Qt::ToolButtonFollowStyle;
         }
 
-        const QFont font = qApp->font("QToolButton");
+        const QFont font = m_font.isCopyOf(qApp->font()) ? qApp->font("QToolButton") : m_font;
         opt->font = font;
         opt->fontMetrics = QFontMetrics(font);
         break;
@@ -1458,6 +1458,22 @@ void KQuickStyleItem::setHints(const QVariantMap &hints)
 void KQuickStyleItem::resetHints()
 {
     m_hints.clear();
+}
+
+void KQuickStyleItem::setFont(const QFont &font)
+{
+    if (font == m_font) {
+        return;
+    }
+    m_font = font;
+    updateSizeHint();
+    polish();
+    Q_EMIT fontChanged();
+}
+
+void KQuickStyleItem::resetFont()
+{
+    setFont(qApp->font());
 }
 
 void KQuickStyleItem::setElementType(const QString &str)
