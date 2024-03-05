@@ -29,6 +29,7 @@ include(KDEInstallDirs)
 include(ECMSetupVersion)
 include(ECMGenerateHeaders)
 include(ECMQmlModule)
+include(ECMPoQmTools)
 include(ECMQMLModules)
 include(KDECMakeSettings)
 include(KDEGitCommitHooks)
@@ -105,6 +106,9 @@ endif()
 
 ecm_add_qml_module(org_kde_desktop URI "org.kde.desktop" VERSION 1.0 GENERATE_PLUGIN_SOURCE)
 
+ecm_create_qm_loader(org_kde_desktop_QM_LOADER qqc2desktopstyle_qt)
+target_sources(org_kde_desktop PRIVATE ${org_kde_desktop_QM_LOADER})
+
 file(GLOB _public_qml "org.kde.desktop/*.qml")
 ecm_target_qml_sources(org_kde_desktop
     VERSION 1.0
@@ -131,6 +135,8 @@ ecm_target_qml_sources(org_kde_desktop_private
 
 ecm_finalize_qml_module(org_kde_desktop         DESTINATION ${KDE_INSTALL_QMLDIR})
 ecm_finalize_qml_module(org_kde_desktop_private DESTINATION ${KDE_INSTALL_QMLDIR})
+
+ecm_install_po_files_as_qm(poqm)
 
 include(ECMFeatureSummary)
 ecm_feature_summary(WHAT ALL INCLUDE_QUIET_PACKAGES FATAL_ON_MISSING_REQUIRED_PACKAGES)
