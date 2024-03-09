@@ -1,0 +1,71 @@
+# SPDX-FileCopyrightText: 2024 Eloy Cuadra <ecuadra@eloihr.net>
+msgid ""
+msgstr ""
+"Project-Id-Version: qqc2desktopstyle_qt\n"
+"PO-Revision-Date: 2024-03-08 20:26+0100\n"
+"Last-Translator: Eloy Cuadra <ecuadra@eloihr.net>\n"
+"Language-Team: Spanish <kde-l10n-es@kde.org>\n"
+"Language: es\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Qt-Contexts: true\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Lokalize 23.08.4\n"
+
+#: org.kde.desktop/private/TextFieldContextMenu.qml:195
+#, qt-format
+msgctxt "TextFieldContextMenu|"
+msgid "No Suggestions for \"%1\""
+msgstr "No hay sugerencias para «%1»"
+
+#: org.kde.desktop/private/TextFieldContextMenu.qml:209
+#, qt-format
+msgctxt "TextFieldContextMenu|"
+msgid "Add \"%1\" to Dictionary"
+msgstr "Añadir «%1» al diccionario"
+
+#: org.kde.desktop/private/TextFieldContextMenu.qml:225
+msgctxt "TextFieldContextMenu|"
+msgid "Ignore"
+msgstr "Ignorar"
+
+#: org.kde.desktop/private/TextFieldContextMenu.qml:240
+msgctxt "TextFieldContextMenu|"
+msgid "Spell Check"
+msgstr "Comprobación ortográfica"
+
+#: org.kde.desktop/private/TextFieldContextMenu.qml:257
+msgctxt "TextFieldContextMenu|"
+msgid "Undo"
+msgstr "Deshacer"
+
+#: org.kde.desktop/private/TextFieldContextMenu.qml:272
+msgctxt "TextFieldContextMenu|"
+msgid "Redo"
+msgstr "Rehacer"
+
+#: org.kde.desktop/private/TextFieldContextMenu.qml:290
+msgctxt "TextFieldContextMenu|"
+msgid "Cut"
+msgstr "Cortar"
+
+#: org.kde.desktop/private/TextFieldContextMenu.qml:305
+msgctxt "TextFieldContextMenu|"
+msgid "Copy"
+msgstr "Copiar"
+
+#: org.kde.desktop/private/TextFieldContextMenu.qml:320
+msgctxt "TextFieldContextMenu|"
+msgid "Paste"
+msgstr "Pegar"
+
+#: org.kde.desktop/private/TextFieldContextMenu.qml:335
+msgctxt "TextFieldContextMenu|"
+msgid "Delete"
+msgstr "Borrar"
+
+#: org.kde.desktop/private/TextFieldContextMenu.qml:354
+msgctxt "TextFieldContextMenu|"
+msgid "Select All"
+msgstr "Seleccionar todo"
