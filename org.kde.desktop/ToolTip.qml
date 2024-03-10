@@ -7,7 +7,6 @@
 
 
 import QtQuick
-import QtQuick.Controls as Controls
 import QtQuick.Templates as T
 import org.kde.kirigami as Kirigami
 
@@ -72,7 +71,7 @@ T.ToolTip {
         implicitWidth: Math.min(label.maxTextLength, label.contentWidth)
         implicitHeight: label.implicitHeight
 
-        Controls.Label {
+        Label {
             id: label
 
             // This value is basically arbitrary. It just looks nice.
