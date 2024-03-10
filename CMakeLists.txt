@@ -104,7 +104,7 @@ if (KF6IconThemes_FOUND AND KF6ColorScheme_FOUND)
     add_subdirectory(kirigami-plasmadesktop-integration)
 endif()
 
-ecm_add_qml_module(org_kde_desktop URI "org.kde.desktop" VERSION 1.0 GENERATE_PLUGIN_SOURCE)
+ecm_add_qml_module(org_kde_desktop URI "org.kde.desktop" VERSION 1.0 GENERATE_PLUGIN_SOURCE DEPENDENCIES "org.kde.qqc2desktopstyle.private" "org.kde.desktop.private")
 
 ecm_create_qm_loader(org_kde_desktop_QM_LOADER qqc2desktopstyle_qt)
 target_sources(org_kde_desktop PRIVATE ${org_kde_desktop_QM_LOADER})
@@ -135,6 +135,9 @@ ecm_target_qml_sources(org_kde_desktop_private
 
 ecm_finalize_qml_module(org_kde_desktop         DESTINATION ${KDE_INSTALL_QMLDIR})
 ecm_finalize_qml_module(org_kde_desktop_private DESTINATION ${KDE_INSTALL_QMLDIR})
+
+# See https://bugreports.qt.io/browse/QTBUG-123216
+add_dependencies(org_kde_desktop qqc2desktopstyleplugin org_kde_desktop_private)
 
 ecm_install_po_files_as_qm(poqm)
 
