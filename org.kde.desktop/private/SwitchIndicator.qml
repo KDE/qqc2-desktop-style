@@ -77,13 +77,14 @@ Item {
         border.color: colorFactory.handleBorderColor
 
         Behavior on x {
-            enabled: !control.pressed
+            enabled: !control.pressed && Kirigami.Units.shortDuration > 0
             SmoothedAnimation {
                 duration: Kirigami.Units.shortDuration
             }
         }
 
         Behavior on color {
+            enabled: Kirigami.Units.shortDuration > 0
             ColorAnimation {
                 easing.type: Easing.InCubic
                 duration: Kirigami.Units.shortDuration

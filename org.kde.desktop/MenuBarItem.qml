@@ -54,6 +54,7 @@ T.MenuBarItem {
         opacity: controlRoot.down || controlRoot.highlighted ? 0.7 : 0
 
         Behavior on opacity {
+            enabled: Kirigami.Units.shortDuration > 0
             NumberAnimation {
                 duration: Kirigami.Units.shortDuration
             }

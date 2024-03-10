@@ -33,6 +33,7 @@ T.Dialog {
 
         // the opacity of the item is changed internally by QQuickPopup on open/close
         Behavior on opacity {
+            enabled: Kirigami.Units.longDuration > 0
             OpacityAnimator {
                 duration: Kirigami.Units.longDuration
                 easing.type: Easing.InOutQuad

@@ -47,6 +47,7 @@ T.BusyIndicator {
         visible: control.running || opacityAnimator.running
         opacity: control.running ? 1 : 0
         Behavior on opacity {
+            enabled: Kirigami.Units.shortDuration > 0
             OpacityAnimator {
                 id: opacityAnimator
                 duration: Kirigami.Units.shortDuration
