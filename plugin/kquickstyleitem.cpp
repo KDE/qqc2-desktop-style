@@ -26,6 +26,8 @@
 #include <Kirigami/Platform/PlatformTheme>
 #include <Kirigami/Platform/TabletModeWatcher>
 
+#include <numeric>
+
 std::unique_ptr<QStyle> KQuickStyleItem::s_style = nullptr;
 
 QStyle *KQuickStyleItem::style()
@@ -1035,13 +1037,8 @@ QString KQuickStyleItem::hitTest(int px, int py)
 
 QRect KQuickStyleItem::computeBoundingRect(const QList<QRect> &rects)
 {
-    QRegion r;
-
-    for (const auto& rect : rects) {
-        r = r.united(rect);
-    }
-
-    return r.boundingRect();
+    const auto region = std::accumulate(rects.begin(), rects.end(), QRegion());
+    return region.boundingRect();
 }
 
 QSize KQuickStyleItem::sizeFromContents(int width, int height)
