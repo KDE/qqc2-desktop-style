@@ -97,8 +97,8 @@ T.TextField {
         target: controlRoot
         selectionStartHandle: true
         readonly property rect rect: controlRoot.positionToRectangle(controlRoot.selectionStart)
-        x: rect.x + target.padding
-        y: rect.y + target.padding
+        x: rect.x + controlRoot.padding
+        y: rect.y + controlRoot.padding
     }
 
     Text {

@@ -15,8 +15,8 @@ import org.kde.kirigami as Kirigami
 T.ScrollBar {
     id: controlRoot
 
-    implicitWidth: background.implicitWidth
-    implicitHeight: background.implicitHeight
+    implicitWidth: mouseArea.implicitWidth
+    implicitHeight: mouseArea.implicitHeight
 
     hoverEnabled: true
 
