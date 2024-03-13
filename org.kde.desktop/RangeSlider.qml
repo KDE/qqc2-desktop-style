@@ -63,6 +63,8 @@ T.RangeSlider {
     }
 
     background: Rectangle {
+        id: backgroundRectangle
+
         readonly property bool horizontal: control.orientation === Qt.Horizontal
         implicitWidth: horizontal ? 200 : 6
         implicitHeight: horizontal ? 6 : 200
@@ -73,14 +75,14 @@ T.RangeSlider {
         anchors.centerIn: parent
 
         Rectangle {
-            x: parent.horizontal
+            x: backgroundRectangle.horizontal
                 ? (LayoutMirroring.enabled
                    ? parent.width - width - control.first.position * parent.width
                    : control.first.position * parent.width)
                 : 0
-            y: parent.horizontal ? 0 : control.second.visualPosition * parent.height + 6
-            width: parent.horizontal ? control.second.position * parent.width - control.first.position * parent.width - 6 : 6
-            height: parent.horizontal ? 6 : control.second.position * parent.height - control.first.position * parent.height - 6
+            y: backgroundRectangle.horizontal ? 0 : control.second.visualPosition * parent.height + 6
+            width: backgroundRectangle.horizontal ? control.second.position * parent.width - control.first.position * parent.width - 6 : 6
+            height: backgroundRectangle.horizontal ? 6 : control.second.position * parent.height - control.first.position * parent.height - 6
             color: Kirigami.Theme.highlightColor
         }
     }
