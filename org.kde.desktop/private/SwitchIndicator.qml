@@ -28,7 +28,7 @@ Item {
         readonly property color handleColor: Kirigami.Theme.backgroundColor
         readonly property color handleBorderColor: (control.hovered || control.visualFocus) ? Kirigami.Theme.hoverColor : Kirigami.ColorUtils.linearInterpolation(Kirigami.Theme.backgroundColor, Kirigami.Theme.textColor, Kirigami.Theme.frameContrast)
 
-        function blendBackgroundWithTextColorWithRatio(factor) {
+        function blendBackgroundWithTextColorWithRatio(factor: double): color {
             // blending of background color with text color for producing a border color. The usual ratios are 70:30, 80:20 and 75:25. The more the background color, the more the contrast.
             return Qt.tint(Kirigami.Theme.textColor, Qt.alpha(Kirigami.Theme.backgroundColor, factor))
         }

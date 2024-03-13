@@ -185,7 +185,8 @@ T.ScrollBar {
                 grooveRect = subControlRect("groove");
             }
 
-            function positionFromMouse(mouse /*MouseEvent*/): real {
+            // TODO Enable type annotation once we depend on Qt 6.7
+            function positionFromMouse(mouse/*: MouseEvent*/): real {
                 return Math.min(1 - controlRoot.size, Math.max(0,
                     (controlRoot.horizontal
                         ? mouse.x / width
@@ -197,7 +198,8 @@ T.ScrollBar {
             // Style hint returns true if it should scroll to click position,
             // and false if it should scroll by one page at a time.
             // This function inverts the behavior if Alt button is pressed.
-            function scrollToClickPosition(mouse /*MouseEvent*/): bool {
+            // TODO Enable type annotation once we depend on Qt 6.7
+            function scrollToClickPosition(mouse/*: MouseEvent*/): bool {
                 let behavior = style.styleHint("scrollToClickPosition");
                 if (mouse.modifiers & Qt.AltModifier) {
                     behavior = !behavior;
