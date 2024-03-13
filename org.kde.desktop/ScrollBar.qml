@@ -94,7 +94,7 @@ T.ScrollBar {
     background: MouseArea {
         id: mouseArea
         anchors.fill: parent
-        visible: controlRoot.size < 1.0 && interactive
+        visible: controlRoot.size < 1.0 && controlRoot.interactive
         hoverEnabled: true
         acceptedButtons: Qt.LeftButton | Qt.MiddleButton
         onExited: style.activeControl = "groove";

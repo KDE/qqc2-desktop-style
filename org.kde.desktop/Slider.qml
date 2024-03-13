@@ -38,7 +38,7 @@ T.Slider {
         minimum: 0
         maximum: 100000
         step: 100000 * (controlRoot.stepSize / (controlRoot.to - controlRoot.from))
-        value: 100000 * position
+        value: 100000 * controlRoot.position
 
         horizontal: controlRoot.orientation === Qt.Horizontal
         enabled: controlRoot.enabled
