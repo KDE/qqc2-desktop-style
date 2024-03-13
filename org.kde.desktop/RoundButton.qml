@@ -8,7 +8,6 @@
 import QtQuick
 import QtQuick.Layouts
 import QtQuick.Templates as T
-import QtQuick.Controls as Controls
 import org.kde.kirigami as Kirigami
 
 T.RoundButton {
@@ -58,7 +57,7 @@ T.RoundButton {
             visible: source.toString().length > 0 && controlRoot.display !== T.AbstractButton.TextOnly
             source: controlRoot.icon ? (controlRoot.icon.name || controlRoot.icon.source) : ""
         }
-        Controls.Label {
+        Label {
             id: labelContent
             Layout.alignment: {
                 if (iconContent.visible && labelContent.visible) {
