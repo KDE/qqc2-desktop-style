@@ -112,6 +112,6 @@ T.ToolTip {
         border.width: 1
         // TODO: Replace this with a frame or separator color role if that becomes a thing.
         // Matches the color used by Breeze::Style::drawPanelTipLabelPrimitive()
-        border.color: Kirigami.ColorUtils.linearInterpolation(background.color, Kirigami.Theme.textColor, Kirigami.Theme.frameContrast)
+        border.color: Kirigami.ColorUtils.linearInterpolation(color, Kirigami.Theme.textColor, Kirigami.Theme.frameContrast)
     }
 }
