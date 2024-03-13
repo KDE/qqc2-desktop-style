@@ -9,7 +9,6 @@
 import QtQuick
 import QtQuick.Window
 import QtQuick.Templates as T
-import org.kde.qqc2desktopstyle.private as StylePrivate
 import org.kde.kirigami as Kirigami
 
 T.Label {

@@ -3,7 +3,6 @@
 
 import QtQuick
 import QtQuick.Templates as T
-import QtQuick.Controls
 import org.kde.kirigami as Kirigami
 
 T.Pane {

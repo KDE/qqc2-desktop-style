@@ -8,7 +8,6 @@
 
 import QtQuick
 import QtQuick.Templates as T
-import org.kde.kirigami as Kirigami
 import org.kde.qqc2desktopstyle.private as StylePrivate
 
 T.Control {
