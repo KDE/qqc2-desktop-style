@@ -7,19 +7,6 @@ project(qqc2-desktop-style VERSION ${KF_VERSION})
 
 set(REQUIRED_QT_VERSION 6.5.0)
 
-################# Disallow in-source build #################
-
-if("${CMAKE_SOURCE_DIR}" STREQUAL "${CMAKE_BINARY_DIR}")
-   message(FATAL_ERROR "qqc2-desktop-style requires an out of source build. Please create a separate build directory and run 'cmake path_to_qqc2-desktop-style [options]' there.")
-endif()
-
-
-# Make CPack available to easy generate binary packages
-include(CPack)
-include(FeatureSummary)
-
-################# set KDE specific information #################
-
 find_package(ECM 6.0.0 REQUIRED NO_MODULE)
 
 # where to look first for cmake modules, before ${CMAKE_ROOT}/Modules/ is checked
@@ -92,7 +79,6 @@ ecm_setup_version(PROJECT
 
 ecm_find_qmlmodule(org.kde.sonnet 1.0)
 
-#########################################################################
 ecm_set_disabled_deprecation_versions(
     QT 6.5
     KF 5.102
