@@ -9,6 +9,9 @@ set(qqc2desktopstyle_SRCS
 add_library(qqc2desktopstyleplugin SHARED ${qqc2desktopstyle_SRCS})
 target_link_libraries(qqc2desktopstyleplugin Qt${QT_MAJOR_VERSION}::Core Qt${QT_MAJOR_VERSION}::Qml Qt${QT_MAJOR_VERSION}::Quick Qt${QT_MAJOR_VERSION}::Gui Qt${QT_MAJOR_VERSION}::Widgets KF5::ConfigCore KF5::Kirigami2)
 
+ecm_create_qm_loader(org_kde_desktop_QM_LOADER qqc2desktopstyle_qt)
+target_sources(qqc2desktopstyleplugin PRIVATE ${org_kde_desktop_QM_LOADER})
+
 if(KF5ConfigWidgets_FOUND)
     target_link_libraries(qqc2desktopstyleplugin
         KF5::ConfigWidgets

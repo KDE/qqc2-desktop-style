@@ -30,6 +30,7 @@ include(ECMSetupVersion)
 include(ECMGenerateHeaders)
 include(ECMQmlModule)
 include(ECMQMLModules)
+include(ECMPoQmTools)
 include(KDEInstallDirs)
 include(KDECMakeSettings)
 include(KDEGitCommitHooks)
@@ -139,5 +140,7 @@ else()
 endif()
 
 feature_summary(WHAT ALL INCLUDE_QUIET_PACKAGES FATAL_ON_MISSING_REQUIRED_PACKAGES)
+
+ecm_install_po_files_as_qm(poqm)
 
 kde_configure_git_pre_commit_hook(CHECKS CLANG_FORMAT)
