@@ -1,4 +1,4 @@
-# SPDX-FileCopyrightText: 2024 xavier <xyz@yahoo.com>
+# SPDX-FileCopyrightText: 2024 Xavier Besnard <xavier.besnard@kde.org>
 msgid ""
 msgstr ""
 "Project-Id-Version: qqc2desktopstyle_qt\n"
