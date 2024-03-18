@@ -2,8 +2,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: qqc2desktopstyle_qt\n"
-"PO-Revision-Date: 2024-03-09 10:41+0100\n"
-"Last-Translator: xavier <xyz@yahoo.com>\n"
+"PO-Revision-Date: 2024-03-16 07:47+0100\n"
+"Last-Translator: Xavier Besnard <xavier.besnard@kde.org>\n"
 "Language-Team: French <French <kde-francophone@kde.org>>\n"
 "Language: fr\n"
 "MIME-Version: 1.0\n"
@@ -17,13 +17,13 @@ msgstr ""
 #, qt-format
 msgctxt "TextFieldContextMenu|"
 msgid "No suggestions for \"%1\""
-msgstr ""
+msgstr "Aucune suggestion pour « %1 »"
 
 #: org.kde.desktop/private/TextFieldContextMenu.qml:140
 #, qt-format
 msgctxt "TextFieldContextMenu|"
 msgid "Add \"%1\" to dictionary"
-msgstr ""
+msgstr "Ajouter « %1 » au dictionnaire"
 
 #: org.kde.desktop/private/TextFieldContextMenu.qml:151
 msgctxt "TextFieldContextMenu|"
@@ -33,7 +33,7 @@ msgstr "Ignorer"
 #: org.kde.desktop/private/TextFieldContextMenu.qml:163
 msgctxt "TextFieldContextMenu|"
 msgid "Enable Spellchecker"
-msgstr ""
+msgstr "Activer le vérificateur d'orthographe"
 
 #: org.kde.desktop/private/TextFieldContextMenu.qml:178
 msgctxt "TextFieldContextMenu|"
