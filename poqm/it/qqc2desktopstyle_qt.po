@@ -2,7 +2,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
-"PO-Revision-Date: 2024-03-09 16:54+0100\n"
+"PO-Revision-Date: 2024-03-17 19:46+0100\n"
 "Last-Translator: Paolo Zamponi <feus73@gmail.com>\n"
 "Language-Team: Italian <kde-i18n-it@kde.org>\n"
 "Language: it\n"
@@ -10,20 +10,20 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Lokalize 23.08.4\n"
+"X-Generator: Lokalize 24.02.0\n"
 "X-Qt-Contexts: true\n"
 
 #: org.kde.desktop/private/TextFieldContextMenu.qml:132
 #, qt-format
 msgctxt "TextFieldContextMenu|"
 msgid "No suggestions for \"%1\""
-msgstr ""
+msgstr "Nessun suggerimento per «%1»"
 
 #: org.kde.desktop/private/TextFieldContextMenu.qml:140
 #, qt-format
 msgctxt "TextFieldContextMenu|"
 msgid "Add \"%1\" to dictionary"
-msgstr ""
+msgstr "Aggiungi «%1» al dizionario"
 
 #: org.kde.desktop/private/TextFieldContextMenu.qml:151
 msgctxt "TextFieldContextMenu|"
@@ -33,7 +33,7 @@ msgstr "Ignora"
 #: org.kde.desktop/private/TextFieldContextMenu.qml:163
 msgctxt "TextFieldContextMenu|"
 msgid "Enable Spellchecker"
-msgstr ""
+msgstr "Abilita il controllo ortografico"
 
 #: org.kde.desktop/private/TextFieldContextMenu.qml:178
 msgctxt "TextFieldContextMenu|"
