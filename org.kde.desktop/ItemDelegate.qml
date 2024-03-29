@@ -54,6 +54,9 @@ T.ItemDelegate {
         Label {
             id: textLabel
 
+            Layout.alignment: Qt.AlignLeft
+            Layout.fillWidth: true
+
             text: controlRoot.text
             font: controlRoot.font
             color: controlRoot.highlighted || controlRoot.down
@@ -64,8 +67,6 @@ T.ItemDelegate {
             visible: controlRoot.text
             horizontalAlignment: Text.AlignLeft
             verticalAlignment: Text.AlignVCenter
-            Layout.alignment: Qt.AlignLeft
-            Layout.fillWidth: true
         }
     }
 

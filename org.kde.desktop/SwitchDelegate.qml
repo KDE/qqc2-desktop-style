@@ -53,6 +53,9 @@ T.SwitchDelegate {
         Label {
             id: textLabel
 
+            Layout.alignment: Qt.AlignLeft
+            Layout.fillWidth: true
+
             text: controlRoot.text
             font: controlRoot.font
             color: (controlRoot.pressed && !controlRoot.checked && !controlRoot.sectionDelegate) ? Kirigami.Theme.highlightedTextColor : Kirigami.Theme.textColor

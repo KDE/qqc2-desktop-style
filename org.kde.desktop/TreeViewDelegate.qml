@@ -92,8 +92,11 @@ T.TreeViewDelegate {
     }
 
     contentItem: RowLayout {
+        LayoutMirroring.enabled: controlRoot.mirrored
+        spacing: controlRoot.spacing
+
         property alias truncated: textLabel.truncated
-        spacing: Kirigami.Units.smallSpacing
+
         Kirigami.Icon {
             Layout.alignment: Qt.AlignVCenter
             visible: controlRoot.icon.name !== "" || controlRoot.icon.source.toString() !== "" || controlRoot.model.decoration !== undefined
@@ -104,6 +107,10 @@ T.TreeViewDelegate {
         }
         Label {
             id: textLabel
+
+            Layout.alignment: Qt.AlignLeft
+            Layout.fillWidth: true
+
             text: controlRoot.model.display
             font: controlRoot.font
             color: controlRoot.highlighted || controlRoot.checked || (controlRoot.pressed && !controlRoot.checked)
@@ -113,8 +120,6 @@ T.TreeViewDelegate {
             visible: text !== ""
             horizontalAlignment: Text.AlignLeft
             verticalAlignment: Text.AlignVCenter
-            Layout.alignment: Qt.AlignLeft
-            Layout.fillWidth: true
         }
     }
 }
