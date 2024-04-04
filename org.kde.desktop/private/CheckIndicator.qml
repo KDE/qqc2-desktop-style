@@ -16,6 +16,8 @@ StylePrivate.StyleItem {
     id: styleitem
 
     property bool drawIcon: true
+    Kirigami.Theme.inherit: false
+    Kirigami.Theme.colorSet: Kirigami.Theme.Button
 
     // Fallback heuristic for MenuItem which can mimic either of those.
     elementType: (control.autoExclusive
