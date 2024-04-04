@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: kdeorg\n"
-"PO-Revision-Date: 2024-03-17 20:46\n"
+"PO-Revision-Date: 2024-04-03 19:22\n"
 "Language-Team: Chinese Simplified\n"
 "Language: zh_CN\n"
 "MIME-Version: 1.0\n"
@@ -31,7 +31,7 @@ msgstr ""
 #: org.kde.desktop/private/TextFieldContextMenu.qml:151
 msgctxt "TextFieldContextMenu|"
 msgid "Ignore"
-msgstr ""
+msgstr "忽略"
 
 #: org.kde.desktop/private/TextFieldContextMenu.qml:163
 msgctxt "TextFieldContextMenu|"
@@ -41,34 +41,34 @@ msgstr ""
 #: org.kde.desktop/private/TextFieldContextMenu.qml:178
 msgctxt "TextFieldContextMenu|"
 msgid "Undo"
-msgstr ""
+msgstr "撤销"
 
 #: org.kde.desktop/private/TextFieldContextMenu.qml:191
 msgctxt "TextFieldContextMenu|"
 msgid "Redo"
-msgstr ""
+msgstr "重做"
 
 #: org.kde.desktop/private/TextFieldContextMenu.qml:207
 msgctxt "TextFieldContextMenu|"
 msgid "Cut"
-msgstr ""
+msgstr "剪切"
 
 #: org.kde.desktop/private/TextFieldContextMenu.qml:219
 msgctxt "TextFieldContextMenu|"
 msgid "Copy"
-msgstr ""
+msgstr "复制"
 
 #: org.kde.desktop/private/TextFieldContextMenu.qml:233
 msgctxt "TextFieldContextMenu|"
 msgid "Paste"
-msgstr ""
+msgstr "粘贴"
 
 #: org.kde.desktop/private/TextFieldContextMenu.qml:246
 msgctxt "TextFieldContextMenu|"
 msgid "Delete"
-msgstr ""
+msgstr "删除"
 
 #: org.kde.desktop/private/TextFieldContextMenu.qml:261
 msgctxt "TextFieldContextMenu|"
 msgid "Select All"
-msgstr ""
+msgstr "全选"
