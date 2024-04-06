@@ -168,6 +168,7 @@ T.ComboBox {
 
             background: Rectangle {
                 color: Kirigami.Theme.backgroundColor
+                radius: Kirigami.Units.cornerRadius
             }
             ScrollBar.horizontal.policy: ScrollBar.AlwaysOff
             ListView {
@@ -192,7 +193,7 @@ T.ComboBox {
                 fill: parent
                 margins: -1
             }
-            radius: 2
+            radius: Kirigami.Units.cornerRadius
             color: Kirigami.Theme.backgroundColor
 
             border.color: Kirigami.ColorUtils.linearInterpolation(Kirigami.Theme.backgroundColor, Kirigami.Theme.textColor, Kirigami.Theme.frameContrast)

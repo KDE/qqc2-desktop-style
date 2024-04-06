@@ -123,6 +123,6 @@ T.MenuItem {
         color: Qt.alpha(Kirigami.Theme.focusColor, 0.3)
         border.color: Kirigami.Theme.focusColor
         border.width: 1
-        radius: 3
+        radius: Kirigami.Units.cornerRadius
     }
 }

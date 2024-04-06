@@ -47,7 +47,7 @@ T.Popup {
     contentItem: Item {}
 
     background: Kirigami.ShadowedRectangle {
-        radius: 2
+        radius: Kirigami.Units.cornerRadius
         color: Kirigami.Theme.backgroundColor
 
         border.color: Kirigami.ColorUtils.linearInterpolation(Kirigami.Theme.backgroundColor, Kirigami.Theme.textColor, Kirigami.Theme.frameContrast)

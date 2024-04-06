@@ -125,7 +125,7 @@ T.Menu {
     }
 
     background: Kirigami.ShadowedRectangle {
-        radius: 3
+        radius: Kirigami.Units.cornerRadius
         implicitWidth: Kirigami.Units.gridUnit * 8
         color: Kirigami.Theme.backgroundColor
 

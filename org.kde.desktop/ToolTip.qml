@@ -98,7 +98,7 @@ T.ToolTip {
 
     // TODO: Consider replacing this with a StyleItem
     background: Kirigami.ShadowedRectangle {
-        radius: 3
+        radius: Kirigami.Units.cornerRadius
         color: Kirigami.Theme.backgroundColor
         Kirigami.Theme.colorSet: control.Kirigami.Theme.colorSet
 
