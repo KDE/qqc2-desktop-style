@@ -34,7 +34,7 @@ Rectangle {
 
     property real horizontalPadding: control.TableView.view ? 0 : Kirigami.Units.smallSpacing
     property real verticalPadding: control.TableView.view ? 0 : Kirigami.Units.smallSpacing
-    property real cornerRadius: control.TableView.view ? 0 : 3
+    property real cornerRadius: control.TableView.view ? 0 : Kirigami.Units.cornerRadius
 
     color: normalColor
 
