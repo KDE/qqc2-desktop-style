@@ -10,7 +10,8 @@ pragma Singleton
 
 import QtQml.Models
 import QtQuick
-import QtQuick.Controls as QQC2
+import org.kde.desktop as QQC2
+import QtQuick.Templates as T
 import org.kde.kirigami as Kirigami
 import org.kde.sonnet as Sonnet
 
@@ -189,7 +190,7 @@ QQC2.Menu {
 
     QQC2.MenuItem {
         visible: root.__showSpellcheckActions() && root.spellcheckSuggestions.length === 0
-        action: QQC2.Action {
+        action: T.Action {
             enabled: false
             text: root.spellcheckHighlighter
                 ? qsTr('No Suggestions for "%1"')
@@ -204,7 +205,7 @@ QQC2.Menu {
 
     QQC2.MenuItem {
         visible: root.__showSpellcheckActions()
-        action: QQC2.Action {
+        action: T.Action {
             text: root.spellcheckHighlighter
                 ? qsTr('Add "%1" to Dictionary')
                     .arg(root.spellcheckHighlighter.wordUnderMouse)
@@ -221,7 +222,7 @@ QQC2.Menu {
 
     QQC2.MenuItem {
         visible: root.__showSpellcheckActions()
-        action: QQC2.Action {
+        action: T.Action {
             text: qsTr("Ignore")
             onTriggered: {
                 root.deselectWhenMenuClosed = false;
@@ -252,7 +253,7 @@ QQC2.Menu {
     }
 
     QQC2.MenuItem {
-        action: QQC2.Action {
+        action: T.Action {
             icon.name: "edit-undo-symbolic"
             text: qsTr("Undo")
             shortcut: StandardKey.Undo
@@ -267,7 +268,7 @@ QQC2.Menu {
         }
     }
     QQC2.MenuItem {
-        action: QQC2.Action {
+        action: T.Action {
             icon.name: "edit-redo-symbolic"
             text: qsTr("Redo")
             shortcut: StandardKey.Redo
@@ -285,7 +286,7 @@ QQC2.Menu {
         visible: root.__showPasswordRestrictedEditingActions()
     }
     QQC2.MenuItem {
-        action: QQC2.Action {
+        action: T.Action {
             icon.name: "edit-cut-symbolic"
             text: qsTr("Cut")
             shortcut: StandardKey.Cut
@@ -300,7 +301,7 @@ QQC2.Menu {
         }
     }
     QQC2.MenuItem {
-        action: QQC2.Action {
+        action: T.Action {
             icon.name: "edit-copy-symbolic"
             text: qsTr("Copy")
             shortcut: StandardKey.Copy
@@ -315,7 +316,7 @@ QQC2.Menu {
         }
     }
     QQC2.MenuItem {
-        action: QQC2.Action {
+        action: T.Action {
             icon.name: "edit-paste-symbolic"
             text: qsTr("Paste")
             shortcut: StandardKey.Paste
@@ -330,7 +331,7 @@ QQC2.Menu {
         }
     }
     QQC2.MenuItem {
-        action: QQC2.Action {
+        action: T.Action {
             icon.name: "edit-delete-symbolic"
             text: qsTr("Delete")
             shortcut: StandardKey.Delete
@@ -349,7 +350,7 @@ QQC2.Menu {
             && (root.__editable() || root.__showPasswordRestrictedActions())
     }
     QQC2.MenuItem {
-        action: QQC2.Action {
+        action: T.Action {
             icon.name: "edit-select-all-symbolic"
             text: qsTr("Select All")
             shortcut: StandardKey.SelectAll
