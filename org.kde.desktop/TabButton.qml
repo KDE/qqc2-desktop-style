@@ -53,7 +53,7 @@ T.TabButton {
         elementType: "tab"
         paintMargins: 0
 
-        readonly property TabBar tabBar: controlRoot.TabBar.tabBar
+        readonly property T.TabBar tabBar: controlRoot.TabBar.tabBar
 
         property string orientation: controlRoot.TabBar.position === TabBar.Header ? "Top" : "Bottom"
         property string selectedpos: {
