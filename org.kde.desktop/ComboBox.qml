@@ -9,7 +9,6 @@
 import QtQuick
 import QtQuick.Window
 import QtQuick.Templates as T
-import QtQuick.Controls as Controls
 import org.kde.kirigami as Kirigami
 import org.kde.desktop.private as Private
 import org.kde.qqc2desktopstyle.private as StylePrivate
@@ -154,13 +153,13 @@ T.ComboBox {
         Kirigami.Theme.inherit: controlRoot.Kirigami.Theme.inherit
         modal: true
         dim: true
-        closePolicy: Controls.Popup.CloseOnEscape | Controls.Popup.CloseOnPressOutside
+        closePolicy: T.Popup.CloseOnEscape | T.Popup.CloseOnPressOutside
 
         // Forces it to have a transparent dimmer.
         // A dimmer is needed for "click outside" to work reliably in some views
         // but default dimmer would, well, dim the contents in pure QtQuick windows,
         // like ApplicationWindow, which we don't want.
-        Controls.Overlay.modal: Item { }
+        T.Overlay.modal: Item { }
 
         contentItem: ScrollView {
             LayoutMirroring.enabled: controlRoot.mirrored
