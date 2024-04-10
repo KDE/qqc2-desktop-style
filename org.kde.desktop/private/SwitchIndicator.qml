@@ -6,6 +6,7 @@
 */
 
 import QtQuick
+import QtQuick.Templates as T
 import org.kde.kirigami as Kirigami
 
 Item {
@@ -14,7 +15,7 @@ Item {
     implicitHeight: Kirigami.Units.gridUnit
     layer.enabled: control.opacity < 1.0
 
-    property Item control
+    property T.AbstractButton control
     property alias handle: handle
 
     Kirigami.Theme.colorSet: Kirigami.Theme.Button
@@ -23,10 +24,10 @@ Item {
     QtObject { // colors collected in one place so that main code remains clean and these properties are not exposed
         id: colorFactory
 
-        readonly property color switchBorderColor: control.checked ? Kirigami.Theme.highlightColor : handleBorderColor
+        readonly property color switchBorderColor: indicator.control.checked ? Kirigami.Theme.highlightColor : handleBorderColor
 
         readonly property color handleColor: Kirigami.Theme.backgroundColor
-        readonly property color handleBorderColor: (control.hovered || control.visualFocus) ? Kirigami.Theme.hoverColor : Kirigami.ColorUtils.linearInterpolation(Kirigami.Theme.backgroundColor, Kirigami.Theme.textColor, Kirigami.Theme.frameContrast)
+        readonly property color handleBorderColor: (indicator.control.hovered || indicator.control.visualFocus) ? Kirigami.Theme.hoverColor : Kirigami.ColorUtils.linearInterpolation(Kirigami.Theme.backgroundColor, Kirigami.Theme.textColor, Kirigami.Theme.frameContrast)
 
         function blendBackgroundWithTextColorWithRatio(factor: double): color {
             // blending of background color with text color for producing a border color. The usual ratios are 70:30, 80:20 and 75:25. The more the background color, the more the contrast.
@@ -64,7 +65,7 @@ Item {
     Rectangle {
         id: handle
 
-        x: Math.max(0, Math.min(parent.width - width, control.visualPosition * parent.width - (width / 2)))
+        x: Math.max(0, Math.min(parent.width - width, indicator.control.visualPosition * parent.width - (width / 2)))
 
         anchors {
             top: parent.top
@@ -77,7 +78,7 @@ Item {
         border.color: colorFactory.handleBorderColor
 
         Behavior on x {
-            enabled: !control.pressed && Kirigami.Units.shortDuration > 0
+            enabled: !indicator.control.pressed && Kirigami.Units.shortDuration > 0
             SmoothedAnimation {
                 duration: Kirigami.Units.shortDuration
             }
