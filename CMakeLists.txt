@@ -102,7 +102,12 @@ ecm_target_qml_sources(org_kde_desktop
 )
 
 # Private module goes separately, because a type can not be both internal and singleton (QTBUG-111545)
-ecm_add_qml_module(org_kde_desktop_private URI "org.kde.desktop.private" VERSION 1.0 GENERATE_PLUGIN_SOURCE)
+ecm_add_qml_module(org_kde_desktop_private
+    URI "org.kde.desktop.private"
+    VERSION 1.0
+    GENERATE_PLUGIN_SOURCE
+    DEPENDENCIES "org.kde.qqc2desktopstyle.private"
+)
 
 set_source_files_properties(
     org.kde.desktop/private/GlobalSonnetSettings.qml
