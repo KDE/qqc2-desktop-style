@@ -56,6 +56,7 @@ T.RadioButton {
     }
 
     contentItem: Label {
+        id: contentLabel
         readonly property int indicatorEffectiveWidth: (
                 controlRoot.indicator
                 && typeof controlRoot.indicator.pixelMetric === "function"
@@ -86,12 +87,12 @@ T.RadioButton {
                 top: parent.top
                 left: parent.left
                 bottom: parent.bottom
-                topMargin: parent.topPadding - 1
-                leftMargin: (controlRoot.mirrored ? parent.rightPadding : parent.leftPadding) - Kirigami.Units.smallSpacing / 2
-                bottomMargin: parent.bottomPadding - 1
+                topMargin: contentLabel.topPadding - 1
+                leftMargin: (controlRoot.mirrored ? contentLabel.rightPadding : contentLabel.leftPadding) - Kirigami.Units.smallSpacing / 2
+                bottomMargin: contentLabel.bottomPadding - 1
             }
 
-            width: parent.paintedWidth + Kirigami.Units.smallSpacing
+            width: contentLabel.paintedWidth + Kirigami.Units.smallSpacing
             visible: control.activeFocus
         }
     }
