@@ -19,23 +19,25 @@ StylePrivate.StyleItem {
     Kirigami.Theme.inherit: false
     Kirigami.Theme.colorSet: Kirigami.Theme.Button
 
+    readonly property T.AbstractButton buttonControl : control as T.AbstractButton
+
     // Fallback heuristic for MenuItem which can mimic either of those.
-    elementType: (control.autoExclusive
-            || (control.action !== null && control.action.T.ActionGroup.group !== null && control.action.T.ActionGroup.group.exclusive)
-            || (control.T.ButtonGroup.group !== null && control.T.ButtonGroup.group.exclusive))
+    elementType: (buttonControl.autoExclusive
+            || (buttonControl.action !== null && buttonControl.action.T.ActionGroup.group !== null && buttonControl.action.T.ActionGroup.group.exclusive)
+            || (buttonControl.T.ButtonGroup.group !== null && buttonControl.T.ButtonGroup.group.exclusive))
         ? "radiobutton" : "checkbox"
 
-    sunken: control.pressed
-    on: control.checked
-    hover: control.hovered
-    enabled: control.enabled
+    sunken: buttonControl.pressed
+    on: buttonControl.checked
+    hover: buttonControl.hovered
+    enabled: buttonControl.enabled
     properties: {
-        "icon": drawIcon && control.display !== T.AbstractButton.TextOnly
-            ? (control.icon.name !== "" ? control.icon.name : control.icon.source) : null,
-        "iconColor": Qt.colorEqual(control.icon.color, "transparent") ? Kirigami.Theme.textColor : control.icon.color,
-        "iconWidth": control.icon.width,
-        "iconHeight": control.icon.height,
+        "icon": drawIcon && buttonControl.display !== T.AbstractButton.TextOnly
+            ? (buttonControl.icon.name !== "" ? buttonControl.icon.name : buttonControl.icon.source) : null,
+        "iconColor": Qt.colorEqual(buttonControl.icon.color, "transparent") ? Kirigami.Theme.textColor : buttonControl.icon.color,
+        "iconWidth": buttonControl.icon.width,
+        "iconHeight": buttonControl.icon.height,
 
-        "partiallyChecked": control.checkState === Qt.PartiallyChecked
+        "partiallyChecked": buttonControl.checkState === Qt.PartiallyChecked
     }
 }
