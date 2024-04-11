@@ -172,8 +172,12 @@ public:
     QList<PlasmaDesktopTheme *> watchers;
 
 protected:
-    bool eventFilter([[maybe_unused]] QObject *obj, QEvent *event) override
+    bool eventFilter(QObject *obj, QEvent *event) override
     {
+        if (obj != qGuiApp) {
+            return false;
+        }
+
         if (event->type() == QEvent::ApplicationFontChange) {
             notifyWatchersConfigurationChange();
         }
