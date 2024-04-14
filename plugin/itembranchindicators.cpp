@@ -16,6 +16,7 @@
 
 ItemBranchIndicators::ItemBranchIndicators(QQuickItem *parent)
     : QQuickPaintedItem(parent)
+    , m_selected(false)
 {
     if (auto theme = static_cast<Kirigami::Platform::PlatformTheme *>(qmlAttachedPropertiesObject<Kirigami::Platform::PlatformTheme>(this, true))) {
         m_palette = theme->palette();
