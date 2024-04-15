@@ -51,8 +51,28 @@ T.TreeViewDelegate {
     required property int row
     required property int column
     required property var model
-    readonly property var modelIndex: treeView.index(row, column)
     readonly property real __contentIndent: !isTreeNode ? 0 : (depth * indentation) + (indicator ? indicator.width + spacing : 0)
+
+    // TableView does not provide us with a source QModelIndex, so we have to
+    // reconstruct it ourselves, in an (unfortunately) non-observable way.
+    property /*QModelIndex*/var modelIndex: expressionForModelIndex()
+
+    function expressionForModelIndex() {
+        // Note: this is not observable in case of model changes
+        return treeView.index(row, column);
+    }
+
+    function refreshModelIndex() {
+        modelIndex = Qt.binding(() => expressionForModelIndex());
+    }
+
+    Component.onCompleted: {
+        refreshModelIndex();
+    }
+
+    TableView.onReused: {
+        refreshModelIndex();
+    }
 
     // The indicator is only visible when the item has children, so  this is only the closest branch indicator (+arrow) - the rest of the branch indicator lines are below
     indicator: StylePrivate.StyleItem {
