@@ -116,7 +116,7 @@ T.TextArea {
     Private.MobileCursor {
         target: controlRoot
         selectionStartHandle: true
-        readonly property rect rect: target.positionToRectangle(target.selectionStart)
+        readonly property rect rect: controlRoot.positionToRectangle(controlRoot.selectionStart)
         x: rect.x
         y: rect.y
     }
