@@ -22,7 +22,7 @@ T.DialogButtonBox {
     contentWidth: (contentItem as ListView)?.contentWidth ?? 0
 
     spacing: Kirigami.Units.mediumSpacing
-    padding: Kirigami.Units.smallSpacing
+    padding: Kirigami.Units.largeSpacing
     alignment: Qt.AlignRight
 
     property Item __style: StylePrivate.StyleItem {
