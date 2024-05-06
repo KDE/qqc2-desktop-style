@@ -27,6 +27,34 @@ T.DialogButtonBox {
 
     property Item __style: StylePrivate.StyleItem {
         id: styleItem
+
+        function setupKeyboardNavigationButton(): void {
+            if (contentItem instanceof ListView) {
+                const listView = contentItem as ListView;
+                for (let index = 0; index < listView.count; index++) {
+                    const button = listView.itemAtIndex(index);
+
+                    button.Keys.onPressed.connect((event) => {
+                        if (event.key == Qt.Key_Return || event.key == Qt.Key_Enter) {
+                            button.down = true;
+                            event.accepted = true;
+                        }
+                    });
+
+                    button.Keys.onReleased.connect((event) => {
+                        if (event.key == Qt.Key_Return || event.key == Qt.Key_Enter) {
+                            button.down = undefined;
+                            event.accepted = true;
+                            button.clicked();
+                        }
+                    });
+                }
+            }
+        }
+    }
+
+    Component.onCompleted: {
+        styleItem.setupKeyboardNavigationButton();
     }
 
     delegate: Button {
@@ -56,6 +84,8 @@ T.DialogButtonBox {
     // run this code every time standardButtonsChanged() is emitted.
     // See QQuickDialogButtonBox::setStandardButtons()
     onStandardButtonsChanged: {
+        styleItem.setupKeyboardNavigationButton();
+
         // standardButton() returns a pointer to an existing standard button.
         // If no such button exists, it returns nullptr.
         // Icon names are copied from KStyle::standardIcon()
