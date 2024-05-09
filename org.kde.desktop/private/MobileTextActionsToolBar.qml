@@ -15,6 +15,7 @@ Loader {
     property bool shouldBeVisible: false
 
     active: controlRoot !== null
+        && controlRoot.activeFocus
         && shouldBeVisible
         && Kirigami.Settings.tabletMode
         && (controlRoot.selectedText.length > 0 || controlRoot.canPaste)
