@@ -39,7 +39,7 @@ T.ComboBox {
         required property int index
         width: ListView.view.width
         text: model[controlRoot.textRole]
-        highlighted: controlRoot.highlightedIndex == index
+        highlighted: controlRoot.highlightedIndex === index
         property bool separatorVisible: false
         Kirigami.Theme.colorSet: controlRoot.Kirigami.Theme.inherit ? controlRoot.Kirigami.Theme.colorSet : Kirigami.Theme.View
         Kirigami.Theme.inherit: controlRoot.Kirigami.Theme.inherit
