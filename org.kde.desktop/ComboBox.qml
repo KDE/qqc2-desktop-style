@@ -178,6 +178,7 @@ T.ComboBox {
                 // which is needed to initially resize the popup
                 cacheBuffer: 1
 
+                clip: height < implicitHeight
                 implicitHeight: contentHeight
                 model: controlRoot.delegateModel
                 delegate: controlRoot.delegate
