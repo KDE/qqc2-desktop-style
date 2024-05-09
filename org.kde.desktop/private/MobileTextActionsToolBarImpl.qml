@@ -15,23 +15,33 @@ QQC2.Popup {
     Kirigami.OverlayZStacking.layer: Kirigami.OverlayZStacking.Menu
     z: Kirigami.OverlayZStacking.z
 
-    parent: controlRoot.Window.window.contentItem
+    parent: controlRoot?.Window.window?.contentItem ?? null
     modal: false
     focus: false
     closePolicy: QQC2.Popup.NoAutoClose
 
-    x: !parent ? 0 : Math.min(Math.max(0, controlRoot.mapToItem(root.parent, controlRoot.positionToRectangle(controlRoot.selectionStart).x, 0).x - root.width / 2), root.parent.width - root.width)
-
-    y: {
-        if (!parent) {
+    x: {
+        if (!parent || !controlRoot) {
             return 0;
         }
-        var desiredY = controlRoot.mapToItem(root.parent, 0, controlRoot.positionToRectangle(controlRoot.selectionStart).y).y  - root.height;
+        const desiredX = controlRoot.mapToItem(parent, controlRoot.positionToRectangle(controlRoot.selectionStart).x, 0).x - width / 2;
+        const maxX = parent.width - width;
+
+        return Math.min(Math.max(0, desiredX), maxX);
+    }
+
+    y: {
+        if (!parent || !controlRoot) {
+            return 0;
+        }
+        const desiredY = controlRoot.mapToItem(parent, 0, controlRoot.positionToRectangle(controlRoot.selectionStart).y).y - height;
+        const maxY = parent.height - height;
 
         if (desiredY >= 0) {
-            return Math.min(desiredY, root.parent.height - root.height);
+            return Math.min(maxY, desiredY);
         } else {
-            return Math.min(Math.max(0, controlRoot.mapToItem(root.parent, 0, controlRoot.positionToRectangle(controlRoot.selectionEnd).y + Math.round(Kirigami.Units.gridUnit*1.5)).y), root.parent.height - root.height);
+            const desiredY = controlRoot.mapToItem(parent, 0, controlRoot.positionToRectangle(controlRoot.selectionEnd).y + Math.round(Kirigami.Units.gridUnit * 1.5)).y;
+            return Math.min(maxY, Math.max(0, desiredY));
         }
     }
 
@@ -44,7 +54,7 @@ QQC2.Popup {
             text: qsTr("Cut")
             display: T.AbstractButton.IconOnly
             icon.name: "edit-cut-symbolic"
-            visible: controlRoot.selectedText.length > 0 && (!controlRoot.hasOwnProperty("echoMode") || controlRoot.echoMode === TextInput.Normal)
+            visible: controlRoot.selectedText.length > 0 && (!(controlRoot instanceof TextInput) || controlRoot.echoMode === TextInput.Normal)
             onClicked: {
                 controlRoot.cut();
             }
@@ -54,7 +64,7 @@ QQC2.Popup {
             text: qsTr("Copy")
             display: T.AbstractButton.IconOnly
             icon.name: "edit-copy-symbolic"
-            visible: controlRoot.selectedText.length > 0 && (!controlRoot.hasOwnProperty("echoMode") || controlRoot.echoMode === TextInput.Normal)
+            visible: controlRoot.selectedText.length > 0 && (!(controlRoot instanceof TextInput) || controlRoot.echoMode === TextInput.Normal)
             onClicked: {
                 controlRoot.copy();
             }

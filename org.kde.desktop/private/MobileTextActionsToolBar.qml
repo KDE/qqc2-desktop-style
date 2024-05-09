@@ -13,6 +13,10 @@ Loader {
     property Item controlRoot: null
     property bool shouldBeVisible: false
 
-    active: controlRoot ? shouldBeVisible && Kirigami.Settings.tabletMode && (controlRoot.selectedText.length > 0 || controlRoot.canPaste) : false
+    active: controlRoot !== null
+        && shouldBeVisible
+        && Kirigami.Settings.tabletMode
+        && (controlRoot.selectedText.length > 0 || controlRoot.canPaste)
+
     source: "MobileTextActionsToolBarImpl.qml"
 }
