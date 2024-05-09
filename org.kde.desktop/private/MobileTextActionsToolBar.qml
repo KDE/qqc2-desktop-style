@@ -5,12 +5,13 @@
 */
 
 pragma Singleton
+pragma ComponentBehavior: Bound
 
 import QtQuick
-import org.kde.kirigami as Kirigami // tabletMode
+import org.kde.kirigami as Kirigami
 
 Loader {
-    property Item controlRoot: null
+    property /*TextInput | TextEdit*/ Item controlRoot
     property bool shouldBeVisible: false
 
     active: controlRoot !== null
@@ -18,5 +19,10 @@ Loader {
         && Kirigami.Settings.tabletMode
         && (controlRoot.selectedText.length > 0 || controlRoot.canPaste)
 
-    source: "MobileTextActionsToolBarImpl.qml"
+    Component.onCompleted: {
+        // See https://bugreports.qt.io/browse/QTBUG-125071
+        setSource(Qt.resolvedUrl("MobileTextActionsToolBarImpl.qml"), {
+            controlRoot: Qt.binding(() => controlRoot),
+        });
+    }
 }

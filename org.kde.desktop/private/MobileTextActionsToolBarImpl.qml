@@ -4,6 +4,8 @@
     SPDX-License-Identifier: LGPL-2.0-or-later
 */
 
+pragma ComponentBehavior: Bound
+
 import QtQuick
 import QtQuick.Layouts
 import QtQuick.Templates as T
@@ -12,6 +14,8 @@ import org.kde.kirigami as Kirigami
 
 QQC2.Popup {
     id: root
+
+    required property /*TextInput | TextEdit*/ Item controlRoot
 
     Kirigami.OverlayZStacking.layer: Kirigami.OverlayZStacking.Menu
     z: Kirigami.OverlayZStacking.z
