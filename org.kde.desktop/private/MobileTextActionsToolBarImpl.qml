@@ -41,6 +41,8 @@ QQC2.Popup {
     contentItem: RowLayout {
         QQC2.ToolButton {
             focusPolicy: Qt.NoFocus
+            text: qsTr("Cut")
+            display: T.AbstractButton.IconOnly
             icon.name: "edit-cut-symbolic"
             visible: controlRoot.selectedText.length > 0 && (!controlRoot.hasOwnProperty("echoMode") || controlRoot.echoMode === TextInput.Normal)
             onClicked: {
@@ -49,6 +51,8 @@ QQC2.Popup {
         }
         QQC2.ToolButton {
             focusPolicy: Qt.NoFocus
+            text: qsTr("Copy")
+            display: T.AbstractButton.IconOnly
             icon.name: "edit-copy-symbolic"
             visible: controlRoot.selectedText.length > 0 && (!controlRoot.hasOwnProperty("echoMode") || controlRoot.echoMode === TextInput.Normal)
             onClicked: {
@@ -57,6 +61,8 @@ QQC2.Popup {
         }
         QQC2.ToolButton {
             focusPolicy: Qt.NoFocus
+            text: qsTr("Paste")
+            display: T.AbstractButton.IconOnly
             icon.name: "edit-paste-symbolic"
             visible: controlRoot.canPaste
             onClicked: {
