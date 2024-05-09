@@ -5,8 +5,9 @@
 */
 
 import QtQuick
-import QtQuick.Controls as QQC2
 import QtQuick.Layouts
+import QtQuick.Templates as T
+import org.kde.desktop as QQC2
 import org.kde.kirigami as Kirigami
 
 QQC2.Popup {
@@ -18,7 +19,7 @@ QQC2.Popup {
     parent: controlRoot?.Window.window?.contentItem ?? null
     modal: false
     focus: false
-    closePolicy: QQC2.Popup.NoAutoClose
+    closePolicy: T.Popup.NoAutoClose
 
     x: {
         if (!parent || !controlRoot) {
