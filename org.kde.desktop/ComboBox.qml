@@ -147,8 +147,8 @@ T.ComboBox {
         y: controlRoot.height
         width: controlRoot.width
         implicitHeight: contentItem.implicitHeight
-        topMargin: 6
-        bottomMargin: 6
+        topMargin: Kirigami.Units.mediumSpacing
+        bottomMargin: Kirigami.Units.mediumSpacing
         Kirigami.Theme.colorSet: Kirigami.Theme.View
         Kirigami.Theme.inherit: controlRoot.Kirigami.Theme.inherit
         modal: true
