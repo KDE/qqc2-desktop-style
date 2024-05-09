@@ -64,15 +64,22 @@ T.Dialog {
     contentItem: Item {}
 
     background: Kirigami.ShadowedRectangle {
-        radius: Kirigami.Units.cornerRadius
-        color: Kirigami.Theme.backgroundColor
-        border.color: Kirigami.ColorUtils.linearInterpolation(Kirigami.Theme.backgroundColor, Kirigami.Theme.textColor, Kirigami.Theme.frameContrast)
-        border.width: 1
+        Kirigami.Theme.colorSet: Kirigami.Theme.View
+        Kirigami.Theme.inherit: false
 
-        shadow.xOffset: 0
-        shadow.yOffset: 4
-        shadow.color: Qt.rgba(0, 0, 0, 0.3)
-        shadow.size: 16
+        color: Kirigami.Theme.backgroundColor
+        radius: Kirigami.Units.cornerRadius
+
+        shadow {
+            size: radius * 2
+            color: Qt.rgba(0, 0, 0, 0.3)
+            yOffset: 1
+        }
+
+        border {
+            width: 1
+            color: Kirigami.ColorUtils.linearInterpolation(Kirigami.Theme.backgroundColor, Kirigami.Theme.textColor, Kirigami.Theme.frameContrast);
+        }
     }
 
     header: Kirigami.Heading {
