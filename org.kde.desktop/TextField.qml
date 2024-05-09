@@ -96,7 +96,13 @@ T.TextField {
     Private.MobileCursor {
         target: controlRoot
         selectionStartHandle: true
-        readonly property rect rect: controlRoot.positionToRectangle(controlRoot.selectionStart)
+        readonly property rect rect: {
+            // selectionStart is actually the "physical" start of selection,
+            // not a "logical" one, so we have to find out the real logical
+            // end of selection ourselves.
+            const positionEnd = controlRoot.cursorPosition === controlRoot.selectionStart ? controlRoot.selectionEnd : controlRoot.selectionStart;
+            return controlRoot.positionToRectangle(positionEnd);
+        }
         x: rect.x + controlRoot.leftPadding
         y: rect.y + controlRoot.topPadding
     }
