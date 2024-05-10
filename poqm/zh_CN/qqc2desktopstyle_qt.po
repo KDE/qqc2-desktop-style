@@ -16,59 +16,83 @@ msgstr ""
 "pot\n"
 "X-Crowdin-File-ID: 49498\n"
 
-#: org.kde.desktop/private/TextFieldContextMenu.qml:195
+#: org.kde.desktop/private/MobileTextActionsToolBarImpl.qml:59
+#, fuzzy
+#| msgctxt "TextFieldContextMenu|"
+#| msgid "Cut"
+msgctxt "MobileTextActionsToolBarImpl|"
+msgid "Cut"
+msgstr "剪切"
+
+#: org.kde.desktop/private/MobileTextActionsToolBarImpl.qml:69
+#, fuzzy
+#| msgctxt "TextFieldContextMenu|"
+#| msgid "Copy"
+msgctxt "MobileTextActionsToolBarImpl|"
+msgid "Copy"
+msgstr "复制"
+
+#: org.kde.desktop/private/MobileTextActionsToolBarImpl.qml:79
+#, fuzzy
+#| msgctxt "TextFieldContextMenu|"
+#| msgid "Paste"
+msgctxt "MobileTextActionsToolBarImpl|"
+msgid "Paste"
+msgstr "粘贴"
+
+#: org.kde.desktop/private/TextFieldContextMenu.qml:196
 #, qt-format
 msgctxt "TextFieldContextMenu|"
 msgid "No Suggestions for \"%1\""
 msgstr "没有对“%1”的建议"
 
-#: org.kde.desktop/private/TextFieldContextMenu.qml:209
+#: org.kde.desktop/private/TextFieldContextMenu.qml:210
 #, qt-format
 msgctxt "TextFieldContextMenu|"
 msgid "Add \"%1\" to Dictionary"
 msgstr "将“%1”添加到字典"
 
-#: org.kde.desktop/private/TextFieldContextMenu.qml:225
+#: org.kde.desktop/private/TextFieldContextMenu.qml:226
 msgctxt "TextFieldContextMenu|"
 msgid "Ignore"
 msgstr "忽略"
 
-#: org.kde.desktop/private/TextFieldContextMenu.qml:240
+#: org.kde.desktop/private/TextFieldContextMenu.qml:241
 msgctxt "TextFieldContextMenu|"
 msgid "Spell Check"
 msgstr "拼写检查"
 
-#: org.kde.desktop/private/TextFieldContextMenu.qml:257
+#: org.kde.desktop/private/TextFieldContextMenu.qml:258
 msgctxt "TextFieldContextMenu|"
 msgid "Undo"
 msgstr "撤销"
 
-#: org.kde.desktop/private/TextFieldContextMenu.qml:272
+#: org.kde.desktop/private/TextFieldContextMenu.qml:273
 msgctxt "TextFieldContextMenu|"
 msgid "Redo"
 msgstr "重做"
 
-#: org.kde.desktop/private/TextFieldContextMenu.qml:290
+#: org.kde.desktop/private/TextFieldContextMenu.qml:291
 msgctxt "TextFieldContextMenu|"
 msgid "Cut"
 msgstr "剪切"
 
-#: org.kde.desktop/private/TextFieldContextMenu.qml:305
+#: org.kde.desktop/private/TextFieldContextMenu.qml:306
 msgctxt "TextFieldContextMenu|"
 msgid "Copy"
 msgstr "复制"
 
-#: org.kde.desktop/private/TextFieldContextMenu.qml:320
+#: org.kde.desktop/private/TextFieldContextMenu.qml:321
 msgctxt "TextFieldContextMenu|"
 msgid "Paste"
 msgstr "粘贴"
 
-#: org.kde.desktop/private/TextFieldContextMenu.qml:335
+#: org.kde.desktop/private/TextFieldContextMenu.qml:336
 msgctxt "TextFieldContextMenu|"
 msgid "Delete"
 msgstr "删除"
 
-#: org.kde.desktop/private/TextFieldContextMenu.qml:354
+#: org.kde.desktop/private/TextFieldContextMenu.qml:355
 msgctxt "TextFieldContextMenu|"
 msgid "Select All"
 msgstr "全选"
