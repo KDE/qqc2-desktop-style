@@ -57,12 +57,12 @@ T.TreeViewDelegate {
     // reconstruct it ourselves, in an (unfortunately) non-observable way.
     property /*QModelIndex*/var modelIndex: expressionForModelIndex()
 
-    function expressionForModelIndex() {
+    function expressionForModelIndex(): /*QModelIndex*/var {
         // Note: this is not observable in case of model changes
         return treeView.index(row, column);
     }
 
-    function refreshModelIndex() {
+    function refreshModelIndex(): void {
         modelIndex = Qt.binding(() => expressionForModelIndex());
     }
 
