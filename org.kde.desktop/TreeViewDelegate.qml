@@ -26,20 +26,17 @@ T.TreeViewDelegate {
     rightMargin: Kirigami.Units.smallSpacing
     spacing:  Kirigami.Units.smallSpacing
 
-    topPadding: Kirigami.Units.smallSpacing
-    bottomPadding: Kirigami.Units.smallSpacing
+    leftPadding: !mirrored ? leftMargin + __contentIndent : 0
+    rightPadding: mirrored ? leftMargin + __contentIndent : 0
+    verticalPadding: Kirigami.Units.smallSpacing
 
     Kirigami.Theme.colorSet: highlighted ? Kirigami.Theme.Selection : Kirigami.Theme.View
     Kirigami.Theme.inherit: false
-
-    leftPadding: !mirrored ? leftMargin + __contentIndent : 0
-    rightPadding: mirrored ? leftMargin + __contentIndent : 0
 
     highlighted: controlRoot.selected || controlRoot.current
                || ((controlRoot.treeView.selectionBehavior === TableView.SelectRows
                || controlRoot.treeView.selectionBehavior === TableView.SelectionDisabled)
                && controlRoot.row === controlRoot.treeView.currentRow)
-
 
     icon.width: Kirigami.Units.iconSizes.smallMedium
     icon.height: Kirigami.Units.iconSizes.smallMedium
