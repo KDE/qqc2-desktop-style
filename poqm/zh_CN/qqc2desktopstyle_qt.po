@@ -20,13 +20,13 @@ msgstr ""
 #, qt-format
 msgctxt "TextFieldContextMenu|"
 msgid "No suggestions for \"%1\""
-msgstr ""
+msgstr "没有关于“%1”的建议"
 
 #: org.kde.desktop/private/TextFieldContextMenu.qml:140
 #, qt-format
 msgctxt "TextFieldContextMenu|"
 msgid "Add \"%1\" to dictionary"
-msgstr ""
+msgstr "添加“%1”到词典"
 
 #: org.kde.desktop/private/TextFieldContextMenu.qml:151
 msgctxt "TextFieldContextMenu|"
@@ -36,7 +36,7 @@ msgstr "忽略"
 #: org.kde.desktop/private/TextFieldContextMenu.qml:163
 msgctxt "TextFieldContextMenu|"
 msgid "Enable Spellchecker"
-msgstr ""
+msgstr "启用拼写检查器"
 
 #: org.kde.desktop/private/TextFieldContextMenu.qml:178
 msgctxt "TextFieldContextMenu|"
