@@ -128,8 +128,8 @@ T.TreeViewDelegate {
         Label {
             id: textLabel
 
-            Layout.alignment: Qt.AlignLeft
             Layout.fillWidth: true
+            Layout.fillHeight: true
 
             text: controlRoot.model.display
             font: controlRoot.font
