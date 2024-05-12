@@ -2,7 +2,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
-"PO-Revision-Date: 2024-03-19 08:13+0200\n"
+"PO-Revision-Date: 2024-05-10 20:15+0300\n"
 "Last-Translator: Yaron Shahrabani <sh.yaron@gmail.com>\n"
 "Language-Team: צוות התרגום של KDE ישראל\n"
 "Language: he\n"
@@ -15,25 +15,16 @@ msgstr ""
 "X-Generator: Lokalize 23.08.5\n"
 
 #: org.kde.desktop/private/MobileTextActionsToolBarImpl.qml:59
-#, fuzzy
-#| msgctxt "TextFieldContextMenu|"
-#| msgid "Cut"
 msgctxt "MobileTextActionsToolBarImpl|"
 msgid "Cut"
 msgstr "גזירה"
 
 #: org.kde.desktop/private/MobileTextActionsToolBarImpl.qml:69
-#, fuzzy
-#| msgctxt "TextFieldContextMenu|"
-#| msgid "Copy"
 msgctxt "MobileTextActionsToolBarImpl|"
 msgid "Copy"
 msgstr "העתקה"
 
 #: org.kde.desktop/private/MobileTextActionsToolBarImpl.qml:79
-#, fuzzy
-#| msgctxt "TextFieldContextMenu|"
-#| msgid "Paste"
 msgctxt "MobileTextActionsToolBarImpl|"
 msgid "Paste"
 msgstr "הדבקה"

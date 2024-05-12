@@ -7,7 +7,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: qqc2-desktop-style\n"
-"PO-Revision-Date: 2024-03-08 09:37+0100\n"
+"PO-Revision-Date: 2024-05-10 12:01+0200\n"
 "Last-Translator: Josep M. Ferrer <txemaq@gmail.com>\n"
 "Language-Team: Catalan <kde-i18n-ca@kde.org>\n"
 "Language: ca@valencia\n"
@@ -19,25 +19,16 @@ msgstr ""
 "X-Generator: Lokalize 22.12.3\n"
 
 #: org.kde.desktop/private/MobileTextActionsToolBarImpl.qml:59
-#, fuzzy
-#| msgctxt "TextFieldContextMenu|"
-#| msgid "Cut"
 msgctxt "MobileTextActionsToolBarImpl|"
 msgid "Cut"
 msgstr "Retalla"
 
 #: org.kde.desktop/private/MobileTextActionsToolBarImpl.qml:69
-#, fuzzy
-#| msgctxt "TextFieldContextMenu|"
-#| msgid "Copy"
 msgctxt "MobileTextActionsToolBarImpl|"
 msgid "Copy"
 msgstr "Copia"
 
 #: org.kde.desktop/private/MobileTextActionsToolBarImpl.qml:79
-#, fuzzy
-#| msgctxt "TextFieldContextMenu|"
-#| msgid "Paste"
 msgctxt "MobileTextActionsToolBarImpl|"
 msgid "Paste"
 msgstr "Apega"

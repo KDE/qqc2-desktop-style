@@ -17,25 +17,16 @@ msgstr ""
 "X-Crowdin-File-ID: 49498\n"
 
 #: org.kde.desktop/private/MobileTextActionsToolBarImpl.qml:59
-#, fuzzy
-#| msgctxt "TextFieldContextMenu|"
-#| msgid "Cut"
 msgctxt "MobileTextActionsToolBarImpl|"
 msgid "Cut"
 msgstr "剪切"
 
 #: org.kde.desktop/private/MobileTextActionsToolBarImpl.qml:69
-#, fuzzy
-#| msgctxt "TextFieldContextMenu|"
-#| msgid "Copy"
 msgctxt "MobileTextActionsToolBarImpl|"
 msgid "Copy"
 msgstr "复制"
 
 #: org.kde.desktop/private/MobileTextActionsToolBarImpl.qml:79
-#, fuzzy
-#| msgctxt "TextFieldContextMenu|"
-#| msgid "Paste"
 msgctxt "MobileTextActionsToolBarImpl|"
 msgid "Paste"
 msgstr "粘贴"
@@ -44,13 +35,13 @@ msgstr "粘贴"
 #, qt-format
 msgctxt "TextFieldContextMenu|"
 msgid "No Suggestions for \"%1\""
-msgstr "没有对“%1”的建议"
+msgstr "没有关于“%1”的建议"
 
 #: org.kde.desktop/private/TextFieldContextMenu.qml:210
 #, qt-format
 msgctxt "TextFieldContextMenu|"
 msgid "Add \"%1\" to Dictionary"
-msgstr "将“%1”添加到字典"
+msgstr "添加“%1”到词典"
 
 #: org.kde.desktop/private/TextFieldContextMenu.qml:226
 msgctxt "TextFieldContextMenu|"
