@@ -15,19 +15,56 @@ import org.kde.desktop.private as Private
 T.ItemDelegate {
     id: controlRoot
 
+    // Use ListView/GridView attached property of the item delegate directly or in
+    // the case of draggable item delegate, take the one from the parent.
+    property var _listView: ListView ? ListView : parent.ListView
+
+    property var _gridView: GridView ? GridView : parent.GridView
+
+    readonly property bool _useAlternatingColors: {
+        if (TableView.view?.alternatingRows && row % 2) {
+            return true
+        } else if (Kirigami.Theme.useAlternateBackgroundColor && index % 2) {
+            return true
+        }
+        return false
+    }
+
     implicitWidth: Math.max(implicitBackgroundWidth + leftInset + rightInset,
                             implicitContentWidth + leftPadding + rightPadding)
     implicitHeight: Math.max(implicitBackgroundHeight + topInset + bottomInset,
                              implicitContentHeight + topPadding + bottomPadding,
-                             implicitIndicatorHeight + topPadding + bottomPadding)
+                             implicitIndicatorHeight + topPadding + bottomPadding,
+                             Kirigami.Units.gridUnit * 2)
 
     hoverEnabled: true
 
-    spacing: Kirigami.Units.smallSpacing
-    padding: Kirigami.Settings.tabletMode ? Kirigami.Units.largeSpacing : Kirigami.Units.mediumSpacing
-    horizontalPadding: Kirigami.Units.smallSpacing * 2
-    leftPadding: !mirrored ? horizontalPadding + (indicator ? implicitIndicatorWidth + spacing : 0) : horizontalPadding
-    rightPadding: mirrored ? horizontalPadding + (indicator ? implicitIndicatorWidth + spacing : 0) : horizontalPadding
+    padding: Kirigami.Units.mediumSpacing
+
+    horizontalPadding: padding + (TableView.view ? 0 : Math.round(Kirigami.Units.smallSpacing / 2))
+    leftPadding: horizontalPadding
+    rightPadding: horizontalPadding
+
+    verticalPadding: padding
+    topPadding: verticalPadding
+    bottomPadding: verticalPadding
+
+    topInset: if (TableView.view) {
+        return 0;
+    } else if (controlRoot.index !== undefined && index === 0) {
+        return Kirigami.Units.smallSpacing;
+    } else {
+        return Math.round(Kirigami.Units.smallSpacing / 2);
+    }
+    bottomInset: if (TableView.view) {
+        return 0;
+    } else if (controlRoot.index !== undefined && _listView.view && index === _listView.view.count - 1) {
+        return Kirigami.Units.smallSpacing;
+    } else {
+        return Math.round(Kirigami.Units.smallSpacing / 2);
+    }
+    rightInset: _useAlternatingColors || TableView.view ? 0 : Kirigami.Units.smallSpacing
+    leftInset: _useAlternatingColors || TableView.view ? 0 : Kirigami.Units.smallSpacing
 
     icon.width: Kirigami.Units.iconSizes.smallMedium
     icon.height: Kirigami.Units.iconSizes.smallMedium
@@ -35,6 +72,8 @@ T.ItemDelegate {
     T.ToolTip.visible: (Kirigami.Settings.tabletMode ? down : hovered) && (contentItem.truncated ?? false)
     T.ToolTip.text: text
     T.ToolTip.delay: Kirigami.Units.toolTipDelay
+
+    highlighted: _listView.isCurrentItem || GridView.isCurrentItem
 
     contentItem: RowLayout {
         LayoutMirroring.enabled: controlRoot.mirrored
