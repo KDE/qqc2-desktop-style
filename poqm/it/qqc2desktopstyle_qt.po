@@ -2,7 +2,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
-"PO-Revision-Date: 2024-03-09 16:54+0100\n"
+"PO-Revision-Date: 2024-05-14 15:46+0200\n"
 "Last-Translator: Paolo Zamponi <feus73@gmail.com>\n"
 "Language-Team: Italian <kde-i18n-it@kde.org>\n"
 "Language: it\n"
@@ -10,29 +10,20 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Lokalize 24.02.0\n"
+"X-Generator: Lokalize 24.02.2\n"
 "X-Qt-Contexts: true\n"
 
 #: org.kde.desktop/private/MobileTextActionsToolBarImpl.qml:59
-#, fuzzy
-#| msgctxt "TextFieldContextMenu|"
-#| msgid "Cut"
 msgctxt "MobileTextActionsToolBarImpl|"
 msgid "Cut"
 msgstr "Taglia"
 
 #: org.kde.desktop/private/MobileTextActionsToolBarImpl.qml:69
-#, fuzzy
-#| msgctxt "TextFieldContextMenu|"
-#| msgid "Copy"
 msgctxt "MobileTextActionsToolBarImpl|"
 msgid "Copy"
 msgstr "Copia"
 
 #: org.kde.desktop/private/MobileTextActionsToolBarImpl.qml:79
-#, fuzzy
-#| msgctxt "TextFieldContextMenu|"
-#| msgid "Paste"
 msgctxt "MobileTextActionsToolBarImpl|"
 msgid "Paste"
 msgstr "Incolla"
