@@ -14,28 +14,19 @@ msgstr ""
 "X-Qt-Contexts: true\n"
 
 #: org.kde.desktop/private/MobileTextActionsToolBarImpl.qml:59
-#, fuzzy
-#| msgctxt "TextFieldContextMenu|"
-#| msgid "Cut"
 msgctxt "MobileTextActionsToolBarImpl|"
 msgid "Cut"
-msgstr "Vyjmout"
+msgstr ""
 
 #: org.kde.desktop/private/MobileTextActionsToolBarImpl.qml:69
-#, fuzzy
-#| msgctxt "TextFieldContextMenu|"
-#| msgid "Copy"
 msgctxt "MobileTextActionsToolBarImpl|"
 msgid "Copy"
-msgstr "Kopírovat"
+msgstr ""
 
 #: org.kde.desktop/private/MobileTextActionsToolBarImpl.qml:79
-#, fuzzy
-#| msgctxt "TextFieldContextMenu|"
-#| msgid "Paste"
 msgctxt "MobileTextActionsToolBarImpl|"
 msgid "Paste"
-msgstr "Vložit"
+msgstr ""
 
 #: org.kde.desktop/private/TextFieldContextMenu.qml:196
 #, qt-format
