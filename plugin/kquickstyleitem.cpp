@@ -1252,7 +1252,7 @@ int KQuickStyleItem::handleWidth() const
     return style()->pixelMetric(QStyle::PM_SplitterWidth, nullptr);
 }
 
-qreal KQuickStyleItem::baselineOffset()
+qreal KQuickStyleItem::baselineOffset() const
 {
     QRect r;
     bool ceilResult = true; // By default baseline offset rounding is done upwards

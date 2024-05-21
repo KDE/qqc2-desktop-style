@@ -504,7 +504,7 @@ private:
     QIcon iconFromIconProperty() const;
     const char *classNameForItem() const;
     int handleWidth() const;
-    qreal baselineOffset();
+    qreal baselineOffset() const;
     void styleChanged();
 
 protected:
