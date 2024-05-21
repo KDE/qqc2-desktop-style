@@ -2,7 +2,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
-"PO-Revision-Date: 2024-03-25 08:24+0100\n"
+"PO-Revision-Date: 2024-05-17 14:03+0200\n"
 "Last-Translator: Vit Pelcak <vpelcak@suse.cz>\n"
 "Language-Team: Czech <kde-i18n-doc@kde.org>\n"
 "Language: cs\n"
@@ -10,23 +10,23 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2;\n"
-"X-Generator: Lokalize 24.02.0\n"
+"X-Generator: Lokalize 24.02.2\n"
 "X-Qt-Contexts: true\n"
 
 #: org.kde.desktop/private/MobileTextActionsToolBarImpl.qml:59
 msgctxt "MobileTextActionsToolBarImpl|"
 msgid "Cut"
-msgstr ""
+msgstr "Vyjmout"
 
 #: org.kde.desktop/private/MobileTextActionsToolBarImpl.qml:69
 msgctxt "MobileTextActionsToolBarImpl|"
 msgid "Copy"
-msgstr ""
+msgstr "Kopírovat"
 
 #: org.kde.desktop/private/MobileTextActionsToolBarImpl.qml:79
 msgctxt "MobileTextActionsToolBarImpl|"
 msgid "Paste"
-msgstr ""
+msgstr "Vložit"
 
 #: org.kde.desktop/private/TextFieldContextMenu.qml:196
 #, qt-format
