@@ -20,6 +20,8 @@ T.DelayButton {
     implicitHeight: Math.max(implicitBackgroundHeight + topInset + bottomInset,
                              implicitContentHeight + topPadding + bottomPadding)
 
+    baselineOffset: background ? background.y + background.baselineOffset : 0
+
     hoverEnabled: Qt.styleHints.useHoverEffects
 
     Kirigami.MnemonicData.enabled: enabled && visible

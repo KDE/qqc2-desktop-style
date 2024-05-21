@@ -1257,29 +1257,43 @@ qreal KQuickStyleItem::baselineOffset() const
     QRect r;
     bool ceilResult = true; // By default baseline offset rounding is done upwards
     switch (m_itemType) {
-    case RadioButton:
-        r = KQuickStyleItem::style()->subElementRect(QStyle::SE_RadioButtonContents, m_styleoption);
-        break;
     case Button:
         r = KQuickStyleItem::style()->subElementRect(QStyle::SE_PushButtonContents, m_styleoption);
         break;
     case CheckBox:
         r = KQuickStyleItem::style()->subElementRect(QStyle::SE_CheckBoxContents, m_styleoption);
         break;
-    case Edit:
-        r = KQuickStyleItem::style()->subElementRect(QStyle::SE_LineEditContents, m_styleoption);
-        break;
     case ComboBox:
-        if (const QStyleOptionComboBox *combo = qstyleoption_cast<const QStyleOptionComboBox *>(m_styleoption)) {
-            r = KQuickStyleItem::style()->subControlRect(QStyle::CC_ComboBox, combo, QStyle::SC_ComboBoxEditField);
+        if (const auto option = qstyleoption_cast<const QStyleOptionComboBox *>(m_styleoption)) {
+            r = KQuickStyleItem::style()->subControlRect(QStyle::CC_ComboBox, option, QStyle::SC_ComboBoxEditField);
             if (styleName() != QLatin1String("mac")) {
                 r.adjust(0, 0, 0, 1);
             }
         }
         break;
+    case DelayButton:
+    case ToolButton:
+        if (const auto option = qstyleoption_cast<const QStyleOptionComplex *>(m_styleoption)) {
+            r = KQuickStyleItem::style()->subControlRect(QStyle::CC_ToolButton, option, QStyle::SC_ToolButton);
+        }
+        break;
+    case Edit:
+        r = KQuickStyleItem::style()->subElementRect(QStyle::SE_LineEditContents, m_styleoption);
+        break;
+    case ProgressBar:
+        r = m_styleoption->rect;
+        r.adjust(0, 0, 0, -2);
+        break;
+    case RadioButton:
+        r = KQuickStyleItem::style()->subElementRect(QStyle::SE_RadioButtonContents, m_styleoption);
+        break;
+    case Slider:
+        r = m_styleoption->rect;
+        r.adjust(0, 0, 0, -2);
+        break;
     case SpinBox:
-        if (const QStyleOptionSpinBox *spinbox = qstyleoption_cast<const QStyleOptionSpinBox *>(m_styleoption)) {
-            r = KQuickStyleItem::style()->subControlRect(QStyle::CC_SpinBox, spinbox, QStyle::SC_SpinBoxEditField);
+        if (const auto option = qstyleoption_cast<const QStyleOptionSpinBox *>(m_styleoption)) {
+            r = KQuickStyleItem::style()->subControlRect(QStyle::CC_SpinBox, option, QStyle::SC_SpinBoxEditField);
             ceilResult = false;
         }
         break;

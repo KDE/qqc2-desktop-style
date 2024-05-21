@@ -22,6 +22,8 @@ T.Slider {
     implicitHeight: Math.max(implicitBackgroundHeight + topInset + bottomInset,
                              implicitContentHeight + topPadding + bottomPadding)
 
+    baselineOffset: background ? background.y + background.baselineOffset : 0
+
     hoverEnabled: true
 
     handle: Private.DefaultSliderHandle {

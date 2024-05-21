@@ -24,6 +24,8 @@ T.ToolButton {
     implicitHeight: Math.max(implicitBackgroundHeight + topInset + bottomInset,
                              implicitContentHeight + topPadding + bottomPadding)
 
+    baselineOffset: background ? background.y + background.baselineOffset : 0
+
     hoverEnabled: Qt.styleHints.useHoverEffects
 
     flat: true
