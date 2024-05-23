@@ -11,6 +11,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 "X-Generator: Lokalize 23.08.5\n"
+"X-Qt-Contexts: true\n"
 
 #: org.kde.desktop/private/TextFieldContextMenu.qml:132
 #, qt-format
