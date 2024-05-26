@@ -2001,6 +2001,8 @@ QSGNode *KQuickStyleItem::updatePaintNode(QSGNode *node, UpdatePaintNodeData *)
 void KQuickStyleItem::updatePolish()
 {
     if (isVisible() && width() >= 1 && height() >= 1) { // Note these are reals so 1 pixel is minimum
+        // Need to request the focus reason every time, the signal is not entirely reliable: https://bugreports.qt.io/browse/QTBUG-125725
+        updateFocusReason();
         const qreal devicePixelRatio = window() ? window()->effectiveDevicePixelRatio() : qApp->devicePixelRatio();
         const QSize size = QSize(m_textureWidth > 0 ? m_textureWidth : width(), m_textureHeight > 0 ? m_textureHeight : height()) * devicePixelRatio;
 
