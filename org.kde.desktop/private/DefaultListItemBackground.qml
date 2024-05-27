@@ -32,9 +32,17 @@ Rectangle {
     // Workaround for QTBUG-113304
     readonly property bool reallyFocus: control.visualFocus || (control.activeFocus && control.focusReason === Qt.OtherFocusReason)
 
-    property real horizontalPadding: control.TableView.view ? 0 : Kirigami.Units.smallSpacing
-    property real verticalPadding: control.TableView.view ? 0 : Kirigami.Units.smallSpacing
-    property real cornerRadius: control.TableView.view ? 0 : Kirigami.Units.cornerRadius
+    enum Styling {
+        Default,
+        Table,
+        List
+    }
+
+    property int styling: DefaultListItemBackground.Styling.Default
+
+    property real horizontalPadding: _private.addPadding() ? Kirigami.Units.smallSpacing : 0
+    property real verticalPadding: _private.addPadding() ? Kirigami.Units.smallSpacing : 0
+    property real cornerRadius: _private.addPadding() ? Kirigami.Units.cornerRadius : 0
 
     color: normalColor
 
@@ -66,6 +74,20 @@ Rectangle {
                 return background.highlightColor
             } else {
                 return (background.control.hovered || background.reallyFocus) ? Kirigami.Theme.hoverColor : "transparent"
+            }
+        }
+    }
+
+    QtObject {
+        id: _private
+        function addPadding() {
+            switch (background.styling) {
+                case DefaultListItemBackground.Styling.Default:
+                    return control.TableView.view ? false : true;
+                case DefaultListItemBackground.Styling.Table:
+                    return false;
+                case DefaultListItemBackground.Styling.List:
+                    return true;
             }
         }
     }
