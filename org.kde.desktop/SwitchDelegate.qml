@@ -36,6 +36,11 @@ T.SwitchDelegate {
     T.ToolTip.text: text
     T.ToolTip.delay: Kirigami.Units.toolTipDelay
 
+    leftInset: TableView.view ? 0 : horizontalPadding / 2
+    rightInset: TableView.view ? 0 : horizontalPadding / 2
+    topInset: TableView.view ? 0 : Math.ceil(verticalPadding / 2)
+    bottomInset: TableView.view ? 0 : Math.ceil(verticalPadding / 2)
+
     contentItem: RowLayout {
         LayoutMirroring.enabled: controlRoot.mirrored
         spacing: controlRoot.spacing
@@ -73,6 +78,9 @@ T.SwitchDelegate {
     }
 
     background: Private.DefaultListItemBackground {
+        // This is intentional and ensures the inset is not directly applied to
+        // the background, allowing it to determine how to handle the inset.
+        anchors.fill: parent
         control: controlRoot
     }
 }

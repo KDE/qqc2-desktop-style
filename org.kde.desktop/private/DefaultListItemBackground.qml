@@ -32,25 +32,20 @@ Rectangle {
     // Workaround for QTBUG-113304
     readonly property bool reallyFocus: control.visualFocus || (control.activeFocus && control.focusReason === Qt.OtherFocusReason)
 
-    property real horizontalPadding: control.TableView.view ? 0 : Kirigami.Units.smallSpacing
-    property real verticalPadding: control.TableView.view ? 0 : Kirigami.Units.smallSpacing
-    property real cornerRadius: control.TableView.view ? 0 : Kirigami.Units.cornerRadius
+    readonly property bool hasInset: control.leftInset > 0 || control.rightInset > 0 || control.topInset > 0 || control.bottomInset > 0
 
     color: normalColor
 
     Rectangle {
         anchors {
             fill: parent
-            leftMargin: background.horizontalPadding
-            rightMargin: background.horizontalPadding
-            // We want total spacing between consecutive list items to be
-            // verticalPadding. So use half that as top/bottom margin, separately
-            // ceiling/flooring them so that the total spacing is preserved.
-            topMargin: Math.ceil(background.verticalPadding / 2)
-            bottomMargin: Math.floor(background.verticalPadding / 2)
+            leftMargin: background.control.leftInset
+            rightMargin: background.control.rightInset
+            topMargin: background.control.topInset
+            bottomMargin: background.control.bottomInset
         }
 
-        radius: background.cornerRadius
+        radius: background.hasInset ? Kirigami.Units.cornerRadius : 0
 
         color: {
             if (background.highlight) {
@@ -60,7 +55,7 @@ Rectangle {
             }
         }
 
-        border.width: 1
+        border.width: background.hasInset ? 1 : 0
         border.color: {
             if (background.highlight) {
                 return background.highlightColor

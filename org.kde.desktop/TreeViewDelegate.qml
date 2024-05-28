@@ -30,6 +30,11 @@ T.TreeViewDelegate {
     rightPadding: mirrored ? leftMargin + __contentIndent : 0
     verticalPadding: Kirigami.Units.smallSpacing
 
+    leftInset: TableView.view ? 0 : horizontalPadding / 2
+    rightInset: TableView.view ? 0 : horizontalPadding / 2
+    topInset: TableView.view ? 0 : Math.ceil(verticalPadding / 2)
+    bottomInset: TableView.view ? 0 : Math.ceil(verticalPadding / 2)
+
     Kirigami.Theme.colorSet: highlighted ? Kirigami.Theme.Selection : Kirigami.Theme.View
     Kirigami.Theme.inherit: false
 
@@ -105,6 +110,9 @@ T.TreeViewDelegate {
     background: Private.DefaultListItemBackground {
         Kirigami.Theme.colorSet: Kirigami.Theme.View
         Kirigami.Theme.inherit: false
+        // This is intentional and ensures the inset is not directly applied to
+        // the background, allowing it to determine how to handle the inset.
+        anchors.fill: parent
         control: controlRoot
     }
 
