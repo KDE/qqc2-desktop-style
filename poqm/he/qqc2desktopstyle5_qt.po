@@ -1,0 +1,71 @@
+# SPDX-FileCopyrightText: 2024 Yaron Shahrabani <sh.yaron@gmail.com>
+msgid ""
+msgstr ""
+"Project-Id-Version: \n"
+"PO-Revision-Date: 2024-05-29 09:02+0300\n"
+"Last-Translator: Yaron Shahrabani <sh.yaron@gmail.com>\n"
+"Language-Team: צוות התרגום של KDE ישראל\n"
+"Language: he\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Qt-Contexts: true\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: Lokalize 24.02.2\n"
+
+#: org.kde.desktop/private/TextFieldContextMenu.qml:132
+#, qt-format
+msgctxt "TextFieldContextMenu|"
+msgid "No suggestions for \"%1\""
+msgstr "אין הצעות עבור „%1”"
+
+#: org.kde.desktop/private/TextFieldContextMenu.qml:140
+#, qt-format
+msgctxt "TextFieldContextMenu|"
+msgid "Add \"%1\" to dictionary"
+msgstr "הוספת „%1” למילון"
+
+#: org.kde.desktop/private/TextFieldContextMenu.qml:151
+msgctxt "TextFieldContextMenu|"
+msgid "Ignore"
+msgstr "התעלמות"
+
+#: org.kde.desktop/private/TextFieldContextMenu.qml:163
+msgctxt "TextFieldContextMenu|"
+msgid "Enable Spellchecker"
+msgstr "הפעלת בודק איות"
+
+#: org.kde.desktop/private/TextFieldContextMenu.qml:178
+msgctxt "TextFieldContextMenu|"
+msgid "Undo"
+msgstr "הסגה"
+
+#: org.kde.desktop/private/TextFieldContextMenu.qml:191
+msgctxt "TextFieldContextMenu|"
+msgid "Redo"
+msgstr "ביצוע מחדש"
+
+#: org.kde.desktop/private/TextFieldContextMenu.qml:207
+msgctxt "TextFieldContextMenu|"
+msgid "Cut"
+msgstr "גזירה"
+
+#: org.kde.desktop/private/TextFieldContextMenu.qml:219
+msgctxt "TextFieldContextMenu|"
+msgid "Copy"
+msgstr "העתקה"
+
+#: org.kde.desktop/private/TextFieldContextMenu.qml:233
+msgctxt "TextFieldContextMenu|"
+msgid "Paste"
+msgstr "הדבקה"
+
+#: org.kde.desktop/private/TextFieldContextMenu.qml:246
+msgctxt "TextFieldContextMenu|"
+msgid "Delete"
+msgstr "מחיקה"
+
+#: org.kde.desktop/private/TextFieldContextMenu.qml:261
+msgctxt "TextFieldContextMenu|"
+msgid "Select All"
+msgstr "בחירה בהכול"
