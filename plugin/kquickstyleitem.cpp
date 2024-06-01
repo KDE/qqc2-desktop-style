@@ -238,9 +238,7 @@ void KQuickStyleItem::initStyleOption()
     }
 
     case Splitter: {
-        if (!m_styleoption) {
-            m_styleoption = new QStyleOption;
-        }
+        // Use defaults
         break;
     }
 
@@ -1220,6 +1218,11 @@ QSize KQuickStyleItem::sizeFromContents(int width, int height)
     case Item: // fall through
         size = KQuickStyleItem::style()->sizeFromContents(QStyle::CT_ItemViewItem, m_styleoption, QSize(width, height));
         break;
+    case Splitter: {
+        const auto hw = handleWidth();
+        size = KQuickStyleItem::style()->sizeFromContents(QStyle::CT_Splitter, m_styleoption, QSize(hw, hw));
+        break;
+    }
     case MenuBarItem:
         size = KQuickStyleItem::style()->sizeFromContents(QStyle::CT_MenuBarItem, m_styleoption, QSize(width, height));
         break;
@@ -1241,6 +1244,12 @@ QSize KQuickStyleItem::sizeFromContents(int width, int height)
         break;
     }
     return size.expandedTo(QSize(m_contentWidth, m_contentHeight));
+}
+
+int KQuickStyleItem::handleWidth() const
+{
+    // TODO: emulate QSplitter::handleWidth using contentWidth or a custom property?
+    return style()->pixelMetric(QStyle::PM_SplitterWidth, nullptr);
 }
 
 qreal KQuickStyleItem::baselineOffset()
@@ -1730,11 +1739,7 @@ void KQuickStyleItem::paint(QPainter *painter)
         KQuickStyleItem::style()->drawPrimitive(QStyle::PE_PanelScrollAreaCorner, m_styleoption, painter);
         break;
     case Splitter:
-        if (m_styleoption->rect.width() == 1) {
-            painter->fillRect(0, 0, width(), height(), m_styleoption->palette.dark().color());
-        } else {
-            KQuickStyleItem::style()->drawControl(QStyle::CE_Splitter, m_styleoption, painter);
-        }
+        KQuickStyleItem::style()->drawControl(QStyle::CE_Splitter, m_styleoption, painter);
         break;
     case ComboBox: {
         KQuickStyleItem::style()->drawComplexControl(QStyle::CC_ComboBox, qstyleoption_cast<QStyleOptionComplex *>(m_styleoption), painter);

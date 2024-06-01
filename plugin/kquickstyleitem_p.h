@@ -503,6 +503,7 @@ private:
     int padding(Qt::Edge edge) const;
     QIcon iconFromIconProperty() const;
     const char *classNameForItem() const;
+    int handleWidth() const;
     qreal baselineOffset();
     void styleChanged();
 
