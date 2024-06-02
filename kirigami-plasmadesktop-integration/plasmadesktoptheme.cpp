@@ -6,7 +6,10 @@
 
 #include "plasmadesktoptheme.h"
 
+#if HAVE_QTDBUS
 #include <QDBusConnection>
+#endif
+
 #include <QGuiApplication>
 #include <QPalette>
 #include <QQuickRenderControl>
@@ -32,6 +35,7 @@ public:
         , buttonScheme(QPalette::Active, KColorScheme::ColorSet::Button)
         , viewScheme(QPalette::Active, KColorScheme::ColorSet::View)
     {
+#if HAVE_QTDBUS
         // Use DBus in order to listen for settings changes directly, as the
         // QApplication doesn't expose the font variants we're looking for,
         // namely smallFont.
@@ -41,6 +45,7 @@ public:
                                               QStringLiteral("refreshFonts"),
                                               this,
                                               SLOT(notifyWatchersConfigurationChange()));
+#endif
 
         connect(qGuiApp, &QGuiApplication::fontDatabaseChanged, this, &StyleSingleton::notifyWatchersConfigurationChange);
         qGuiApp->installEventFilter(this);

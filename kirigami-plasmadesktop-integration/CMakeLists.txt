@@ -12,13 +12,22 @@ target_link_libraries(org.kde.desktop
         Qt6::Core
         KF6::KirigamiPlatform
     PRIVATE
-        Qt6::DBus
         Qt6::Qml
         Qt6::Quick
         KF6::ConfigCore
         KF6::ColorScheme
         KF6::IconThemes
 )
+
+if (HAVE_DBUS)
+    target_link_libraries(org.kde.desktop
+        PRIVATE
+        Qt6::DBus
+    )
+    target_compile_definitions(org.kde.desktop PRIVATE -DHAVE_QTDBUS=1)
+else()
+    target_compile_definitions(org.kde.desktop PRIVATE -DHAVE_QTDBUS=0)
+endif()
 
 if(WIN32)
     target_link_libraries(org.kde.desktop PRIVATE user32)
