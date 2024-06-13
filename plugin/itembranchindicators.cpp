@@ -34,7 +34,7 @@ void ItemBranchIndicators::updateParentChain()
 
     // If we have children the indicator is drawn in the QML
     if (m_index.column() == 0) {
-        auto index = m_index.model()->hasChildren(m_index) ? m_index.parent() : m_index;
+        auto index = m_index.model()->hasChildren(m_index) ? m_index.parent() : QModelIndex(m_index);
         // if the TreeView's root index is set, don't go past it
         while (index.isValid() && (!m_rootIndex.isValid() || index != m_rootIndex)) {
             auto data = PaintData{
@@ -56,6 +56,10 @@ void ItemBranchIndicators::updateParentChain()
 
 void ItemBranchIndicators::setRootIndex(const QModelIndex &new_root_index)
 {
+    if (m_rootIndex == new_root_index) {
+        return;
+    }
+
     m_rootIndex = new_root_index;
     updateParentChain();
     Q_EMIT rootIndexChanged();
@@ -63,6 +67,10 @@ void ItemBranchIndicators::setRootIndex(const QModelIndex &new_root_index)
 
 void ItemBranchIndicators::setModelIndex(const QModelIndex &new_index)
 {
+    if (m_index == new_index) {
+        return;
+    }
+
     m_index = new_index;
     updateParentChain();
     Q_EMIT modelIndexChanged();

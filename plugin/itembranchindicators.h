@@ -37,10 +37,10 @@ Q_SIGNALS:
 private:
     void updateParentChain();
 
-    QModelIndex m_index;
-    QModelIndex m_rootIndex;
     std::vector<PaintData> m_parentChain;
 
+    QPersistentModelIndex m_index;
+    QPersistentModelIndex m_rootIndex;
     bool m_selected;
     QPalette m_palette;
 };
