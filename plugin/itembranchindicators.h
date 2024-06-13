@@ -10,6 +10,11 @@
 #include <QPalette>
 #include <QQuickPaintedItem>
 
+struct PaintData {
+    bool hasSibling : 1 = false;
+    bool isItem : 1 = false;
+};
+
 class ItemBranchIndicators : public QQuickPaintedItem
 {
     Q_OBJECT
@@ -32,9 +37,10 @@ Q_SIGNALS:
 private:
     void updateParentChain();
 
-    std::vector<QModelIndex> parentChain;
     QModelIndex m_index;
     QModelIndex m_rootIndex;
+    std::vector<PaintData> m_parentChain;
+
     bool m_selected;
     QPalette m_palette;
 };

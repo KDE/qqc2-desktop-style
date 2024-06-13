@@ -29,23 +29,27 @@ ItemBranchIndicators::ItemBranchIndicators(QQuickItem *parent)
 
 void ItemBranchIndicators::updateParentChain()
 {
-    const bool wasPainting = parentChain.size() != 0;
-    parentChain.clear();
+    const bool wasPainting = m_parentChain.size() != 0;
+    m_parentChain.clear();
 
     // If we have children the indicator is drawn in the QML
     if (m_index.column() == 0) {
         auto index = m_index.model()->hasChildren(m_index) ? m_index.parent() : m_index;
         // if the TreeView's root index is set, don't go past it
         while (index.isValid() && (!m_rootIndex.isValid() || index != m_rootIndex)) {
-            parentChain.push_back(index);
+            auto data = PaintData{
+                .hasSibling = index.siblingAtRow(index.row() + 1).isValid(),
+                .isItem = index == m_index,
+            };
+            m_parentChain.push_back(data);
             index = index.parent();
         }
     }
 
     const auto elementWidth = KQuickStyleItem::style()->pixelMetric(QStyle::PM_TreeViewIndentation);
-    setImplicitWidth(elementWidth * parentChain.size());
+    setImplicitWidth(elementWidth * m_parentChain.size());
 
-    if (wasPainting || !parentChain.empty()) {
+    if (wasPainting || !m_parentChain.empty()) {
         update();
     }
 }
@@ -82,9 +86,13 @@ void ItemBranchIndicators::paint(QPainter *painter)
     styleOption.state.setFlag(QStyle::State_Children, false);
     styleOption.rect.setSize(QSize(elementWidth, height()));
     styleOption.palette = m_palette;
+
+    // Note this is an intentional copy, to make sure we snapshot the data while
+    // we're iterating through it.
+    const auto parentChain = m_parentChain;
     for (auto it = parentChain.rbegin(); it != parentChain.rend(); ++it) {
-        styleOption.state.setFlag(QStyle::State_Item, *it == m_index);
-        styleOption.state.setFlag(QStyle::State_Sibling, it->siblingAtRow(it->row() + 1).isValid());
+        styleOption.state.setFlag(QStyle::State_Item, it->isItem);
+        styleOption.state.setFlag(QStyle::State_Sibling, it->hasSibling);
         if (QGuiApplication::layoutDirection() == Qt::LeftToRight) {
             styleOption.rect.moveLeft(std::distance(parentChain.rbegin(), it) * elementWidth);
         } else {
