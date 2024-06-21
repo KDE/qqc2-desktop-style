@@ -68,6 +68,7 @@ T.ComboBox {
         enabled: controlRoot.editable
         autoScroll: controlRoot.editable
         readOnly: controlRoot.down
+        focus: true
 
         visible: controlRoot.editable
         inputMethodHints: controlRoot.inputMethodHints
