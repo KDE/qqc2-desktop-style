@@ -1,4 +1,4 @@
-# SPDX-FileCopyrightText: 2024 Vit Pelcak <vpelcak@suse.cz>
+# SPDX-FileCopyrightText: 2024 Vit Pelcak <vit@pelcak.org>
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
