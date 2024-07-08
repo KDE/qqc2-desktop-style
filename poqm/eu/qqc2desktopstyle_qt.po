@@ -1,14 +1,14 @@
 # Translation for qqc2desktopstyle_qt.po to Euskara/Basque (eu).
 # Copyright (C) 2024 This file is copyright:
 # This file is distributed under the same license as the original file.
-# KDE euskaratzeko proiektuko arduraduna <xalba@ni.eus>.
+# SPDX-FileCopyrightText: 2024 KDE euskaratzeko proiektuko arduraduna <xalba@ni.eus>
 #
 # Translators:
 # SPDX-FileCopyrightText: 2024 Iñigo Salvador Azurmendi <xalba@ni.eus>
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
-"PO-Revision-Date: 2024-03-08 18:31+0100\n"
+"PO-Revision-Date: 2024-07-07 11:21+0200\n"
 "Last-Translator: Iñigo Salvador Azurmendi <xalba@ni.eus>\n"
 "Language-Team: Basque <kde-i18n-eu@kde.org>\n"
 "Language: eu\n"
@@ -17,28 +17,19 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "X-Qt-Contexts: true\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Lokalize 24.02.0\n"
+"X-Generator: Lokalize 24.05.2\n"
 
 #: org.kde.desktop/private/MobileTextActionsToolBarImpl.qml:59
-#, fuzzy
-#| msgctxt "TextFieldContextMenu|"
-#| msgid "Cut"
 msgctxt "MobileTextActionsToolBarImpl|"
 msgid "Cut"
 msgstr "Ebaki"
 
 #: org.kde.desktop/private/MobileTextActionsToolBarImpl.qml:69
-#, fuzzy
-#| msgctxt "TextFieldContextMenu|"
-#| msgid "Copy"
 msgctxt "MobileTextActionsToolBarImpl|"
 msgid "Copy"
 msgstr "Kopiatu"
 
 #: org.kde.desktop/private/MobileTextActionsToolBarImpl.qml:79
-#, fuzzy
-#| msgctxt "TextFieldContextMenu|"
-#| msgid "Paste"
 msgctxt "MobileTextActionsToolBarImpl|"
 msgid "Paste"
 msgstr "Itsatsi"
