@@ -1,7 +1,6 @@
-#, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: PACKAGE VERSION\n"
+"Project-Id-Version: qqc2desktopstyle5_qt\n"
 "Language-Team: none\n"
 "Language: de\n"
 "MIME-Version: 1.0\n"
