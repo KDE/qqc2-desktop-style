@@ -93,6 +93,13 @@ T.ScrollBar {
 
     background: MouseArea {
         id: mouseArea
+
+        // The same as contentItem, but they are mutually exclusive anyway.
+        // The stacking order needs to be greater than zero, so that it can
+        // actually override ScrollBar's own internal event handling.
+        // BUG: 488092
+        z: 1
+
         anchors.fill: parent
         visible: controlRoot.size < 1.0 && controlRoot.interactive
         hoverEnabled: true
@@ -114,20 +121,22 @@ T.ScrollBar {
                 mouse.accepted = true;
             } else if (style.activeControl === "downPage") {
                 if (style.scrollToClickPosition(mouse)) {
-                    controlRoot.position = jumpPosition;
+                    // Let the QQuickScrollBar handle it
+                    mouse.accepted = false;
                 } else {
                     buttonTimer.increment = controlRoot.size;
                     buttonTimer.running = true;
+                    mouse.accepted = true;
                 }
-                mouse.accepted = true;
             } else if (style.activeControl === "upPage") {
                 if (style.scrollToClickPosition(mouse)) {
-                    controlRoot.position = jumpPosition;
+                    // Let the QQuickScrollBar handle it
+                    mouse.accepted = false;
                 } else {
                     buttonTimer.increment = -controlRoot.size;
                     buttonTimer.running = true;
+                    mouse.accepted = true;
                 }
-                mouse.accepted = true;
             } else {
                 mouse.accepted = false;
             }
@@ -138,6 +147,9 @@ T.ScrollBar {
                 style.activeControl = "handle";
                 controlRoot.position = style.positionFromMouse(mouse);
                 mouse.accepted = true;
+            } else {
+                // Let the QQuickScrollBar handle it
+                mouse.accepted = false;
             }
         }
         onReleased: mouse => {
