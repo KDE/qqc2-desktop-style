@@ -58,7 +58,7 @@ Rectangle {
         border.width: background.hasInset ? 1 : 0
         border.color: {
             if (background.highlight) {
-                return background.highlightColor
+                return Kirigami.Theme.accentColor
             } else {
                 return (background.control.hovered || background.reallyFocus) ? Kirigami.Theme.hoverColor : "transparent"
             }

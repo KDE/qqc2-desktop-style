@@ -148,6 +148,7 @@ public:
             pal.setBrush(state, QPalette::AlternateBase, ret.scheme.background(KColorScheme::AlternateBackground));
             pal.setBrush(state, QPalette::Link, ret.scheme.foreground(KColorScheme::LinkText));
             pal.setBrush(state, QPalette::LinkVisited, ret.scheme.foreground(KColorScheme::VisitedText));
+            pal.setBrush(state, QPalette::Accent, ret.scheme.decoration(KColorScheme::FocusColor));
         }
         ret.palette = pal;
         m_cache.insert(key, ret);
@@ -313,6 +314,7 @@ void PlasmaDesktopTheme::syncColors()
     setPositiveBackgroundColor(colors.scheme.background(KColorScheme::PositiveBackground).color());
 
     // decoration
+    setAccentColor(colors.scheme.decoration(KColorScheme::FocusColor).color());
     setHoverColor(colors.scheme.decoration(KColorScheme::HoverColor).color());
     setFocusColor(colors.scheme.decoration(KColorScheme::FocusColor).color());
 }
