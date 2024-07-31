@@ -16,11 +16,17 @@ import org.kde.desktop.private as Private
 T.RadioDelegate {
     id: controlRoot
 
+    // Use ListView/GridView attached property of the item delegate directly or in
+    // the case of draggable item delegate, take the one from the parent.
+    readonly property var _listView: ListView ? ListView : parent.ListView
+    readonly property var _gridView: GridView ? GridView : parent.GridView
+
     implicitWidth: Math.max(implicitBackgroundWidth + leftInset + rightInset,
                             implicitContentWidth + leftPadding + rightPadding)
     implicitHeight: Math.max(implicitBackgroundHeight + topInset + bottomInset,
                              implicitContentHeight + topPadding + bottomPadding,
-                             implicitIndicatorHeight + topPadding + bottomPadding)
+                             implicitIndicatorHeight + topPadding + bottomPadding,
+                             Kirigami.Units.gridUnit * 2)
 
     hoverEnabled: true
 
@@ -37,10 +43,24 @@ T.RadioDelegate {
     T.ToolTip.text: text
     T.ToolTip.delay: Kirigami.Units.toolTipDelay
 
-    leftInset: TableView.view ? 0 : horizontalPadding / 2
-    rightInset: TableView.view ? 0 : horizontalPadding / 2
-    topInset: TableView.view ? 0 : Math.ceil(verticalPadding / 2)
-    bottomInset: TableView.view ? 0 : Math.ceil(verticalPadding / 2)
+    topInset: if (TableView.view || Kirigami.Theme.useAlternateBackgroundColor) {
+        return 0;
+    } else if (controlRoot.index !== undefined && index === 0) {
+        return Kirigami.Units.smallSpacing;
+    } else {
+        return Math.round(Kirigami.Units.smallSpacing / 2);
+    }
+    bottomInset: if (TableView.view || Kirigami.Theme.useAlternateBackgroundColor) {
+        return 0;
+    } else if (controlRoot.index !== undefined && _listView.view && index === _listView.view.count - 1) {
+        return Kirigami.Units.smallSpacing;
+    } else {
+        return Math.round(Kirigami.Units.smallSpacing / 2);
+    }
+    rightInset: Kirigami.Theme.useAlternateBackgroundColor || TableView.view ? 0 : Kirigami.Units.smallSpacing
+    leftInset: Kirigami.Theme.useAlternateBackgroundColor || TableView.view ? 0 : Kirigami.Units.smallSpacing
+
+    highlighted: _listView.isCurrentItem || _gridView.isCurrentItem
 
     contentItem: RowLayout {
         LayoutMirroring.enabled: controlRoot.mirrored
@@ -64,7 +84,6 @@ T.RadioDelegate {
 
             text: controlRoot.text
             font: controlRoot.font
-            color: (controlRoot.pressed && !controlRoot.checked && !controlRoot.sectionDelegate) ? Kirigami.Theme.highlightedTextColor : Kirigami.Theme.textColor
             elide: Text.ElideRight
             visible: controlRoot.text
             horizontalAlignment: Text.AlignLeft
@@ -81,9 +100,6 @@ T.RadioDelegate {
     }
 
     background: Private.DefaultListItemBackground {
-        // This is intentional and ensures the inset is not directly applied to
-        // the background, allowing it to determine how to handle the inset.
-        anchors.fill: parent
         control: controlRoot
     }
 }
