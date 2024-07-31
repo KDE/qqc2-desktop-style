@@ -63,7 +63,12 @@ T.ItemDelegate {
     } else {
         return Math.round(Kirigami.Units.smallSpacing / 2);
     }
-    rightInset: Kirigami.Theme.useAlternateBackgroundColor || TableView.view ? 0 : Kirigami.Units.smallSpacing
+    rightInset: if (Kirigami.Theme.useAlternateBackgroundColor || TableView.view) {
+        return 0;
+    } else {
+        console.log("hasInset")
+        return Kirigami.Units.smallSpacing;
+    }
     leftInset: Kirigami.Theme.useAlternateBackgroundColor || TableView.view ? 0 : Kirigami.Units.smallSpacing
 
     icon.width: Kirigami.Units.iconSizes.smallMedium
