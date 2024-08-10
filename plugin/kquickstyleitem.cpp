@@ -828,28 +828,32 @@ void KQuickStyleItem::initStyleOption()
 QIcon KQuickStyleItem::iconFromIconProperty() const
 {
     QIcon icon;
-    const QVariant iconProperty = m_properties[QStringLiteral("icon")];
-    switch (iconProperty.userType()) {
-    case QMetaType::QIcon:
-        icon = iconProperty.value<QIcon>();
-        break;
-    case QMetaType::QUrl:
-    case QMetaType::QString: {
-        QString iconSource = iconProperty.toString();
-        if (iconSource.startsWith(QLatin1String("qrc:/"))) {
-            iconSource = iconSource.mid(3);
-        } else if (iconSource.startsWith(QLatin1String("file:/"))) {
-            iconSource = QUrl(iconSource).toLocalFile();
+    const QString iconName = m_properties[QStringLiteral("iconName")].toString();
+
+    if (!iconName.isEmpty()) {
+        icon = m_theme->iconFromTheme(iconName, m_properties[QStringLiteral("iconColor")].value<QColor>());
+    } else {
+        const QVariant iconProperty = m_properties[QStringLiteral("icon")];
+        switch (iconProperty.userType()) {
+        case QMetaType::QIcon:
+            icon = iconProperty.value<QIcon>();
+            break;
+        case QMetaType::QUrl:
+        case QMetaType::QString: {
+            QString iconSource = iconProperty.toString();
+            if (iconSource.startsWith(QLatin1String("qrc:/"))) {
+                iconSource = iconSource.mid(3);
+            } else if (iconSource.startsWith(QLatin1String("file:/"))) {
+                iconSource = QUrl(iconSource).toLocalFile();
+            }
+            if (iconSource.contains(QLatin1String("/"))) {
+                icon = QIcon(iconSource);
+            }
+            break;
         }
-        if (iconSource.contains(QLatin1String("/"))) {
-            icon = QIcon(iconSource);
-        } else {
-            icon = m_theme->iconFromTheme(iconSource, m_properties[QStringLiteral("iconColor")].value<QColor>());
+        default:
+            break;
         }
-        break;
-    }
-    default:
-        break;
     }
     return icon;
 }

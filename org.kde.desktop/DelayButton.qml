@@ -78,7 +78,8 @@ T.DelayButton {
         }
 
         properties: {
-            "icon": controlRoot.icon.name !== "" ? controlRoot.icon.name : controlRoot.icon.source,
+            "iconName": controlRoot.icon.name,
+            "icon": controlRoot.icon.source,
             "iconColor": Qt.colorEqual(controlRoot.icon.color, "transparent") ? Kirigami.Theme.textColor : controlRoot.icon.color,
             "iconWidth": controlRoot.icon.width,
             "iconHeight": controlRoot.icon.height,

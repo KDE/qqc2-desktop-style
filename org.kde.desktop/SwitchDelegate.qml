@@ -50,7 +50,8 @@ T.SwitchDelegate {
         Kirigami.Icon {
             Layout.alignment: Qt.AlignVCenter
             visible: controlRoot.icon.name !== "" || controlRoot.icon.source.toString() !== ""
-            source: controlRoot.icon.name !== "" ? controlRoot.icon.name : controlRoot.icon.source
+            name: controlRoot.icon.name
+            source: controlRoot.icon.source
             Layout.preferredHeight: controlRoot.icon.height
             Layout.preferredWidth: controlRoot.icon.width
         }

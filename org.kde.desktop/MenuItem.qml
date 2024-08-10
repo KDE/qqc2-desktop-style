@@ -58,7 +58,8 @@ T.MenuItem {
             Layout.alignment: Qt.AlignVCenter
             visible: (controlRoot.ListView.view && controlRoot.ListView.view.hasIcons)
                 || (controlRoot.icon.name !== "" || controlRoot.icon.source.toString() !== "")
-            source: controlRoot.icon.name !== "" ? controlRoot.icon.name : controlRoot.icon.source
+            name: controlRoot.icon.name
+            source: controlRoot.icon.source
             color: controlRoot.icon.color
             Layout.preferredHeight: Kirigami.Settings.hasTransientTouchInput ? Kirigami.Units.iconSizes.smallMedium : Kirigami.Units.iconSizes.small
             Layout.preferredWidth: Layout.preferredHeight
@@ -100,7 +101,7 @@ T.MenuItem {
     arrow: Kirigami.Icon {
         x: controlRoot.mirrored ? controlRoot.padding : controlRoot.width - width - controlRoot.padding
         y: controlRoot.topPadding + (controlRoot.availableHeight - height) / 2
-        source: controlRoot.mirrored ? "go-next-symbolic-rtl" : "go-next-symbolic"
+        name: controlRoot.mirrored ? "go-next-symbolic-rtl" : "go-next-symbolic"
         width: Kirigami.Units.iconSizes.small
         height: width
         visible: controlRoot.subMenu

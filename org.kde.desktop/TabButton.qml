@@ -79,8 +79,8 @@ T.TabButton {
         }
 
         properties: {
-            "icon": controlRoot.display !== T.AbstractButton.TextOnly
-                ? (controlRoot.icon.name !== "" ? controlRoot.icon.name : controlRoot.icon.source) : null,
+            "iconName": controlRoot.display !== T.AbstractButton.TextOnly ? controlRoot.icon.name : null,
+            "icon": controlRoot.display !== T.AbstractButton.TextOnly ? controlRoot.icon.source : null,
             "iconColor": Qt.colorEqual(controlRoot.icon.color, "transparent") ? Kirigami.Theme.textColor : controlRoot.icon.color,
             "iconWidth": controlRoot.icon.width,
             "iconHeight": controlRoot.icon.height,

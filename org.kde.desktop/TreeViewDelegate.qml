@@ -125,7 +125,8 @@ T.TreeViewDelegate {
         Kirigami.Icon {
             Layout.alignment: Qt.AlignVCenter
             visible: controlRoot.icon.name !== "" || controlRoot.icon.source.toString() !== "" || controlRoot.model.decoration !== undefined
-            source: controlRoot.icon.name !== "" ? controlRoot.icon.name : controlRoot.icon.source.toString() !== "" ? controlRoot.icon.source : controlRoot.model.decoration
+            name: controlRoot.icon.name
+            source: controlRoot.icon.source.toString() !== "" ? controlRoot.icon.source : controlRoot.model.decoration
             Layout.preferredHeight: controlRoot.icon.height
             Layout.preferredWidth: controlRoot.icon.width
             selected: controlRoot.highlighted || controlRoot.checked || (controlRoot.pressed && !controlRoot.checked)

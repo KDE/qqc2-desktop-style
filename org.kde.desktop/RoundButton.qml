@@ -55,7 +55,8 @@ T.RoundButton {
             implicitWidth: controlRoot.icon.width
             implicitHeight: controlRoot.icon.height
             visible: source.toString().length > 0 && controlRoot.display !== T.AbstractButton.TextOnly
-            source: controlRoot.icon ? (controlRoot.icon.name || controlRoot.icon.source) : ""
+            name: controlRoot.icon.name
+            source: controlRoot.icon.source
         }
         Label {
             id: labelContent

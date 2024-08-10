@@ -54,7 +54,8 @@ T.ItemDelegate {
             selected: controlRoot.highlighted || controlRoot.down
             Layout.alignment: Qt.AlignVCenter
             visible: controlRoot.icon.name.length > 0 || controlRoot.icon.source.toString().length > 0
-            source: controlRoot.icon.name.length > 0 ? controlRoot.icon.name : controlRoot.icon.source
+            name: controlRoot.icon.name
+            source: controlRoot.icon.source
             Layout.preferredHeight: controlRoot.icon.height
             Layout.preferredWidth: controlRoot.icon.width
         }

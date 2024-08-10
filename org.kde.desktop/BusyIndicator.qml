@@ -80,7 +80,7 @@ T.BusyIndicator {
             width: Math.min(parent.width, parent.height)
             height: width
 
-            source: "process-working-symbolic"
+            name: "process-working-symbolic"
             smooth: true
 
             RotationAnimator on rotation {
