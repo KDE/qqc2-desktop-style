@@ -1,0 +1,86 @@
+# SPDX-FileCopyrightText: 2024 Shinjo Park <kde@peremen.name>
+msgid ""
+msgstr ""
+"Project-Id-Version: \n"
+"PO-Revision-Date: 2024-08-21 00:17+0200\n"
+"Last-Translator: Shinjo Park <kde@peremen.name>\n"
+"Language-Team: Korean <kde-kr@kde.org>\n"
+"Language: ko\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"X-Generator: Lokalize 23.08.5\n"
+"X-Qt-Contexts: true\n"
+
+#: org.kde.desktop/private/MobileTextActionsToolBarImpl.qml:59
+msgctxt "MobileTextActionsToolBarImpl|"
+msgid "Cut"
+msgstr "잘라내기"
+
+#: org.kde.desktop/private/MobileTextActionsToolBarImpl.qml:69
+msgctxt "MobileTextActionsToolBarImpl|"
+msgid "Copy"
+msgstr "복사"
+
+#: org.kde.desktop/private/MobileTextActionsToolBarImpl.qml:79
+msgctxt "MobileTextActionsToolBarImpl|"
+msgid "Paste"
+msgstr "붙여넣기"
+
+#: org.kde.desktop/private/TextFieldContextMenu.qml:196
+#, qt-format
+msgctxt "TextFieldContextMenu|"
+msgid "No Suggestions for \"%1\""
+msgstr "\"%1\"의 추천 목록 없음"
+
+#: org.kde.desktop/private/TextFieldContextMenu.qml:210
+#, qt-format
+msgctxt "TextFieldContextMenu|"
+msgid "Add \"%1\" to Dictionary"
+msgstr "사전에 \"%1\" 추가"
+
+#: org.kde.desktop/private/TextFieldContextMenu.qml:226
+msgctxt "TextFieldContextMenu|"
+msgid "Ignore"
+msgstr "무시"
+
+#: org.kde.desktop/private/TextFieldContextMenu.qml:241
+msgctxt "TextFieldContextMenu|"
+msgid "Spell Check"
+msgstr "맞춤법 검사"
+
+#: org.kde.desktop/private/TextFieldContextMenu.qml:258
+msgctxt "TextFieldContextMenu|"
+msgid "Undo"
+msgstr "실행 취소"
+
+#: org.kde.desktop/private/TextFieldContextMenu.qml:273
+msgctxt "TextFieldContextMenu|"
+msgid "Redo"
+msgstr "다시 실행"
+
+#: org.kde.desktop/private/TextFieldContextMenu.qml:291
+msgctxt "TextFieldContextMenu|"
+msgid "Cut"
+msgstr "잘라내기"
+
+#: org.kde.desktop/private/TextFieldContextMenu.qml:306
+msgctxt "TextFieldContextMenu|"
+msgid "Copy"
+msgstr "복사"
+
+#: org.kde.desktop/private/TextFieldContextMenu.qml:321
+msgctxt "TextFieldContextMenu|"
+msgid "Paste"
+msgstr "붙여넣기"
+
+#: org.kde.desktop/private/TextFieldContextMenu.qml:336
+msgctxt "TextFieldContextMenu|"
+msgid "Delete"
+msgstr "삭제"
+
+#: org.kde.desktop/private/TextFieldContextMenu.qml:355
+msgctxt "TextFieldContextMenu|"
+msgid "Select All"
+msgstr "모두 선택"
