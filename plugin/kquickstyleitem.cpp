@@ -172,6 +172,9 @@ void KQuickStyleItem::initStyleOption()
 
         connect(m_theme, &Kirigami::Platform::PlatformTheme::colorsChanged, this, [this]() {
             // we need to reset the palette event if Qt::AA_SetPalette attribute has been set
+            if (!m_styleoption) {
+                return;
+            }
             m_styleoption->palette = m_theme->palette();
             polish();
         });
