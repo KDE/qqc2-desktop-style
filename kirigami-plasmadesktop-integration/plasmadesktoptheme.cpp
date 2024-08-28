@@ -290,6 +290,8 @@ void PlasmaDesktopTheme::syncColors()
 
     const auto colors = s_style->loadColors(colorSet(), group);
 
+    Kirigami::Platform::PlatformThemeChangeTracker tracker(this);
+
     // foreground
     setTextColor(colors.scheme.foreground(KColorScheme::NormalText).color());
     setDisabledTextColor(colors.scheme.foreground(KColorScheme::InactiveText).color());
