@@ -86,7 +86,8 @@ QQC2.Menu {
             this.target = target;
             target.persistentSelection = true; // persist selection when menu is opened
             storeCursorAndSelection();
-            popup(target);
+            const targetCursorRectangle = target.cursorRectangle;
+            popup(target, targetCursorRectangle.right, targetCursorRectangle.bottom);
         }
     }
 
