@@ -33,59 +33,59 @@ msgctxt "MobileTextActionsToolBarImpl|"
 msgid "Paste"
 msgstr "Apega"
 
-#: org.kde.desktop/private/TextFieldContextMenu.qml:196
+#: org.kde.desktop/private/TextFieldContextMenu.qml:197
 #, qt-format
 msgctxt "TextFieldContextMenu|"
 msgid "No Suggestions for \"%1\""
 msgstr "Sense suggeriments per a «%1»"
 
-#: org.kde.desktop/private/TextFieldContextMenu.qml:210
+#: org.kde.desktop/private/TextFieldContextMenu.qml:211
 #, qt-format
 msgctxt "TextFieldContextMenu|"
 msgid "Add \"%1\" to Dictionary"
 msgstr "Afig «%1» al diccionari"
 
-#: org.kde.desktop/private/TextFieldContextMenu.qml:226
+#: org.kde.desktop/private/TextFieldContextMenu.qml:227
 msgctxt "TextFieldContextMenu|"
 msgid "Ignore"
 msgstr "Ignora"
 
-#: org.kde.desktop/private/TextFieldContextMenu.qml:241
+#: org.kde.desktop/private/TextFieldContextMenu.qml:242
 msgctxt "TextFieldContextMenu|"
 msgid "Spell Check"
 msgstr "Verificació de l'ortografia"
 
-#: org.kde.desktop/private/TextFieldContextMenu.qml:258
+#: org.kde.desktop/private/TextFieldContextMenu.qml:259
 msgctxt "TextFieldContextMenu|"
 msgid "Undo"
 msgstr "Desfés"
 
-#: org.kde.desktop/private/TextFieldContextMenu.qml:273
+#: org.kde.desktop/private/TextFieldContextMenu.qml:274
 msgctxt "TextFieldContextMenu|"
 msgid "Redo"
 msgstr "Refés"
 
-#: org.kde.desktop/private/TextFieldContextMenu.qml:291
+#: org.kde.desktop/private/TextFieldContextMenu.qml:292
 msgctxt "TextFieldContextMenu|"
 msgid "Cut"
 msgstr "Retalla"
 
-#: org.kde.desktop/private/TextFieldContextMenu.qml:306
+#: org.kde.desktop/private/TextFieldContextMenu.qml:307
 msgctxt "TextFieldContextMenu|"
 msgid "Copy"
 msgstr "Copia"
 
-#: org.kde.desktop/private/TextFieldContextMenu.qml:321
+#: org.kde.desktop/private/TextFieldContextMenu.qml:322
 msgctxt "TextFieldContextMenu|"
 msgid "Paste"
 msgstr "Apega"
 
-#: org.kde.desktop/private/TextFieldContextMenu.qml:336
+#: org.kde.desktop/private/TextFieldContextMenu.qml:337
 msgctxt "TextFieldContextMenu|"
 msgid "Delete"
 msgstr "Suprimix"
 
-#: org.kde.desktop/private/TextFieldContextMenu.qml:355
+#: org.kde.desktop/private/TextFieldContextMenu.qml:356
 msgctxt "TextFieldContextMenu|"
 msgid "Select All"
 msgstr "Selecciona-ho tot"
