@@ -50,14 +50,9 @@ public:
         connect(qGuiApp, &QGuiApplication::fontDatabaseChanged, this, &StyleSingleton::notifyWatchersConfigurationChange);
         qGuiApp->installEventFilter(this);
 
-        // Use NativeTextRendering as the default text rendering type when the scale factor is an integer.
-        // NativeTextRendering is still distorted sometimes with fractional scale factors,
-        // despite https://bugreports.qt.io/browse/QTBUG-67007 being closed.
-        qreal devicePixelRatio = qGuiApp->devicePixelRatio();
-        QQuickWindow::TextRenderType defaultTextRenderType =
-            int(devicePixelRatio) == devicePixelRatio ? QQuickWindow::NativeTextRendering : QQuickWindow::QtTextRendering;
-        QQuickWindow::setTextRenderType(defaultTextRenderType);
-
+        // NativeTextRendering is still distorted sometimes with fractional scale factors
+        // QTBUG-126577
+        QQuickWindow::setTextRenderType(QQuickWindow::QtTextRendering);
         smallFont = loadSmallFont();
     }
 
