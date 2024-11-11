@@ -1,0 +1,88 @@
+# translation of qqc2desktopstyle_qt.po to Slovak
+# Roman Paholik <wizzardsk@gmail.com>, 2024.
+msgid ""
+msgstr ""
+"Project-Id-Version: qqc2desktopstyle_qt\n"
+"Report-Msgid-Bugs-To: https://bugs.kde.org\n"
+"POT-Creation-Date: 2024-11-07 22:21+0100\n"
+"PO-Revision-Date: 2017-11-01 11:06+0100\n"
+"Last-Translator: Roman Paholik <wizzardsk@gmail.com>\n"
+"Language-Team: Slovak <kde-sk@linux.sk>\n"
+"Language: sk\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Lokalize 2.0\n"
+"Plural-Forms: nplurals=3; plural=(n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2;\n"
+
+#: org.kde.desktop/private/MobileTextActionsToolBarImpl.qml:59
+msgctxt "MobileTextActionsToolBarImpl|"
+msgid "Cut"
+msgstr ""
+
+#: org.kde.desktop/private/MobileTextActionsToolBarImpl.qml:69
+msgctxt "MobileTextActionsToolBarImpl|"
+msgid "Copy"
+msgstr ""
+
+#: org.kde.desktop/private/MobileTextActionsToolBarImpl.qml:79
+msgctxt "MobileTextActionsToolBarImpl|"
+msgid "Paste"
+msgstr ""
+
+#: org.kde.desktop/private/TextFieldContextMenu.qml:197
+#, qt-format
+msgctxt "TextFieldContextMenu|"
+msgid "No Suggestions for \"%1\""
+msgstr ""
+
+#: org.kde.desktop/private/TextFieldContextMenu.qml:211
+#, qt-format
+msgctxt "TextFieldContextMenu|"
+msgid "Add \"%1\" to Dictionary"
+msgstr ""
+
+#: org.kde.desktop/private/TextFieldContextMenu.qml:227
+msgctxt "TextFieldContextMenu|"
+msgid "Ignore"
+msgstr ""
+
+#: org.kde.desktop/private/TextFieldContextMenu.qml:242
+msgctxt "TextFieldContextMenu|"
+msgid "Spell Check"
+msgstr ""
+
+#: org.kde.desktop/private/TextFieldContextMenu.qml:259
+msgctxt "TextFieldContextMenu|"
+msgid "Undo"
+msgstr ""
+
+#: org.kde.desktop/private/TextFieldContextMenu.qml:274
+msgctxt "TextFieldContextMenu|"
+msgid "Redo"
+msgstr ""
+
+#: org.kde.desktop/private/TextFieldContextMenu.qml:292
+msgctxt "TextFieldContextMenu|"
+msgid "Cut"
+msgstr ""
+
+#: org.kde.desktop/private/TextFieldContextMenu.qml:307
+msgctxt "TextFieldContextMenu|"
+msgid "Copy"
+msgstr ""
+
+#: org.kde.desktop/private/TextFieldContextMenu.qml:322
+msgctxt "TextFieldContextMenu|"
+msgid "Paste"
+msgstr ""
+
+#: org.kde.desktop/private/TextFieldContextMenu.qml:337
+msgctxt "TextFieldContextMenu|"
+msgid "Delete"
+msgstr ""
+
+#: org.kde.desktop/private/TextFieldContextMenu.qml:356
+msgctxt "TextFieldContextMenu|"
+msgid "Select All"
+msgstr ""
