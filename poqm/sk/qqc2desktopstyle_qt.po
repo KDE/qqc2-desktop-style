@@ -1,34 +1,34 @@
 # translation of qqc2desktopstyle_qt.po to Slovak
-# Roman Paholik <wizzardsk@gmail.com>, 2024.
+# SPDX-FileCopyrightText: 2024 Roman Paholik <wizzardsk@gmail.com>
 msgid ""
 msgstr ""
 "Project-Id-Version: qqc2desktopstyle_qt\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-11-07 22:21+0100\n"
-"PO-Revision-Date: 2017-11-01 11:06+0100\n"
-"Last-Translator: Roman Paholik <wizzardsk@gmail.com>\n"
+"PO-Revision-Date: 2024-11-11 18:03+0100\n"
+"Last-Translator: Roman Paholík <wizzardsk@gmail.com>\n"
 "Language-Team: Slovak <kde-sk@linux.sk>\n"
 "Language: sk\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Lokalize 2.0\n"
+"X-Generator: Lokalize 24.08.3\n"
 "Plural-Forms: nplurals=3; plural=(n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2;\n"
 
 #: org.kde.desktop/private/MobileTextActionsToolBarImpl.qml:59
 msgctxt "MobileTextActionsToolBarImpl|"
 msgid "Cut"
-msgstr ""
+msgstr "Vystrihnúť"
 
 #: org.kde.desktop/private/MobileTextActionsToolBarImpl.qml:69
 msgctxt "MobileTextActionsToolBarImpl|"
 msgid "Copy"
-msgstr ""
+msgstr "Kopírovať"
 
 #: org.kde.desktop/private/MobileTextActionsToolBarImpl.qml:79
 msgctxt "MobileTextActionsToolBarImpl|"
 msgid "Paste"
-msgstr ""
+msgstr "Vložiť"
 
 #: org.kde.desktop/private/TextFieldContextMenu.qml:197
 #, qt-format
@@ -45,7 +45,7 @@ msgstr ""
 #: org.kde.desktop/private/TextFieldContextMenu.qml:227
 msgctxt "TextFieldContextMenu|"
 msgid "Ignore"
-msgstr ""
+msgstr "Ignorovať"
 
 #: org.kde.desktop/private/TextFieldContextMenu.qml:242
 msgctxt "TextFieldContextMenu|"
@@ -80,7 +80,7 @@ msgstr ""
 #: org.kde.desktop/private/TextFieldContextMenu.qml:337
 msgctxt "TextFieldContextMenu|"
 msgid "Delete"
-msgstr ""
+msgstr "Vymazať"
 
 #: org.kde.desktop/private/TextFieldContextMenu.qml:356
 msgctxt "TextFieldContextMenu|"
