@@ -28,7 +28,7 @@ T.TabButton {
 
     hoverEnabled: true
 
-    contentItem: Item {}
+    contentItem: null
 
     Kirigami.MnemonicData.enabled: enabled && visible
     Kirigami.MnemonicData.controlType: Kirigami.MnemonicData.SecondaryControl

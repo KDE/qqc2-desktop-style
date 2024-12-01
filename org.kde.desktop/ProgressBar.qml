@@ -27,7 +27,7 @@ T.ProgressBar {
 
     hoverEnabled: false
 
-    contentItem: Item {}
+    contentItem: null
 
     background: StylePrivate.StyleItem {
         elementType: "progressbar"
