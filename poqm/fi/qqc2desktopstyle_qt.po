@@ -1,0 +1,86 @@
+# SPDX-FileCopyrightText: 2024 Tommi Nieminen <translator@legisign.org>
+msgid ""
+msgstr ""
+"Project-Id-Version: \n"
+"PO-Revision-Date: 2024-10-16 17:28+0300\n"
+"Last-Translator: Tommi Nieminen <translator@legisign.org>\n"
+"Language-Team: Finnish <kde-i18n-doc@kde.org>\n"
+"Language: fi\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: Lokalize 24.08.2\n"
+"X-Qt-Contexts: true\n"
+
+#: org.kde.desktop/private/MobileTextActionsToolBarImpl.qml:59
+msgctxt "MobileTextActionsToolBarImpl|"
+msgid "Cut"
+msgstr "Leikkaa"
+
+#: org.kde.desktop/private/MobileTextActionsToolBarImpl.qml:69
+msgctxt "MobileTextActionsToolBarImpl|"
+msgid "Copy"
+msgstr "Kopioi"
+
+#: org.kde.desktop/private/MobileTextActionsToolBarImpl.qml:79
+msgctxt "MobileTextActionsToolBarImpl|"
+msgid "Paste"
+msgstr "Liitä"
+
+#: org.kde.desktop/private/TextFieldContextMenu.qml:197
+#, qt-format
+msgctxt "TextFieldContextMenu|"
+msgid "No Suggestions for \"%1\""
+msgstr "Ei ehdotuksia: ”%1”"
+
+#: org.kde.desktop/private/TextFieldContextMenu.qml:211
+#, qt-format
+msgctxt "TextFieldContextMenu|"
+msgid "Add \"%1\" to Dictionary"
+msgstr "Lisää ”%1” sanastoon"
+
+#: org.kde.desktop/private/TextFieldContextMenu.qml:227
+msgctxt "TextFieldContextMenu|"
+msgid "Ignore"
+msgstr "Sivuuta"
+
+#: org.kde.desktop/private/TextFieldContextMenu.qml:242
+msgctxt "TextFieldContextMenu|"
+msgid "Spell Check"
+msgstr "Oikeinkirjoituksen tarkistus"
+
+#: org.kde.desktop/private/TextFieldContextMenu.qml:259
+msgctxt "TextFieldContextMenu|"
+msgid "Undo"
+msgstr "Kumoa"
+
+#: org.kde.desktop/private/TextFieldContextMenu.qml:274
+msgctxt "TextFieldContextMenu|"
+msgid "Redo"
+msgstr "Tee uudelleen"
+
+#: org.kde.desktop/private/TextFieldContextMenu.qml:292
+msgctxt "TextFieldContextMenu|"
+msgid "Cut"
+msgstr "Leikkaa"
+
+#: org.kde.desktop/private/TextFieldContextMenu.qml:307
+msgctxt "TextFieldContextMenu|"
+msgid "Copy"
+msgstr "Kopioi"
+
+#: org.kde.desktop/private/TextFieldContextMenu.qml:322
+msgctxt "TextFieldContextMenu|"
+msgid "Paste"
+msgstr "Liitä"
+
+#: org.kde.desktop/private/TextFieldContextMenu.qml:337
+msgctxt "TextFieldContextMenu|"
+msgid "Delete"
+msgstr "Poista"
+
+#: org.kde.desktop/private/TextFieldContextMenu.qml:356
+msgctxt "TextFieldContextMenu|"
+msgid "Select All"
+msgstr "Valitse kaikki"
