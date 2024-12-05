@@ -20,7 +20,7 @@ T.Switch {
     implicitHeight: Math.max(implicitBackgroundHeight + topInset + bottomInset,
                              implicitContentHeight + topPadding + bottomPadding,
                              implicitIndicatorHeight + topPadding + bottomPadding)
-    baselineOffset: contentItem.y + contentItem.baselineOffset
+    baselineOffset: contentItem ? contentItem.y + contentItem.baselineOffset : 0
 
     padding: 1
     spacing: Kirigami.Units.smallSpacing
