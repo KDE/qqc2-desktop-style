@@ -32,6 +32,7 @@ T.ToolButton {
     Kirigami.MnemonicData.enabled: enabled && visible
     Kirigami.MnemonicData.controlType: Kirigami.MnemonicData.SecondaryControl
     Kirigami.MnemonicData.label: text
+    Kirigami.MnemonicData.onActiveChanged: background?.updateItem()
 
     // KF6 TODO: investigate setting this by default
     // focusPolicy: Qt.TabFocus
