@@ -43,7 +43,6 @@ T.ToolButton {
         onActivated: controlRoot.clicked()
     }
     background: StylePrivate.StyleItem {
-        id: styleitem
         control: controlRoot
         elementType: "toolbutton"
         sunken: controlRoot.down
