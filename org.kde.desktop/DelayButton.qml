@@ -31,7 +31,14 @@ T.DelayButton {
         //in case of explicit & the button manages it by itself
         enabled: !(RegExp(/\&[^\&]/).test(controlRoot.text))
         sequence: controlRoot.Kirigami.MnemonicData.sequence
-        onActivated: controlRoot.clicked()
+        onActivated: {
+            // TODO Remove check once we depend on Qt 6.8.
+            if (typeof controlRoot.animateClick === "function") {
+                controlRoot.animateClick();
+            } else {
+                controlRoot.clicked();
+            }
+        }
     }
 
     Kirigami.Theme.colorSet: Kirigami.Theme.Button

@@ -37,7 +37,14 @@ T.TabButton {
         //in case of explicit & the button manages it by itself
         enabled: !(RegExp(/\&[^\&]/).test(controlRoot.text))
         sequence: controlRoot.Kirigami.MnemonicData.sequence
-        onActivated: controlRoot.checked = true;
+        onActivated: {
+            // TODO Remove check once we depend on Qt 6.8.
+            if (typeof controlRoot.animateClick === "function") {
+                controlRoot.animateClick();
+            } else {
+                controlRoot.checked = true;
+            }
+        }
     }
     background: StylePrivate.StyleItem {
         id: styleitem
