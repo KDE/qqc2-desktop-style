@@ -51,7 +51,14 @@ T.Switch {
         //in case of explicit & the button manages it by itself
         enabled: !(RegExp(/\&[^\&]/).test(control.text))
         sequence: control.Kirigami.MnemonicData.sequence
-        onActivated: control.toggle();
+        onActivated: {
+            // TODO Remove check once we depend on Qt 6.8.
+            if (typeof controlRoot.animateClick === "function") {
+                controlRoot.animateClick();
+            } else {
+                controlRoot.toggle();
+            }
+        }
     }
 
     contentItem: Label {

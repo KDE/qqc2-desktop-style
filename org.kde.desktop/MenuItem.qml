@@ -42,7 +42,10 @@ T.MenuItem {
         enabled: !(RegExp(/\&[^\&]/).test(controlRoot.text))
         sequence: controlRoot.Kirigami.MnemonicData.sequence
         onActivated: {
-            if (controlRoot.checkable) {
+            // TODO Remove check once we depend on Qt 6.8.
+            if (typeof controlRoot.animateClick === "function") {
+                controlRoot.animateClick();
+            } else if (controlRoot.checkable) {
                 controlRoot.toggle();
             } else {
                 controlRoot.clicked();
