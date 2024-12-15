@@ -1,4 +1,3 @@
-#
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
@@ -14,71 +13,71 @@ msgstr ""
 #: org.kde.desktop/private/MobileTextActionsToolBarImpl.qml:59
 msgctxt "MobileTextActionsToolBarImpl|"
 msgid "Cut"
-msgstr ""
+msgstr "छिन्न"
 
 #: org.kde.desktop/private/MobileTextActionsToolBarImpl.qml:69
 msgctxt "MobileTextActionsToolBarImpl|"
 msgid "Copy"
-msgstr ""
+msgstr "प्रतिलिपि"
 
 #: org.kde.desktop/private/MobileTextActionsToolBarImpl.qml:79
 msgctxt "MobileTextActionsToolBarImpl|"
 msgid "Paste"
-msgstr ""
+msgstr "चिनोतु"
 
 #: org.kde.desktop/private/TextFieldContextMenu.qml:197
 #, qt-format
 msgctxt "TextFieldContextMenu|"
 msgid "No Suggestions for \"%1\""
-msgstr ""
+msgstr "\"%1\" कृते कोऽपि सुझावः नास्ति।"
 
 #: org.kde.desktop/private/TextFieldContextMenu.qml:211
 #, qt-format
 msgctxt "TextFieldContextMenu|"
 msgid "Add \"%1\" to Dictionary"
-msgstr ""
+msgstr "शब्दकोशे \"%1\" योजयन्तु"
 
 #: org.kde.desktop/private/TextFieldContextMenu.qml:227
 msgctxt "TextFieldContextMenu|"
 msgid "Ignore"
-msgstr ""
+msgstr "उपेक्षा"
 
 #: org.kde.desktop/private/TextFieldContextMenu.qml:242
 msgctxt "TextFieldContextMenu|"
 msgid "Spell Check"
-msgstr ""
+msgstr "वर्तनीपरीक्षा"
 
 #: org.kde.desktop/private/TextFieldContextMenu.qml:259
 msgctxt "TextFieldContextMenu|"
 msgid "Undo"
-msgstr ""
+msgstr "पूर्ववत"
 
 #: org.kde.desktop/private/TextFieldContextMenu.qml:274
 msgctxt "TextFieldContextMenu|"
 msgid "Redo"
-msgstr ""
+msgstr "पुनः करो"
 
 #: org.kde.desktop/private/TextFieldContextMenu.qml:292
 msgctxt "TextFieldContextMenu|"
 msgid "Cut"
-msgstr ""
+msgstr "छिन्न"
 
 #: org.kde.desktop/private/TextFieldContextMenu.qml:307
 msgctxt "TextFieldContextMenu|"
 msgid "Copy"
-msgstr ""
+msgstr "प्रतिलिपि"
 
 #: org.kde.desktop/private/TextFieldContextMenu.qml:322
 msgctxt "TextFieldContextMenu|"
 msgid "Paste"
-msgstr ""
+msgstr "चिनोतु"
 
 #: org.kde.desktop/private/TextFieldContextMenu.qml:337
 msgctxt "TextFieldContextMenu|"
 msgid "Delete"
-msgstr ""
+msgstr "लुप्"
 
 #: org.kde.desktop/private/TextFieldContextMenu.qml:356
 msgctxt "TextFieldContextMenu|"
 msgid "Select All"
-msgstr ""
+msgstr "All इति चिनोतु"
