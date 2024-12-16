@@ -1,20 +1,19 @@
 msgid ""
 msgstr ""
-"Project-Id-Version: qqc2desktopstyle_qt\n"
-"PO-Revision-Date: 2024-12-13 19:09+0530\n"
+"Project-Id-Version: PACKAGE VERSION\n"
+"PO-Revision-Date: 2024-12-15 17:35+0530\n"
 "Last-Translator: Kali <EMAIL@ADDRESS>\n"
-"Language-Team: Sanskrit\n"
-"Language: sa\n"
+"Language-Team: Hindi <fedora-trans-hi@redhat.com>\n"
+"Language: hi\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-Qt-Contexts: true\n"
-"Plural-Forms: nplurals=2; plural=(n>1);\n"
 
 #: org.kde.desktop/private/MobileTextActionsToolBarImpl.qml:59
 msgctxt "MobileTextActionsToolBarImpl|"
 msgid "Cut"
-msgstr "छिन्न"
+msgstr "काटना"
 
 #: org.kde.desktop/private/MobileTextActionsToolBarImpl.qml:69
 msgctxt "MobileTextActionsToolBarImpl|"
@@ -24,29 +23,29 @@ msgstr "प्रतिलिपि"
 #: org.kde.desktop/private/MobileTextActionsToolBarImpl.qml:79
 msgctxt "MobileTextActionsToolBarImpl|"
 msgid "Paste"
-msgstr "चिनोतु"
+msgstr "पेस्ट करें"
 
 #: org.kde.desktop/private/TextFieldContextMenu.qml:197
 #, qt-format
 msgctxt "TextFieldContextMenu|"
 msgid "No Suggestions for \"%1\""
-msgstr "\"%1\" कृते कोऽपि सुझावः नास्ति।"
+msgstr "\"%1\" के लिए कोई सुझाव नहीं"
 
 #: org.kde.desktop/private/TextFieldContextMenu.qml:211
 #, qt-format
 msgctxt "TextFieldContextMenu|"
 msgid "Add \"%1\" to Dictionary"
-msgstr "शब्दकोशे \"%1\" योजयन्तु"
+msgstr "\"%1\" को शब्दकोश में जोड़ें"
 
 #: org.kde.desktop/private/TextFieldContextMenu.qml:227
 msgctxt "TextFieldContextMenu|"
 msgid "Ignore"
-msgstr "उपेक्षा"
+msgstr "अनदेखा करना"
 
 #: org.kde.desktop/private/TextFieldContextMenu.qml:242
 msgctxt "TextFieldContextMenu|"
 msgid "Spell Check"
-msgstr "वर्तनीपरीक्षा"
+msgstr "वर्तनी की जाँच"
 
 #: org.kde.desktop/private/TextFieldContextMenu.qml:259
 msgctxt "TextFieldContextMenu|"
@@ -56,12 +55,12 @@ msgstr "पूर्ववत"
 #: org.kde.desktop/private/TextFieldContextMenu.qml:274
 msgctxt "TextFieldContextMenu|"
 msgid "Redo"
-msgstr "पुनः करो"
+msgstr "फिर से करना"
 
 #: org.kde.desktop/private/TextFieldContextMenu.qml:292
 msgctxt "TextFieldContextMenu|"
 msgid "Cut"
-msgstr "छिन्न"
+msgstr "काटना"
 
 #: org.kde.desktop/private/TextFieldContextMenu.qml:307
 msgctxt "TextFieldContextMenu|"
@@ -71,14 +70,14 @@ msgstr "प्रतिलिपि"
 #: org.kde.desktop/private/TextFieldContextMenu.qml:322
 msgctxt "TextFieldContextMenu|"
 msgid "Paste"
-msgstr "चिनोतु"
+msgstr "पेस्ट करें"
 
 #: org.kde.desktop/private/TextFieldContextMenu.qml:337
 msgctxt "TextFieldContextMenu|"
 msgid "Delete"
-msgstr "लुप्"
+msgstr "मिटाना"
 
 #: org.kde.desktop/private/TextFieldContextMenu.qml:356
 msgctxt "TextFieldContextMenu|"
 msgid "Select All"
-msgstr "All इति चिनोतु"
+msgstr "सबका चयन करें"
