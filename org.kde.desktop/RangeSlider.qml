@@ -20,11 +20,9 @@ T.RangeSlider {
                              first.implicitHandleHeight + topPadding + bottomPadding,
                              second.implicitHandleHeight + topPadding + bottomPadding)
 
-    padding: 6
-
     first.handle: Rectangle {
         property bool horizontal: control.orientation === Qt.Horizontal
-        x: control.leftPadding + (horizontal ? control.first.visualPosition * (control.availableWidth - width) : (control.availableWidth - width) / 2)
+        x: (horizontal ? control.first.visualPosition * (control.availableWidth - width) : (control.availableWidth - width) / 2)
         y: control.topPadding + (horizontal ? (control.availableHeight - height) / 2 : control.first.visualPosition * (control.availableHeight - height))
         implicitWidth: 18
         implicitHeight: 18
@@ -44,7 +42,7 @@ T.RangeSlider {
 
     second.handle: Rectangle {
         property bool horizontal: control.orientation === Qt.Horizontal
-        x: control.leftPadding + (horizontal ? control.second.visualPosition * (control.availableWidth - width) : (control.availableWidth - width) / 2)
+        x: (horizontal ? control.second.visualPosition * (control.availableWidth - width) : (control.availableWidth - width) / 2)
         y: control.topPadding + (horizontal ? (control.availableHeight - height) / 2 : control.second.visualPosition * (control.availableHeight - height))
         implicitWidth: 18
         implicitHeight: 18
@@ -67,23 +65,29 @@ T.RangeSlider {
 
         readonly property bool horizontal: control.orientation === Qt.Horizontal
         implicitWidth: horizontal ? 200 : 6
-        implicitHeight: horizontal ? 6 : 200
-        width: horizontal ? control.availableWidth : implicitWidth
+        implicitHeight: horizontal ? 5 : 200
+        width: horizontal ? control.availableWidth - (control.first.handle.width / 2) : implicitWidth
         height: horizontal ? implicitHeight : control.availableHeight
         radius: Math.round(Math.min(width / 2, height / 2))
-        color: Qt.alpha(Kirigami.Theme.textColor, 0.3)
+        color: Qt.tint(Kirigami.Theme.backgroundColor, Qt.alpha(Kirigami.Theme.textColor, 0.1))
         anchors.centerIn: parent
+
+        Kirigami.Theme.colorSet: Kirigami.Theme.Window
+        Kirigami.Theme.inherit: false
 
         Rectangle {
             x: backgroundRectangle.horizontal
                 ? (LayoutMirroring.enabled
                    ? parent.width - width - control.first.position * parent.width
-                   : control.first.position * parent.width)
+                   : control.first.position * parent.width) + (control.first.handle.width / 2)
                 : 0
             y: backgroundRectangle.horizontal ? 0 : control.second.visualPosition * parent.height + 6
             width: backgroundRectangle.horizontal ? control.second.position * parent.width - control.first.position * parent.width - 6 : 6
-            height: backgroundRectangle.horizontal ? 6 : control.second.position * parent.height - control.first.position * parent.height - 6
-            color: Kirigami.Theme.highlightColor
+            height: backgroundRectangle.horizontal ? 5 : control.second.position * parent.height - control.first.position * parent.height - 6
+            color: Qt.alpha(Kirigami.Theme.highlightColor, 0.80)
+
+            Kirigami.Theme.colorSet: Kirigami.Theme.Window
+            Kirigami.Theme.inherit: false
         }
     }
 }
