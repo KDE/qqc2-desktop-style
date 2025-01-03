@@ -53,10 +53,10 @@ T.Switch {
         sequence: control.Kirigami.MnemonicData.sequence
         onActivated: {
             // TODO Remove check once we depend on Qt 6.8.
-            if (typeof controlRoot.animateClick === "function") {
-                controlRoot.animateClick();
+            if (typeof control.animateClick === "function") {
+                control.animateClick();
             } else {
-                controlRoot.toggle();
+                control.toggle();
             }
         }
     }
