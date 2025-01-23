@@ -119,7 +119,7 @@ T.MenuItem {
 
     background: Rectangle {
         implicitWidth: Kirigami.Units.gridUnit * 8
-        opacity: (controlRoot.highlighted || controlRoot.hovered) ? 1 : 0
+        opacity: (controlRoot.highlighted || controlRoot.down) ? 1 : 0
         color: Qt.alpha(Kirigami.Theme.focusColor, 0.3)
         border.color: Kirigami.Theme.focusColor
         border.width: 1
