@@ -31,6 +31,7 @@ T.Button {
     Kirigami.MnemonicData.controlType: Kirigami.MnemonicData.ActionElement
     Kirigami.MnemonicData.label: display !== T.AbstractButton.IconOnly ? text : ""
     Kirigami.MnemonicData.onActiveChanged: background?.updateItem()
+    Accessible.name: Kirigami.MnemonicData.plainTextLabel
     Shortcut {
         //in case of explicit & the button manages it by itself
         enabled: !(RegExp(/\&[^\&]/).test(controlRoot.text))
