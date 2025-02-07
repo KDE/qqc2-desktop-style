@@ -69,6 +69,7 @@ T.MenuItem {
             Layout.fillWidth: true
 
             text: controlRoot.Kirigami.MnemonicData.richTextLabel
+            Accessible.name: controlRoot.Kirigami.MnemonicData.plainTextLabel
             font: controlRoot.font
             color: Kirigami.Theme.textColor
             elide: Text.ElideRight

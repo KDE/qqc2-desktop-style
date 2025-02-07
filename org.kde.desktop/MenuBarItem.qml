@@ -38,6 +38,7 @@ T.MenuBarItem {
 
     contentItem: Label {
         text: controlRoot.Kirigami.MnemonicData.richTextLabel
+        Accessible.name: controlRoot.Kirigami.MnemonicData.plainTextLabel
         font: controlRoot.font
         color: controlRoot.hovered && !controlRoot.pressed ? Kirigami.Theme.highlightedTextColor : Kirigami.Theme.textColor
         elide: Text.ElideRight

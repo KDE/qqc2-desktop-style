@@ -71,6 +71,7 @@ T.Switch {
         rightPadding: control.indicator && control.mirrored ? control.indicator.width + control.spacing : 0
         opacity: control.enabled ? 1 : 0.6
         text: control.Kirigami.MnemonicData.richTextLabel
+        Accessible.name: control.Kirigami.MnemonicData.plainTextLabel
         font: control.font
         color: Kirigami.Theme.textColor
         elide: Text.ElideRight
