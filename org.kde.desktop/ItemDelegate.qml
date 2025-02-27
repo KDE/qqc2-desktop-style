@@ -66,7 +66,6 @@ T.ItemDelegate {
             Layout.fillWidth: true
 
             text: controlRoot.text
-            Accessible.name: controlRoot.Accessible.name
             font: controlRoot.font
             color: controlRoot.highlighted || controlRoot.down
                 ? Kirigami.Theme.highlightedTextColor
