@@ -81,7 +81,6 @@ T.RadioButton {
         rightPadding: controlRoot.indicator && controlRoot.mirrored ? indicatorEffectiveWidth : 0
         opacity: controlRoot.enabled ? 1 : 0.6
         text: controlRoot.Kirigami.MnemonicData.richTextLabel
-        Accessible.name: controlRoot.Kirigami.MnemonicData.plainTextLabel
         font: controlRoot.font
         elide: Text.ElideRight
         visible: controlRoot.text
