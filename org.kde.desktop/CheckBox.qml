@@ -48,7 +48,6 @@ T.CheckBox {
     Kirigami.MnemonicData.enabled: enabled && visible
     Kirigami.MnemonicData.controlType: Kirigami.MnemonicData.ActionElement
     Kirigami.MnemonicData.label: text
-    Accessible.name: Kirigami.MnemonicData.plainTextLabel
     Shortcut {
         //in case of explicit & the button manages it by itself
         enabled: !(RegExp(/\&[^\&]/).test(controlRoot.text))
