@@ -114,6 +114,9 @@ public:
         case PlatformTheme::View:
             set = KColorScheme::ColorSet::View;
             break;
+        case PlatformTheme::Sidebar:
+            set = KColorScheme::ColorSet::Sidebar;
+            break;
         case PlatformTheme::Complementary:
             set = KColorScheme::ColorSet::Complementary;
             break;
