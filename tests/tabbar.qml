@@ -9,6 +9,8 @@ import QtQuick
 import QtQuick.Controls
 import QtQuick.Layouts
 
+import org.kde.kirigami as Kirigami
+
 Item {
     width: 400
     height: 300
@@ -36,6 +38,13 @@ Item {
         Frame {
             Layout.fillWidth: true
             Layout.fillHeight: true
+
+            background: Rectangle {
+                color: "transparent"
+                border.color: Kirigami.ColorUtils.linearInterpolation(Kirigami.Theme.backgroundColor, Kirigami.Theme.textColor, Kirigami.Theme.frameContrast)
+                topLeftRadius: 0
+                radius: Kirigami.Units.cornerRadius
+            }
 
             StackLayout { //or SwipeView + clip for animated?
                 anchors.fill: parent
