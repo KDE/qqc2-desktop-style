@@ -109,3 +109,5 @@ void ItemBranchIndicators::paint(QPainter *painter)
         KQuickStyleItem::style()->drawPrimitive(QStyle::PE_IndicatorBranch, &styleOption, painter);
     }
 }
+
+#include "moc_itembranchindicators.cpp"

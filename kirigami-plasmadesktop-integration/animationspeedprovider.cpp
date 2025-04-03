@@ -88,3 +88,5 @@ bool WindowsAnimationSpeedProvider::nativeEventFilter(const QByteArray &eventTyp
     return false;
 }
 #endif
+
+#include "moc_animationspeedprovider.cpp"
