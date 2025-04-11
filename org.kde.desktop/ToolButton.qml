@@ -56,7 +56,7 @@ T.ToolButton {
         sunken: controlRoot.down
         on: controlRoot.checkable && controlRoot.checked
         hover: controlRoot.hovered
-        text: controlRoot.Kirigami.MnemonicData.mnemonicLabel
+        text:  contentItem ? "" : controlRoot.Kirigami.MnemonicData.mnemonicLabel
         hasFocus: controlRoot.visualFocus || (!controlRoot.flat && controlRoot.pressed) || controlRoot.highlighted
         flat: controlRoot.flat
         font: controlRoot.font
@@ -83,7 +83,7 @@ T.ToolButton {
         }
 
         properties: {
-            "icon": controlRoot.icon.name !== "" ? controlRoot.icon.name : controlRoot.icon.source,
+            "icon": contentItem ? "" : (controlRoot.icon.name !== "" ? controlRoot.icon.name : controlRoot.icon.source),
             "iconColor": Qt.colorEqual(controlRoot.icon.color, "transparent") ? Kirigami.Theme.textColor : controlRoot.icon.color,
             "iconWidth": controlRoot.icon.width,
             "iconHeight": controlRoot.icon.height,
