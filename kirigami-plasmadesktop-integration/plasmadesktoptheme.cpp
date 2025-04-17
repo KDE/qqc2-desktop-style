@@ -10,6 +10,7 @@
 #include <QDBusConnection>
 #endif
 
+#include <QFontDatabase>
 #include <QGuiApplication>
 #include <QPalette>
 #include <QQuickRenderControl>
@@ -59,25 +60,6 @@ public:
         } else {
             QQuickWindow::setTextRenderType(QQuickWindow::QtTextRendering);
         }
-        smallFont = loadSmallFont();
-    }
-
-    QFont loadSmallFont() const
-    {
-        KSharedConfigPtr ptr = KSharedConfig::openConfig();
-        KConfigGroup general(ptr->group(QStringLiteral("General")));
-
-        return general.readEntry("smallestReadableFont", []() {
-            auto smallFont = qApp->font();
-#ifndef Q_OS_WIN
-            if (smallFont.pixelSize() != -1) {
-                smallFont.setPixelSize(smallFont.pixelSize() - 2);
-            } else {
-                smallFont.setPointSize(smallFont.pointSize() - 2);
-            }
-#endif
-            return smallFont;
-        }());
     }
 
     void refresh()
@@ -164,16 +146,15 @@ public:
 
     Q_SLOT void notifyWatchersConfigurationChange()
     {
-        smallFont = loadSmallFont();
         for (auto watcher : std::as_const(watchers)) {
-            watcher->setSmallFont(smallFont);
             watcher->setDefaultFont(qApp->font());
+            watcher->setSmallFont(QFontDatabase::systemFont(QFontDatabase::SmallestReadableFont));
+            watcher->setFixedWidthFont(QFontDatabase::systemFont(QFontDatabase::FixedFont));
         }
     }
 
     KColorScheme buttonScheme;
     KColorScheme viewScheme;
-    QFont smallFont;
 
     QList<PlasmaDesktopTheme *> watchers;
 
@@ -214,7 +195,8 @@ PlasmaDesktopTheme::PlasmaDesktopTheme(QObject *parent)
     s_style->watchers.append(this);
 
     setDefaultFont(qGuiApp->font());
-    setSmallFont(s_style->smallFont);
+    setSmallFont(QFontDatabase::systemFont(QFontDatabase::SmallestReadableFont));
+    setFixedWidthFont(QFontDatabase::systemFont(QFontDatabase::FixedFont));
 
     syncWindow();
     if (!m_window) {
