@@ -10,6 +10,7 @@ import QtQuick
 import QtQuick.Controls as QQC2
 import QtQuick.Templates as T
 import org.kde.kirigami as Kirigami
+import org.kde.kirigami.dialogs as KDialogs
 
 T.Dialog {
     id: control
@@ -26,6 +27,14 @@ T.Dialog {
                              + (implicitFooterHeight > 0 ? implicitFooterHeight + spacing : 0))
 
     padding: Kirigami.Units.gridUnit
+
+    // determine parent so that popup knows which window to popup in
+    // we want to open the dialog in the center of the window, if possible
+    parent: typeof applicationWindow !== "undefined" ? applicationWindow().overlay : undefined
+
+    // center dialog
+    x: parent ? Math.round(((parent && parent.width) - width) / 2) : 0
+    y: parent ? Math.round(((parent && parent.height) - height) / 2) + Kirigami.Units.gridUnit * 2 * (1 - opacity) : 0 // move animation
 
     // black background, fades in and out
     QQC2.Overlay.modal: Rectangle {
@@ -82,13 +91,11 @@ T.Dialog {
         }
     }
 
-    header: Kirigami.Heading {
-        text: control.title
-        level: 2
-        visible: control.title
-        elide: Label.ElideRight
-        padding: Kirigami.Units.gridUnit
-        bottomPadding: 0
+    header: KDialogs.DialogHeader {
+        dialog: root
+        contentItem: KDialogs.DialogHeaderTopContent {
+            dialog: root
+        }
     }
 
     footer: DialogButtonBox {
