@@ -8,13 +8,14 @@
 
 import QtQuick
 import QtQuick.Controls as QQC2
+import QtQuick.Layouts
 import QtQuick.Templates as T
 import org.kde.kirigami as Kirigami
-import org.kde.kirigami.dialogs as KDialogs
 
 T.Dialog {
     id: control
 
+    parent: QQC2.Overlay.overlay
     z: Kirigami.OverlayZStacking.z
 
     implicitWidth: Math.max(implicitBackgroundWidth + leftInset + rightInset,
@@ -27,10 +28,6 @@ T.Dialog {
                              + (implicitFooterHeight > 0 ? implicitFooterHeight + spacing : 0))
 
     padding: Kirigami.Units.gridUnit
-
-    // determine parent so that popup knows which window to popup in
-    // we want to open the dialog in the center of the window, if possible
-    parent: typeof applicationWindow !== "undefined" ? applicationWindow().overlay : undefined
 
     // center dialog
     x: parent ? Math.round(((parent && parent.width) - width) / 2) : 0
@@ -91,10 +88,39 @@ T.Dialog {
         }
     }
 
-    header: KDialogs.DialogHeader {
-        dialog: root
-        contentItem: KDialogs.DialogHeaderTopContent {
-            dialog: root
+    header: RowLayout {
+        spacing: Kirigami.Units.smallSpacing
+
+        Kirigami.Heading {
+            Layout.fillWidth: true
+            Layout.alignment: Qt.AlignVCenter
+            Layout.topMargin: Kirigami.Units.largeSpacing
+            Layout.bottomMargin: Kirigami.Units.largeSpacing
+            Layout.leftMargin: Kirigami.Units.largeSpacing
+
+            text: control.title.length === 0 ? " " : control.title // always have text to ensure header height
+            textFormat: Text.PlainText
+            elide: Text.ElideRight
+
+            // use tooltip for long text that is elided
+            QQC2.ToolTip.visible: truncated && titleHoverHandler.hovered
+            QQC2.ToolTip.text: control.title
+
+            HoverHandler {
+                id: titleHoverHandler
+            }
+        }
+        QQC2.ToolButton {
+            Layout.alignment: Qt.AlignRight | Qt.AlignTop
+            Layout.topMargin: Kirigami.Units.largeSpacing
+            Layout.bottomMargin: Kirigami.Units.largeSpacing
+            Layout.rightMargin: Kirigami.Units.largeSpacing
+
+            icon.name: hovered ? "window-close" : "window-close-symbolic"
+            text: qsTr("Close", "@action:button close dialog")
+            display: QQC2.AbstractButton.IconOnly
+
+            onClicked: control.reject()
         }
     }
 
