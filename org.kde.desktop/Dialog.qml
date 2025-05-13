@@ -10,10 +10,13 @@ import QtQuick
 import QtQuick.Controls as QQC2
 import QtQuick.Templates as T
 import org.kde.kirigami as Kirigami
+import org.kde.kirigami.dialogs as KDialogs
 
 T.Dialog {
     id: control
 
+    parent: QQC2.Overlay.overlay
+    anchors.centerIn: QQC2.Overlay.overlay
     z: Kirigami.OverlayZStacking.z
 
     implicitWidth: Math.max(implicitBackgroundWidth + leftInset + rightInset,
@@ -82,13 +85,8 @@ T.Dialog {
         }
     }
 
-    header: Kirigami.Heading {
-        text: control.title
-        level: 2
-        visible: control.title
-        elide: Label.ElideRight
-        padding: Kirigami.Units.gridUnit
-        bottomPadding: 0
+    header: KDialogs.DialogHeader {
+        dialog: control
     }
 
     footer: DialogButtonBox {
