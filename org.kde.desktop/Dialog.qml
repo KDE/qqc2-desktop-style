@@ -86,6 +86,7 @@ T.Dialog {
     }
 
     header: KDialogs.DialogHeader {
+        visible: control.title.length > 0
         dialog: control
     }
 
