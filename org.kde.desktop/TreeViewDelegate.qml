@@ -76,25 +76,33 @@ T.TreeViewDelegate {
         refreshModelIndex();
     }
 
-    // The indicator is only visible when the item has children, so  this is only the closest branch indicator (+arrow) - the rest of the branch indicator lines are below
-    indicator: StylePrivate.StyleItem {
-        readonly property real __indicatorIndent: controlRoot.leftMargin + (controlRoot.depth * controlRoot.indentation)
-        x: !controlRoot.mirrored ? __indicatorIndent : controlRoot.width - __indicatorIndent - width
-        height: parent.height
-        width: pixelMetric("treeviewindentation")
-        hover: hover.hovered
-        elementType: "itembranchindicator"
-        on: controlRoot.expanded
-        selected: controlRoot.highlighted || controlRoot.checked || (controlRoot.pressed && !controlRoot.checked)
-        properties: {
-            "isItem": true,
-            "hasChildren": true,
-            "hasSibling": controlRoot.treeView.model.rowCount(controlRoot.modelIndex.parent) > controlRoot.modelIndex.row + 1
+    Loader {
+        id: mainIndicator
+        active: controlRoot.isTreeNode
+
+        sourceComponent: StylePrivate.StyleItem {
+            readonly property real __indicatorIndent: controlRoot.leftMargin + (controlRoot.depth * controlRoot.indentation)
+            x: !controlRoot.mirrored ? __indicatorIndent : controlRoot.width - __indicatorIndent - width
+            height: parent.height
+            width: pixelMetric("treeviewindentation")
+            hover: hover.hovered
+            elementType: "itembranchindicator"
+            on: controlRoot.expanded
+            selected: controlRoot.highlighted || controlRoot.checked || (controlRoot.pressed && !controlRoot.checked)
+            properties: {
+                "isItem": true,
+                "hasChildren": true,
+                "hasSibling": controlRoot.treeView.model.rowCount(controlRoot.modelIndex.parent) > controlRoot.modelIndex.row + 1
+            }
+            HoverHandler {
+                id: hover
+            }
         }
-        HoverHandler {
-            id: hover
-        }
+
     }
+
+    // The indicator is only visible when the item has children, so  this is only the closest branch indicator (+arrow) - the rest of the branch indicator lines are below
+    indicator: mainIndicator.item
 
     // The rest of the branch indicators, this is outside of the background so consumers can freely
     // modify it without losing it
