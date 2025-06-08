@@ -43,6 +43,8 @@ public:
     QPixmap requestPixmap(const QString &id, QSize *size, const QSize &requestedSize) override;
 };
 
+class KQuickStyleItemEventListener;
+
 class KQuickStyleItem : public QQuickItem
 {
     Q_OBJECT
@@ -500,6 +502,7 @@ protected:
     void geometryChange(const QRectF &newGeometry, const QRectF &oldGeometry) override;
 
 private:
+    void updateWindow(QWindow *window);
     int padding(Qt::Edge edge) const;
     QIcon iconFromIconProperty() const;
     const char *classNameForItem() const;
@@ -511,7 +514,6 @@ protected:
     Kirigami::Platform::PlatformTheme *m_theme = nullptr;
     QStyleOption *m_styleoption;
     QPointer<QQuickItem> m_control;
-    QPointer<QWindow> m_window;
     Type m_itemType;
 
     QString m_type;
@@ -551,6 +553,8 @@ protected:
 
     QImage m_image;
     KQuickPadding m_border;
+
+    QSharedPointer<KQuickStyleItemEventListener> m_eventListener;
 
     static std::unique_ptr<QStyle> s_style;
 };

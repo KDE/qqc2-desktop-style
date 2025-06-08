@@ -44,6 +44,65 @@ static bool isKeyFocusReason(Qt::FocusReason reason)
     return reason == Qt::TabFocusReason || reason == Qt::BacktabFocusReason || reason == Qt::ShortcutFocusReason;
 }
 
+class KQuickStyleItemEventListener : public QObject
+{
+    Q_OBJECT
+public:
+    static QSharedPointer<KQuickStyleItemEventListener> listenerForWindow(QWindow *window);
+    bool eventFilter(QObject *watched, QEvent *event) override;
+Q_SIGNALS:
+    void appFontChanged();
+    void showAcceleratorsChanged();
+private:
+    KQuickStyleItemEventListener(QWindow *);
+    static QHash<QWindow *, QWeakPointer<KQuickStyleItemEventListener>> s_listeners;
+};
+
+QHash<QWindow *, QWeakPointer<KQuickStyleItemEventListener>> KQuickStyleItemEventListener::s_listeners;
+
+KQuickStyleItemEventListener::KQuickStyleItemEventListener(QWindow *window)
+    : QObject()
+{
+    window->installEventFilter(this);
+    qApp->installEventFilter(this);
+}
+
+QSharedPointer<KQuickStyleItemEventListener> KQuickStyleItemEventListener::listenerForWindow(QWindow *window)
+{
+    Q_ASSERT(window);
+    if (auto listener = s_listeners.value(window).lock()) {
+        return listener;
+    }
+
+    auto listener = QSharedPointer<KQuickStyleItemEventListener>(
+        new KQuickStyleItemEventListener(window),
+        [window](KQuickStyleItemEventListener* ptr) {
+            delete ptr;
+            s_listeners.remove(window);
+        }
+        );
+    s_listeners.insert(window, listener.toWeakRef());
+    return listener;
+}
+
+bool KQuickStyleItemEventListener::eventFilter(QObject *watched, QEvent *event)
+{
+    if (watched == qGuiApp) {
+        if (event->type() == QEvent::ApplicationFontChange) {
+            QMetaObject::invokeMethod(this, &KQuickStyleItemEventListener::appFontChanged, Qt::QueuedConnection);
+        }
+    }
+    if (qobject_cast<QWindow *>(watched)) {
+        if (event->type() == QEvent::KeyPress || event->type() == QEvent::KeyRelease) {
+            QKeyEvent *ke = static_cast<QKeyEvent *>(event);
+            if (ke->key() == Qt::Key_Alt) {
+                Q_EMIT showAcceleratorsChanged();
+            }
+        }
+    }
+    return false;
+}
+
 KQuickStyleItem::KQuickStyleItem(QQuickItem *parent)
     : QQuickItem(parent)
     , m_styleoption(nullptr)
@@ -118,8 +177,6 @@ KQuickStyleItem::KQuickStyleItem(QQuickItem *parent)
     m_font = qApp->font();
     setFlag(QQuickItem::ItemHasContents, true);
     setSmooth(false);
-
-    qGuiApp->installEventFilter(this);
 
     Kirigami::Platform::TabletModeWatcher::self()->addWatcher(this);
 }
@@ -1969,17 +2026,10 @@ void KQuickStyleItem::setControl(QQuickItem *control)
         m_control->installEventFilter(this);
 
         if (m_control->window()) {
-            m_window = m_control->window();
-            m_window->installEventFilter(this);
+            updateWindow(m_control->window());
         }
         connect(m_control, &QQuickItem::windowChanged, this, [this](QQuickWindow *window) {
-            if (m_window) {
-                m_window->removeEventFilter(this);
-            }
-            m_window = window;
-            if (m_window) {
-                m_window->installEventFilter(this);
-            }
+            updateWindow(window);
         });
     }
 
@@ -2058,17 +2108,6 @@ bool KQuickStyleItem::eventFilter(QObject *watched, QEvent *event)
                 return true;
             }
         }
-    } else if (watched == m_window.data()) {
-        if (event->type() == QEvent::KeyPress || event->type() == QEvent::KeyRelease) {
-            QKeyEvent *ke = static_cast<QKeyEvent *>(event);
-            if (ke->key() == Qt::Key_Alt) {
-                polish();
-            }
-        }
-    } else if (watched == qGuiApp) {
-        if (event->type() == QEvent::ApplicationFontChange) {
-            QMetaObject::invokeMethod(this, &KQuickStyleItem::updateSizeHint, Qt::QueuedConnection);
-        }
     }
 
     return QQuickItem::eventFilter(watched, event);
@@ -2094,6 +2133,20 @@ void KQuickStyleItem::geometryChange(const QRectF &newGeometry, const QRectF &ol
         if (newGeometry.height() != oldGeometry.height()) {
             updateBaselineOffset();
         }
+    }
+}
+
+void KQuickStyleItem::updateWindow(QWindow *window)
+{
+    if (m_eventListener) {
+        disconnect(m_eventListener.data(), nullptr, this, nullptr);
+    }
+    if (window) {
+        m_eventListener = KQuickStyleItemEventListener::listenerForWindow(window);
+        connect(m_eventListener.data(), &KQuickStyleItemEventListener::appFontChanged, this, &KQuickStyleItem::updateSizeHint);
+        connect(m_eventListener.data(), &KQuickStyleItemEventListener::showAcceleratorsChanged, this, &KQuickStyleItem::polish);
+    } else {
+        m_eventListener.reset();
     }
 }
 
@@ -2161,5 +2214,6 @@ QPixmap QQuickTableRowImageProvider1::requestPixmap(const QString &id, QSize *si
     return pixmap;
 }
 
+#include "kquickstyleitem.moc"
 #include "moc_kquickpadding_p.cpp"
 #include "moc_kquickstyleitem_p.cpp"
