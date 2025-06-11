@@ -55,27 +55,6 @@ T.TreeViewDelegate {
     required property var model
     readonly property real __contentIndent: !isTreeNode ? 0 : (depth * indentation) + (indicator ? indicator.width + spacing : 0)
 
-    // TableView does not provide us with a source QModelIndex, so we have to
-    // reconstruct it ourselves, in an (unfortunately) non-observable way.
-    property /*QModelIndex*/var modelIndex: expressionForModelIndex()
-
-    function expressionForModelIndex(): /*QModelIndex*/var {
-        // Note: this is not observable in case of model changes
-        return treeView.index(row, column);
-    }
-
-    function refreshModelIndex(): void {
-        modelIndex = Qt.binding(() => expressionForModelIndex());
-    }
-
-    Component.onCompleted: {
-        refreshModelIndex();
-    }
-
-    TableView.onReused: {
-        refreshModelIndex();
-    }
-
     Loader {
         id: mainIndicator
         active: controlRoot.isTreeNode
@@ -92,7 +71,7 @@ T.TreeViewDelegate {
             properties: {
                 "isItem": true,
                 "hasChildren": true,
-                "hasSibling": controlRoot.treeView.model.rowCount(controlRoot.modelIndex.parent) > controlRoot.modelIndex.row + 1
+                "hasSibling": controlRoot.treeView.model.rowCount(controlRoot.treeView.index(controlRoot.row, controlRoot.column).parent) > controlRoot.row + 1
             }
             HoverHandler {
                 id: hover
@@ -110,7 +89,7 @@ T.TreeViewDelegate {
         visible: controlRoot.isTreeNode
         height: parent.height
         x: controlRoot.mirrored ? controlRoot.width - controlRoot.leftMargin - width : controlRoot.leftMargin
-        modelIndex: controlRoot.modelIndex
+        modelIndex: controlRoot.treeView.index(controlRoot.row, controlRoot.column)
         selected: controlRoot.highlighted || controlRoot.checked || (controlRoot.pressed && !controlRoot.checked)
         rootIndex: controlRoot.treeView.rootIndex
     }
