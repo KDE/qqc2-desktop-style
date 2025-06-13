@@ -31,6 +31,10 @@ Item {
                 text: "Green"
             }
             TabButton {
+                text: "Red"
+                enabled: false
+            }
+            TabButton {
                 text: "Blue"
             }
         }
@@ -56,6 +60,9 @@ Item {
                 }
                 Rectangle {
                     color: "Green"
+                }
+                Rectangle {
+                    color: "Red"
                 }
                 Rectangle {
                     color: "Blue"

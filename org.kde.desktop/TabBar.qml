@@ -59,11 +59,13 @@ T.TabBar {
 
     background: MouseArea {
         acceptedButtons: Qt.NoButton
-        onWheel: {
-            if (wheel.pixelDelta.y < 0 || wheel.angleDelta.y < 0) {
-                controlRoot.currentIndex = Math.min(controlRoot.currentIndex + 1, controlRoot.contentModel.count - 1);
-            } else {
-                controlRoot.currentIndex = Math.max(controlRoot.currentIndex - 1, 0);
+        onWheel: (wheel) => {
+            let delta = wheel.pixelDelta.y < 0 || wheel.angleDelta.y < 0 ? 1 : -1;
+            for (let i = controlRoot.currentIndex + delta; i >= 0 && i < controlRoot.contentModel.count; i += delta) {
+                if (controlRoot.contentModel.get(i).enabled) {
+                    controlRoot.currentIndex = i;
+                    break;
+                }
             }
         }
     }
