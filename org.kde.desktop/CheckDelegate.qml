@@ -35,7 +35,7 @@ T.CheckDelegate {
     icon.width: __iconSize
     icon.height:__iconSize
 
-    T.ToolTip.visible: (Kirigami.Settings.tabletMode ? down : hovered) && (textLabel.truncated ?? false)
+    T.ToolTip.visible: (Kirigami.Settings.tabletMode ? down : hovered) && (contentItem.truncated ?? false)
     T.ToolTip.text: text
     T.ToolTip.delay: Kirigami.Units.toolTipDelay
 

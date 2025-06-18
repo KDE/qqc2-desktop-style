@@ -35,7 +35,7 @@ T.ItemDelegate {
     icon.width: __iconSize
     icon.height:__iconSize
 
-    T.ToolTip.visible: (Kirigami.Settings.tabletMode ? down : hovered) && (textLabel.truncated ?? false)
+    T.ToolTip.visible: (Kirigami.Settings.tabletMode ? down : hovered) && (contentItem.truncated ?? false)
     T.ToolTip.text: action instanceof Kirigami.Action ? action.tooltip : text
     T.ToolTip.delay: Kirigami.Settings.tabletMode ? Qt.styleHints.mousePressAndHoldInterval : Kirigami.Units.toolTipDelay
 
