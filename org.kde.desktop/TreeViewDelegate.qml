@@ -62,7 +62,7 @@ T.TreeViewDelegate {
         sourceComponent: StylePrivate.StyleItem {
             readonly property real __indicatorIndent: controlRoot.leftMargin + (controlRoot.depth * controlRoot.indentation)
             x: !controlRoot.mirrored ? __indicatorIndent : controlRoot.width - __indicatorIndent - width
-            height: parent.height
+            height: controlRoot.height
             width: pixelMetric("treeviewindentation")
             hover: hover.hovered
             elementType: "itembranchindicator"
