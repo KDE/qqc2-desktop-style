@@ -87,7 +87,7 @@ T.Dialog {
     }
 
     header: KDialogs.DialogHeader {
-        visible: control.title.length > 0
+        visible: (!control.hasOwnProperty("popupType") || control.popupType === T.Popup.Item) && control.title.length > 0
         dialog: control
     }
 
