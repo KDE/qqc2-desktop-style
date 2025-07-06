@@ -72,7 +72,7 @@ T.Dialog {
         Kirigami.Theme.inherit: false
 
         color: Kirigami.Theme.backgroundColor
-        radius: Kirigami.Units.cornerRadius
+        radius: !control.hasOwnProperty("popupType") || control.popupType === T.Popup.Item ? Kirigami.Units.cornerRadius : 0
 
         shadow {
             size: radius * 2
@@ -81,7 +81,7 @@ T.Dialog {
         }
 
         border {
-            width: 1
+            width: !control.hasOwnProperty("popupType") || control.popupType === T.Popup.Item ? 1 : 0
             color: Kirigami.ColorUtils.linearInterpolation(Kirigami.Theme.backgroundColor, Kirigami.Theme.textColor, Kirigami.Theme.frameContrast);
         }
     }
