@@ -36,6 +36,7 @@ protected:
 private:
     friend class StyleSingleton;
     QPointer<QWindow> m_window;
+    QMetaObject::Connection m_sgConnection;
 };
 
 #endif // KIRIGAMIPLASMATHEME_H

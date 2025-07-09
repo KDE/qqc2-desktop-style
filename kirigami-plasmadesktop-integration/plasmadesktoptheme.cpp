@@ -225,8 +225,11 @@ void PlasmaDesktopTheme::syncWindow()
         if (!window) {
             window = qw;
         }
-        if (qw) {
-            connect(qw, &QQuickWindow::sceneGraphInitialized, this, &PlasmaDesktopTheme::syncWindow, Qt::UniqueConnection);
+        disconnect(m_sgConnection);
+        if (qw && !qw->isSceneGraphInitialized() && qw != m_window) {
+            m_sgConnection = connect(qw, &QQuickWindow::sceneGraphInitialized, this, &PlasmaDesktopTheme::syncWindow);
+        } else if (!qw) {
+            m_sgConnection = QMetaObject::Connection();
         }
     }
     m_window = window;
