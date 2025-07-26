@@ -91,7 +91,7 @@ T.Dialog {
         dialog: control
     }
 
-    footer: DialogButtonBox {
+    footer: QQC2.DialogButtonBox {
         visible: count > 0
 
         background: Item {
