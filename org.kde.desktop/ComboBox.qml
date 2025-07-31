@@ -47,20 +47,6 @@ T.ComboBox {
 
     indicator: Item {}
 
-    /* ensure that the combobox and its popup have enough width for all of its items
-     * TODO remove for KF6 because it is fixed by Qt6 */
-    onCountChanged: {
-        let maxWidth = 75
-        for (let i = 0; i < count; ++i) {
-            maxWidth = Math.max(maxWidth, fontMetrics.boundingRect(controlRoot.textAt(i)).width)
-        }
-        styleitem.contentWidth = maxWidth
-    }
-
-    FontMetrics {
-        id: fontMetrics
-    }
-
     contentItem: T.TextField {
         padding: 0
         text: controlRoot.editable ? controlRoot.editText : controlRoot.displayText
