@@ -47,8 +47,7 @@ T.ComboBox {
 
     indicator: Item {}
 
-    /* ensure that the combobox and its popup have enough width for all of its items
-     * TODO remove for KF6 because it is fixed by Qt6 */
+    // Ensure that the combobox and its popup have enough width for all of its items
     onCountChanged: {
         let maxWidth = 75
         for (let i = 0; i < count; ++i) {
