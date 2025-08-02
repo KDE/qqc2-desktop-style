@@ -183,6 +183,7 @@ Q_GLOBAL_STATIC(StyleSingleton, s_style);
 PlasmaDesktopTheme::PlasmaDesktopTheme(QObject *parent)
     : PlatformTheme(parent)
 {
+    setConstructing(true);
     setSupportsIconColoring(true);
 
     auto parentItem = qobject_cast<QQuickItem *>(parent);
@@ -202,6 +203,7 @@ PlasmaDesktopTheme::PlasmaDesktopTheme(QObject *parent)
     if (!m_window) {
         syncColors();
     }
+    setConstructing(false);
 }
 
 PlasmaDesktopTheme::~PlasmaDesktopTheme()
