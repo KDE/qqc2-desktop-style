@@ -124,8 +124,6 @@ T.ComboBox {
 
     background: StylePrivate.StyleItem {
         id: styleitem
-        // This property is to communicate with Breeze
-        property int count: controlRoot.count
         control: controlRoot
         elementType: "combobox"
         flat: controlRoot.flat
@@ -142,9 +140,7 @@ T.ComboBox {
         }
     }
 
-    popup: count > 0 ? popup : null
-    T.Popup {
-        id: popup
+    popup: T.Popup {
         Kirigami.OverlayZStacking.layer: Kirigami.OverlayZStacking.Menu
         z: Kirigami.OverlayZStacking.z
 
