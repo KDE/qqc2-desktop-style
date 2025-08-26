@@ -74,6 +74,7 @@ T.Switch {
         font: control.font
         color: Kirigami.Theme.textColor
         elide: Text.ElideRight
+        wrapMode: Text.Wrap
         visible: control.text
         horizontalAlignment: Text.AlignLeft
         verticalAlignment: Text.AlignVCenter
