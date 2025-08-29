@@ -1,0 +1,71 @@
+# SPDX-FileCopyrightText: 2025 Marcus Gama <marcus.gama@gmail.com>
+msgid ""
+msgstr ""
+"Project-Id-Version: \n"
+"PO-Revision-Date: 2025-08-27 11:12-0300\n"
+"Last-Translator: Marcus Gama <marcus.gama@gmail.com>\n"
+"Language-Team: Brazilian Portuguese <kde-i18n-pt_BR@kde.org>\n"
+"Language: pt_BR\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Qt-Contexts: true\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+"X-Generator: Lokalize 25.08.0\n"
+
+#: org.kde.desktop/private/TextFieldContextMenu.qml:132
+#, qt-format
+msgctxt "TextFieldContextMenu|"
+msgid "No suggestions for \"%1\""
+msgstr "Sem sugestões para \"%1\""
+
+#: org.kde.desktop/private/TextFieldContextMenu.qml:140
+#, qt-format
+msgctxt "TextFieldContextMenu|"
+msgid "Add \"%1\" to dictionary"
+msgstr "Adicionar \"%1\" ao dicionário"
+
+#: org.kde.desktop/private/TextFieldContextMenu.qml:151
+msgctxt "TextFieldContextMenu|"
+msgid "Ignore"
+msgstr "Ignorar"
+
+#: org.kde.desktop/private/TextFieldContextMenu.qml:163
+msgctxt "TextFieldContextMenu|"
+msgid "Enable Spellchecker"
+msgstr "Habilitar verificador ortográfico"
+
+#: org.kde.desktop/private/TextFieldContextMenu.qml:178
+msgctxt "TextFieldContextMenu|"
+msgid "Undo"
+msgstr "Desfazer"
+
+#: org.kde.desktop/private/TextFieldContextMenu.qml:191
+msgctxt "TextFieldContextMenu|"
+msgid "Redo"
+msgstr "Refazer"
+
+#: org.kde.desktop/private/TextFieldContextMenu.qml:207
+msgctxt "TextFieldContextMenu|"
+msgid "Cut"
+msgstr "Recortar"
+
+#: org.kde.desktop/private/TextFieldContextMenu.qml:219
+msgctxt "TextFieldContextMenu|"
+msgid "Copy"
+msgstr "Copiar"
+
+#: org.kde.desktop/private/TextFieldContextMenu.qml:233
+msgctxt "TextFieldContextMenu|"
+msgid "Paste"
+msgstr "Colar"
+
+#: org.kde.desktop/private/TextFieldContextMenu.qml:246
+msgctxt "TextFieldContextMenu|"
+msgid "Delete"
+msgstr "Excluir"
+
+#: org.kde.desktop/private/TextFieldContextMenu.qml:261
+msgctxt "TextFieldContextMenu|"
+msgid "Select All"
+msgstr "Selecionar tudo"
