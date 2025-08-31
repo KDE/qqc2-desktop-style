@@ -73,4 +73,4 @@ msgstr "Suprimix"
 #: org.kde.desktop/private/TextFieldContextMenu.qml:261
 msgctxt "TextFieldContextMenu|"
 msgid "Select All"
-msgstr "Selecciona-ho tot"
+msgstr "Tria-ho tot"
