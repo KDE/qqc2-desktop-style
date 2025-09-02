@@ -1,91 +1,84 @@
-# Translation of qqc2desktopstyle_qt.po to Catalan (Valencian)
-# Copyright (C) 2024 This_file_is_part_of_KDE
-# This file is distributed under the license LGPL version 2.1 or
-# version 3 or later versions approved by the membership of KDE e.V.
-#
-# Josep M. Ferrer <txemaq@gmail.com>, 2024.
 msgid ""
 msgstr ""
-"Project-Id-Version: qqc2-desktop-style\n"
-"PO-Revision-Date: 2024-05-10 12:01+0200\n"
-"Last-Translator: Josep M. Ferrer <txemaq@gmail.com>\n"
-"Language-Team: Catalan <kde-i18n-ca@kde.org>\n"
-"Language: ca@valencia\n"
+"Project-Id-Version: qqc 2-desktop-style\n"
+"Last-Translator: Automatically generated\n"
+"Language-Team: none\n"
+"Language: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-Qt-Contexts: true\n"
-"Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Lokalize 22.12.3\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && (n"
+"%100<10 || n%100>=20) ? 1 : 2);\n"
 
 #: org.kde.desktop/private/MobileTextActionsToolBarImpl.qml:59
 msgctxt "MobileTextActionsToolBarImpl|"
 msgid "Cut"
-msgstr "Retalla"
+msgstr ""
 
 #: org.kde.desktop/private/MobileTextActionsToolBarImpl.qml:69
 msgctxt "MobileTextActionsToolBarImpl|"
 msgid "Copy"
-msgstr "Copia"
+msgstr ""
 
 #: org.kde.desktop/private/MobileTextActionsToolBarImpl.qml:79
 msgctxt "MobileTextActionsToolBarImpl|"
 msgid "Paste"
-msgstr "Apega"
+msgstr ""
 
 #: org.kde.desktop/private/TextFieldContextMenu.qml:197
 #, qt-format
 msgctxt "TextFieldContextMenu|"
 msgid "No Suggestions for \"%1\""
-msgstr "Sense suggeriments per a «%1»"
+msgstr ""
 
 #: org.kde.desktop/private/TextFieldContextMenu.qml:211
 #, qt-format
 msgctxt "TextFieldContextMenu|"
 msgid "Add \"%1\" to Dictionary"
-msgstr "Afig «%1» al diccionari"
+msgstr ""
 
 #: org.kde.desktop/private/TextFieldContextMenu.qml:227
 msgctxt "TextFieldContextMenu|"
 msgid "Ignore"
-msgstr "Ignora"
+msgstr ""
 
 #: org.kde.desktop/private/TextFieldContextMenu.qml:242
 msgctxt "TextFieldContextMenu|"
 msgid "Spell Check"
-msgstr "Verificació de l'ortografia"
+msgstr ""
 
 #: org.kde.desktop/private/TextFieldContextMenu.qml:259
 msgctxt "TextFieldContextMenu|"
 msgid "Undo"
-msgstr "Desfés"
+msgstr ""
 
 #: org.kde.desktop/private/TextFieldContextMenu.qml:274
 msgctxt "TextFieldContextMenu|"
 msgid "Redo"
-msgstr "Refés"
+msgstr ""
 
 #: org.kde.desktop/private/TextFieldContextMenu.qml:292
 msgctxt "TextFieldContextMenu|"
 msgid "Cut"
-msgstr "Retalla"
+msgstr ""
 
 #: org.kde.desktop/private/TextFieldContextMenu.qml:307
 msgctxt "TextFieldContextMenu|"
 msgid "Copy"
-msgstr "Copia"
+msgstr ""
 
 #: org.kde.desktop/private/TextFieldContextMenu.qml:322
 msgctxt "TextFieldContextMenu|"
 msgid "Paste"
-msgstr "Apega"
+msgstr ""
 
 #: org.kde.desktop/private/TextFieldContextMenu.qml:337
 msgctxt "TextFieldContextMenu|"
 msgid "Delete"
-msgstr "Suprimix"
+msgstr ""
 
 #: org.kde.desktop/private/TextFieldContextMenu.qml:356
 msgctxt "TextFieldContextMenu|"
 msgid "Select All"
-msgstr "Tria-ho tot"
+msgstr ""
