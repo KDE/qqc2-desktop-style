@@ -14,11 +14,11 @@
 #include <QPainter>
 #include <QPixmapCache>
 #include <QQuickWindow>
+#include <QSGNinePatchNode>
 #include <QStringBuilder>
 #include <QStyle>
 #include <QStyleFactory>
-#include <qsgninepatchnode.h>
-#include <qstyleoption.h>
+#include <QStyleOption>
 
 #include <KConfigGroup>
 #include <ksharedconfig.h>
