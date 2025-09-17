@@ -28,9 +28,11 @@ Rectangle {
 
     readonly property color hoverColor: Qt.alpha(Kirigami.Theme.hoverColor, 0.3)
     readonly property color highlightColor: Kirigami.Theme.highlightColor
+    readonly property color inactiveHighlightColor: Qt.alpha(Kirigami.Theme.disabledTextColor, 0.1)
     readonly property color normalColor: useAlternatingColors ? Kirigami.Theme.alternateBackgroundColor : "transparent"
     // Workaround for QTBUG-113304
     readonly property bool reallyFocus: control.visualFocus || (control.activeFocus && control.focusReason === Qt.OtherFocusReason)
+    readonly property bool inactiveHighlight: (control.ListView?.isCurrentItem || control.GridView?.isCurrentItem) && !reallyFocus
 
     readonly property bool hasInset: control.leftInset > 0 || control.rightInset > 0 || control.topInset > 0 || control.bottomInset > 0
 
@@ -50,18 +52,24 @@ Rectangle {
         color: {
             if (background.highlight) {
                 return background.highlightColor
-            } else {
-                return (background.control.hovered || background.reallyFocus) ? background.hoverColor : background.normalColor
+            } else if (background.control.hovered || background.reallyFocus) {
+                return background.hoverColor
+            } else if (background.inactiveHighlight) {
+                return background.inactiveHighlightColor
             }
+            return background.normalColor
         }
 
         border.width: background.hasInset ? 1 : 0
         border.color: {
             if (background.highlight) {
                 return background.highlightColor
-            } else {
-                return (background.control.hovered || background.reallyFocus) ? Kirigami.Theme.hoverColor : "transparent"
+            } else if (background.control.hovered || background.reallyFocus) {
+                return background.hoverColor
+            } else if (background.inactiveHighlight) {
+                return background.inactiveHighlightColor
             }
+            return "transparent"
         }
     }
 }
