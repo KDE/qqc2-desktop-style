@@ -18,7 +18,6 @@
 
 #include <KColorScheme>
 #include <KConfigGroup>
-#include <KConfigWatcher>
 #include <KIconColors>
 
 class StyleSingleton : public QObject
@@ -200,17 +199,15 @@ PlasmaDesktopTheme::PlasmaDesktopTheme(QObject *parent)
     setSmallFont(QFontDatabase::systemFont(QFontDatabase::SmallestReadableFont));
     setFixedWidthFont(QFontDatabase::systemFont(QFontDatabase::FixedFont));
 
-    KSharedConfigPtr ptr = KSharedConfig::openConfig(QStringLiteral("kdeglobals"));
-    auto watcher = KConfigWatcher::create(ptr);
+    m_globalConfig = KSharedConfig::openConfig(QStringLiteral("kdeglobals"));
+    m_globalConfigWatcher = KConfigWatcher::create(m_globalConfig);
 
-    connect(watcher.get(), &KConfigWatcher::configChanged, this, [this](const KConfigGroup &group, const QByteArrayList &names) {
+    connect(m_globalConfigWatcher.get(), &KConfigWatcher::configChanged, this, [this](const KConfigGroup &group, const QByteArrayList &names) {
         if (group.name() == QStringLiteral("WM") && names.contains(QByteArrayLiteral("frameContrast"))) {
             setFrameContrast(group.readEntry(QStringLiteral("frameContrast"), 0.2));
-            syncWindow();
-            syncColors();
         }
     });
-    setFrameContrast(ptr->group(QStringLiteral("WM")).readEntry(QStringLiteral("frameContrast"), 0.2));
+    setFrameContrast(m_globalConfig->group(QStringLiteral("WM")).readEntry(QStringLiteral("frameContrast"), 0.2));
 
     syncWindow();
     if (!m_window) {
