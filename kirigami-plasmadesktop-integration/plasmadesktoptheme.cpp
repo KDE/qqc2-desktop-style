@@ -199,15 +199,14 @@ PlasmaDesktopTheme::PlasmaDesktopTheme(QObject *parent)
     setSmallFont(QFontDatabase::systemFont(QFontDatabase::SmallestReadableFont));
     setFixedWidthFont(QFontDatabase::systemFont(QFontDatabase::FixedFont));
 
-    m_globalConfig = KSharedConfig::openConfig(QStringLiteral("kdeglobals"));
-    m_globalConfigWatcher = KConfigWatcher::create(m_globalConfig);
+    m_globalConfigWatcher = KConfigWatcher::create(KSharedConfig::openConfig(QStringLiteral("kdeglobals")));
 
     connect(m_globalConfigWatcher.get(), &KConfigWatcher::configChanged, this, [this](const KConfigGroup &group, const QByteArrayList &names) {
         if (group.name() == QStringLiteral("WM") && names.contains(QByteArrayLiteral("frameContrast"))) {
             setFrameContrast(group.readEntry(QStringLiteral("frameContrast"), 0.2));
         }
     });
-    setFrameContrast(m_globalConfig->group(QStringLiteral("WM")).readEntry(QStringLiteral("frameContrast"), 0.2));
+    setFrameContrast(m_globalConfigWatcher->config()->group(QStringLiteral("WM")).readEntry(QStringLiteral("frameContrast"), 0.2));
 
     syncWindow();
     if (!m_window) {
