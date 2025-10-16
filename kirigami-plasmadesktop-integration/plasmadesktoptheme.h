@@ -38,7 +38,6 @@ private:
     friend class StyleSingleton;
     QPointer<QWindow> m_window;
     QMetaObject::Connection m_sgConnection;
-    KSharedConfigPtr m_globalConfig;
     KConfigWatcher::Ptr m_globalConfigWatcher;
 };
 
