@@ -199,7 +199,7 @@ PlasmaDesktopTheme::PlasmaDesktopTheme(QObject *parent)
     setSmallFont(QFontDatabase::systemFont(QFontDatabase::SmallestReadableFont));
     setFixedWidthFont(QFontDatabase::systemFont(QFontDatabase::FixedFont));
 
-    m_globalConfigWatcher = KConfigWatcher::create(KSharedConfig::openConfig(QStringLiteral("kdeglobals")));
+    m_globalConfigWatcher = KConfigWatcher::create(KSharedConfig::openConfig());
 
     connect(m_globalConfigWatcher.get(), &KConfigWatcher::configChanged, this, [this](const KConfigGroup &group, const QByteArrayList &names) {
         if (group.name() == QStringLiteral("WM") && names.contains(QByteArrayLiteral("frameContrast"))) {
