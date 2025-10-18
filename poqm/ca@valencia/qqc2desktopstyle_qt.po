@@ -3,7 +3,7 @@
 # This file is distributed under the license LGPL version 2.1 or
 # version 3 or later versions approved by the membership of KDE e.V.
 #
-# Josep M. Ferrer <txemaq@gmail.com>, 2024.
+# SPDX-FileCopyrightText: 2024 Josep M. Ferrer <txemaq@gmail.com>
 msgid ""
 msgstr ""
 "Project-Id-Version: qqc2-desktop-style\n"
@@ -88,4 +88,4 @@ msgstr "Suprimix"
 #: org.kde.desktop/private/TextFieldContextMenu.qml:356
 msgctxt "TextFieldContextMenu|"
 msgid "Select All"
-msgstr "Tria-ho tot"
+msgstr "Selecciona-ho tot"
