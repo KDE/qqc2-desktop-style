@@ -24,8 +24,9 @@ T.SpinBox {
 
     padding: 6
 
-    leftPadding: Math.max(0, styleitem.editRect.left - styleitem.x)
-    rightPadding:  Math.max(0, styleitem.x + styleitem.width - styleitem.editRect.right)
+    // Make them integer as since editRect is always integer, this might cause a polish loop
+    leftPadding: Math.round(Math.max(0, styleitem.editRect.left - styleitem.x))
+    rightPadding: Math.round(Math.max(0, styleitem.x + styleitem.width - styleitem.editRect.right))
 
     onMirroredChanged: styleitem.recompute()
     Component.onCompleted: styleitem.recompute()
