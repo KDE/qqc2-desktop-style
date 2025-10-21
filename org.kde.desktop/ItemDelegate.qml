@@ -27,9 +27,13 @@ T.ItemDelegate {
 
     spacing: Kirigami.Units.smallSpacing
     padding: Kirigami.Settings.tabletMode ? Kirigami.Units.largeSpacing : Kirigami.Units.mediumSpacing
-    horizontalPadding: Kirigami.Units.smallSpacing * 2
-    leftPadding: !mirrored ? horizontalPadding + (indicator ? (controlRoot.display === T.AbstractButton.TextUnderIcon ? 0 : implicitIndicatorWidth) + spacing : 0) : horizontalPadding
-    rightPadding: mirrored ? horizontalPadding + (indicator ? (controlRoot.display === T.AbstractButton.TextUnderIcon ? 0 : implicitIndicatorWidth) + spacing : 0) : horizontalPadding
+    leftPadding: !mirrored ? horizontalPadding + (controlRoot.display === T.AbstractButton.TextUnderIcon ? 0 : implicitIndicatorWidth) + spacing : horizontalPadding
+    rightPadding: mirrored ? horizontalPadding + (controlRoot.display === T.AbstractButton.TextUnderIcon ? 0 : implicitIndicatorWidth) + spacing : horizontalPadding
+    // Provides padding around the background hover/highlight effect
+    leftInset: TableView.view ? 0 : Math.ceil(horizontalPadding / 2)
+    rightInset: TableView.view ? 0 : Math.ceil(horizontalPadding / 2)
+    topInset: TableView.view ? 0 : Math.ceil(verticalPadding / 2)
+    bottomInset: TableView.view ? 0 : Math.ceil(verticalPadding / 2)
 
     readonly property int __iconSize: controlRoot.display === T.AbstractButton.TextUnderIcon ? Kirigami.Units.iconSizes.medium : Kirigami.Units.iconSizes.smallMedium
     icon.width: __iconSize
@@ -39,13 +43,6 @@ T.ItemDelegate {
     T.ToolTip.text: action instanceof Kirigami.Action ? action.tooltip : text
     T.ToolTip.delay: Kirigami.Settings.tabletMode ? Qt.styleHints.mousePressAndHoldInterval : Kirigami.Units.toolTipDelay
 
-    leftInset: TableView.view ? 0 : horizontalPadding / 2
-    rightInset: TableView.view ? 0 : horizontalPadding / 2
-    // We want total spacing between consecutive list items to be
-    // verticalPadding. So use half that as top/bottom margin, separately
-    // ceiling/flooring them so that the total spacing is preserved.
-    topInset: TableView.view ? 0 : Math.ceil(verticalPadding / 2)
-    bottomInset: TableView.view ? 0 : Math.ceil(verticalPadding / 2)
 
     contentItem: GridLayout {
         LayoutMirroring.enabled: controlRoot.mirrored
