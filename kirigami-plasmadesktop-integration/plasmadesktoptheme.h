@@ -9,7 +9,6 @@
 
 #include <Kirigami/Platform/PlatformTheme>
 
-#include <KConfigWatcher>
 #include <QColor>
 #include <QIcon>
 #include <QObject>
@@ -38,7 +37,6 @@ private:
     friend class StyleSingleton;
     QPointer<QWindow> m_window;
     QMetaObject::Connection m_sgConnection;
-    KConfigWatcher::Ptr m_globalConfigWatcher;
 };
 
 #endif // KIRIGAMIPLASMATHEME_H
