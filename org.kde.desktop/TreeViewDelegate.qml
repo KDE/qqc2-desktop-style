@@ -47,8 +47,8 @@ T.TreeViewDelegate {
     icon.height: Kirigami.Units.iconSizes.smallMedium
 
     T.ToolTip.visible: (Kirigami.Settings.tabletMode ? down : hovered) && (contentItem.truncated ?? false)
-    T.ToolTip.text: controlRoot.model.display
-    T.ToolTip.delay: Kirigami.Units.toolTipDelay
+    T.ToolTip.text: action instanceof Kirigami.Action ? action.tooltip : controlRoot.model.display
+    T.ToolTip.delay: Kirigami.Settings.tabletMode ? Qt.styleHints.mousePressAndHoldInterval : Kirigami.Units.toolTipDelay
 
     required property int row
     required property int column
