@@ -24,7 +24,7 @@ T.ScrollView {
     Kirigami.Theme.inherit: !background || !background.visible
 
     // size in pixel to accommodate the border drawn by qstyle
-    topPadding: controlRoot.background?.visible ? (background.topPadding ?? 0) : 0
+    topPadding: (controlRoot.background?.visible ? (background.topPadding ?? 0) : 0) + internal.extraTopPadding
     leftPadding: (controlRoot.background?.visible ? (background.leftPadding ?? 0) : 0)
                     + (mirrored ? internal.verticalScrollBarWidth : 0)
     rightPadding: (controlRoot.background?.visible ? (background.rightPadding ?? 0) : 0)
@@ -68,6 +68,11 @@ T.ScrollView {
 
             readonly property real verticalScrollBarWidth: controlRoot.ScrollBar.vertical.visible && controlRoot.ScrollBar.vertical.interactive ? controlRoot.ScrollBar.vertical.width : 0
             readonly property real horizontalScrollBarHeight: controlRoot.ScrollBar.horizontal.visible && controlRoot.ScrollBar.vertical.interactive ? controlRoot.ScrollBar.horizontal.height : 0
+
+            // This small extra top padding is used to make our ItemDelegate style first item have
+            // the exact same visual margins on top and on the sides, see BUG 487653
+            // smallSpacing / 4 is calculated from ItemDelegate leftInset
+            readonly property real extraTopPadding: Math.round(Kirigami.Units.smallSpacing / 4)
         }
     ]
 
@@ -77,7 +82,7 @@ T.ScrollView {
         x: controlRoot.mirrored
             ? (controlRoot.background?.visible ? (controlRoot.background.leftPadding ?? 0) : 0)
             : controlRoot.width - width - (controlRoot.background?.visible ? (controlRoot.background.rightPadding ?? 0) : 0)
-        y: controlRoot.topPadding
+        y: controlRoot.topPadding - internal.extraTopPadding
         height: controlRoot.availableHeight
         active: controlRoot.ScrollBar.horizontal.active
     }
