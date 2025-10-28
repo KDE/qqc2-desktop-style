@@ -29,6 +29,7 @@ public:
 
     void syncWindow();
     void syncColors();
+    void syncFrameContrast();
 
 protected:
     bool event(QEvent *event) override;

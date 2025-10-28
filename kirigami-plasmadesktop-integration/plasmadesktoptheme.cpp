@@ -305,6 +305,37 @@ void PlasmaDesktopTheme::syncColors()
     // decoration
     setHoverColor(colors.scheme.decoration(KColorScheme::HoverColor).color());
     setFocusColor(colors.scheme.decoration(KColorScheme::FocusColor).color());
+    setFrameContrast(KColorScheme::frameContrast());
+}
+
+void PlasmaDesktopTheme::syncFrameContrast()
+{
+    if (QCoreApplication::closingDown()) {
+        return;
+    }
+
+    QPalette::ColorGroup group = (QPalette::ColorGroup)colorGroup();
+    auto parentItem = qobject_cast<QQuickItem *>(parent());
+    if (parentItem) {
+        if (!parentItem->isVisible()) {
+            return;
+        }
+        if (!parentItem->isEnabled()) {
+            group = QPalette::Disabled;
+        } else if (m_window && !m_window->isActive() && m_window->isExposed()) {
+            group = QPalette::Inactive;
+        }
+    }
+
+    const auto colors = s_style->loadColors(colorSet(), group);
+
+    Kirigami::Platform::PlatformThemeChangeTracker tracker(this);
+
+    setTextColor(colors.scheme.foreground(KColorScheme::NormalText).color());
+    setDisabledTextColor(colors.scheme.foreground(KColorScheme::InactiveText).color());
+
+    setBackgroundColor(colors.scheme.background(KColorScheme::NormalBackground).color());
+    setFrameContrast(KColorScheme::frameContrast());
 }
 
 bool PlasmaDesktopTheme::event(QEvent *event)
@@ -319,6 +350,10 @@ bool PlasmaDesktopTheme::event(QEvent *event)
 
     if (event->type() == Kirigami::Platform::PlatformThemeEvents::ColorGroupChangedEvent::type) {
         syncColors();
+    }
+
+    if (event->type() == Kirigami::Platform::PlatformThemeEvents::FrameContrastChangedEvent::type) {
+        syncFrameContrast();
     }
 
     return PlatformTheme::event(event);
