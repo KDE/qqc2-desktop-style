@@ -25,7 +25,7 @@ T.TabButton {
     width: implicitWidth
     padding: 0
 
-    hoverEnabled: true
+    hoverEnabled: enabled
 
     contentItem: null
 

@@ -25,7 +25,7 @@ T.RadioButton {
 
     spacing: indicator && typeof indicator.pixelMetric === "function" ? indicator.pixelMetric("radiobuttonlabelspacing") : Kirigami.Units.smallSpacing
 
-    hoverEnabled: true
+    hoverEnabled: enabled
 
     indicator: Private.CheckIndicator {
         elementType: "radiobutton"

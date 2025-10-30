@@ -37,6 +37,8 @@ Rectangle {
     color: normalColor
 
     Rectangle {
+        visible: background.control.hoverEnabled
+
         anchors {
             fill: parent
             leftMargin: background.control.leftInset

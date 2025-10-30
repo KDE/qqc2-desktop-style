@@ -25,7 +25,7 @@ T.Switch {
     padding: 1
     spacing: Kirigami.Units.smallSpacing
 
-    hoverEnabled: true
+    hoverEnabled: enabled
 
     indicator: Private.SwitchIndicator {
         x: if (control.contentItem !== null && control.contentItem.width > 0) {

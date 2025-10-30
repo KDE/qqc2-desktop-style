@@ -18,7 +18,7 @@ T.ScrollBar {
     implicitWidth: mouseArea.implicitWidth
     implicitHeight: mouseArea.implicitHeight
 
-    hoverEnabled: true
+    hoverEnabled: enabled
 
     stepSize: 0.02
     interactive: !Kirigami.Settings.hasTransientTouchInput
@@ -102,7 +102,7 @@ T.ScrollBar {
 
         anchors.fill: parent
         visible: controlRoot.size < 1.0 && controlRoot.interactive
-        hoverEnabled: true
+        hoverEnabled: controlRoot.enabled
         acceptedButtons: Qt.LeftButton | Qt.MiddleButton
         onExited: style.activeControl = "groove";
         onPressed: mouse => {

@@ -31,8 +31,8 @@ T.SpinBox {
     onMirroredChanged: styleitem.recompute()
     Component.onCompleted: styleitem.recompute()
 
-    hoverEnabled: true
-    wheelEnabled: true
+    hoverEnabled: enabled
+    wheelEnabled: enabled
     editable: true
 
     validator: IntValidator {

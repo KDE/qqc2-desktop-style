@@ -21,6 +21,8 @@ T.SwipeDelegate {
                              implicitContentHeight + topPadding + bottomPadding,
                              implicitIndicatorHeight + topPadding + bottomPadding)
 
+    hoverEnabled: enabled
+
     spacing: Kirigami.Units.smallSpacing
     padding: Kirigami.Settings.tabletMode ? Kirigami.Units.largeSpacing : Kirigami.Units.mediumSpacing
     horizontalPadding: Kirigami.Units.smallSpacing * 2

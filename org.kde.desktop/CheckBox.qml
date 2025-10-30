@@ -25,7 +25,7 @@ T.CheckBox {
 
     spacing: indicator && typeof indicator.pixelMetric === "function" ? indicator.pixelMetric("checkboxlabelspacing") : Kirigami.Units.smallSpacing
 
-    hoverEnabled: true
+    hoverEnabled: enabled
 
     indicator: Private.CheckIndicator {
         elementType: "checkbox"

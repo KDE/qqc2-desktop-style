@@ -24,7 +24,7 @@ T.Slider {
 
     baselineOffset: background ? background.y + background.baselineOffset : 0
 
-    hoverEnabled: true
+    hoverEnabled: enabled
 
     handle: Private.DefaultSliderHandle {
         control: controlRoot

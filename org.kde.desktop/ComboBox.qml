@@ -27,8 +27,8 @@ T.ComboBox {
 
     baselineOffset: contentItem.y + contentItem.baselineOffset
 
-    hoverEnabled: true
-    wheelEnabled: true
+    hoverEnabled: enabled
+    wheelEnabled: enabled
 
     padding: 5
     leftPadding: editable && mirrored ? 24 : padding

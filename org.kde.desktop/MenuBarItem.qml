@@ -23,7 +23,7 @@ T.MenuBarItem {
     leftPadding: Kirigami.Units.largeSpacing
     rightPadding: Kirigami.Units.largeSpacing
     bottomPadding: Kirigami.Units.smallSpacing
-    hoverEnabled: true
+    hoverEnabled: enabled
 
     Kirigami.MnemonicData.enabled: enabled && visible
     Kirigami.MnemonicData.controlType: Kirigami.MnemonicData.MenuItem

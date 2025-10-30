@@ -23,7 +23,7 @@ T.RadioDelegate {
                              implicitContentHeight + topPadding + bottomPadding,
                              implicitIndicatorHeight + topPadding + bottomPadding)
 
-    hoverEnabled: true
+    hoverEnabled: enabled
 
     spacing: Kirigami.Units.smallSpacing
     padding: Kirigami.Settings.tabletMode ? Kirigami.Units.largeSpacing : Kirigami.Units.mediumSpacing
