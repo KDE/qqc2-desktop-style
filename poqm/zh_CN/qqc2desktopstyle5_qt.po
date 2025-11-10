@@ -14,7 +14,7 @@ msgstr ""
 "X-Crowdin-Language: zh-CN\n"
 "X-Crowdin-File: /kf5-trunk/messages/qqc2-desktop-style/qqc2desktopstyle5_qt."
 "pot\n"
-"X-Crowdin-File-ID: 53680\n"
+"X-Crowdin-File-ID: 59718\n"
 
 #: org.kde.desktop/private/TextFieldContextMenu.qml:132
 #, qt-format
