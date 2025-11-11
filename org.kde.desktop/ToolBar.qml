@@ -14,10 +14,10 @@ import org.kde.desktop.private as Private
 T.ToolBar {
     id: controlRoot
 
-    implicitWidth: Math.max(implicitBackgroundWidth + leftInset + rightInset,
-                            contentWidth + leftPadding + rightPadding)
-    implicitHeight: Math.max(implicitBackgroundHeight + topInset + bottomInset,
-                             contentHeight + topPadding + bottomPadding)
+    implicitWidth: Math.max(implicitBackgroundWidth,
+                            contentWidth) + leftPadding + rightPadding
+    implicitHeight: Math.max(implicitBackgroundHeight,
+                             contentHeight) + topPadding + bottomPadding
 
     padding: Kirigami.Units.smallSpacing
 
