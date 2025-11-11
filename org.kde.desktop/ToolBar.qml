@@ -16,7 +16,7 @@ T.ToolBar {
 
     implicitWidth: Math.max(implicitBackgroundWidth + leftInset + rightInset,
                             contentWidth + leftPadding + rightPadding)
-    implicitHeight: Math.max(implicitBackgroundHeight + topInset + bottomInset,
+    implicitHeight: Math.max(implicitBackgroundHeight + topInset + bottomInset + topPadding + bottomPadding,
                              contentHeight + topPadding + bottomPadding)
 
     padding: Kirigami.Units.smallSpacing
