@@ -17,17 +17,17 @@ import org.kde.desktop.private as Private
 T.ItemDelegate {
     id: controlRoot
 
-    implicitWidth: Math.max(implicitBackgroundWidth + leftInset + rightInset,
-                            implicitContentWidth + leftPadding + rightPadding)
-    implicitHeight: Math.max(implicitBackgroundHeight + topInset + bottomInset,
-                             implicitContentHeight + topPadding + bottomPadding,
-                             implicitIndicatorHeight + topPadding + bottomPadding)
+    implicitWidth: Math.max(implicitBackgroundWidth,
+                            implicitContentWidth) + leftPadding + rightPadding
+    implicitHeight: Math.max(implicitBackgroundHeight,
+                             implicitContentHeight,
+                             implicitIndicatorHeight) + topPadding + bottomPadding
 
     hoverEnabled: true
 
-    spacing: Kirigami.Units.smallSpacing
-    padding: Kirigami.Settings.tabletMode ? Kirigami.Units.largeSpacing : Kirigami.Units.mediumSpacing
-    horizontalPadding: Kirigami.Units.smallSpacing * 2
+    spacing: Kirigami.Units.mediumSpacing
+    padding: Kirigami.Units.mediumSpacing + Kirigami.Units.smallSpacing
+    bottomPadding: Kirigami.Units.smallSpacing
     leftPadding: !mirrored ? horizontalPadding + (indicator ? (controlRoot.display === T.AbstractButton.TextUnderIcon ? 0 : implicitIndicatorWidth) + spacing : 0) : horizontalPadding
     rightPadding: mirrored ? horizontalPadding + (indicator ? (controlRoot.display === T.AbstractButton.TextUnderIcon ? 0 : implicitIndicatorWidth) + spacing : 0) : horizontalPadding
 
@@ -39,13 +39,13 @@ T.ItemDelegate {
     T.ToolTip.text: action instanceof Kirigami.Action ? action.tooltip : text
     T.ToolTip.delay: Kirigami.Settings.tabletMode ? Qt.styleHints.mousePressAndHoldInterval : Kirigami.Units.toolTipDelay
 
-    leftInset: TableView.view ? 0 : horizontalPadding / 2
-    rightInset: TableView.view ? 0 : horizontalPadding / 2
-    // We want total spacing between consecutive list items to be
-    // verticalPadding. So use half that as top/bottom margin, separately
-    // ceiling/flooring them so that the total spacing is preserved.
-    topInset: TableView.view ? 0 : Math.ceil(verticalPadding / 2)
-    bottomInset: TableView.view ? 0 : Math.ceil(verticalPadding / 2)
+    leftInset: TableView.view ? 0 : Kirigami.Units.mediumSpacing
+    rightInset: TableView.view ? 0 : Kirigami.Units.mediumSpacing
+    // We want an uniform space between the items, including the first.
+    // the delegate will have a space only on top, in the form of topInset,
+    // while there is no bottomInset
+    topInset: TableView.view ? 0 : Kirigami.Units.mediumSpacing
+    bottomInset: 0
 
     contentItem: GridLayout {
         LayoutMirroring.enabled: controlRoot.mirrored
@@ -87,9 +87,6 @@ T.ItemDelegate {
     }
 
     background: Private.DefaultListItemBackground {
-        // This is intentional and ensures the inset is not directly applied to
-        // the background, allowing it to determine how to handle the inset.
-        anchors.fill: parent
         control: controlRoot
     }
 }

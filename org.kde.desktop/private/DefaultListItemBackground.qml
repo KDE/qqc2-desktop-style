@@ -37,13 +37,7 @@ Rectangle {
     color: normalColor
 
     Rectangle {
-        anchors {
-            fill: parent
-            leftMargin: background.control.leftInset
-            rightMargin: background.control.rightInset
-            topMargin: background.control.topInset
-            bottomMargin: background.control.bottomInset
-        }
+        anchors.fill: parent
 
         visible: background.control.enabled
 
