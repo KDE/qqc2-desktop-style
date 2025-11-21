@@ -45,6 +45,8 @@ Rectangle {
             bottomMargin: background.control.bottomInset
         }
 
+        visible: background.control.enabled
+
         radius: background.hasInset ? Kirigami.Units.cornerRadius : 0
 
         color: {
