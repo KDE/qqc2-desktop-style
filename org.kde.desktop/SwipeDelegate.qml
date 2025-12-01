@@ -21,11 +21,11 @@ T.SwipeDelegate {
                              implicitContentHeight + topPadding + bottomPadding,
                              implicitIndicatorHeight + topPadding + bottomPadding)
 
-    spacing: Kirigami.Units.smallSpacing
-    padding: Kirigami.Settings.tabletMode ? Kirigami.Units.largeSpacing : Kirigami.Units.mediumSpacing
-    horizontalPadding: Kirigami.Units.smallSpacing * 2
-    leftPadding: !mirrored ? horizontalPadding + (indicator ? implicitIndicatorWidth + spacing : 0) : horizontalPadding
-    rightPadding: mirrored ? horizontalPadding + (indicator ? implicitIndicatorWidth + spacing : 0) : horizontalPadding
+    spacing: Kirigami.Units.mediumSpacing
+    padding: Kirigami.Units.mediumSpacing + Kirigami.Units.smallSpacing
+    bottomPadding: Kirigami.Units.smallSpacing
+    leftPadding: !mirrored ? horizontalPadding + (indicator ? (controlRoot.display === T.AbstractButton.TextUnderIcon ? 0 : implicitIndicatorWidth) + spacing : 0) : horizontalPadding
+    rightPadding: mirrored ? horizontalPadding + (indicator ? (controlRoot.display === T.AbstractButton.TextUnderIcon ? 0 : implicitIndicatorWidth) + spacing : 0) : horizontalPadding
 
     icon.width: Kirigami.Units.iconSizes.smallMedium
     icon.height: Kirigami.Units.iconSizes.smallMedium
@@ -34,13 +34,13 @@ T.SwipeDelegate {
     T.ToolTip.text: action instanceof Kirigami.Action ? action.tooltip : text
     T.ToolTip.delay: Kirigami.Settings.tabletMode ? Qt.styleHints.mousePressAndHoldInterval : Kirigami.Units.toolTipDelay
 
-    leftInset: TableView.view ? 0 : horizontalPadding / 2
-    rightInset: TableView.view ? 0 : horizontalPadding / 2
-    // We want total spacing between consecutive list items to be
-    // verticalPadding. So use half that as top/bottom margin, separately
-    // ceiling/flooring them so that the total spacing is preserved.
-    topInset: TableView.view ? 0 : Math.ceil(verticalPadding / 2)
-    bottomInset: TableView.view ? 0 : Math.ceil(verticalPadding / 2)
+    leftInset: TableView.view ? 0 : Kirigami.Units.mediumSpacing
+    rightInset: TableView.view ? 0 : Kirigami.Units.mediumSpacing
+    // We want an uniform space between the items, including the first.
+    // the delegate will have a space only on top, in the form of topInset,
+    // while there is no bottomInset
+    topInset: TableView.view ? 0 : Kirigami.Units.mediumSpacing
+    bottomInset: 0
 
     // This kind of long animation is one we don't want a duration, but a velocity otherwise
     // a close animation from the edge is too fast, while if it just has to cover few pixels, is too slow
@@ -86,14 +86,18 @@ T.SwipeDelegate {
         }
     }
 
-    background: Private.DefaultListItemBackground {
-        // This is intentional and ensures the inset is not directly applied to
-        // the background, allowing it to determine how to handle the inset.
-        // left and right anchors would break SwipeDelegate
-        anchors {
-            top: parent.top
-            bottom:parent.bottom
+    background: Item {
+        // SwipeDelegate doesn't apply correctly left/right insets so apply them manually
+        Private.DefaultListItemBackground {
+            visible: swipe.position === 0
+            anchors {
+                left: parent.left
+                top: parent.top
+                bottom: parent.bottom
+                leftMargin: controlRoot.leftInset
+            }
+            width: controlRoot.width - controlRoot.leftInset - controlRoot.rightInset
+            control: controlRoot
         }
-        control: controlRoot
     }
 }

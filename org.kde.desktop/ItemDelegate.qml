@@ -17,11 +17,11 @@ import org.kde.desktop.private as Private
 T.ItemDelegate {
     id: controlRoot
 
-    implicitWidth: Math.max(implicitBackgroundWidth,
-                            implicitContentWidth) + leftPadding + rightPadding
-    implicitHeight: Math.max(implicitBackgroundHeight,
-                             implicitContentHeight,
-                             implicitIndicatorHeight) + topPadding + bottomPadding
+    implicitWidth: Math.max(implicitBackgroundWidth + leftInset + rightInset,
+                            implicitContentWidth + leftPadding + rightPadding)
+    implicitHeight: Math.max(implicitBackgroundHeight + topInset + bottomInset,
+                             implicitContentHeight + topPadding + bottomPadding,
+                             implicitIndicatorHeight + topPadding + bottomPadding)
 
     hoverEnabled: true
 
