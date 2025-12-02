@@ -11,7 +11,7 @@ import QtQuick
 import QtQuick.Templates as T
 import org.kde.kirigami as Kirigami
 
-Rectangle {
+Item {
     id: background
 
     property T.ItemDelegate control
@@ -34,8 +34,20 @@ Rectangle {
 
     readonly property bool hasInset: control.leftInset > 0 || control.rightInset > 0 || control.topInset > 0 || control.bottomInset > 0
 
-    color: normalColor
+    property alias color: alternatingBackgroundRect.color
+    property alias radius: alternatingBackgroundRect.radius
 
+    Rectangle {
+        id: alternatingBackgroundRect
+        anchors {
+            fill: parent
+            leftMargin: Math.min(0, -background.control.leftInset)
+            // Omit topMargin, due to the extra top padding we always need in delegates
+            rightMargin: -background.control.rightInset
+            bottomMargin: -background.control.bottomInset
+        }
+        color: background.normalColor
+    }
     Rectangle {
         anchors.fill: parent
 
