@@ -27,6 +27,10 @@ T.ItemDelegate {
 
     spacing: Kirigami.Units.mediumSpacing
     padding: Kirigami.Units.mediumSpacing + Kirigami.Units.smallSpacing
+    // We want an uniform space between the items, including the first.
+    // the delegate will have a space only on top, in the form of a big top padding,
+    // while the bottom one will have a tiny padding and no inset as the spacing between items
+    // will be done by the top inset of the next item
     bottomPadding: Kirigami.Units.smallSpacing
     leftPadding: !mirrored ? horizontalPadding + (indicator ? (controlRoot.display === T.AbstractButton.TextUnderIcon ? 0 : implicitIndicatorWidth) + spacing : 0) : horizontalPadding
     rightPadding: mirrored ? horizontalPadding + (indicator ? (controlRoot.display === T.AbstractButton.TextUnderIcon ? 0 : implicitIndicatorWidth) + spacing : 0) : horizontalPadding
@@ -39,13 +43,11 @@ T.ItemDelegate {
     T.ToolTip.text: action instanceof Kirigami.Action ? action.tooltip : text
     T.ToolTip.delay: Kirigami.Settings.tabletMode ? Qt.styleHints.mousePressAndHoldInterval : Kirigami.Units.toolTipDelay
 
-    leftInset: TableView.view ? 0 : Kirigami.Units.mediumSpacing
-    rightInset: TableView.view ? 0 : Kirigami.Units.mediumSpacing
-    // We want an uniform space between the items, including the first.
-    // the delegate will have a space only on top, in the form of topInset,
-    // while there is no bottomInset
-    topInset: TableView.view ? 0 : Kirigami.Units.mediumSpacing
-    bottomInset: 0
+    // inset is padding minus a bottom spacing
+    leftInset: TableView.view ? 0 : Math.max(0, leftPadding - Kirigami.Units.smallSpacing)
+    rightInset: TableView.view ? 0 : Math.max(0, rightPadding - Kirigami.Units.smallSpacing)
+    topInset: TableView.view ? 0 : Math.max(0, topPadding - Kirigami.Units.smallSpacing)
+    bottomInset: TableView.view ? 0 : Math.max(0, bottomPadding - Kirigami.Units.smallSpacing)
 
     contentItem: GridLayout {
         LayoutMirroring.enabled: controlRoot.mirrored
