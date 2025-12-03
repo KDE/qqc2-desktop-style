@@ -37,6 +37,8 @@ T.ComboBox {
     delegate: ItemDelegate {
         required property var model
         required property int index
+        padding: Kirigami.Units.mediumSpacing
+        bottomPadding: Kirigami.Units.mediumSpacing
         width: ListView.view.width
         text: model[controlRoot.textRole]
         highlighted: controlRoot.highlightedIndex === index
