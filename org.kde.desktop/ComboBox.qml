@@ -34,17 +34,11 @@ T.ComboBox {
     leftPadding: editable && mirrored ? 24 : padding
     rightPadding: editable && !mirrored ? 24 : padding
 
-    delegate: ItemDelegate {
+    delegate: MenuItem {
         required property var model
         required property int index
-        padding: Kirigami.Units.mediumSpacing
-        bottomPadding: Kirigami.Units.mediumSpacing
-        width: ListView.view.width
         text: model[controlRoot.textRole]
         highlighted: controlRoot.highlightedIndex === index
-        property bool separatorVisible: false
-        Kirigami.Theme.colorSet: controlRoot.Kirigami.Theme.inherit ? controlRoot.Kirigami.Theme.colorSet : Kirigami.Theme.View
-        Kirigami.Theme.inherit: controlRoot.Kirigami.Theme.inherit
     }
 
     indicator: Item {}
@@ -131,7 +125,7 @@ T.ComboBox {
         flat: controlRoot.flat
         anchors.fill: parent
         hover: controlRoot.hovered
-        on: controlRoot.down
+        on: controlRoot.down && !controlRoot.popup.exit.running
         hasFocus: controlRoot.activeFocus
         enabled: controlRoot.enabled
         // contentHeight as in QComboBox magic numbers taken from QQC1 style
@@ -142,69 +136,12 @@ T.ComboBox {
         }
     }
 
-    popup: T.Popup {
-        Kirigami.OverlayZStacking.layer: Kirigami.OverlayZStacking.Menu
-        z: Kirigami.OverlayZStacking.z
-
+    popup: Menu {
         y: controlRoot.height
         width: controlRoot.width
-        implicitHeight: contentItem.implicitHeight
-        topMargin: Kirigami.Units.mediumSpacing
-        bottomMargin: Kirigami.Units.mediumSpacing
-        Kirigami.Theme.colorSet: Kirigami.Theme.View
-        Kirigami.Theme.inherit: controlRoot.Kirigami.Theme.inherit
-        modal: true
-        dim: true
-        closePolicy: T.Popup.CloseOnEscape | T.Popup.CloseOnPressOutside
 
-        // Forces it to have a transparent dimmer.
-        // A dimmer is needed for "click outside" to work reliably in some views
-        // but default dimmer would, well, dim the contents in pure QtQuick windows,
-        // like ApplicationWindow, which we don't want.
-        T.Overlay.modal: Item { }
-
-        contentItem: ScrollView {
-            LayoutMirroring.enabled: controlRoot.mirrored
-            LayoutMirroring.childrenInherit: true
-
-            background: Rectangle {
-                color: Kirigami.Theme.backgroundColor
-                radius: Kirigami.Units.cornerRadius
-            }
-            ScrollBar.horizontal.policy: ScrollBar.AlwaysOff
-            ListView {
-                id: listView
-
-                // this causes us to load at least one delegate
-                // this is essential in guessing the contentHeight
-                // which is needed to initially resize the popup
-                cacheBuffer: 1
-
-                clip: height < contentHeight
-                implicitHeight: contentHeight
-                model: controlRoot.delegateModel
-                delegate: controlRoot.delegate
-                currentIndex: controlRoot.highlightedIndex
-                highlightRangeMode: ListView.ApplyRange
-                highlightMoveDuration: 0
-                boundsBehavior: Flickable.StopAtBounds
-            }
-        }
-        background: Kirigami.ShadowedRectangle {
-            anchors {
-                fill: parent
-                margins: -1
-            }
-            radius: Kirigami.Units.cornerRadius
-            color: Kirigami.Theme.backgroundColor
-
-            border.color: Kirigami.ColorUtils.linearInterpolation(Kirigami.Theme.backgroundColor, Kirigami.Theme.textColor, Kirigami.Theme.frameContrast)
-            border.width: 1
-
-            shadow.xOffset: 0
-            shadow.yOffset: 2
-            shadow.color: Qt.rgba(0, 0, 0, 0.3)
-            shadow.size: 8
+        Repeater {
+            model: controlRoot.delegateModel
         }
     }
 }
