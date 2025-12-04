@@ -25,11 +25,15 @@ T.RadioDelegate {
 
     hoverEnabled: true
 
-    spacing: Kirigami.Units.smallSpacing
-    padding: Kirigami.Settings.tabletMode ? Kirigami.Units.largeSpacing : Kirigami.Units.mediumSpacing
-    horizontalPadding: Kirigami.Units.smallSpacing * 2
-    leftPadding: !mirrored ? horizontalPadding + (controlRoot.display === T.AbstractButton.TextUnderIcon ? 0 : implicitIndicatorWidth) + spacing : horizontalPadding
-    rightPadding: mirrored ? horizontalPadding + (controlRoot.display === T.AbstractButton.TextUnderIcon ? 0 : implicitIndicatorWidth) + spacing : horizontalPadding
+    spacing: Kirigami.Units.mediumSpacing
+    padding: Kirigami.Units.mediumSpacing + Kirigami.Units.smallSpacing
+    // We want an uniform space between the items, including the first.
+    // the delegate will have a space only on top, in the form of a big top padding,
+    // while the bottom one will have a tiny padding and no inset as the spacing between items
+    // will be done by the top inset of the next item
+    bottomPadding: Kirigami.Units.smallSpacing
+    leftPadding: !mirrored ? horizontalPadding + (indicator ? (controlRoot.display === T.AbstractButton.TextUnderIcon ? 0 : implicitIndicatorWidth) + spacing : 0) : horizontalPadding
+    rightPadding: mirrored ? horizontalPadding + (indicator ? (controlRoot.display === T.AbstractButton.TextUnderIcon ? 0 : implicitIndicatorWidth) + spacing : 0) : horizontalPadding
 
     readonly property int __iconSize: controlRoot.display === T.AbstractButton.TextUnderIcon ? Kirigami.Units.iconSizes.medium : Kirigami.Units.iconSizes.smallMedium
     icon.width: __iconSize
@@ -39,13 +43,11 @@ T.RadioDelegate {
     T.ToolTip.text: action instanceof Kirigami.Action ? action.tooltip : text
     T.ToolTip.delay: Kirigami.Settings.tabletMode ? Qt.styleHints.mousePressAndHoldInterval : Kirigami.Units.toolTipDelay
 
-    leftInset: TableView.view ? 0 : horizontalPadding / 2
-    rightInset: TableView.view ? 0 : horizontalPadding / 2
-    // We want total spacing between consecutive list items to be
-    // verticalPadding. So use half that as top/bottom margin, separately
-    // ceiling/flooring them so that the total spacing is preserved.
-    topInset: TableView.view ? 0 : Math.ceil(verticalPadding / 2)
-    bottomInset: TableView.view ? 0 : Math.ceil(verticalPadding / 2)
+    // inset is padding minus a small spacing
+    leftInset: TableView.view ? 0 : Math.max(0, padding - Kirigami.Units.smallSpacing)
+    rightInset: TableView.view ? 0 : Math.max(0, padding - Kirigami.Units.smallSpacing)
+    topInset: TableView.view ? 0 : Math.max(0, topPadding - Kirigami.Units.smallSpacing)
+    bottomInset: TableView.view ? 0 : Math.max(0, bottomPadding - Kirigami.Units.smallSpacing)
 
     contentItem: GridLayout {
         LayoutMirroring.enabled: controlRoot.mirrored
@@ -92,9 +94,6 @@ T.RadioDelegate {
     }
 
     background: Private.DefaultListItemBackground {
-        // This is intentional and ensures the inset is not directly applied to
-        // the background, allowing it to determine how to handle the inset.
-        anchors.fill: parent
         control: controlRoot
     }
 }

@@ -43,7 +43,7 @@ T.ItemDelegate {
     T.ToolTip.text: action instanceof Kirigami.Action ? action.tooltip : text
     T.ToolTip.delay: Kirigami.Settings.tabletMode ? Qt.styleHints.mousePressAndHoldInterval : Kirigami.Units.toolTipDelay
 
-    // inset is padding minus a bottom spacing
+    // inset is padding minus a small spacing
     leftInset: TableView.view ? 0 : Math.max(0, leftPadding - Kirigami.Units.smallSpacing)
     rightInset: TableView.view ? 0 : Math.max(0, rightPadding - Kirigami.Units.smallSpacing)
     topInset: TableView.view ? 0 : Math.max(0, topPadding - Kirigami.Units.smallSpacing)
