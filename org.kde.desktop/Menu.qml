@@ -22,12 +22,10 @@ T.Menu {
     implicitHeight: Math.max(implicitBackgroundHeight + topInset + bottomInset,
                              contentHeight + topPadding + bottomPadding)
 
-    margins: 0
-
-    rightPadding: (scrollbar.visible &&  !mirrored) ? scrollbar.width : undefined
-    leftPadding: (scrollbar.visible &&  mirrored) ? scrollbar.width : undefined
-    horizontalPadding: style.pixelMetric("menuhmargin")
-    verticalPadding: style.pixelMetric("menuvmargin")
+    leftPadding: style.pixelMetric("menuhmargin") + background.border.width + (scrollbar.visible && mirrored ? scrollbar.width : 0)
+    rightPadding: style.pixelMetric("menuhmargin") + background.border.width + (scrollbar.visible && !mirrored ? scrollbar.width : 0)
+    topPadding: style.pixelMetric("menuvmargin") + background.border.width
+    bottomPadding: style.pixelMetric("menuvmargin") + background.border.width
 
     property Item __style: StylePrivate.StyleItem {
         id: style
@@ -67,6 +65,10 @@ T.Menu {
             anchors.top: listview.top
             anchors.left: listview.right
             anchors.bottom: listview.bottom
+
+            anchors.leftMargin: style.pixelMetric("menuhmargin")
+            anchors.topMargin: -style.pixelMetric("menuvmargin")
+            anchors.bottomMargin: -style.pixelMetric("menuvmargin")
         }
 
         // mimic qtwidgets behaviour regarding menu highlighting
