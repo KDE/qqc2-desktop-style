@@ -107,11 +107,64 @@ ecm_add_qml_module(org_kde_desktop URI "org.kde.desktop" VERSION 1.0 GENERATE_PL
 ecm_create_qm_loader(org_kde_desktop_QM_LOADER qqc2desktopstyle_qt)
 target_sources(org_kde_desktop PRIVATE ${org_kde_desktop_QM_LOADER})
 
-file(GLOB _public_qml "org.kde.desktop/*.qml")
 ecm_target_qml_sources(org_kde_desktop
     VERSION 1.0
-    SOURCES ${_public_qml}
+    SOURCES
+        org.kde.desktop/BusyIndicator.qml
+        org.kde.desktop/Button.qml
+        org.kde.desktop/CheckBox.qml
+        org.kde.desktop/CheckDelegate.qml
+        org.kde.desktop/ComboBox.qml
+        org.kde.desktop/Container.qml
+        org.kde.desktop/Control.qml
+        org.kde.desktop/DelayButton.qml
+        org.kde.desktop/Dial.qml
+        org.kde.desktop/Dialog.qml
+        org.kde.desktop/DialogButtonBox.qml
+        org.kde.desktop/Drawer.qml
+        org.kde.desktop/Frame.qml
+        org.kde.desktop/GroupBox.qml
+        org.kde.desktop/HorizontalHeaderView.qml
+        org.kde.desktop/ItemDelegate.qml
+        org.kde.desktop/Label.qml
+        org.kde.desktop/Menu.qml
+        org.kde.desktop/MenuBar.qml
+        org.kde.desktop/MenuBarItem.qml
+        org.kde.desktop/MenuItem.qml
+        org.kde.desktop/MenuSeparator.qml
+        org.kde.desktop/Page.qml
+        org.kde.desktop/PageIndicator.qml
+        org.kde.desktop/Pane.qml
+        org.kde.desktop/Popup.qml
+        org.kde.desktop/ProgressBar.qml
+        org.kde.desktop/RadioButton.qml
+        org.kde.desktop/RadioDelegate.qml
+        org.kde.desktop/RangeSlider.qml
+        org.kde.desktop/RoundButton.qml
+        org.kde.desktop/ScrollBar.qml
+        org.kde.desktop/ScrollView.qml
+        org.kde.desktop/Slider.qml
+        org.kde.desktop/SpinBox.qml
+        org.kde.desktop/SplitView.qml
+        org.kde.desktop/StackView.qml
+        org.kde.desktop/SwipeDelegate.qml
+        org.kde.desktop/Switch.qml
+        org.kde.desktop/SwitchDelegate.qml
+        org.kde.desktop/TabBar.qml
+        org.kde.desktop/TabButton.qml
+        org.kde.desktop/TextArea.qml
+        org.kde.desktop/TextField.qml
+        org.kde.desktop/ToolBar.qml
+        org.kde.desktop/ToolButton.qml
+        org.kde.desktop/ToolSeparator.qml
+        org.kde.desktop/ToolTip.qml
+        org.kde.desktop/TreeViewDelegate.qml
+        org.kde.desktop/VerticalHeaderView.qml
 )
+
+if (Qt6QuickControls2_VERSION VERSION_GREATER_EQUAL "6.10.0")
+    ecm_target_qml_sources(org_kde_desktop SOURCES org.kde.desktop/SearchField.qml)
+endif()
 
 # Private module goes separately, because a type can not be both internal and singleton (QTBUG-111545)
 ecm_add_qml_module(org_kde_desktop_private
