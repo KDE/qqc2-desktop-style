@@ -726,7 +726,9 @@ void KQuickStyleItem::initStyleOption()
             qreal numOfSteps = (opt->maximum - opt->minimum) / opt->singleStep;
             // at least 5 pixels between tick marks
             qreal extent = horizontal() ? width() : height();
-            if (numOfSteps && (extent / numOfSteps < 5)) {
+            if (extent == 0) {
+                opt->tickInterval = 0;
+            } else if (numOfSteps && (extent / numOfSteps < 5)) {
                 opt->tickInterval = qRound((5 * numOfSteps / extent) + 0.5) * step();
             } else {
                 opt->tickInterval = opt->singleStep;
