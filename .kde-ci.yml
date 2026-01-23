@@ -11,3 +11,4 @@ Options:
  test-before-installing: True
  require-passing-tests-on: ['Linux', 'FreeBSD', 'Windows']
  run-qmllint: true
+ enable-lsan: True
