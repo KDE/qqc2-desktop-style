@@ -90,3 +90,8 @@ msgstr "Ezabatu"
 msgctxt "TextFieldContextMenu|"
 msgid "Select All"
 msgstr "Hautatu guztia"
+
+#: org.kde.desktop/SearchField.qml:80
+msgctxt "SearchField|"
+msgid "Clear search"
+msgstr ""

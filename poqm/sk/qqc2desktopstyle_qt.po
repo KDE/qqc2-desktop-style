@@ -87,3 +87,8 @@ msgstr "Vymazať"
 msgctxt "TextFieldContextMenu|"
 msgid "Select All"
 msgstr ""
+
+#: org.kde.desktop/SearchField.qml:80
+msgctxt "SearchField|"
+msgid "Clear search"
+msgstr ""

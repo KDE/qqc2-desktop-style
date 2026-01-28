@@ -84,3 +84,8 @@ msgstr "Löschen"
 msgctxt "TextFieldContextMenu|"
 msgid "Select All"
 msgstr "Alles auswählen"
+
+#: org.kde.desktop/SearchField.qml:80
+msgctxt "SearchField|"
+msgid "Clear search"
+msgstr ""

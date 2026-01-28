@@ -89,3 +89,8 @@ msgstr "Suprimix"
 msgctxt "TextFieldContextMenu|"
 msgid "Select All"
 msgstr "Selecciona-ho tot"
+
+#: org.kde.desktop/SearchField.qml:80
+msgctxt "SearchField|"
+msgid "Clear search"
+msgstr ""

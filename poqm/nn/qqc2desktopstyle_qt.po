@@ -88,3 +88,8 @@ msgstr "Slett"
 msgctxt "TextFieldContextMenu|"
 msgid "Select All"
 msgstr "Merk alt"
+
+#: org.kde.desktop/SearchField.qml:80
+msgctxt "SearchField|"
+msgid "Clear search"
+msgstr ""

@@ -90,3 +90,8 @@ msgstr "Forigi"
 msgctxt "TextFieldContextMenu|"
 msgid "Select All"
 msgstr "Elekti Ĉion"
+
+#: org.kde.desktop/SearchField.qml:80
+msgctxt "SearchField|"
+msgid "Clear search"
+msgstr ""

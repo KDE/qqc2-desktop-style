@@ -84,3 +84,8 @@ msgstr "Eyða"
 msgctxt "TextFieldContextMenu|"
 msgid "Select All"
 msgstr "Velja allt"
+
+#: org.kde.desktop/SearchField.qml:80
+msgctxt "SearchField|"
+msgid "Clear search"
+msgstr ""
