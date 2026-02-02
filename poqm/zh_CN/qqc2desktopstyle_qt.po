@@ -91,4 +91,4 @@ msgstr "全选"
 #: org.kde.desktop/SearchField.qml:80
 msgctxt "SearchField|"
 msgid "Clear search"
-msgstr ""
+msgstr "清除搜索内容"
