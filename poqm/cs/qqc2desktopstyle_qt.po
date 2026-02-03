@@ -88,4 +88,4 @@ msgstr "Vybrat vše"
 #: org.kde.desktop/SearchField.qml:80
 msgctxt "SearchField|"
 msgid "Clear search"
-msgstr ""
+msgstr "Vyprázdnit hledání"
