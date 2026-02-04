@@ -31,7 +31,8 @@ T.ItemDelegate {
     // the delegate will have a space only on top, in the form of a big top padding,
     // while the bottom one will have a tiny padding and no inset as the spacing between items
     // will be done by the top inset of the next item
-    bottomPadding: Kirigami.Units.smallSpacing
+    // Give a bigger bottom padding only to the last item, if we detect we are in a listview
+    bottomPadding: typeof index !== "undefined" && ListView.view?.count === index + 1 ? topPadding : Kirigami.Units.smallSpacing
     leftPadding: !mirrored ? horizontalPadding + (indicator ? (controlRoot.display === T.AbstractButton.TextUnderIcon ? 0 : implicitIndicatorWidth) + spacing : 0) : horizontalPadding
     rightPadding: mirrored ? horizontalPadding + (indicator ? (controlRoot.display === T.AbstractButton.TextUnderIcon ? 0 : implicitIndicatorWidth) + spacing : 0) : horizontalPadding
 
