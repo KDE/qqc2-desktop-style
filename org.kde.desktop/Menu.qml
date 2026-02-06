@@ -45,9 +45,10 @@ T.Menu {
         // Some non-zero value, so the whole menu does not get stuck zero
         // sized. Otherwise ListView just refuses to update implicitHeight -- just zero.
         // `contentHeight` reports a wrong estimated height when all items are invisible.
-        // Use childrenRect instead.
-        // https://invent.kde.org/qt/qt/qtdeclarative/-/blob/8a0787f3bbed226785c842e1fd273a5b6dc06a32/src/quick/items/qquicklistview.cpp#L520
-        implicitHeight: Math.max(1, contentItem.childrenRect.height)
+        // Use visibleChildren instead, and set the startup value to 1, so the space available
+        // is just slightly more than needed, avoiding random scrollbars.
+        implicitHeight: Math.min(contentHeight, contentItem.visibleChildren.reduce((acc, item) => (acc += item.implicitHeight), 1))
+
         model: control.contentModel
 
         spacing: 0 // Hardcoded to the Breeze theme value
