@@ -50,6 +50,9 @@ T.TextArea {
 
     onTextChanged: Private.MobileTextActionsToolBar.shouldBeVisible = false;
     onPressed: event => {
+        if (event.accepted) {
+            return;
+        }
         Private.MobileTextActionsToolBar.shouldBeVisible = true;
     }
 
@@ -105,7 +108,7 @@ T.TextArea {
     }
 
     onPressAndHold: event => {
-        if (hoverEnabled) {
+        if (hoverEnabled || event.accepted) {
             return;
         }
         forceActiveFocus();
