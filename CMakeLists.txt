@@ -93,7 +93,7 @@ ecm_find_qmlmodule(org.kde.sonnet 1.0)
 
 ecm_set_disabled_deprecation_versions(
     QT 6.11.0
-    KF 6.21.0
+    KF 6.23.0
 )
 
 add_subdirectory(plugin)
