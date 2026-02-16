@@ -46,7 +46,11 @@ T.Slider {
         enabled: controlRoot.enabled
         hasFocus: controlRoot.activeFocus
         hover: controlRoot.hovered
-        activeControl: controlRoot.stepSize > 0 ? "ticks" : ""
+        activeControl: controlRoot.stepSize > 0 && controlRoot.Kirigami.StyleHints.tickMarkStepSize >= 0 ? "ticks" : ""
+
+        properties: {
+            "tickMarkStepSize": 100000 * (controlRoot.Kirigami.StyleHints.tickMarkStepSize / (controlRoot.to - controlRoot.from))
+        }
 
         // `wheelEnabled: true` doesn't work since it doesn't snap to tickmarks,
         // so we have to implement the scroll handling ourselves. See
