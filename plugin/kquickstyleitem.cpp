@@ -722,20 +722,25 @@ void KQuickStyleItem::initStyleOption()
         opt->sliderPosition = value();
         opt->singleStep = step();
 
-        if (opt->singleStep) {
-            qreal numOfSteps = (opt->maximum - opt->minimum) / opt->singleStep;
-            // at least 5 pixels between tick marks
-            qreal extent = horizontal() ? width() : height();
-            if (extent == 0) {
-                opt->tickInterval = 0;
-            } else if (numOfSteps && (extent / numOfSteps < 5)) {
-                opt->tickInterval = qRound((5 * numOfSteps / extent) + 0.5) * step();
-            } else {
-                opt->tickInterval = opt->singleStep;
-            }
+        auto tickMarkStepSize = m_properties.value(QStringLiteral("tickMarkStepSize"), 0).toInt();
+        if (tickMarkStepSize > 0) {
+            opt->tickInterval = tickMarkStepSize;
+        } else {
+            if (opt->singleStep) {
+                qreal numOfSteps = (opt->maximum - opt->minimum) / opt->singleStep;
+                // at least 5 pixels between tick marks
+                qreal extent = horizontal() ? width() : height();
+                if (extent == 0) {
+                    opt->tickInterval = 0;
+                } else if (numOfSteps && (extent / numOfSteps < 5)) {
+                    opt->tickInterval = qRound((5 * numOfSteps / extent) + 0.5) * step();
+                } else {
+                    opt->tickInterval = opt->singleStep;
+                }
 
-        } else { // default Qt-components implementation
-            opt->tickInterval = opt->maximum != opt->minimum ? 1200 / (opt->maximum - opt->minimum) : 0;
+            } else { // default Qt-components implementation
+                opt->tickInterval = opt->maximum != opt->minimum ? 1200 / (opt->maximum - opt->minimum) : 0;
+            }
         }
 
         opt->sliderValue = value();
