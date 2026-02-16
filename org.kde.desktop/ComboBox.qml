@@ -132,7 +132,9 @@ T.ComboBox {
         contentHeight: Math.max(Math.ceil(textHeight("")), 14) + 2
         text: controlRoot.displayText
         properties: {
-            "editable": control.editable
+            "editable": controlRoot.editable,
+            "currentIcon": controlRoot.Kirigami.StyleHints.iconName || controlRoot.Kirigami.StyleHints.iconSource,
+            "iconColor": controlRoot.Kirigami.Theme.textColor
         }
     }
 
