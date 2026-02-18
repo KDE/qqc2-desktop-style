@@ -40,14 +40,14 @@ T.Menu {
         property bool hasCheckables: false
         property bool hasIcons: false
 
-        implicitWidth: contentItem.children
-            .reduce((maxWidth, child) => Math.max(maxWidth, child.implicitWidth), 0)
+        // Make sure the value is never 0.
+        implicitWidth: Math.max(1, contentWidth, contentItem.children.reduce((maxWidth, child) => Math.max(maxWidth, child.implicitWidth), 0))
         // Some non-zero value, so the whole menu does not get stuck zero
         // sized. Otherwise ListView just refuses to update implicitHeight -- just zero.
         // `contentHeight` reports a wrong estimated height when all items are invisible.
         // Use visibleChildren instead, and set the startup value to 1, so the space available
         // is just slightly more than needed, avoiding random scrollbars.
-        implicitHeight: Math.min(contentHeight, contentItem.visibleChildren.reduce((acc, item) => (acc += item.implicitHeight), 1))
+        implicitHeight: Math.max(1, contentHeight, contentItem.visibleChildren.reduce((acc, item) => (acc += item.implicitHeight), 1))
 
         model: control.contentModel
 
