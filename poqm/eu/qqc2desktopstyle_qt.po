@@ -1,14 +1,14 @@
 # Translation for qqc2desktopstyle_qt.po to Euskara/Basque (eu).
-# Copyright (C) 2024 This file is copyright:
+# Copyright (C) 2024-2026 This file is copyright:
 # This file is distributed under the same license as the original file.
-# SPDX-FileCopyrightText: 2024 KDE euskaratzeko proiektuko arduraduna <xalba@ni.eus>
+# SPDX-FileCopyrightText: 2024, 2026 KDE euskaratzeko proiektuaren arduraduna <xalba@ni.eus>
 #
 # Translators:
-# SPDX-FileCopyrightText: 2024 Iñigo Salvador Azurmendi <xalba@ni.eus>
+# SPDX-FileCopyrightText: Iñigo Salvador Azurmendi <xalba@ni.eus>, 2024, 2026.
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
-"PO-Revision-Date: 2024-07-07 11:21+0200\n"
+"PO-Revision-Date: 2026-02-28 22:53+0100\n"
 "Last-Translator: Iñigo Salvador Azurmendi <xalba@ni.eus>\n"
 "Language-Team: Basque <kde-i18n-eu@kde.org>\n"
 "Language: eu\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "X-Qt-Contexts: true\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Lokalize 24.05.2\n"
+"X-Generator: Lokalize 25.12.2\n"
 
 #: org.kde.desktop/private/MobileTextActionsToolBarImpl.qml:59
 msgctxt "MobileTextActionsToolBarImpl|"
@@ -94,4 +94,4 @@ msgstr "Hautatu guztia"
 #: org.kde.desktop/SearchField.qml:80
 msgctxt "SearchField|"
 msgid "Clear search"
-msgstr ""
+msgstr "Garbitu bilaketa"
