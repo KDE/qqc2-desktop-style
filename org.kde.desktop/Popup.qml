@@ -22,7 +22,6 @@ T.Popup {
                              contentHeight + topPadding + bottomPadding)
 
     padding: 12
-    clip: true
 
     enter: Transition {
         NumberAnimation {
