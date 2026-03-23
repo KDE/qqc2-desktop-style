@@ -5,7 +5,7 @@ set(KF_DEP_VERSION "6.24.0") # handled by release scripts
 
 project(qqc2-desktop-style VERSION ${KF_VERSION})
 
-set(REQUIRED_QT_VERSION 6.8.0)
+set(REQUIRED_QT_VERSION 6.9.0)
 
 find_package(ECM 6.24.0 REQUIRED NO_MODULE)
 
