@@ -34,6 +34,7 @@ T.SpinBox {
     hoverEnabled: true
     wheelEnabled: true
     editable: true
+    live: true
 
     validator: IntValidator {
         locale: controlRoot.locale.name
@@ -65,12 +66,6 @@ T.SpinBox {
         readOnly: !controlRoot.editable
         validator: controlRoot.validator
         inputMethodHints: controlRoot.inputMethodHints
-
-        // SpinBox does not update its value during editing, see QTBUG-91281
-        onTextEdited: if (controlRoot.contentItem.text.length > 0 && acceptableInput) {
-            controlRoot.value = controlRoot.valueFromText(controlRoot.contentItem.text, controlRoot.locale)
-            controlRoot.valueModified()
-        }
 
         // Since the contentItem receives focus (we make them editable by default),
         // the screen reader reads its Accessible properties instead of the SpinBox's
