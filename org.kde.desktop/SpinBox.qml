@@ -55,7 +55,7 @@ T.SpinBox {
         z: 2
         font: controlRoot.font
         palette: controlRoot.palette
-        text: controlRoot.textFromValue(controlRoot.value, controlRoot.locale)
+        text: controlRoot.displayText
         color: Kirigami.Theme.textColor
         selectionColor: Kirigami.Theme.highlightColor
         selectedTextColor: Kirigami.Theme.highlightedTextColor
