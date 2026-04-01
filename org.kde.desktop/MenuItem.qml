@@ -60,6 +60,7 @@ T.MenuItem {
                 || (controlRoot.icon.name !== "" || controlRoot.icon.source.toString() !== "")
             source: controlRoot.icon.name !== "" ? controlRoot.icon.name : controlRoot.icon.source
             color: controlRoot.icon.color
+            selected: controlRoot.pressed
             Layout.preferredHeight: Kirigami.Settings.hasTransientTouchInput ? Kirigami.Units.iconSizes.smallMedium : Kirigami.Units.iconSizes.small
             Layout.preferredWidth: Layout.preferredHeight
         }
@@ -70,7 +71,7 @@ T.MenuItem {
 
             text: controlRoot.Kirigami.MnemonicData.richTextLabel
             font: controlRoot.font
-            color: Kirigami.Theme.textColor
+            color: controlRoot.pressed ? Kirigami.Theme.highlightedTextColor : Kirigami.Theme.textColor
             elide: Text.ElideRight
             visible: controlRoot.text
             horizontalAlignment: Text.AlignLeft
@@ -120,7 +121,7 @@ T.MenuItem {
     background: Rectangle {
         implicitWidth: Kirigami.Units.gridUnit * 8
         opacity: (controlRoot.highlighted || controlRoot.down) ? 1 : 0
-        color: Qt.alpha(Kirigami.Theme.focusColor, 0.3)
+        color: controlRoot.pressed ? Kirigami.Theme.focusColor : Qt.alpha(Kirigami.Theme.focusColor, 0.3);
         border.color: Kirigami.Theme.focusColor
         border.width: 1
         radius: Kirigami.Units.cornerRadius
