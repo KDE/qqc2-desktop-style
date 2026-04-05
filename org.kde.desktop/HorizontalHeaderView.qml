@@ -70,7 +70,8 @@ T.HorizontalHeaderView {
     StylePrivate.StyleItem {
         parent: controlRoot
         anchors.fill: parent
-        anchors.leftMargin: controlRoot.contentWidth
+        anchors.leftMargin: controlRoot.contentWidth + controlRoot.leftMargin
+        anchors.rightMargin: controlRoot.rightMargin
         z: -1
         elementType: "header"
         properties: {

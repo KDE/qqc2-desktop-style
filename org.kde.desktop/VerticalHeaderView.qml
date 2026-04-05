@@ -62,7 +62,8 @@ T.VerticalHeaderView {
     StylePrivate.StyleItem {
         parent: controlRoot
         anchors.fill: parent
-        anchors.topMargin: controlRoot.contentHeight
+        anchors.topMargin: controlRoot.contentHeight + controlRoot.topMargin
+        anchors.bottomMargin: controlRoot.bottomMargin
         z: -1
         elementType: "header"
         properties: {
