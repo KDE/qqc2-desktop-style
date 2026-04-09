@@ -12,8 +12,8 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Lokalize 24.08.3\n"
 "Plural-Forms: nplurals=3; plural=(n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2;\n"
+"X-Generator: Lokalize 24.08.3\n"
 "X-Qt-Contexts: true\n"
 
 #: org.kde.desktop/private/MobileTextActionsToolBarImpl.qml:59
@@ -35,13 +35,13 @@ msgstr "Vložiť"
 #, qt-format
 msgctxt "TextFieldContextMenu|"
 msgid "No Suggestions for \"%1\""
-msgstr ""
+msgstr "Žiadne návrhy pre %1"
 
 #: org.kde.desktop/private/TextFieldContextMenu.qml:211
 #, qt-format
 msgctxt "TextFieldContextMenu|"
 msgid "Add \"%1\" to Dictionary"
-msgstr ""
+msgstr "Add \"%1\" to Dictionary"
 
 #: org.kde.desktop/private/TextFieldContextMenu.qml:227
 msgctxt "TextFieldContextMenu|"
@@ -51,32 +51,32 @@ msgstr "Ignorovať"
 #: org.kde.desktop/private/TextFieldContextMenu.qml:242
 msgctxt "TextFieldContextMenu|"
 msgid "Spell Check"
-msgstr ""
+msgstr "Kontrola pravopisu"
 
 #: org.kde.desktop/private/TextFieldContextMenu.qml:259
 msgctxt "TextFieldContextMenu|"
 msgid "Undo"
-msgstr ""
+msgstr "Späť"
 
 #: org.kde.desktop/private/TextFieldContextMenu.qml:274
 msgctxt "TextFieldContextMenu|"
 msgid "Redo"
-msgstr ""
+msgstr "Znovu"
 
 #: org.kde.desktop/private/TextFieldContextMenu.qml:292
 msgctxt "TextFieldContextMenu|"
 msgid "Cut"
-msgstr ""
+msgstr "Vystrihnúť"
 
 #: org.kde.desktop/private/TextFieldContextMenu.qml:307
 msgctxt "TextFieldContextMenu|"
 msgid "Copy"
-msgstr ""
+msgstr "Kopírovať"
 
 #: org.kde.desktop/private/TextFieldContextMenu.qml:322
 msgctxt "TextFieldContextMenu|"
 msgid "Paste"
-msgstr ""
+msgstr "Vložiť"
 
 #: org.kde.desktop/private/TextFieldContextMenu.qml:337
 msgctxt "TextFieldContextMenu|"
@@ -86,9 +86,9 @@ msgstr "Vymazať"
 #: org.kde.desktop/private/TextFieldContextMenu.qml:356
 msgctxt "TextFieldContextMenu|"
 msgid "Select All"
-msgstr ""
+msgstr "Vybrať všetko"
 
 #: org.kde.desktop/SearchField.qml:80
 msgctxt "SearchField|"
 msgid "Clear search"
-msgstr ""
+msgstr "Vymazať hľadanie"
