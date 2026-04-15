@@ -43,6 +43,19 @@ T.SpinBox {
 
     inputMethodHints: Qt.ImhFormattedNumbersOnly
 
+    locale: {
+        // Because of QTBUG-145726, we can't just modify the existing default
+        // locale object. If we do, we will get an error because the object is
+        // not ready until after completion. We don't modify it in onCompleted
+        // either to avoid making it more difficult to change the behavior.
+        // Because we're creating a new locale object, SpinBox won't inherit the
+        // locale of parent controls (e.g., ApplicationWindow, Popup, ToolBar).
+        let loc = Qt.locale() // new default locale object
+        // QSpinBox disables group separators by default, so we do the same here
+        loc.numberOptions = loc.numberOptions | Locale.OmitGroupSeparator
+        return loc
+    }
+
     contentItem: T.TextField {
         readonly property TextMetrics _textMetrics: TextMetrics {
             text: controlRoot.textFromValue(controlRoot.to, controlRoot.locale)
