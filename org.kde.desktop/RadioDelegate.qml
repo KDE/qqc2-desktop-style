@@ -73,6 +73,8 @@ T.RadioDelegate {
             Layout.fillWidth: true
             Layout.fillHeight: true
 
+            Accessible.ignored: true
+
             text: controlRoot.text
             font: controlRoot.font
             color: (controlRoot.pressed && !controlRoot.checked && !controlRoot.sectionDelegate) ? Kirigami.Theme.highlightedTextColor : Kirigami.Theme.textColor

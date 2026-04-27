@@ -75,6 +75,8 @@ T.ItemDelegate {
             Layout.fillWidth: true
             Layout.fillHeight: true
 
+            Accessible.ignored: true
+
             text: controlRoot.text
             font: controlRoot.font
             color: controlRoot.highlighted || controlRoot.down

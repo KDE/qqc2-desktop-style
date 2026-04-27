@@ -85,6 +85,8 @@ T.SwipeDelegate {
             visible: controlRoot.text
             horizontalAlignment: Text.AlignLeft
             verticalAlignment: Text.AlignVCenter
+
+            Accessible.ignored: true
         }
     }
 

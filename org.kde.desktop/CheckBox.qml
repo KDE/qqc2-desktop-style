@@ -87,6 +87,8 @@ T.CheckBox {
         verticalAlignment: Text.AlignVCenter
         wrapMode: Text.Wrap
 
+        Accessible.ignored: true
+
         Private.FocusRect {
             control: controlRoot
 

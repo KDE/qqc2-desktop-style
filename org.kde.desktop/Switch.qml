@@ -78,5 +78,7 @@ T.Switch {
         visible: control.text
         horizontalAlignment: Text.AlignLeft
         verticalAlignment: Text.AlignVCenter
+
+        Accessible.ignored: true
     }
 }

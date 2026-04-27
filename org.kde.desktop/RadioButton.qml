@@ -64,6 +64,9 @@ T.RadioButton {
 
     contentItem: Label {
         id: contentLabel
+
+        Accessible.ignored: true
+
         readonly property int indicatorEffectiveWidth: (
                 controlRoot.indicator
                 && typeof controlRoot.indicator.pixelMetric === "function"
