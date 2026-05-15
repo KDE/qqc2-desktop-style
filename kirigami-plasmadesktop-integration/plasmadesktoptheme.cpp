@@ -244,6 +244,11 @@ void PlasmaDesktopTheme::syncWindow()
 
 QIcon PlasmaDesktopTheme::iconFromTheme(const QString &name, const QColor &customColor)
 {
+    static auto useQtIconLoader = qApp->property("QQC2_DESKTOP_USE_QICON_FROM_THEME").toBool();
+    if (useQtIconLoader) {
+        return QIcon::fromTheme(name);
+    }
+
     if (customColor != Qt::transparent) {
         KIconColors colors;
         colors.setText(customColor);
