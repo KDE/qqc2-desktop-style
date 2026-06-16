@@ -140,9 +140,15 @@ T.ComboBox {
 
     popup: Menu {
         y: controlRoot.height
-        width: controlRoot.width
-
+        implicitWidth: {
+            let max = 0;
+            for (let i = 0; i < repeater.count; i++) {
+                max = Math.max(max, itemAt(i).implicitWidth);
+            }
+            return max + leftPadding + rightPadding;
+        }
         Repeater {
+            id: repeater
             model: controlRoot.delegateModel
         }
     }
