@@ -142,7 +142,7 @@ T.ComboBox {
         y: controlRoot.height
         implicitWidth: {
             let max = 0;
-            for (let i = 0; i < repeater.count; i++) {
+            for (let i = 0; i < count; i++) {
                 max = Math.max(max, itemAt(i).implicitWidth);
             }
             return max + leftPadding + rightPadding;
