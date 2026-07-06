@@ -19,10 +19,20 @@ T.TextField {
     Kirigami.Theme.colorSet: Kirigami.Theme.View
     Kirigami.Theme.inherit: false
 
+    // Qt Quick TextInput may report a larger contentHeight for the
+    // password replacement character than for regular text.
+    // Keep a minimum height based on the password glyph to avoid
+    // height changes when echoMode changes.
+    TextMetrics {
+        id: passwordMeasure
+        font: controlRoot.font
+        text: Application.styleHints.passwordMaskCharacter + String.fromCharCode(0x2588)
+    }
+
     implicitWidth: Math.max(200,
                             placeholderText ? placeholder.implicitWidth + leftPadding + rightPadding : 0)
                             || contentWidth + leftPadding + rightPadding
-    implicitHeight: Math.max(contentHeight + topPadding + bottomPadding,
+    implicitHeight: Math.max(Math.max(contentHeight, Math.ceil(passwordMeasure.height)) + topPadding + bottomPadding,
                              background ? background.implicitHeight : 0,
                              placeholder.implicitHeight + topPadding + bottomPadding)
 
