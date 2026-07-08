@@ -312,6 +312,11 @@ void KQuickStyleItem::initStyleOption()
         opt->textElideMode = Qt::ElideRight;
         opt->displayAlignment = Qt::AlignLeft | Qt::AlignVCenter;
         opt->decorationAlignment = Qt::AlignCenter;
+        if (m_properties[QStringLiteral("istable")].toBool()) {
+            opt->viewItemPosition = QStyleOptionViewItem::Invalid;
+        } else {
+            opt->viewItemPosition = QStyleOptionViewItem::OnlyOne;
+        }
         resolvePalette();
         needsResolvePalette = false;
         QPalette pal = m_styleoption->palette;

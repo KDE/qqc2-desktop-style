@@ -10,6 +10,7 @@
 import QtQuick
 import QtQuick.Templates as T
 import org.kde.kirigami as Kirigami
+import org.kde.qqc2desktopstyle.private as StylePrivate
 
 Item {
     id: background
@@ -26,50 +27,34 @@ Item {
         return false
     }
 
-    readonly property color hoverColor: Qt.alpha(Kirigami.Theme.hoverColor, 0.3)
-    readonly property color highlightColor: Kirigami.Theme.highlightColor
-    readonly property color normalColor: useAlternatingColors ? Kirigami.Theme.alternateBackgroundColor : "transparent"
     // Workaround for QTBUG-113304
     readonly property bool reallyFocus: control.visualFocus || (control.activeFocus && control.focusReason === Qt.OtherFocusReason)
 
-    readonly property bool hasInset: control.leftInset > 0 || control.rightInset > 0 || control.topInset > 0 || control.bottomInset > 0
-
-    property alias color: alternatingBackgroundRect.color
-    property alias radius: alternatingBackgroundRect.radius
-
-    Rectangle {
-        id: alternatingBackgroundRect
+    StylePrivate.StyleItem {
         anchors {
             fill: parent
             leftMargin: Math.min(0, -background.control.leftInset)
-            // Omit topMargin, due to the extra top padding we always need in delegates
             rightMargin: -background.control.rightInset
-            bottomMargin: -background.control.bottomInset
         }
-        color: background.normalColor
-    }
-    Rectangle {
-        anchors.fill: parent
-
         visible: background.control.enabled
+        control: background.control
+        elementType: "itemrow"
+        activeControl: background.useAlternatingColors ? "alternate" : ""
+    }
 
-        radius: background.hasInset ? Kirigami.Units.cornerRadius : 0
-
-        color: {
-            if (background.highlight) {
-                return background.highlightColor
-            } else {
-                return (background.control.hovered || background.reallyFocus) ? background.hoverColor : background.normalColor
-            }
+    StylePrivate.StyleItem {
+        anchors {
+            fill: parent
+            leftMargin: Math.min(0, -(background.control.leftPadding - background.control.leftInset))
+            rightMargin: -(background.control.rightPadding - background.control.rightInset)
         }
-
-        border.width: background.hasInset ? 1 : 0
-        border.color: {
-            if (background.highlight) {
-                return background.highlightColor
-            } else {
-                return (background.control.hovered || background.reallyFocus) ? Kirigami.Theme.hoverColor : "transparent"
-            }
+        visible: background.control.enabled
+        control: background.control
+        elementType: "item"
+        hover: background.control.hovered || background.reallyFocus
+        selected: background.highlight
+        properties: {
+            "istable": background.control.TableView.view !== null
         }
     }
 }
