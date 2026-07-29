@@ -150,7 +150,7 @@ T.TextArea {
         verticalAlignment: controlRoot.verticalAlignment
         visible: !controlRoot.length && !controlRoot.preeditText && (!controlRoot.activeFocus || controlRoot.horizontalAlignment !== Qt.AlignHCenter)
         elide: Text.ElideRight
-        wrapMode: Text.WordWrap
+        wrapMode: Text.Wrap
     }
 
     background: StylePrivate.StyleItem {
