@@ -38,12 +38,6 @@ T.SwipeDelegate {
     T.ToolTip.text: action instanceof Kirigami.Action ? action.tooltip : text
     T.ToolTip.delay: Kirigami.Settings.tabletMode ? Qt.styleHints.mousePressAndHoldInterval : Kirigami.Units.toolTipDelay
 
-    // inset is padding minus a small spacing
-    leftInset: TableView.view ? 0 : Math.max(0, leftPadding - Kirigami.Units.smallSpacing)
-    rightInset: TableView.view ? 0 : Math.max(0, rightPadding - Kirigami.Units.smallSpacing)
-    topInset: TableView.view ? 0 : Math.max(0, topPadding - Kirigami.Units.smallSpacing)
-    bottomInset: TableView.view ? 0 : Math.max(0, bottomPadding - Kirigami.Units.smallSpacing)
-
     // This kind of long animation is one we don't want a duration, but a velocity otherwise
     // a close animation from the edge is too fast, while if it just has to cover few pixels, is too slow
     swipe.transition: Transition {
@@ -90,18 +84,8 @@ T.SwipeDelegate {
         }
     }
 
-    background: Item {
-        // SwipeDelegate doesn't apply correctly left/right insets so apply them manually
-        Private.DefaultListItemBackground {
-            visible: swipe.position === 0
-            anchors {
-                left: parent.left
-                top: parent.top
-                bottom: parent.bottom
-                leftMargin: controlRoot.leftInset
-            }
-            width: controlRoot.width - controlRoot.leftInset - controlRoot.rightInset
-            control: controlRoot
-        }
+    background: Private.DefaultListItemBackground {
+        visible: controlRoot.swipe.position === 0
+        control: controlRoot
     }
 }
