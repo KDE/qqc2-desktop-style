@@ -121,6 +121,7 @@ ecm_target_qml_sources(org_kde_desktop
         org.kde.desktop/Dial.qml
         org.kde.desktop/Dialog.qml
         org.kde.desktop/DialogButtonBox.qml
+        org.kde.desktop/DoubleSpinBox.qml
         org.kde.desktop/Drawer.qml
         org.kde.desktop/Frame.qml
         org.kde.desktop/GroupBox.qml
