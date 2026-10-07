@@ -12,3 +12,4 @@ Options:
  require-passing-tests-on: ['Linux', 'FreeBSD', 'Windows']
  run-qmllint: true
  enable-lsan: True
+ cmake-options: -DECM_QMLCACHE_UNITY_BUILD=OFF
