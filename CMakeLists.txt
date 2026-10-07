@@ -52,6 +52,10 @@ if (NOT APPLE AND NOT WIN32)
     find_package(X11)
 endif()
 
+if(WIN32)
+    add_compile_options(/Z7)
+endif()
+
 set_package_properties(IconThemes
     PROPERTIES
         DESCRIPTION "KF6 IconThemes framework"
