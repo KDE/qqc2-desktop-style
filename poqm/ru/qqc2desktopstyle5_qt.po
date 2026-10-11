@@ -1,0 +1,72 @@
+# Translation of qqc2desktopstyle5_qt into Russian.
+# Alexander Yavorsky <kekcuha@gmail.com>, 2026.
+msgid ""
+msgstr ""
+"Project-Id-Version: qqc2desktopstyle5_qt\n"
+"PO-Revision-Date: 2026-10-10 12:34+0200\n"
+"Last-Translator: Alexander Yavorsky <kekcuha@gmail.com>\n"
+"Language-Team: Russian <kde-russian@lists.kde.ru>\n"
+"Language: ru\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Qt-Contexts: true\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
+"%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+
+#: org.kde.desktop/private/TextFieldContextMenu.qml:132
+#, qt-format
+msgctxt "TextFieldContextMenu|"
+msgid "No suggestions for \"%1\""
+msgstr "Нет вариантов для «%1»"
+
+#: org.kde.desktop/private/TextFieldContextMenu.qml:140
+#, qt-format
+msgctxt "TextFieldContextMenu|"
+msgid "Add \"%1\" to dictionary"
+msgstr "Добавить «%1» в словарь"
+
+#: org.kde.desktop/private/TextFieldContextMenu.qml:151
+msgctxt "TextFieldContextMenu|"
+msgid "Ignore"
+msgstr "Игнорировать"
+
+#: org.kde.desktop/private/TextFieldContextMenu.qml:163
+msgctxt "TextFieldContextMenu|"
+msgid "Enable Spellchecker"
+msgstr "Включить проверку орфографии"
+
+#: org.kde.desktop/private/TextFieldContextMenu.qml:178
+msgctxt "TextFieldContextMenu|"
+msgid "Undo"
+msgstr "Отменить"
+
+#: org.kde.desktop/private/TextFieldContextMenu.qml:191
+msgctxt "TextFieldContextMenu|"
+msgid "Redo"
+msgstr "Повторить"
+
+#: org.kde.desktop/private/TextFieldContextMenu.qml:207
+msgctxt "TextFieldContextMenu|"
+msgid "Cut"
+msgstr "Вырезать"
+
+#: org.kde.desktop/private/TextFieldContextMenu.qml:219
+msgctxt "TextFieldContextMenu|"
+msgid "Copy"
+msgstr "Копировать"
+
+#: org.kde.desktop/private/TextFieldContextMenu.qml:233
+msgctxt "TextFieldContextMenu|"
+msgid "Paste"
+msgstr "Вставить"
+
+#: org.kde.desktop/private/TextFieldContextMenu.qml:246
+msgctxt "TextFieldContextMenu|"
+msgid "Delete"
+msgstr "Удалить"
+
+#: org.kde.desktop/private/TextFieldContextMenu.qml:261
+msgctxt "TextFieldContextMenu|"
+msgid "Select All"
+msgstr "Выбрать все"
