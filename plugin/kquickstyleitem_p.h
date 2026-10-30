@@ -21,7 +21,6 @@
 
 #include <memory>
 
-class QWidget;
 class QStyleOption;
 class QStyle;
 
