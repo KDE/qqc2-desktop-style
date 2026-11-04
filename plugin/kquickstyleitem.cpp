@@ -2094,6 +2094,7 @@ void KQuickStyleItem::updatePolish()
         m_image.setDevicePixelRatio(devicePixelRatio);
         m_image.fill(Qt::transparent);
         QPainter painter(&m_image);
+        painter.setRenderHint(QPainter::SmoothPixmapTransform);
         painter.setLayoutDirection(qApp->layoutDirection());
         paint(&painter);
         QQuickItem::update();
