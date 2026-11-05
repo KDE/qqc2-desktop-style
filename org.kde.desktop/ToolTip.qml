@@ -80,7 +80,7 @@ T.ToolTip {
             // Strip out ampersands right before non-whitespace characters, i.e.
             // those used to determine the alt key shortcut
             // (except when the word ends in ; (HTML entities))
-            text: control.text.replace(/(&)(?!;)\S+(?>\s)/g, "")
+            text: control.text.replace(/&(?=[^\s&])(?!#?\w+;)/g, "")
             // Using Wrap instead of WordWrap to prevent tooltips with long URLs
             // from overflowing
             wrapMode: Text.Wrap
