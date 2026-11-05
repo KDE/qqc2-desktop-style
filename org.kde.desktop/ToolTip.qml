@@ -77,10 +77,10 @@ T.ToolTip {
             // This value is basically arbitrary. It just looks nice.
             readonly property double maxTextLength: Kirigami.Units.gridUnit * 14
 
-            // Strip out ampersands right before non-whitespace characters, i.e.
-            // those used to determine the alt key shortcut
-            // (except when the word ends in ; (HTML entities))
-            text: control.text.replace(/(&)(?!;)\S+(?>\s)/g, "")
+            // Use Kirigami's mnemonic sanitization
+            Kirigami.MnemonicData.label: control.text
+            Kirigami.MnemonicData.controlType: Kirigami.MnemonicData.SecondaryControl
+            text: Kirigami.MnemonicData.plainTextLabel
             // Using Wrap instead of WordWrap to prevent tooltips with long URLs
             // from overflowing
             wrapMode: Text.Wrap
