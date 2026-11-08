@@ -139,6 +139,8 @@ T.ComboBox {
     }
 
     popup: Menu {
+        // ComboBox handles keyboard navigation itself
+        focus: false
         y: controlRoot.height
         implicitWidth: {
             let max = 0;
