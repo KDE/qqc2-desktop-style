@@ -510,6 +510,8 @@ void KQuickStyleItem::initStyleOption()
         }
         // Needed on windows
         m_styleoption->state |= QStyle::State_KeyboardFocusChange;
+        // Breeze relies on Qt only drawing focus on focused items
+        m_styleoption->state |= QStyle::State_HasFocus;
         break;
     }
     case TabFrame: {
