@@ -198,6 +198,10 @@ add_dependencies(org_kde_desktop qqc2desktopstyleplugin org_kde_desktop_private)
 
 ecm_install_po_files_as_qm(poqm)
 
+if (BUILD_TESTING)
+    add_subdirectory(autotests)
+endif()
+
 include(ECMFeatureSummary)
 ecm_feature_summary(WHAT ALL FATAL_ON_MISSING_REQUIRED_PACKAGES)
 
