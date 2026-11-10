@@ -73,7 +73,7 @@ public:
 
     Colors loadColors(Kirigami::Platform::PlatformTheme::ColorSet cs, QPalette::ColorGroup group)
     {
-        const auto key = qMakePair(cs, group);
+        const auto key = std::make_pair(cs, group);
         auto it = m_cache.constFind(key);
         if (it != m_cache.constEnd()) {
             return *it;
@@ -175,7 +175,7 @@ protected:
     }
 
 private:
-    QHash<QPair<Kirigami::Platform::PlatformTheme::ColorSet, QPalette::ColorGroup>, Colors> m_cache;
+    QHash<std::pair<Kirigami::Platform::PlatformTheme::ColorSet, QPalette::ColorGroup>, Colors> m_cache;
 };
 
 Q_GLOBAL_STATIC(StyleSingleton, s_style);
