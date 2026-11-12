@@ -28,7 +28,7 @@ T.ComboBox {
     baselineOffset: contentItem.y + contentItem.baselineOffset
 
     hoverEnabled: true
-    wheelEnabled: true
+    wheelEnabled: Kirigami.StyleHints.scrollingModifiesControls
 
     padding: 5
     leftPadding: editable && mirrored ? 24 : padding

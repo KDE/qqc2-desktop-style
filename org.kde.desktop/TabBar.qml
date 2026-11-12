@@ -59,6 +59,7 @@ T.TabBar {
 
     background: MouseArea {
         acceptedButtons: Qt.NoButton
+        enabled: Kirigami.StyleHints.scrollingModifiesControls
         onWheel: (wheel) => {
             let delta = wheel.pixelDelta.y < 0 || wheel.angleDelta.y < 0 ? 1 : -1;
             for (let i = controlRoot.currentIndex + delta; i >= 0 && i < controlRoot.contentModel.count; i += delta) {

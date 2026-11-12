@@ -66,6 +66,7 @@ T.Slider {
             LayoutMirroring.enabled: false
 
             acceptedButtons: Qt.NoButton
+            enabled: Kirigami.StyleHints.scrollingModifiesControls
 
             onWheel: wheel => {
                 const lastValue = controlRoot.value
