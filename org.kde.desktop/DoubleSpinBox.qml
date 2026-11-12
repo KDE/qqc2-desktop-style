@@ -32,7 +32,7 @@ T.DoubleSpinBox {
     Component.onCompleted: styleitem.recompute()
 
     hoverEnabled: true
-    wheelEnabled: true
+    wheelEnabled: Kirigami.StyleHints.scrollingModifiesControls
     editable: true
 
     validator: IntValidator {
