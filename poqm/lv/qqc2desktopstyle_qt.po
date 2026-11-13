@@ -1,9 +1,9 @@
-# SPDX-FileCopyrightText: 2024 Toms Trasuns <toms.trasuns@posteo.net>
+# SPDX-FileCopyrightText: 2024, 2026 Toms Trasuns <toms.trasuns@posteo.net>
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
-"PO-Revision-Date: 2024-05-26 21:02+0300\n"
-"Last-Translator: Toms Trasuns <toms.trasuns@posteo.net>\n"
+"PO-Revision-Date: 2026-11-11 15:32+0200\n"
+"Last-Translator: Toms Trasūns <toms.trasuns@posteo.net>\n"
 "Language-Team: Latvian <kde-i18n-doc@kde.org>\n"
 "Language: lv\n"
 "MIME-Version: 1.0\n"
@@ -12,7 +12,7 @@ msgstr ""
 "X-Qt-Contexts: true\n"
 "Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n != 0 ? 1 : "
 "2);\n"
-"X-Generator: Lokalize 24.02.2\n"
+"X-Generator: Lokalize 26.08.2\n"
 
 #: org.kde.desktop/private/MobileTextActionsToolBarImpl.qml:59
 msgctxt "MobileTextActionsToolBarImpl|"
@@ -89,4 +89,4 @@ msgstr "Atlasīt visu"
 #: org.kde.desktop/SearchField.qml:80
 msgctxt "SearchField|"
 msgid "Clear search"
-msgstr ""
+msgstr "Notīrīt meklēšanu"
